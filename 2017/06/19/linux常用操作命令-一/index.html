@@ -1,0 +1,3771 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="baidu-site-verification" content="LEhB9zEUZI" />
+<meta name="google-site-verification" content="U4GFARmcs7tX9GuBnySV_THGrNfxZaxBTAqB1wUZ1lQ" />
+<meta name="baidu_ssp_verify" content="3b5c1c938ed65fa0fb1145408c2e1982">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-2116161572298958",
+    enable_page_level_ads: true
+  });
+</script>
+<script src="http://s.6travel.com/titi126.js">
+</script>
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="true" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="学海无涯" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux常用操作命令(一)">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:image" content="http://jet-han.oschina.io/images/icons/pikaqiu3.jpg">
+<meta property="og:image" content="http://jet-han.oschina.io/images/linux/linux.gif">
+<meta property="og:image" content="http://jet-han.oschina.io/images/linux/linux.png">
+<meta property="og:updated_time" content="2017-06-21T14:59:54.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="linux常用操作命令(一)">
+<meta name="twitter:image" content="http://jet-han.oschina.io/images/icons/pikaqiu3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/"/>
+
+
+
+
+
+  <title>linux常用操作命令(一) | 学海无涯</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'true', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?32c691dcc53959a2dc85b0c4307ab11f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+<script> 
+var script = document.getElementsByTagName('script'); 
+var thisNode = script[script.length-1]; 
+var TencentGDT = TencentGDT || []; 
+var jsload = jsload || 0; 
+jsload++; 
+TencentGDT.push({ 
+   AndAds : [{AppId:'3890',AdslotId:'5216'}], 
+   IosAds : [{AppId:'3890',AdslotId:'5216'}], 
+   adType : 'cp', 
+   fillType : 'bottom', 
+   thisNode : thisNode, 
+   jsload : jsload, 
+   meta : true 
+}); 
+if(typeof scritpsrclink == 'undefined') { 
+   var doc=document, h=doc.getElementsByTagName('head')[0], scritpsrclink = doc.createElement('script');
+   scritpsrclink.defer=true;
+   scritpsrclink.src='http://static.youxiaoad.com/js/hyapialltw.js';
+   scritpsrclink.charset = "utf-8";
+   h && h.insertBefore(scritpsrclink,h.firstChild)
+} 
+</script>
+
+
+<script> 
+var script = document.getElementsByTagName('script'); 
+var thisNode = script[script.length-1]; 
+var TencentGDT = TencentGDT || []; 
+var jsload = jsload || 0; 
+jsload++; 
+TencentGDT.push({ 
+   AndAds : [{AppId:'3890',AdslotId:'5218'}], 
+   IosAds : [{AppId:'3890',AdslotId:'5218'}], 
+   adType : 'cp', 
+   fillType : 'bottom', 
+   thisNode : thisNode, 
+   jsload : jsload, 
+   meta : true 
+}); 
+if(typeof scritpsrclink == 'undefined') { 
+   var doc=document, h=doc.getElementsByTagName('head')[0], scritpsrclink = doc.createElement('script');
+   scritpsrclink.defer=true;
+   scritpsrclink.src='http://static.youxiaoad.com/js/hyapialltw.js';
+   scritpsrclink.charset = "utf-8";
+   h && h.insertBefore(scritpsrclink,h.firstChild)
+} 
+</script>
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jethan.bid/images/fork.png"
+         alt="Fork me on GitHub">
+    </a>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">学海无涯</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">技术博客</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-message">
+          <a href="/message" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-external-link"></i> <br />
+            
+            留言
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JET">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/ali.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="学海无涯">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">linux常用操作命令(一)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T18:27:17+08:00">
+                2017-06-19
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-21T22:59:54+08:00">
+                2017-06-21
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/操作系统/" itemprop="url" rel="index">
+                    <span itemprop="name">操作系统</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/19/linux常用操作命令-一/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/06/19/linux常用操作命令-一/" class="leancloud_visitors" data-flag-title="linux常用操作命令(一)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://jet-han.oschina.io/images/icons/pikaqiu3.jpg" alt="mysql" title="mysql"></p>
+<a id="more"></a>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>　◆ <strong>安装和登录命令：</strong>login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；<br>　◆ <strong>文件处理命令：</strong>file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；<br>　◆ <strong>系统管理相关命令：</strong>df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；<br>　◆ <strong>网络操作命令：</strong>ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、nslookup；<br>　◆ <strong>系统安全相关命令：</strong>passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who、which、whois；<br>　◆ <strong>其它命令：</strong>tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。</p>
+<ul>
+<li><p><strong>系统管理命令</strong></p>
+<pre><code>stat     ＃显示指定文件的详细信息，比ls更详细
+who      ＃显示在线登陆用户
+whoami   ＃显示当前操作用户
+hostname 　＃显示主机名
+uname    ＃显示系统信息
+top      ＃动态显示当前耗费资源最多进程信息
+ps       ＃显示瞬间进程状态 ps -aux
+du       ＃查看目录大小 du -h /home带有单位显示目录信息
+df       ＃查看磁盘大小 df -h 带有单位显示磁盘信息
+ifconfig 　＃查看网络情况
+ping     ＃测试网络连通
+netstat  ＃显示网络状态信息
+man      ＃命令不会用了，找男人? 如：man ls
+clear    ＃清屏
+alias    ＃对命令重命名 如：alias showmeit=”ps -aux” ，另外解除使用unaliax showmeit
+kill    ＃杀死进程，可以先用ps 或 top命令查看进程的id，然后再用kill命令杀死进程。
+</code></pre></li>
+<li><p><strong>常用基本指令</strong></p>
+<pre><code>ls     #显示文件或目录
+   -l  #列出文件详细信息l(list)
+   -a  #列出当前目录下所有文件及目录，包括隐藏的a(all)
+mkdir  #创建目录
+   -p  #创建目录，若无父目录，则创建p(parent)   
+cd     #切换目录
+touch  #创建空文件
+echo   #创建带有内容的文件。
+cat    #查看文件内容
+cp     #拷贝
+mv     #移动或重命名
+rm     #删除文件
+   -r  #递归删除，可删除子目录及文件
+   -f  #强制删除
+find   #在文件系统中搜索某文件
+wc     #统计文本中行数、字数、字符数
+grep   #在文本文件中查找某个字符串
+rmdir  #删除空目录
+tree   #树形结构显示目录，需要安装tree包
+pwd    #显示当前目录
+ln     #创建链接文件
+more、less   #分页显示文本文件内容
+head、tail   #显示文件头、尾内容
+ctrl+alt+F1  #命令行全屏模式
+</code></pre><p><strong>下面只介绍一些常用的基本命令</strong></p>
+</li>
+</ul>
+<h2 id="安装和登录命令"><a href="#安装和登录命令" class="headerlink" title="安装和登录命令"></a>安装和登录命令</h2><h3 id="shutdown-halt-reboot-exit-logout"><a href="#shutdown-halt-reboot-exit-logout" class="headerlink" title="shutdown/halt/reboot/exit/logout"></a>shutdown/halt/reboot/exit/logout</h3><ul>
+<li><p><strong>命令说明</strong></p>
+<pre><code>shutdown
+    -r      #关机重启
+    -h      #关机不重启
+    now     #立刻关机
+halt        #关机
+reboot      #重启
+exit   #退出当前shell
+logout  #退出登录shell
+</code></pre></li>
+</ul>
+<h3 id="mount-umount"><a href="#mount-umount" class="headerlink" title="mount/umount"></a>mount/umount</h3><ul>
+<li><p><strong>命令说明</strong></p>
+<pre><code>fdisk -l   #查看磁盘情况
+fdisk /dev/sda   #为/dev/sda设备分区
+m   #显示所有命令
+n     #添加分区
+p/e    #主分区/逻辑分区
++50G  #指定分区大小为50G
+p  #打印分区列表
+w  #保存
+reboot  #重启
+cat /etc/fstab  #查看文件系统
+mke2fs -t ext4 /dev/sda4 #格式化文件系统
+mount /dev/sda4 /home #挂载到指定目录/home
+umount #取消挂载
+
+#开机自动挂载
+echo &quot;/dev/sda4 /home ext4 defaults 1 1&quot; &gt;&gt; /etc/fstab
+</code></pre></li>
+</ul>
+<h2 id="文件处理命令"><a href="#文件处理命令" class="headerlink" title="文件处理命令"></a>文件处理命令</h2><h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><ul>
+<li><p><strong>awk</strong></p>
+<pre><code>-F 分隔符  以分隔符分隔内容
+{}  要执行的脚本内容 eg:cat /etc/passwd |awk  -F &#39;:&#39;  &#39;{print $1&quot;\t&quot;$7}&#39;
+</code></pre></li>
+</ul>
+<h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><ul>
+<li><p><strong>对数据行进行替换、删除、新增、选取等操作</strong></p>
+<pre><code>a   新增，在新的下一行出现
+c   取代，取代 n1,n2 之间的行 eg: sed &#39;1,2c Hi&#39; ab
+d   删除
+i   插入，在新的上一行出现
+
+eg:
+  #指定时间段查看日志
+  sed -n &#39;/2016-10-21 14:18:29/,/2016-10-21 18:18:29/p&#39; catalina.out
+  #替换当前目录下所有文件中的 /usr/local为/data/dshp
+  sed -i &quot;s/\/usr\/local/\/data\/dshp/g&quot; .
+</code></pre></li>
+</ul>
+<h3 id="paste"><a href="#paste" class="headerlink" title="paste"></a>paste</h3><ul>
+<li><p><strong>合并文件，需确保合并的两文件行数相同</strong></p>
+<pre><code>-d  指定不同于空格或tab键的域分隔符
+-s  按行合并，单独一个文件为一行
+</code></pre></li>
+</ul>
+<h3 id="wc"><a href="#wc" class="headerlink" title="wc"></a>wc</h3><ul>
+<li><p><strong>wc 计算数字</strong></p>
+<p>利用wc指令我们可以计算文件的Byte数、字数或是列数，若不指定文件名称，或是所给予的文件名为“-”，则wc指令会从标准输入设备读取数据</p>
+<pre><code>  wc(选项)(参数)
+  #(选项)
+  -c或--bytes或——chars：只显示Bytes数； 
+  -l或——lines：只显示列数； 
+  -w或——words：只显示字数。
+
+  #(参数)
+  文件：需要统计的文件列表。
+</code></pre><p>统计当前文件夹下文件的个数</p>
+<pre><code> ls -l |grep &quot;^-&quot;|wc -l
+</code></pre><p>统计当前文件夹下目录的个数</p>
+<pre><code> ls -l |grep &quot;^d&quot;|wc -l
+</code></pre><p>统计当前文件夹下文件的个数，包括子文件夹里的</p>
+<pre><code> ls -lR|grep &quot;^-&quot;|wc -l
+</code></pre><p>统计文件夹下目录的个数，包括子文件夹里的</p>
+<pre><code>ls -lR|grep &quot;^d&quot;|wc -l
+
+ls -l #长列表输出当前文件夹下文件信息(注意这里的文件，不同于一般的文件，可能是目录、链接、设备文件等)
+grep &quot;^-&quot; #这里将长列表输出信息过滤一部分，只保留一般文件，如果只保留目录就是 ^d
+wc -l  #统计当前目录下指定文件后缀的行数，既可以统计项目的代码量
+find . -name &quot;*.java&quot; -or -name &quot;*.jsp&quot; -or -name &quot;*.xml&quot; -or -name &quot;*.c&quot; |xargs grep -v &quot;^$&quot;|wc -l  #统计输出信息的行数，因为已经过滤得只剩一般文件了，所以统计结果就是一般文件信息的行数，又由于一行信息对应一个文件，所以也就是文件的个数  
+</code></pre></li>
+</ul>
+<h3 id="uniq"><a href="#uniq" class="headerlink" title="uniq"></a>uniq</h3><ul>
+<li><p><strong>uniq 去除文件中相邻的重复行</strong></p>
+<pre><code>  清空/新建文件，将内容重定向输入进去 
+  &amp;&gt; 正确、错误都重定向过去
+
+  后面追加
+</code></pre></li>
+</ul>
+<h3 id="file"><a href="#file" class="headerlink" title="file"></a>file</h3><ul>
+<li><p>该命令用于判断接在file命令后的文件的基本数据，因为在Linux下文件的类型并不是以后缀为分的，所以这个命令对我们来说就很有用了，它的用法非常简单，基本语法如下：</p>
+<pre><code> [plain] view plain copy print?
+ file filename  
+ #例如：  
+ file ./test 
+</code></pre></li>
+</ul>
+<h3 id="mkdir"><a href="#mkdir" class="headerlink" title="mkdir"></a>mkdir</h3><ul>
+<li><p><strong>创建新目录</strong></p>
+<pre><code>mkdir [选项] 目录…
+  -p  #递归创建目录，若父目录不存在则依次创建
+    eg: mkdir -p ~/temp/test
+  -m  #自定义创建目录的权限  
+    eg:mkdir -m 777 temp
+  -v  #显示创建目录的详细信息 
+    eg:mkdir -m 662 -pv ~/temp/test
+</code></pre></li>
+</ul>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><ul>
+<li><p><strong>用正则表达式搜索文本，并把匹配的行打印出来</strong></p>
+<pre><code>grep ‘正则表达式’ 文件名 |
+ -c  只输出匹配行的计数。
+ -I  不区分大小写(只适用于单字符)。
+ -l  只显示文件名
+ -v  显示不包含匹配文本的所有行。
+ -n  显示匹配行数据及其行号
+ eg:
+  # 取出文件urls.txt中包含mysql的行，并把找到的关键字加上颜色  
+   grep --color=auto &#39;mysql&#39; urls.txt  
+  # 把ls -l的输出中包含字母file（不区分大小写）的内容输出  
+   ls -l | grep -i file
+  # 查找当前目录下所有包含mysql的文件并逐行显示,文件路径+行号+匹配内容
+  grep -rn  &quot;mysql&quot; ./*
+</code></pre></li>
+</ul>
+<h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><ul>
+<li><p>在文件树种查找文件，并作出相应的处理</p>
+<pre><code>find [PATH] [option] [action]
+</code></pre><p>选项与参数：</p>
+</li>
+</ul>
+<ol>
+<li><p>与时间有关的选项：共有 -atime, -ctime 与 -mtime 和-amin,-cmin与-mmin，以 -mtime 说明</p>
+<pre><code>-mtime n ：n 为数字，意义为在 n 天之前的『一天之内』被更动过内容的档案；
+-mtime +n ：列出在 n 天之前(不含 n 天本身)被更动过内容的档案档名；
+-mtime -n ：列出在 n 天之内(含 n 天本身)被更动过内容的档案档名。
+-newer file ：file 为一个存在的档案，列出比 file 还要新的档案档名
+eg：  
+ find ./ -mtime 0 # 在当前目录下查找今天之内有改动的文件 
+</code></pre></li>
+<li><p>与使用者或组名有关的参数：</p>
+<pre><code>-uid n ：n 为数字，这个数字是用户的账号 ID，亦即 UID
+-gid n ：n 为数字，这个数字是组名的 ID，亦即 GID
+-user name ：name 为使用者账号名称！例如 dmtsai
+-group name：name 为组名，例如 users ；
+-nouser ：寻找档案的拥有者不存在 /etc/passwd 的人！
+-nogroup ：寻找档案的拥有群组不存在于 /etc/group 的档案！
+eg：  
+  find /home/jet -user jet # 在目录/home/jet中找出所有者为jet的文件  
+</code></pre></li>
+<li><p>与档案权限及名称有关的参数：</p>
+<pre><code> -name filename #搜寻文件名为 filename 的档案（可使用通配符）  
+ -size [+-]SIZE #搜寻比 SIZE 还要大(+)或小(-)的档案。这个 SIZE 的规格有：
+    c: 代表 byte
+    k: 代表 1024bytes。所以，要找比 50KB还要大的档案，就是『 -size +50k 』
+ -type TYPE  #搜寻档案的类型为 TYPE 的，类型主要有：
+    一般正规档案 (f)
+    装置档案 (b, c)
+    目录 (d)
+    连结档 (l)
+    socket (s)
+    FIFO (p)
+  -perm mode #搜寻档案权限『刚好等于』 mode的档案，这个mode为类似chmod的属性值  
+  举例来说，-rwsr-xr-x 的属性为4755！  
+  -perm -mode #搜寻档案权限『必须要全部囊括 mode 的权限』的档案  
+  举例来说，我们要搜寻-rwxr--r-- 亦即 0744 的档案，使用-perm -0744，当一个档案的权限为 -rwsr-xr-x ，亦即 4755 时，也会被列出来，因为 -rwsr-xr-x 的属性已经囊括了 -rwxr--r-- 的属性了。  
+  -perm +mode #搜寻档案权限『包含任一 mode 的权限』的档案  
+  举例来说，我们搜寻-rwxr-xr-x ，亦即 -perm +755 时，但一个文件属性为 -rw-------也会被列出来，因为他有 -rw.... 的属性存在！  
+    eg：  
+      find / -name passwd # 查找文件名为passwd的文件  
+      find . -perm 0755 # 查找当前目录中文件权限的0755的文件  
+      find . -size +12k # 查找当前目录中大于12KB的文件，注意c表示byte  
+</code></pre></li>
+<li><p>额外可进行的动作：</p>
+<pre><code>  -exec command #command 为其他指令，-exec 后面可再接额外的指令来处理搜寻到的结果。  
+  -print ：将结果打印到屏幕上，这个动作是预设动作！  
+  eg:
+    find / -perm +7000 -exec ls -l {} \;  #额外指令以-exec开头，以\;结尾{}代替前面找到的内容
+  | xargs 
+    -i  默认的前面输出用{}代替 
+    eg:
+        find . -name &quot;*.log&quot; | xargs -i mv {} test4
+        # 查找当前目录下所有log结尾的文件并删除
+        find . -name *.log | xargs rm
+</code></pre></li>
+</ol>
+<h3 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h3><ul>
+<li><p>用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换(convert and copy a file )</p>
+<pre><code>语法：dd [选项] 
+if =输入文件（或设备名称）。 
+of =输出文件（或设备名称）。 
+ibs = bytes 一次读取bytes字节，即读入缓冲区的字节数。 
+skip = blocks 跳过读入缓冲区开头的ibs*blocks块。 
+obs = bytes 一次写入bytes字节，即写入缓冲区的字节数。 
+bs = bytes 同时设置读/写缓冲区的字节数（等于设置ibs和obs）。 
+cbs = byte 一次转换bytes字节。 
+count=blocks 只拷贝输入的blocks块。 
+conv = ASCII 把EBCDIC码转换为ASCIl码。 
+conv = ebcdic 把ASCIl码转换为EBCDIC码。 
+conv = ibm 把ASCIl码转换为alternate EBCDIC码。 
+conv = block 把变动位转换成固定字符。 
+conv = ublock 把固定位转换成变动位。 
+conv = ucase 把字母由小写转换为大写。 
+conv = lcase 把字母由大写转换为小写。 
+conv = notrunc 不截短输出文件。 
+conv = swab 交换每一对输入字节。 
+conv = noerror 出错时不停止处理。 
+conv = sync 把每个输入记录的大小都调到ibs的大小（用NUL填充）。 
+</code></pre><p>例1：要把一张软盘的内容拷贝到另一张软盘上，利用/tmp作为临时存储区。把源盘插入驱动器中，输入下述命令： </p>
+<pre><code>$ dd if =/dev/fd0 of = /tmp/tmpfile 
+</code></pre><p>拷贝完成后，将源盘从驱动器中取出，把目标盘插入，输入命令： </p>
+<pre><code>$ dd if = /tmp/tmpfile of =/dev/fd0 
+</code></pre><p>软盘拷贝完成后，应该将临时文件删除： </p>
+<pre><code>$ rm /tmp/tmpfile 
+</code></pre><p>例2：把net.i这个文件写入软盘中，并设定读/写缓冲区的数目。 </p>
+<p>（注意：软盘中的内容会被完全覆盖掉） </p>
+<pre><code>$ dd if = net.i of = /dev/fd0 bs = 16384 
+</code></pre><p>例3：将文件sfile拷贝到文件 dfile中。 </p>
+<pre><code>$ dd if=sfile of=dfile
+</code></pre><p>例4：创建一个100M的空文件</p>
+<pre><code>$　dd if=/dev/zero of=hello.txt bs=100M count=1
+# 创建一个大小为1k的空文件
+$ dd if=/dev/zero of=./test.txt bs=1k count=1  
+$ ls -l  
+total 4  
+-rw-rw-r--. 1 jet jet 1024 Jun 20 16:36 test.txt  
+# 将access_log中错误信息丢弃  
+$ find / -name access_log  2&gt;/dev/null
+</code></pre></li>
+</ul>
+<h3 id="gt-gt-gt-dev-null-dev-zero"><a href="#gt-gt-gt-dev-null-dev-zero" class="headerlink" title="&gt;-&gt;&gt;-/dev/null-/dev/zero"></a>&gt;-&gt;&gt;-/dev/null-/dev/zero</h3><p>　　<strong>/dev/null:</strong> 它是空设备，也称为位桶（bit bucket），外号叫无底洞，任何写入它的输出都会被抛弃。如果不想让消息以标准输出显示或写入文件，那么可以将消息重定向到位桶。<br>　　<strong>/dev/zero:</strong> 是一个输入设备，该设备无穷尽地提供0，可以使用任何你需要的数目，用于向设备或文件写入字符串0，你可你用它来初始化文件。<br>　　<strong>&lt;  ：</strong>由 &lt; 的右边读入参数档案；<br>　　<strong>&gt;  ：</strong>将原本由屏幕输出的正确数据输出到 &gt; 右边的 file ( 文件名称 ) 或 device ( 装置，如 printer )去；<br>　　<strong>&gt;&gt; ：</strong>将原本由屏幕输出的正确数据输出到 &gt;&gt; 右边，与 &gt; 不同的是，该档案将不会被覆盖，而新的数据将以『增加的方式』增加到该档案的最后面；<br>　　<strong>2&gt; ：</strong>将原本应该由屏幕输出的错误数据输出到 2&gt; 的右边去。</p>
+<ul>
+<li><p>说明</p>
+<pre><code>[jet @jet oschina_hexo_server]# ls -al &gt;  test.txt  
+# 将显示的结果输出到 test.txt 档案中，若该档案以存在则覆盖！ 
+[jet @jet oschina_hexo_server]# ls -al &gt;&gt; test.txt  
+# 将显示的结果追加到 test.txt 档案中，该档案为累加的，旧数据保留！ 
+[jet @jet oschina_hexo_server]# ls -al 1&gt; test.txt 2&gt; test.err  
+# 将显示的数据，正确的输出到 test.txt 错误的数据输出到 test.err 
+[jet @jet oschina_hexo_server]# ls -al 1&gt; test.txt 2&gt;&amp;1  
+# 将显示的数据，不论正确或错误均输出到 test.txt 当中！ 
+[jet @jet oschina_hexo_server]# ls -al 1&gt; test.txt 2&gt; /dev/null 
+# 将显示的数据，正确的输出到 test.txt 错误的数据则予以丢弃！
+</code></pre><p>【注意】错误与正确档案输出到同一个档案中，则必须以上面的方法来写！ 不能写成其它格式！<br>这个观念相当的重要，尤其是在 /etc/crontab 当中执行的时候，如果我们已经知道错误的讯息为何，又不想要让错误的讯息一直填满 root 的信箱，就必须以 2&gt; 搭配 /dev/null 这个垃圾桶黑洞装置，来将数据丢弃！这个相当的重要！</p>
+</li>
+</ul>
+<h3 id="rm"><a href="#rm" class="headerlink" title="rm"></a>rm</h3><ul>
+<li><p><strong>删除文件</strong></p>
+<pre><code>rm [选项] 文件
+  -r  【--recursive】删除文件夹即递归的删除目录下面文件以及子目录下文件。
+  -f  【--force】强制删除不提示，忽略不存在的文件。
+  -i  【--interactive】交互模式删除文件，删除文件前给出提示
+  -v  【-verbose】详细显示进行步骤
+</code></pre></li>
+</ul>
+<h3 id="cd"><a href="#cd" class="headerlink" title="cd"></a>cd</h3><ul>
+<li><p><strong>切换工作目录</strong></p>
+<pre><code>cd .    #返回上层目录  
+cd ..   #返回上层目录  
+cd 回车  #返回主目录同cd ~ 
+cd /    #根目录  
+cd ~/git/ #主目录下的git目录
+cd -    #回到之前的目录
+</code></pre></li>
+</ul>
+<h3 id="ls"><a href="#ls" class="headerlink" title="ls"></a>ls</h3><ul>
+<li><p><strong>列出相关目录下的所有目录和文件</strong></p>
+<pre><code>  ls [选项] [目录名]
+    -a  列出包括.a开头的隐藏文件的所有文件
+    -A  通-a，但不列出&quot;.&quot;和&quot;..&quot;
+    -l  列出文件的详细信息
+    -c  根据ctime排序显示
+    -t  根据文件修改时间排序
+    ---color[=WHEN] 用色彩辨别文件类型 WHEN 可以是’never’、’always’或’auto’其中之一
+      白色：表示普通文件
+      蓝色：表示目录
+      绿色：表示可执行文件
+      红色：表示压缩文件
+      浅蓝色：链接文件
+      红色闪烁：表示链接的文件有问题
+      黄色：表示设备文件
+      灰色：表示其它文件
+</code></pre></li>
+</ul>
+<h3 id="mv"><a href="#mv" class="headerlink" title="mv"></a>mv</h3><ul>
+<li><p><strong>移动或重命名文件</strong></p>
+<pre><code>  mv [选项] 源文件或目录 目录或多个源文件
+    -b  覆盖前做备份  
+    -f  如存在不询问而强制覆盖  
+    -i  如存在则询问是否覆盖  
+    -u  较新才覆盖  
+    -t  将多个源文件移动到统一目录下，目录参数在前，文件参数在后  
+    eg:
+        mv a /tmp/ 将文件a移动到 /tmp目录下
+        mv a b 将a命名为b
+        mv /home/zenghao test1.txt test2.txt test3.txt
+</code></pre></li>
+</ul>
+<h3 id="cp"><a href="#cp" class="headerlink" title="cp"></a>cp</h3><ul>
+<li><p><strong>将源文件复制至目标文件，或将多个源文件复制至目标目录。</strong></p>
+<pre><code> cp [选项] 源文件或目录 目录或多个源文件
+   -r -R #递归复制该目录及其子目录内容
+   -p  #连同档案属性一起复制过去
+   -f  #不询问而强制复制
+   -s  #生成快捷方式
+   -a  #将档案的所有特性都一起复制
+   eg:
+     cp -a file1 file2 #连同文件的所有特性把文件file1复制成文件file2  
+     cp file1 file2 file3 dir #把文件file1、file2、file3复制到目录dir中 
+</code></pre></li>
+</ul>
+<h3 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h3><ul>
+<li><p><strong>创建空文件或更新文件时间</strong></p>
+<pre><code>touch [选项] 文件
+  -a  #只修改存取时间
+  -m  #值修改变动时间
+  -r  #eg:touch -r a b ,使b的时间和a相同
+  -t  #指定特定的时间 
+  eg:touch -t 201211142234.50 log.log 
+     #-t time [[CC]YY]MMDDhhmm[.SS],C:年前两位
+</code></pre></li>
+</ul>
+<h3 id="pwd"><a href="#pwd" class="headerlink" title="pwd"></a>pwd</h3><ul>
+<li><strong>查看当前所在路径</strong></li>
+</ul>
+<h3 id="rmdir"><a href="#rmdir" class="headerlink" title="rmdir"></a>rmdir</h3><ul>
+<li><p><strong>删除空目录</strong></p>
+<pre><code>-v  显示执行过程
+-p  若自父母删除后父目录为空则一并删除
+</code></pre></li>
+</ul>
+<h3 id="rm-1"><a href="#rm-1" class="headerlink" title="rm"></a>rm</h3><ul>
+<li><p><strong>删除一个或多个文件或目录</strong></p>
+<pre><code>rm [选项].. 文件
+  -f  忽略不存在的文件，不给出提示
+  -i  交互式删除
+  -r  将列出的目录及其子目录递归删除
+  -v  列出详细信息
+</code></pre></li>
+</ul>
+<h3 id="echo"><a href="#echo" class="headerlink" title="echo"></a>echo</h3><ul>
+<li><p><strong>显示内容到屏幕</strong></p>
+<pre><code>-n  输出后不换行
+-e  遇到转义字符特殊处理  
+    eg:
+        echo &quot;hello\nworld&quot;   显示hello\nworld
+        ehco -e &quot;hello\nworld&quot;    显示hello(换行了)world
+</code></pre></li>
+</ul>
+<h3 id="cat"><a href="#cat" class="headerlink" title="cat"></a>cat</h3><ul>
+<li><p><strong>一次显示整个文件或从键盘创建一个文件或将几个文件合并成一个文件</strong></p>
+<pre><code>cat [选项] [文件]..
+  -n  编号文件内容再输出
+  -E  在结束行提示$
+</code></pre></li>
+</ul>
+<h3 id="tac"><a href="#tac" class="headerlink" title="tac"></a>tac</h3><ul>
+<li><strong>cat的反向显示</strong></li>
+</ul>
+<h3 id="more"><a href="#more" class="headerlink" title="more"></a>more</h3><ul>
+<li><p><strong>按页查看文章内容，从前向后读取文件，因此在启动时就加载整个文件</strong></p>
+<pre><code>+n  从第n行开始显示
+-n  每次查看n行数据
++/String    搜寻String字符串位置，从其前两行开始查看
+-c  清屏再显示
+-p  换页时清屏
+</code></pre></li>
+</ul>
+<h3 id="less"><a href="#less" class="headerlink" title="less"></a>less</h3><ul>
+<li><p><strong>可前后移动地逐屏查看文章内容，在查看前不会加载整个文件</strong></p>
+<pre><code>-m  显示类似于more命令的百分比
+-N  显示行号
+/   字符串：向下搜索“字符串”的功能
+?   字符串：向上搜索“字符串”的功能
+n   重复前一个搜索（与 / 或 ? 有关）
+N   反向重复前一个搜索（与 / 或 ? 有关）
+b   向后翻一页
+d   向后翻半页
+</code></pre></li>
+</ul>
+<h3 id="nl"><a href="#nl" class="headerlink" title="nl"></a>nl</h3><ul>
+<li><p><strong>将输出内容自动加上行号</strong></p>
+<pre><code>nl [选项]… [文件]…
+  -b
+  -b a 不论是否有空行，都列出行号（类似 cat -n)
+  -b t 空行则不列行号（默认）
+  -n 有ln rn rz三个参数，分别为再最左方显示，最右方显示不加0，最右方显示加0
+</code></pre></li>
+</ul>
+<h3 id="head"><a href="#head" class="headerlink" title="head"></a>head</h3><ul>
+<li><p><strong>显示档案开头，默认开头10行</strong></p>
+<pre><code>head [参数]… [文件]…
+  -v  显示文件名
+  -c number   显示前number个字符,若number为负数,则显示除最后number个字符的所有内容
+  -number/n (+)number     显示前number行内容，
+  -n number   若number为负数，则显示除最后number行数据的所有内容
+</code></pre></li>
+</ul>
+<h3 id="tail"><a href="#tail" class="headerlink" title="tail"></a>tail</h3><ul>
+<li><p><strong>显示文件结尾内容</strong></p>
+<pre><code>tail [必要参数] [选择参数] [文件]
+-v  #显示详细的处理信息
+-q  #不显示处理信息
+-num/-n (-)num      #显示最后num行内容
+-n +num #从第num行开始显示后面的数据
+-c  #显示最后c个字符
+-f  #循环读取
+# 实时查看日志，从文件最后50行开始
+tail -fn 50 ExecuteConfig.log
+</code></pre></li>
+</ul>
+<h3 id="vi"><a href="#vi" class="headerlink" title="vi"></a>vi</h3><ul>
+<li><p><strong>编辑文件</strong></p>
+<pre><code>:w filename #将文章以指定的文件名保存起来  
+:q            #退出
+:q!           #强制退出
+:wq           #保存并退出
+:set nu   #显示行号
+:set nonu #隐藏行号
+/git      #在文档中查找git 按n跳到下一个，shift+n上一个
+yyp           #复制光标所在行，并粘贴
+h(左移一个字符←)、j(下一行↓)、k(上一行↑)、l(右移一个字符→)
+</code></pre><p><strong>命令行模式功能键</strong></p>
+<p><strong>1. 插入模式</strong></p>
+<pre><code> 按「i」切换进入插入模式「insert mode」，按&quot;i&quot;进入插入模式后是从光标当前位置开始输入文件；
+ 按「a」进入插入模式后，是从目前光标所在位置的下一个位置开始输入文字；
+ 按「o」进入插入模式后，是插入新的一行，从行首开始输入文字。
+</code></pre><p><strong>2. 从插入模式切换为命令行模式</strong></p>
+<pre><code> 按「ESC」键。
+</code></pre><p><strong>3. 移动光标</strong></p>
+<pre><code>    vi可以直接用键盘上的光标来上下左右移动，但正规的vi是用小写英文字母「h」、「j」、「k」、「l」，分别控制光标左、下、上、右移一格。
+    按「ctrl」+「b」#屏幕往&quot;后&quot;移动一页。
+    按「ctrl」+「f」#屏幕往&quot;前&quot;移动一页。
+    按「ctrl」+「u」#屏幕往&quot;后&quot;移动半页。
+    按「ctrl」+「d」#屏幕往&quot;前&quot;移动半页。
+    按数字「0」#移到文章的开头。
+    按「G」#移动到文章的最后。
+    按「$」#移动到光标所在行的&quot;行尾&quot;。
+    按「^」#移动到光标所在行的&quot;行首&quot;
+    按「w」#光标跳到下个字的开头
+    按「e」#光标跳到下个字的字尾
+    按「b」#光标回到上个字的开头
+    按「#l」#光标移到该行的第#个位置，如：5l,56l。
+</code></pre><p><strong>4. 删除文字</strong></p>
+<pre><code>    「x」#每按一次，删除光标所在位置的&quot;后面&quot;一个字符。
+    「#x」#例如，「6x」表示删除光标所在位置的&quot;后面&quot;6个字符。
+    「X」#大写的X，每按一次，删除光标所在位置的&quot;前面&quot;一个字符。
+    「#X」#例如，「20X」表示删除光标所在位置的&quot;前面&quot;20个字符。
+    「dd」#删除光标所在行。
+    「#dd」#从光标所在行开始删除#行
+</code></pre><p><strong>5. 复制</strong></p>
+<pre><code>    「yw」#将光标所在之处到字尾的字符复制到缓冲区中。
+    「#yw」#复制#个字到缓冲区
+    「yy」#复制光标所在行到缓冲区。
+    「#yy」#例如，「6yy」表示拷贝从光标所在的该行&quot;往下数&quot;6行文字。
+    「p」#将缓冲区内的字符贴到光标所在位置。注意：所有与&quot;y&quot;有关的复制命令都必须与&quot;p&quot;配合才能完成复制与粘贴功能。
+</code></pre><p><strong>6. 替换</strong></p>
+<pre><code>    「r」#替换光标所在处的字符。
+    「R」#替换光标所到之处的字符，直到按下「ESC」键为止。
+</code></pre><p><strong>7. 恢复上一次操作</strong></p>
+<pre><code>         「u」#如果您误执行一个命令，可以马上按下「u」，回到上一个操作。按多次&quot;u&quot;可以执行多次回复。
+</code></pre><p><strong>8. 更改</strong></p>
+<pre><code>    「cw」#更改光标所在处的字到字尾处
+    「c#w」#例如，「c3w」表示更改3个字
+</code></pre><p><strong>9. 跳至指定的行</strong></p>
+<pre><code>    「ctrl」+「g」 #列出光标所在行的行号。
+    「#G」：例如，「15G」，表示移动光标至文章的第15行行首。
+</code></pre><p><strong>10.视图模式</strong></p>
+<pre><code>     「ctrl」+「v」#进入视图模式，可以移动方向键选中多行，按d键可以删除
+</code></pre><p><strong>11.清空文件</strong></p>
+<pre><code>     :.,$d 回车  #命令模式输入 .,$d 后回车
+</code></pre><p><strong>12.替换文本内容</strong></p>
+<pre><code>     #可以替换当前行的所有/usr/local为/data/dshp，命令模式输入s/old\new/g
+     :s/\/usr\/local/\/data\/dshp/g
+</code></pre></li>
+</ul>
+<h3 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h3><ul>
+<li><p><strong>将一个命令的标准输出作为另一个命令的标准输入。也就是把几个命令组合起来使用，后一个命令除以前一个命令的结果。</strong></p>
+<pre><code>grep -r “close” /home/* | more 在home目录下所有文件中查找，包括close的文件，并分页输出。
+</code></pre></li>
+</ul>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><ul>
+<li><p><strong>以逐行的方式，比较文本文件的异同处。指定要比较目录，则diff会比较目录中相同文件名的文件，但不会比较其中子目录。</strong></p>
+<pre><code>diff [参数] [文件1或目录1] [文件2或目录2]
+-&lt;行数&gt; 　指定要显示多少行的文本。此参数必须与-c或-u参数一并使用。
+-a或--text 　diff预设只会逐行比较文本文件。
+-b或--ignore-space-change 　不检查空格字符的不同。
+-B或--ignore-blank-lines 　不检查空白行。
+-c 　显示全部内文，并标出不同之处。
+-C&lt;行数&gt;或--context&lt;行数&gt; 　与执行&quot;-c-&lt;行数&gt;&quot;指令相同。
+-d或--minimal 　使用不同的演算法，以较小的单位来做比较。
+-D&lt;巨集名称&gt;或ifdef&lt;巨集名称&gt; 　此参数的输出格式可用于前置处理器巨集。
+-e或--ed 　此参数的输出格式可用于ed的script文件。
+-f或-forward-ed 　输出的格式类似ed的script文件，但按照原来文件的顺序来显示不同处。
+-H或--speed-large-files 　比较大文件时，可加快速度。
+-l&lt;字符或字符串&gt;或--ignore-matching-lines&lt;字符或字符串&gt; 　若两个文件在某几行有所不同，而这几行同时都包含了选项中指定的字符或字符串，则不显示这两个文件的差异。
+-i或--ignore-case 　不检查大小写的不同。
+-l或--paginate 　将结果交由pr程序来分页。
+-n或--rcs 　将比较结果以RCS的格式来显示。
+-N或--new-file 　在比较目录时，若文件A仅出现在某个目录中，预设会显示：
+Only in目录：文件A若使用-N参数，则diff会将文件A与一个空白的文件比较。
+-p 　若比较的文件为C语言的程序码文件时，显示差异所在的函数名称。
+-P或--unidirectional-new-file 　与-N类似，但只有当第二个目录包含了一个第一个目录所没有的文件时，才会将这个文件与空白的文件做比较。
+-q或--brief 　仅显示有无差异，不显示详细的信息。
+-r或--recursive 　比较子目录中的文件。
+-s或--report-identical-files 　若没有发现任何差异，仍然显示信息。
+-S&lt;文件&gt;或--starting-file&lt;文件&gt; 　在比较目录时，从指定的文件开始比较。
+-t或--expand-tabs 　在输出时，将tab字符展开。
+-T或--initial-tab 　在每行前面加上tab字符以便对齐。
+-u,-U&lt;列数&gt;或--unified=&lt;列数&gt; 　以合并的方式来显示文件内容的不同。
+-v或--version 　显示版本信息。
+-w或--ignore-all-space 　忽略全部的空格字符。
+-W&lt;宽度&gt;或--width&lt;宽度&gt; 　在使用-y参数时，指定栏宽。
+-x&lt;文件名或目录&gt;或--exclude&lt;文件名或目录&gt; 　不比较选项中所指定的文件或目录。
+-X&lt;文件&gt;或--exclude-from&lt;文件&gt; 　您可以将文件或目录类型存成文本文件，然后在=&lt;文件&gt;中指定此文本文件。
+-y或--side-by-side 　以并列的方式显示文件的异同之处。
+--help 　显示帮助。
+--left-column 　在使用-y参数时，若两个文件某一行内容相同，则仅在左侧的栏位显示该行内容。
+--suppress-common-lines 　在使用-y参数时，仅显示不同之处
+</code></pre><p><strong>示例：</strong></p>
+<p>比较两个文件</p>
+<pre><code>[root@localhost test3]# diff log2014.log log2013.log 
+3c3
+&lt; 2014-03
+---
+&gt; 2013-03
+8c8
+&lt; 2013-07
+---
+&gt; 2013-08
+11,12d10
+&lt; 2013-11
+&lt; 2013-12
+</code></pre><p>【注】<br>　上面的”3c3”和”8c8”表示log2014.log和log20143log文件在3行和第8行内容有所不同；”11,12d10”表示第一个文件比第二个文件多了第11和12行。</p>
+<p>并排格式输出</p>
+<pre><code>[root@localhost test3]# diff log2014.log log2013.log  -y -W 50
+2013-01                 2013-01
+2013-02                 2013-02
+2014-03               | 2013-03
+2013-04                 2013-04
+2013-05                 2013-05
+2013-06                 2013-06
+2013-07                 2013-07
+2013-07               | 2013-08
+2013-09                 2013-09
+2013-10                 2013-10
+2013-11               &lt;
+2013-12               &lt;
+[root@localhost test3]# diff log2013.log log2014.log  -y -W 50
+2013-01                 2013-01
+2013-02                 2013-02
+2013-03               | 2014-03
+2013-04                 2013-04
+2013-05                 2013-05
+2013-06                 2013-06
+2013-07                 2013-07
+2013-08               | 2013-07
+2013-09                 2013-09
+2013-10                 2013-10
+                      &gt; 2013-11
+                      &gt; 2013-12
+</code></pre><p>【注】<br>　　 “|”表示前后2个文件内容有不同<br>　　 “&lt;”表示后面文件比前面文件少了1行内容<br>　　“&gt;”表示后面文件比前面文件多了1行内容  </p>
+</li>
+</ul>
+<h3 id="ln"><a href="#ln" class="headerlink" title="ln"></a>ln</h3><ul>
+<li><p><strong>某一个文件在另外一个位置建立一个同步的链接，通常给/usr/bin/下建立软连接，相当于给某个应用程序配置环境变量一样，可以不带路径直接运行命令</strong></p>
+<pre><code>ln [参数] [源文件或目录] [目标文件或目录]
+-s  建立软连接   
+-v  显示详细的处理过程
+</code></pre></li>
+</ul>
+<h3 id="which"><a href="#which" class="headerlink" title="which"></a>which</h3><ul>
+<li><p><strong>查看可执行文件的位置，在PATH变量指定的路径中查看系统命令是否存在及其位置</strong></p>
+<pre><code> which 可执行文件名称 
+</code></pre></li>
+</ul>
+<h3 id="whereis"><a href="#whereis" class="headerlink" title="whereis"></a>whereis</h3><ul>
+<li><p><strong>定位可执行文件、源代码文件、帮助文件在文件系统中的位置</strong></p>
+<pre><code>whereis [-bmsu] [BMS 目录名 -f ] 文件名
+  -b   定位可执行文件。
+  -m   定位帮助文件。
+  -s   定位源代码文件。
+  -u   搜索默认路径下除可执行文件、源代码文件、帮助文件以外的其它文件。
+  -B   指定搜索可执行文件的路径。
+  -M   指定搜索帮助文件的路径。
+  -S   指定搜索源代码文件的路径。
+</code></pre></li>
+</ul>
+<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><ul>
+<li><p><strong>通过搜寻数据库快速搜寻档案</strong></p>
+<pre><code>-r  使用正规运算式做寻找的条件
+</code></pre></li>
+</ul>
+<h2 id="系统管理相关命令"><a href="#系统管理相关命令" class="headerlink" title="系统管理相关命令"></a>系统管理相关命令</h2><h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><ul>
+<li><p><strong>列出当前进程的快照</strong></p>
+<pre><code>a   显示所有的进程
+-a  显示同一终端下的所有程序
+e   显示环境变量
+f   显示进程间的关系
+-H  显示树状结构
+r   显示当前终端的程序
+T   显示当前终端的所有程序
+-au 显示更详细的信息
+-aux    显示所有包含其他使用者的行程 
+-u  指定用户的所有进程
+eg:
+  ps aux # 查看系统所有的进程数据  
+  ps ax # 查看不与terminal有关的所有进程  
+  ps -lA # 查看系统所有的进程数据  
+  ps axjf # 查看连同一部分进程树状态 
+  ps aux | grep tomcat
+  ps -ef | grep tomcat
+</code></pre></li>
+</ul>
+<h3 id="df"><a href="#df" class="headerlink" title="df"></a>df</h3><ul>
+<li><p><strong>显示指定磁盘文件的可用空间,如果没有文件名被指定，则所有当前被挂载的文件系统的可用空间将被显示</strong></p>
+<pre><code>df [选项] [文件]
+-a  显示全部文件系统
+-h  文件大小友好显示，即会显示单位
+-l  只显示本地文件系统
+-i  显示inode信息
+-T  显示文件系统类型
+</code></pre></li>
+</ul>
+<h3 id="du"><a href="#du" class="headerlink" title="du"></a>du</h3><ul>
+<li><p><strong>显示每个文件和目录的磁盘使用空间</strong></p>
+<pre><code>du [选项] [文件]
+-h  方便阅读的方式，会带单位
+-s  只显示总和的大小
+</code></pre></li>
+</ul>
+<h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
+<li><p><strong>显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率等</strong></p>
+<pre><code> top [参数]
+</code></pre></li>
+</ul>
+<h3 id="free"><a href="#free" class="headerlink" title="free"></a>free</h3><ul>
+<li><p><strong>显示Linux系统中空闲的、已用的物理内存及swap内存,及被内核使用的buffer</strong></p>
+<pre><code>free [参数]
+</code></pre></li>
+</ul>
+<h3 id="quota"><a href="#quota" class="headerlink" title="quota"></a>quota</h3><ul>
+<li><p><strong>显示用户或者工作组的磁盘配额信息。输出信息包括磁盘使用和配额限制</strong></p>
+<pre><code>quota(选项)(参数)
+-g：列出群组的磁盘空间限制；  
+-q：简明列表，只列出超过限制的部分；
+-u：列出用户的磁盘空间限制；
+-v：显示该用户或群组，在所有挂入系统的存储设备的空间限制；
+-V：显示版本信息。
+</code></pre><p>我们可以限制某一群组所能使用的最大磁盘配额，而且可以再限制某一使用者的最大磁盘配额 ，好比做一个收费的应用，vip可以得到空间更大一些。另外，以 Link 的方式，来使邮件可以作为限制的配额（更改/var/spool/mail 这个路径），不2，需要重新再规划一个硬盘！直接使用 Link 的方式指向 /home （或者其它已经做好的 quota 磁盘）就可以！这通常是用在原本规划不好，但是却又不想要更动原有主机架构的情况中！</p>
+<p>要求：Linux 主机里面主要针对 quser1 及 quser2 两个使用者来进行磁盘配额， 且这两个使用者都是挂在 qgroup 组里面的。每个使用者总共有 50MB 的磁盘空间 (不考虑 inode) 限制！并且 soft limit 为 45 MB；而宽限时间设定为 1 天， 但是在一天之内必须要将多余的文件删除掉，否则将无法使用剩下的空间 ；gquota 这个组考虑最大限额，所以设定为 90 MB！（注意，这样设置的好处是富有弹性，好比现在的邮件服务，那么多用户，承诺给用户每人最大空间为数GB，然而人们不可能每人都会使用那么大的空间，所以邮件服务的总空间，实际上肯定不是注册客户数乘以数GB，否则这样得多大啊。）</p>
+<pre><code>[root@jet ~]# groupadd qgroup 
+[root@jet ~]# useradd -m -g qgroup quser1
+[root@jet ~]# useradd -m -g qgroup quser2
+[root@jet ~]# passwd quser1 
+[root@jet ~]# passwd quser2 
+[root@jet ~]# df    #用/disk2测试
+Filesystem   1K-blocks   Used     Available    Use%   Mounted on 
+/dev/hda1    5952252     3193292   2451720     57%     / 
+/dev/hdb1    28267608    77904     26730604     1%     /disk2 
+/dev/hda5    9492644     227252    8775412     3%     /disk1
+
+[root@jet ~]# vi /etc/fstab 
+LABEL=/     /     ext3  defaults             1    1 
+LABEL=/disk1  /disk1  ext3  defaults             1    2 
+LABEL=/disk2  /disk2  ext3  defaults,usrquota,grpquota 1    2 
+/dev/hda3    swap   swap  defaults             0    0
+</code></pre><p>注意多了usrquota,grpquota，在defaults,usrquota,grpquota之间都没有空格，务必正确书写。这样就算加入了 quota 的磁盘格式了！不过，由于真正的 quota 在读取的时候是读取/etc/mtab这个文件的，而该文件需要重新开机之后才能够以/etc/fstab 的新数据进行改写！所以这个时候可以选择：重新开机 (reboot)。</p>
+<p>重新remount filesystem来驱动设定值。</p>
+<pre><code> [root@jet ~]# umount /dev/hdb1 
+ [root@jet ~]# mount -a 
+ [root@jet ~]# grep &#39;/disk2&#39; /etc/mtab 
+ /dev/hdb1  /disk2  ext3  rw,usrquota,grpquota  0  0
+</code></pre><p>事实上，也可以利用 mount 的 remount 功能。</p>
+<pre><code>[root@jet ~]# mount -o remount /disk2 
+</code></pre><p>这样就已经成功的将 filesystem 的 quota 功能加入。</p>
+<p>扫瞄磁盘的使用者使用状况，并产生重要的 aquota.group 与 aquota.user：</p>
+<pre><code>[root@jet ~]# quotacheck -avug 
+quotacheck: Scanning /dev/hdb1 [/disk2] done 
+quotacheck: Checked 3 directories and 4 files 
+[root@localhost ~]# ll /disk2 
+-rw------- 1 root root 6144 Sep 6 11:44 aquota.group 
+-rw------- 1 root root 6144 Sep 6 11:44 aquota.user 
+</code></pre><p>使用 quotacheck 就可以轻易的将所需要的数据给他输出了！但奇怪的是，在某些 Linux 版本中，不能够以 aquota.user(group) 来启动quota ，可能是因为旧版 quota 的关系， 所以就另外做了一个 link 文件按来欺骗 quota，这个动作非必要。（主要是学习这个思维很重要）</p>
+<pre><code>[root@localhost ~]# cd /disk2 
+[root@localhost ~]# ln -s aquota.user quota.user 
+[root@localhost ~]# ln -s aquota.group quota.group 
+</code></pre><p>启动 quota 的限额： </p>
+<pre><code>[root@localhost ~]# quotaon -avug 
+/dev/hdb1 [/disk2]: group quotas turned on 
+/dev/hdb1 [/disk2]: user quotas turned on ===&gt; 看到turned on，才是真的成功！
+</code></pre><p>编辑使用者的可使用空间：</p>
+<pre><code> [root@localhost ~]# edquota -u quser1 
+ Disk quotas for user quser1 (uid 502): 
+ Filesystem  blocks  soft   hard   inodes   soft hard 
+ /dev/hdb1   0     45000  50000   0      0   0 
+ [root@localhost ~]# edquota -p quser1 quser2 ===&gt; 直接复制给quser2 
+</code></pre><p>接下来要来设定宽限时间，还是使用 edquota </p>
+<pre><code> [root@localhost ~]# edquota -t  
+ Grace period before enforcing soft limits for users: 
+ time units may be: days, hours, minutes, or seconds
+ Filesystem    Block grace period    Inode grace period 
+ /dev/hdb1        1days             7days 
+</code></pre><p>使用quota -v来查询：</p>
+<pre><code> [root@localhost ~]# quota -vu quser1 quser2 
+ Disk quotas for user quser1 (uid 502): 
+ Filesystem   blocks  quota  limit  grace files quota limit grace 
+ /dev/hdb1    0     45000  50000           0    0    0 
+ Disk quotas for user quser2 (uid 503): 
+ Filesystem blocks quota   limit grace files quota limit grace 
+ /dev/hdb1   0    45000   50000         0    0    0 
+</code></pre><p>注意，由于使用者尚未超过45 MB，所以 grace ( 宽限时间 ) 就不会出现。 编辑群组可使用的空间：</p>
+<pre><code> [root@localhost ~]# edquota -g qgroup 
+ Disk quotas for group qgroup (gid 502):
+ Filesystem  blocks soft   hard   inodes soft hard 
+ /dev/hdb1    0   80000   90000   0    0   0 
+ [root@localhost ~]# quota -vg qgroup 
+ Disk quotas for group qgroup (gid 502):
+ Filesystem   blocks quota  limit  grace files quota limit grace 
+ /dev/hdb1     0   80000  90000           0    0    0
+</code></pre></li>
+</ul>
+<h3 id="kill"><a href="#kill" class="headerlink" title="kill"></a>kill</h3><ul>
+<li><p><strong>用于向某个工作（%jobnumber）或者是某个PID（数字）传送一个信号，它通常与ps和jobs命令一起使用</strong></p>
+<pre><code>  kill [参数] [进程号]
+  1：SIGHUP，启动被终止的进程  
+  2：SIGINT，相当于输入ctrl+c，中断一个程序的进行  
+  9：SIGKILL，强制中断一个进程的进行  
+  15：SIGTERM，以正常的结束进程方式来终止进程  
+  17：SIGSTOP，相当于输入ctrl+z，暂停一个进程的进行
+  eg:
+    kill -9 19785
+</code></pre></li>
+</ul>
+<h3 id="killall"><a href="#killall" class="headerlink" title="killall"></a>killall</h3><ul>
+<li><p><strong>杀死同一进程组内的所有进程。其允许指定要终止的进程的名称，而非PID</strong></p>
+<pre><code>  -i ：交互式的意思，若需要删除时，会询问用户  
+  -e ：表示后面接的command name要一致，但command name不能超过15个字符  
+  -I ：命令名称忽略大小写  
+  eg: 
+    killall -SIGHUP syslogd # 重新启动syslogd  
+</code></pre></li>
+</ul>
+<h3 id="useradd"><a href="#useradd" class="headerlink" title="useradd"></a>useradd</h3><ul>
+<li><p><strong>创建的新的系统用户</strong></p>
+<p>帐号建好之后，再用passwd设定帐号的密码．而可用userdel删除帐号。使用useradd指令所建立的帐号，实际上是保存在/etc/passwd文本文件中。  </p>
+<p>在Slackware中，adduser指令是个script程序，利用交谈的方式取得输入的用户帐号资料，然后再交由真正建立帐号的useradd命令建立新用户，如此可方便管理员建立用户帐号。在Red Hat Linux中，adduser命令则是useradd命令的符号连接，两者实际上是同一个指令</p>
+<pre><code>useradd(选项)(参数)
+-c&lt;备注&gt;：加上备注文字。备注文字会保存在passwd的备注栏位中； 
+-d&lt;登入目录&gt;：指定用户登入时的启始目录；
+-D：变更预设值； 
+-e&lt;有效期限&gt;：指定帐号的有效期限；
+-f&lt;缓冲天数&gt;：指定在密码过期后多少天即关闭该帐号；
+-g&lt;群组&gt;：指定用户所属的群组； 
+-G&lt;群组&gt;：指定用户所属的附加群组；
+-m：自动建立用户的登入目录； 
+-M：不要自动建立用户的登入目录；
+-n：取消建立以用户名称为名的群组；
+-r：建立系统帐号；
+-s：指定用户登入后所使用的shell；
+-u：指定用户id。
+</code></pre><p>新建用户加入组：</p>
+<pre><code>useradd –g sales jack –G company,employees //-g：加入主要组、-G：加入次要组
+</code></pre><p>建立一个新用户账户，并设置ID：</p>
+<pre><code>useradd caojh -u 544 
+</code></pre><p>需要说明的是，设定ID值时尽量要大于500，以免冲突。因为Linux安装后会建立一些特殊用户，一般0到499之间的值留给bin、mail这样的系统账号</p>
+</li>
+</ul>
+<h3 id="groupadd"><a href="#groupadd" class="headerlink" title="groupadd"></a>groupadd</h3><ul>
+<li><p><strong>创建一个新的工作组，新工作组的信息将被添加到系统文件中</strong></p>
+<pre><code>groupadd(选项)(参数)
+-g：指定新建工作组的id；
+-r：创建系统工作组，系统工作组的组ID小于500；
+-K：覆盖配置文件“/ect/login.defs”；
+-o：允许添加组ID号不唯一的工作组。
+</code></pre><p>实例 建立一个新组，并设置组ID加入系统：</p>
+<pre><code>groupadd -g 344 linuxde 
+</code></pre><p>此时在/etc/passwd文件中产生一个组ID（GID）是344的项目</p>
+</li>
+</ul>
+<h3 id="groupdel"><a href="#groupdel" class="headerlink" title="groupdel"></a>groupdel</h3><ul>
+<li><p><strong>删除指定的工作组</strong></p>
+<p>要修改的系统文件包括/ect/group和/ect/gshadow。若该群组中仍包括某些用户，则必须先删除这些用户后，方能删除群组</p>
+<pre><code> groupdel(参数)
+ eg:
+   groupadd damon //创建damon工作组 
+   groupdel damon //删除这个工作组
+</code></pre></li>
+</ul>
+<h3 id="crontab"><a href="#crontab" class="headerlink" title="crontab"></a>crontab</h3><ul>
+<li><p><strong>提交和管理用户的需要周期性执行的任务</strong></p>
+<p>与windows下的计划任务类似，当安装完成操作系统后，默认会安装此服务工具，并且会自动启动crond进程，crond进程每分钟会定期检查是否有要执行的任务，如果有要执行的任务，则自动执行该任务。</p>
+<pre><code>crontab(选项)(参数)
+-e：编辑该用户的计时器设置；
+-l：列出该用户的计时器设置； 
+-r：删除该用户的计时器设置；
+-u&lt;用户名称&gt;：指定要设定计时器的用户名称。
+</code></pre><p>Linux下的任务调度分为两类：系统任务调度和用户任务调度。</p>
+<p><strong>系统任务调度：</strong>系统周期性所要执行的工作，比如写缓存数据到硬盘、日志清理等。在/etc目录下有一个crontab文件，这个就是系统任务调度的配置文件。</p>
+<p>/etc/crontab文件包括下面几行：</p>
+<pre><code>SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=&quot;&quot;HOME=/
+
+# run-parts
+51 * * * * root run-parts /etc/cron.hourly
+24 7 * * * root run-parts /etc/cron.daily
+22 4 * * 0 root run-parts /etc/cron.weekly
+42 4 1 * * root run-parts /etc/cron.monthly 
+</code></pre><p>【注】<br>　　前四行是用来配置crond任务运行的环境变量，第一行SHELL变量指定了系统要使用哪个shell，这里是bash，第二行PATH变量指定了系统执行命令的路径，第三行MAILTO变量指定了crond的任务执行信息将通过电子邮件发送给root用户，如果MAILTO变量的值为空，则表示不发送任务执行信息给用户，第四行的HOME变量指定了在执行命令或者脚本时使用的主目录。 </p>
+<p><strong>用户任务调度：</strong>用户定期要执行的工作，比如用户数据备份、定时邮件提醒等。用户可以使用 crontab 工具来定制自己的计划任务。所有用户定义的crontab文件都被保存在/var/spool/cron目录中。其文件名与用户名一致，使用者权限文件如下：</p>
+<pre><code>/etc/cron.deny     该文件中所列用户不允许使用crontab命令
+/etc/cron.allow    该文件中所列用户允许使用crontab命令
+/var/spool/cron/   所有用户crontab文件存放的目录,以用户名命名
+</code></pre><p>crontab文件的含义：用户所建立的crontab文件中，每一行都代表一项任务，每行的每个字段代表一项设置，它的格式共分为六个字段，前五段是时间设定段，第六段是要执行的命令段，格式如下：</p>
+<pre><code>minute hour day month week command 顺序：分 时 日 月 周
+
+minute： 表示分钟，可以是从0到59之间的任何整数。
+hour：表示小时，可以是从0到23之间的任何整数。 
+day：表示日期，可以是从1到31之间的任何整数。 
+month：表示月份，可以是从1到12之间的任何整数。 
+week：表示星期几，可以是从0到7之间的任何整数，这里的0或7代表星期日。 
+command：要执行的命令，可以是系统命令，也可以是自己编写的脚本文件。
+</code></pre><p>在以上各个字段中，还可以使用以下特殊字符： </p>
+<pre><code> 星号（*）：代表所有可能的值，例如month字段如果是星号，则表示在满足其它字段的制约条件后每月都执行该命令操作。 
+ 逗号（,）：可以用逗号隔开的值指定一个列表范围，例如，“1,2,5,7,8,9” 
+ 中杠（-）：可以用整数之间的中杠表示一个整数范围，例如“2-6”表示“2,3,4,5,6” 正
+ 斜线（/）：可以用正斜线指定时间的间隔频率，例如“0-23/2”表示每两小时执行一次。同时正斜线可以和星号一起使用，例如*/10，如果用在minute字段，表示每十分钟执行一次。 
+
+service crond start    #启动服务
+service crond stop     #关闭服务
+service crond restart  #重启服务
+service crond reload   #重新载入配置
+service crond status   #查看crontab服务状态
+ntsysv #查看crontab服务是否已设置为开机启动
+chkconfig –level 35 crond on   #开机启动
+
+eg:
+ * * * * * command  #每1分钟执行一次command
+ 3,15 * * * * command #每小时的第3和第15分钟执行
+ 3,15 8-11 * * * command #在上午8点到11点的第3和第15分钟执行
+ 3,15 8-11 */2 * * command #每隔两天的上午8点到11点的第3和第15分钟执行
+ 3,15 8-11 * * 1 command #每个星期一的上午8点到11点的第3和第15分钟执行 
+ 30 21 * * * /etc/init.d/smb restart #每晚的21:30重启smb
+ 45 4 1,10,22 * * /etc/init.d/smb restart #每月1、10、22日的4 : 45重启smb
+ 10 1 * * 6,0 /etc/init.d/smb restart #每周六、周日的1:10重启smb
+ 0,30 18-23 * * * /etc/init.d/smb restart #每天18 : 00至23 : 00之间每隔30分钟重启smb  
+ 0 23 * * 6 /etc/init.d/smb restart #每星期六的晚上11:00 pm重启smb  
+ * */1 * * * /etc/init.d/smb restart #每一小时重启smb  
+ * 23-7/1 * * * /etc/init.d/smb restart #晚上11点到早上7点之间，每隔一小时重启smb
+ 0 11 4 * mon-wed /etc/init.d/smb restart  #每月的4号与每周一到周三的11点重启smb  
+ 0 4 1 jan * /etc/init.d/smb restart #一月一号的4点重启smb 
+ 01 * * * * root run-parts /etc/cron.hourly  #每小时执行/etc/cron.hourly目录内的脚本 
+</code></pre></li>
+</ul>
+<h2 id="网络操作命令"><a href="#网络操作命令" class="headerlink" title="网络操作命令"></a>网络操作命令</h2><h3 id="ifconfig"><a href="#ifconfig" class="headerlink" title="ifconfig"></a>ifconfig</h3><ul>
+<li><p><strong>配置和显示Linux内核中网络接口的网络参数</strong></p>
+<p>用ifconfig命令配置的网卡信息，在网卡重启后机器重启后，配置就不存在。要想将上述的配置信息永远的存的电脑里，那就要修改网卡的配置文件了。</p>
+<pre><code>ifconfig(参数)
+
+add&lt;地址&gt;：设置网络设备IPv6的ip地址；
+del&amp;lt;地址&amp;gt;：删除网络设备IPv6的IP地址；
+down：关闭指定的网络设备；
+&amp;lt;hw&amp;lt;网络设备类型&amp;gt;&amp;lt;硬件地址&amp;gt;：设置网络设备的类型与硬件地址；
+io_addr&amp;lt;I/O地址&amp;gt;：设置网络设备的I/O地址；
+irq&amp;lt;IRQ地址&amp;gt;：设置网络设备的IRQ；
+media&amp;lt;网络媒介类型&amp;gt;：设置网络设备的媒介类型；
+mem_start&amp;lt;内存地址&amp;gt;：设置网络设备在主内存所占用的起始地址；
+metric&amp;lt;数目&amp;gt;：指定在计算数据包的转送次数时，所要加上的数目；
+mtu&amp;lt;字节&amp;gt;：设置网络设备的MTU；
+netmask&amp;lt;子网掩码&amp;gt;：设置网络设备的子网掩码；
+tunnel&amp;lt;地址&amp;gt;：建立IPv4与IPv6之间的隧道通信地址；
+up：启动指定的网络设备；
+-broadcast&amp;lt;地址&amp;gt;：将要送往指定地址的数据包当成广播数据包来处理；
+-pointopoint&amp;lt;地址&amp;gt;：与指定地址的网络设备建立直接连线，此模式具有保密功能；
+-promisc：关闭或启动指定网络设备的promiscuous模式；
+IP地址：指定网络设备的IP地址；
+网络设备：指定网络设备的名称。
+</code></pre><p>显示网络设备信息（激活状态的）：</p>
+<pre><code>[root@jet ~]# ifconfig
+eth0       Link encap:Ethernet  HWaddr 00:16:3E:00:1E:51  
+          inet addr:10.160.7.81  Bcast:10.160.15.255  Mask:255.255.240.0
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:61430830 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:88534 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:3607197869 (3.3 GiB)  TX bytes:6115042 (5.8 MiB)
+
+ lo        Link encap:Local Loopback  
+          inet addr:127.0.0.1  Mask:255.0.0.0
+          UP LOOPBACK RUNNING  MTU:16436  Metric:1
+          RX packets:56103 errors:0 dropped:0 overruns:0 frame:0
+          TX packets:56103 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:0
+          RX bytes:5079451 (4.8 MiB)  TX bytes:5079451 (4.8 MiB)
+</code></pre><p>【注】<br><strong>eth0</strong>表示第一块网卡，其中HWaddr表示网卡的物理地址，可以看到目前这个网卡的物理地址(MAC地址）是00:16:3E:00:1E:51。 </p>
+<p><strong>inet addr**</strong>用来表示网卡的IP地址，此网卡的IP地址是10.160.7.81，广播地址Bcast:10.160.15.255，掩码地址Mask:255.255.240.0。</p>
+<p><strong>lo</strong>是表示主机的回坏地址，这个一般是用来测试一个网络程序，但又不想让局域网或外网的用户能够查看，只能在此台主机上运行和查看所用的网络接口。比如把 httpd服务器的指定到回坏地址，在浏览器输入127.0.0.1就能看到你所架WEB网站了。但只是您能看得到，局域网的其它主机或用户无从知道。  </p>
+<p>第一行：连接类型：Ethernet（以太网）HWaddr（硬件mac地址）。<br>第二行：网卡的IP地址、子网、掩码。<br>第三行：UP（代表网卡开启状态）RUNNING（代表网卡的网线被接上）MULTICAST（支持组播）MTU:1500（最大传输单元）：1500字节。<br>第四、五行：接收、发送数据包情况统计。<br>第七行：接收、发送数据字节数统计信息。 </p>
+<p>启动关闭指定网卡：</p>
+<pre><code> ifconfig eth0 up 
+ ifconfig eth0 down 
+</code></pre><p>ifconfig eth0 up为启动网卡eth0，ifconfig eth0 down为关闭网卡eth0。ssh登陆linux服务器操作要小心，关闭了就不能开启了，除非你有多网卡。  </p>
+<p>为网卡配置和删除IPv6地址：</p>
+<pre><code> ifconfig eth0 add 33ffe:3240:800:1005::2/64 #为网卡eth0配置IPv6地址 
+ ifconfig eth0 del 33ffe:3240:800:1005::2/64 #为网卡eth0删除IPv6地址 
+</code></pre><p>用ifconfig修改MAC地址：</p>
+<pre><code>ifconfig eth0 hw ether 00:AA:BB:CC:dd:EE 
+</code></pre><p>配置IP地址：</p>
+<pre><code>[root@localhost ~]# ifconfig eth0 192.168.2.10
+[root@localhost ~]# ifconfig eth0 192.168.2.10 netmask 255.255.255.0 
+[root@localhost ~]# ifconfig eth0 192.168.2.10 netmask 255.255.255.0 broadcast 192.168.2.255 
+</code></pre><p>启用和关闭arp协议： </p>
+<pre><code>ifconfig eth0 arp #开启网卡eth0 的arp协议 
+ifconfig eth0 -arp #关闭网卡eth0 的arp协议 
+</code></pre><p>设置最大传输单元： </p>
+<pre><code>ifconfig eth0 mtu 1500 #设置能通过的最大数据包大小为 1500 bytes
+</code></pre></li>
+</ul>
+<h3 id="netstat"><a href="#netstat" class="headerlink" title="netstat"></a>netstat</h3><ul>
+<li><p><strong>打印Linux中网络系统的状态信息，可让你得知整个Linux系统的网络情况</strong></p>
+<pre><code>netstat(选项)
+
+-a或--all：显示所有连线中的Socket；
+-A&amp;lt;网络类型&amp;gt;或--&amp;lt;网络类型&amp;gt;：列出该网络类型连线中的相关地址；
+-c或--continuous：持续列出网络状态；
+-C或--cache：显示路由器配置的快取信息；
+-e或--extend：显示网络其他相关信息；
+-F或--fib：显示FIB；
+-g或--groups：显示多重广播功能群组组员名单；
+-h或--help：在线帮助； 
+-i或--interfaces：显示网络界面信息表单； 
+-l或--listening：显示监控中的服务器的Socket；
+-M或--masquerade：显示伪装的网络连线； 
+-n或--numeric：直接使用ip地址，而不通过域名服务器；
+-N或--netlink或--symbolic：显示网络硬件外围设备的符号连接名称； 
+-o或--timers：显示计时器； 
+-p或--programs：显示正在使用Socket的程序识别码和程序名称；
+-r或--route：显示Routing Table；
+-s或--statistice：显示网络工作信息统计表； 
+-t或--tcp：显示TCP传输协议的连线状况；
+-u或--udp：显示UDP传输协议的连线状况； 
+-v或--verbose：显示指令执行过程； 
+-V或--version：显示版本信息； 
+-w或--raw：显示RAW传输协议的连线状况； 
+-x或--unix：此参数的效果和指定&quot;-A unix&quot;参数相同； 
+--ip或--inet：此参数的效果和指定&quot;-A inet&quot;参数相同。
+
+eg:
+  netstat -a #列出所有端口 
+  netstat -at #列出所有tcp端口 
+  netstat -au #列出所有udp端口 
+
+  netstat -l #只显示监听端口 
+  netstat -lt #只列出所有监听 tcp 端口 
+  netstat -lu #只列出所有监听 udp 端口 
+  netstat -lx #只列出所有监听 UNIX 端口
+
+  netstat -s #显示所有端口的统计信息
+  netstat -st #显示TCP端口的统计信息 
+  netstat -su #显示UDP端口的统计信息
+
+  netstat -pt #在netstat输出中显示 PID 和进程名称
+</code></pre><p>netstat -p可以与其它开关一起使用，就可以添加“PID/进程名称”到netstat输出中，这样debugging的时候可以很方便的发现特定端口运行的程序。</p>
+<p>在netstat输出中不显示主机，端口和用户名(host, port or user) 当你不想让主机，端口和用户名显示，使用netstat -n。将会使用数字代替那些名称。同样可以加速输出，因为不用进行比对查询。</p>
+<pre><code> netstat -an 
+</code></pre><p>如果只是不想让这三个名称中的一个被显示，使用以下命令: </p>
+<pre><code> netsat -a --numeric-ports 
+ netsat -a --numeric-hosts 
+ netsat -a --numeric-users 
+</code></pre><p>持续输出netstat信息</p>
+<pre><code>netstat -c #每隔一秒输出网络信息 
+</code></pre><p>显示系统不支持的地址族(Address Families) </p>
+<pre><code>netstat --verbose 
+</code></pre><p>在输出的末尾，会有如下的信息：</p>
+<pre><code> netstat: no support for `AF IPX&#39; on this system. 
+ netstat: no support for `AF AX25&#39; on this system. 
+ netstat: no support for `AF X25&#39; on this system. 
+ netstat: no support for `AF NETROM&#39; on this system. 
+</code></pre><p>显示核心路由信息 </p>
+<pre><code> netstat -r 
+</code></pre><p>使用netstat -rn显示数字格式，不查询主机名称。</p>
+<p>找出程序运行的端口 </p>
+<p>并不是所有的进程都能找到，没有权限的会不显示，使用 root 权限查看所有的信息。</p>
+<pre><code>netstat -ap | grep ssh 
+</code></pre><p>找出运行在指定端口的进程：</p>
+<pre><code>netstat -an | grep &#39;:80&#39; 
+</code></pre><p>显示网络接口列表 </p>
+<pre><code>netstat -i 
+</code></pre><p>显示详细信息，像是ifconfig使用</p>
+<pre><code>netstat -ie。 
+</code></pre><p>IP和TCP分析 查看连接某服务端口最多的的IP地址：</p>
+<pre><code>netstat -ntu | grep :80 | awk &#39;{print $5}&#39; | cut -d: -f1 | awk &#39;{++ip[$1]} END {for(i in ip) print ip[i],&quot;\t&quot;,i}&#39; | sort -nr  
+</code></pre><p>TCP各种状态列表： </p>
+<pre><code>netstat -nt | grep -e 127.0.0.1 -e 0.0.0.0 -e ::: -v | awk &#39;/^tcp/ {++state[$NF]} END {for(i in state) print i,&quot;\t&quot;,state[i]}&#39;
+</code></pre><p>查看phpcgi进程数，如果接近预设值，说明不够用，需要增加： </p>
+<pre><code>netstat -anpo | grep &quot;php-cgi&quot; | wc -l
+</code></pre></li>
+</ul>
+<h3 id="telnet"><a href="#telnet" class="headerlink" title="telnet"></a>telnet</h3><ul>
+<li><p><strong>登录远程主机，对远程主机进行管理</strong></p>
+<p>telnet因为采用明文传送报文，安全性不好，很多Linux服务器都不开放telnet服务，而改用更安全的ssh方式了。但仍然有很多别的系统可能采用了telnet方式来提供远程登录，因此弄清楚telnet客户端的使用方式仍是很有必要的。</p>
+<pre><code>telnet(选项)(参数)
+
+-8：允许使用8位字符资料，包括输入与输出；
+-a：尝试自动登入远端系统； 
+-b&lt;主机别名&gt;：使用别名指定远端主机名称；
+-c：不读取用户专属目录里的.telnetrc文件； 
+-d：启动排错模式； 
+-e&lt;脱离字符&gt;：设置脱离字符；
+-E：滤除脱离字符； 
+-f：此参数的效果和指定&quot;-F&quot;参数相同； 
+-F：使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机； 
+-k&lt;域名&gt;：使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名；
+-K：不自动登入远端主机； 
+-l&lt;用户名称&gt;：指定要登入远端主机的用户名称；
+-L：允许输出8位字符资料； 
+-n&lt;记录文件&gt;：指定文件记录相关信息； 
+-r：使用类似rlogin指令的用户界面； 
+-S&lt;服务类型&gt;：设置telnet连线所需的ip TOS信息； 
+-x：假设主机有支持数据加密的功能，就使用它；
+-X&lt;认证形态&gt;：关闭指定的认证形态。
+
+eg:
+  [root@jet oschina_hexo_server]# telnet 124.251.54.61 5001
+  Trying 124.251.54.61...
+  Connected to 124.251.54.61.
+  Escape character is &#39;^]&#39;.
+  SSH-2.0-OpenSSH_6.7
+</code></pre></li>
+</ul>
+<h3 id="ping"><a href="#ping" class="headerlink" title="ping"></a>ping</h3><ul>
+<li><p><strong>测试主机之间网络的连通性</strong></p>
+<p>执行ping指令会使用ICMP传输协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。</p>
+<pre><code>  ping(选项)(参数)
+
+  -d：使用Socket的SO_DEBUG功能；
+  -c&lt;完成次数&gt;：设置完成要求回应的次数；
+  -f：极限检测； 
+  -i&lt;间隔秒数&gt;：指定收发信息的间隔时间； 
+  -I&lt;网络界面&gt;：使用指定的网络界面送出数据包； 
+  -l&lt;前置载入&gt;：设置在送出要求信息之前，先行发出的数据包；
+  -n：只输出数值； 
+  -p&lt;范本样式&gt;：设置填满数据包的范本样式； 
+  -q：不显示指令执行过程，开头和结尾的相关信息除外； 
+  -r：忽略普通的Routing Table，直接将数据包送到远端主机上；
+  -R：记录路由过程； 
+  -s&lt;数据包大小&gt;：设置数据包的大小； 
+  -t&lt;存活数值&gt;：设置存活数值TTL的大小； 
+  -v：详细显示指令的执行过程。
+
+  eg:
+    [root@jet oschina_hexo_server]# ping www.baidu.com
+    PING www.a.shifen.com (220.181.112.244) 56(84) bytes of data.
+    64 bytes from 220.181.112.244: icmp_seq=1 ttl=45 time=13.9 ms
+    64 bytes from 220.181.112.244: icmp_seq=2 ttl=45 time=3.27 ms
+    64 bytes from 220.181.112.244: icmp_seq=3 ttl=45 time=2.46 ms
+    64 bytes from 220.181.112.244: icmp_seq=4 ttl=45 time=3.39 ms
+    64 bytes from 220.181.112.244: icmp_seq=5 ttl=45 time=2.42 ms
+    64 bytes from 220.181.112.244: icmp_seq=6 ttl=45 time=2.70 ms
+    64 bytes from 220.181.112.244: icmp_seq=7 ttl=45 time=2.54 ms
+    64 bytes from 220.181.112.244: icmp_seq=8 ttl=45 time=3.78 ms
+    64 bytes from 220.181.112.244: icmp_seq=9 ttl=45 time=3.20 ms
+    64 bytes from 220.181.112.244: icmp_seq=10 ttl=45 time=2.46 ms
+    64 bytes from 220.181.112.244: icmp_seq=11 ttl=45 time=2.56 ms
+    64 bytes from 220.181.112.244: icmp_seq=12 ttl=45 time=2.74 ms
+    64 bytes from 220.181.112.244: icmp_seq=13 ttl=45 time=2.42 ms
+    64 bytes from 220.181.112.244: icmp_seq=14 ttl=45 time=2.46 ms
+    #ctrl + c 结束
+    --- www.a.shifen.com ping statistics ---
+    14 packets transmitted, 14 received, 0% packet loss, time 13555ms
+    rtt min/avg/max/mdev = 2.420/3.596/13.902/2.889 ms
+</code></pre></li>
+</ul>
+<h3 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h3><ul>
+<li><p><strong>用来设置文件系统相关功能</strong></p>
+<p>ftp服务器在网上较为常见，Linux ftp命令的功能是用命令的方式来控制在本地机和远程机之间传送文件，这里详细介绍Linux ftp命令的一些经常使用的命令，相信掌握了这些使用Linux进行ftp操作将会非常容易。</p>
+<pre><code>  ftp(选项)(参数)
+
+  -d：详细显示指令执行过程，便于排错或分析程序执行的情况；
+  -i：关闭互动模式，不询问任何问题；
+  -g：关闭本地主机文件名称支持特殊字符的扩充特性； 
+  -n：不使用自动登录； 
+  -v：显示指令执行过程。
+
+  FTP&gt;ascii: 设定以ASCII方式传送文件(缺省值) 
+  FTP&gt;bell: 每完成一次文件传送,报警提示. 
+  FTP&gt;binary: 设定以二进制方式传送文件. 
+  FTP&gt;bye: 终止主机FTP进程,并退出FTP管理方式. 
+  FTP&gt;case: 当为ON时,用MGET命令拷贝的文件名到本地机器中,全部转换为小写字母. 
+  FTP&gt;cd: 同UNIX的CD命令. 
+  FTP&gt;cdup: 返回上一级目录. 
+  FTP&gt;chmod: 改变远端主机的文件权限. 
+  FTP&gt;close: 终止远端的FTP进程,返回到FTP命令状态, 所有的宏定义都被删除. 
+  FTP&gt;delete: 删除远端主机中的文件. 
+  FTP&gt;dir [remote-directory] [local-file] 列出当前远端主机目录中的文件.如果有本地文件,就将结果写至本地文件. 
+  FTP&gt;get [remote-file] [local-file] 从远端主机中传送至本地主机中. 
+  FTP&gt;help [command] 输出命令的解释. 
+  FTP&gt;lcd: 改变当前本地主机的工作目录,如果缺省,就转到当前用户的HOME目录. 
+  FTP&gt;ls [remote-directory] [local-file] 同DIR. 
+  FTP&gt;macdef: 定义宏命令. 
+  FTP&gt;mdelete [remote-files] 删除一批文件. 
+  FTP&gt;mget [remote-files] 从远端主机接收一批文件至本地主机. 
+  FTP&gt;mkdir directory-name 在远端主机中建立目录.
+  FTP&gt;mput local-files 将本地主机中一批文件传送至远端主机. 
+  FTP&gt;open host [port] 重新建立一个新的连接. 
+  FTP&gt;prompt: 交互提示模式. 
+  FTP&gt;put local-file [remote-file] 将本地一个文件传送至远端主机中. 
+  FTP&gt;pwd: 列出当前远端主机目录.
+  FTP&gt;quit: 同BYE. 
+  FTP&gt;recv remote-file [local-file] 同GET. 
+  FTP&gt;rename [from] [to] 改变远端主机中的文件名. 
+  FTP&gt;rmdir directory-name 删除远端主机中的目录. 
+  FTP&gt;send local-file [remote-file] 同PUT.
+  FTP&gt;status: 显示当前FTP的状态. 
+  FTP&gt;system: 显示远端主机系统类型. 
+  FTP&gt;user user-name [password] [account] 重新以别的用户名登录远端主机.
+  FTP&gt;? [command]: 同HELP. [command]指定需要帮助的命令名称。如果没有指定 command，ftp 将显示全部命令的列表。 
+  FTP&gt;! 从 ftp 子系统退出到外壳。
+</code></pre></li>
+</ul>
+<h3 id="sftp"><a href="#sftp" class="headerlink" title="sftp"></a>sftp</h3><ul>
+<li><p><strong>交互式的文件传输程序</strong></p>
+<p>命令的运行和使用方式与ftp命令相似，但是，sftp命令对传输的所有信息使用ssh加密，它还支持公钥认证和压缩等功能</p>
+<pre><code>-B：指定传输文件时缓冲区的大小； 
+-l：使用ssh协议版本1； 
+-b：指定批处理文件； 
+-C：使用压缩； 
+-o：指定ssh选项；
+-F：指定ssh配置文件；
+-R：指定一次可以容忍多少请求数； 
+-v：升高日志等级。
+</code></pre><p>推荐一款sftp连接工具 <a href="https://www.baidu.com/s?wd=FlashFXP&amp;rsv_spt=1&amp;rsv_iqid=0x95df0dfd0017c7a0&amp;issp=1&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=2&amp;ie=utf-8&amp;tn=baiduhome_pg&amp;rsv_enter=1&amp;rsv_sug3=2&amp;rsv_sug1=1&amp;rsv_sug7=001&amp;rsv_n=2" target="_blank" rel="external">FlashFXP</a></p>
+</li>
+</ul>
+<h3 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h3><ul>
+<li><p><strong>Linux上常用的防火墙软件</strong></p>
+<p>是netfilter项目的一部分。可以直接配置，也可以通过许多前端和图形界面配置。</p>
+<pre><code>iptables(选项)(参数)
+
+-t&lt;表&gt;：指定要操纵的表； 
+-A：向规则链中添加条目； 
+-D：从规则链中删除条目； 
+-i：向规则链中插入条目；
+-R：替换规则链中的条目；
+-L：显示规则链中已有的条目； 
+-F：清楚规则链中已有的条目；
+-Z：清空规则链中的数据包计算器和字节计数器；
+-N：创建新的用户自定义规则链； 
+-P：定义规则链中的默认目标； 
+-h：显示帮助信息； 
+-p：指定要匹配的数据包协议类型；
+-s：指定要匹配的数据包源ip地址； 
+-j&lt;目标&gt;：指定要跳转的目标； 
+-i&lt;网络接口&gt;：指定数据包进入本机的网络接口； 
+-o&lt;网络接口&gt;：指定数据包要离开本机所使用的网络接口。
+</code></pre><p>iptables命令选项输入顺序：</p>
+<pre><code>   iptables -t 表名 &lt;-A/I/D/R&gt; 规则链名 [规则号] &lt;-i/o 网卡名&gt; -p 协议名 &lt;-s 源IP/源子网&gt; --sport 源端口 &lt;-d 目标IP/目标子网&gt; --dport 目标端口 -j 动作 
+</code></pre><p>表名包括：</p>
+<pre><code> raw：高级功能，如：网址过滤。
+ mangle：数据包修改（QOS），用于实现服务质量。 
+ net：地址转换，用于网关路由器。 
+ filter：包过滤，用于防火墙规则。 
+</code></pre><p>规则链名包括： I</p>
+<pre><code> NPUT链：处理输入数据包。
+ OUTPUT链：处理输出数据包。 
+ PORWARD链：处理转发数据包。 
+ PREROUTING链：用于目标地址转换（DNAT）。 
+ POSTOUTING链：用于源地址转换（SNAT）。 
+</code></pre><p>动作包括：</p>
+<pre><code> accept：接收数据包。 
+ DROP：丢弃数据包。 
+ REDIRECT：重定向、映射、透明代理。 
+ SNAT：源地址转换。
+ DNAT：目标地址转换。 
+ MASQUERADE：IP伪装（NAT），用于ADSL。 LOG：日志记录。 
+</code></pre><p>清除已有iptables规则 </p>
+<pre><code> iptables -F 
+ iptables -X 
+ iptables -Z 
+</code></pre><p>开放指定的端口 </p>
+<pre><code> iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT #允许本地回环接口(即运行本机访问本机) 
+ iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT #允许已建立的或相关连的通行   
+ iptables -A OUTPUT -j ACCEPT #允许所有本机向外的访问  
+ iptables -A INPUT -p tcp --dport 22 -j ACCEPT #允许访问22端口  
+ iptables -A INPUT -p tcp --dport 80 -j ACCEPT #允许访问80端口  
+ iptables -A INPUT -p tcp --dport 21 -j ACCEPT #允许ftp服务的21端口  
+ iptables -A INPUT -p tcp --dport 20 -j ACCEPT #允许FTP服务的20端口  
+ iptables -A INPUT -j reject #禁止其他未允许的规则访问  
+ iptables -A FORWARD -j REJECT #禁止其他未允许的规则访问 
+</code></pre><p>屏蔽IP  </p>
+<pre><code> iptables -I INPUT -s 123.45.6.7 -j DROP #屏蔽单个IP的命令  
+ iptables -I INPUT -s 123.0.0.0/8 -j DROP #封整个段即从123.0.0.1到123.255.255.254的命令  
+ iptables -I INPUT -s 124.45.0.0/16 -j DROP #封IP段即从123.45.0.1到123.45.255.254的命令  
+ iptables -I INPUT -s 123.45.6.0/24 -j DROP #封IP段即从123.45.6.1到123.45.6.254的命令是 
+</code></pre><p>查看已添加的 iptables规则  </p>
+<pre><code>iptables -L -n -v 
+Chain INPUT (policy DROP 48106 packets, 2690K bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 5075  589K ACCEPT     all  --  lo     *       0.0.0.0/0            0.0.0.0/0           
+ 191K   90M ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           tcp dpt:22
+1499K  133M ACCEPT     tcp  --  *      *       0.0.0.0/0            0.0.0.0/0           tcp dpt:80
+4364K 6351M ACCEPT     all  --  *      *       0.0.0.0/0            0.0.0.0/0           state RELATED,ESTABLISHED
+ 6256  327K ACCEPT     icmp --  *      *       0.0.0.0/0            0.0.0.0/0           
+
+Chain FORWARD (policy ACCEPT 0 packets, 0 bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+
+Chain OUTPUT (policy ACCEPT 3382K packets, 1819M bytes)
+ pkts bytes target     prot opt in     out     source               destination         
+ 5075  589K ACCEPT     all  --  *      lo      0.0.0.0/0            0.0.0.0/0  
+</code></pre><p>删除已添加的iptables规则 </p>
+<p>将所有iptables以序号标记显示，执行： </p>
+<pre><code>iptables -L -n --line-numbers 
+</code></pre><p>比如要删除INPUT里序号为8的规则，执行：</p>
+<pre><code>iptables -D INPUT 8
+</code></pre></li>
+</ul>
+<h3 id="mail"><a href="#mail" class="headerlink" title="mail"></a>mail</h3><ul>
+<li><p><strong>命令行的电子邮件发送和接收工具</strong></p>
+<p>操作的界面不像elm或pine那么容易使用，但功能非常完整。</p>
+<pre><code>mail(选项)(参数)
+
+-b&lt;地址&gt;：指定密件副本的收信人地址； 
+-c&lt;地址&gt;：指定副本的收信人地址； 
+-f&lt;邮件文件&gt;：读取指定邮件文件中的邮件； 
+-i：不显示终端发出的信息； 
+-I：使用互动模式； 
+-n：程序使用时，不使用mail.rc文件中的设置；
+-N：阅读邮件时，不显示邮件的标题； 
+-s&lt;邮件主题&gt;：指定邮件的主题；
+-u&lt;用户帐号&gt;：读取指定用户的邮件； 
+-v：执行时，显示详细的信息。
+
+mail -s &quot;Hello from jet-han.oschina.io by shell&quot; admin@oschina.io 
+hello,this is the content of mail. 
+welcome to jet-han.oschina.io
+</code></pre><p>【注】<br>　第一行是输入的命令，-s表示邮件的主题，后面的admin@oschina.io则是邮件的接收人，输入完这行命令后回车，会进入邮件正文的编写，我们可以输入任何文字，比如上面的两行。当邮件正文输入完成后，需要按CTRL+D结束输入，此时会提示你输入Cc地址，即邮件抄送地址，没有直接回车就完成了邮件的发送</p>
+<p>使用管道进行邮件发送 </p>
+<pre><code>echo &quot;hello,this is the content of mail.welcome to jet-han.oschina.io&quot; | mail -s &quot;Hello from jet-han.oschina.io by pipe&quot; admin@oschina.io  
+</code></pre></li>
+</ul>
+<p>　【注】<br> 　使用管道直接敲入这行命令即可完成邮件的发送，其中echo后的是邮件正文。</p>
+<p> 使用文件进行邮件发送 </p>
+<pre><code>  mail -s &quot;Hello from jet-han.oschina.io by file&quot; admin@oschina.io  &lt; mail.txt 
+</code></pre><p> 使用上面的命令后，我们就可以把mail.txt文件的内容作为邮件的内容发送给admin@oschina.io了。</p>
+<p> 使用上述三种方式都可以给外部邮箱进行邮件发送，但因为前面2种都是直接在shell中敲入邮件内容，因此无法输入中文，即使我们使用粘贴的方式输入了中文，那么收到的邮件也是乱码的。但第3种方式，我们可以在window下编辑好邮件内容后，放到linux下，再进行发送，这样就可以正常发送中文了。不过目前邮件的中文标题暂时没有找到解决办法。 因为mail程序本身就是调用sendmail来进行邮件发送的，因此我们可以在mail命令中使用sendmail的参数进行配置，比如我想使用特定的发件人发送邮件，可以使用如下命令：</p>
+<pre><code>  mail -s &quot;Hello from linuxde.net with sender&quot; admin@oschina.io -- -f jet@oschina.io&lt; mail.txt
+</code></pre><p> 【注】<br> 　上面的命令中，我们使用了– -f jet@oschina.io这样的参数，这是sendmail的选项，其中-f表示邮件的发送人邮件地址</p>
+<p> 很多情况下，我们也需要使用邮件来发送附件，在linux下使用mail命令发送附件也很简单，不过首先需要安装uuencode软件包，这个程序是对二进制文件进行编码使其适合通过邮件进行发送，在CentOS上安装该软件包如下：</p>
+<pre><code>yum install sharutils 
+</code></pre><p> 安装完成后我们就可以来进行附件的发送了，使用如下命令：</p>
+<pre><code>uuencode test.txt test | mail -s &quot;hello,see the attachement&quot; admin@oschina.io
+</code></pre><p> 完成后就可以把text.txt文件作为邮件的附件发送出去了。uuencode有两个参数，第一个是要发送的文件，第二个是显示的文件名称。 </p>
+<p> 这里我主要介绍的是在CentOS下使用mail发送电子邮件的一些使用方法，需要的要求是你的linux必须安装了sendmail并开启了，同时保证可以连接外网。另外，文章中提到的命令本人都经过亲自测试，保证完全可用，不过你需要将命令中的电子邮件地址换成自己的电子邮件地址</p>
+<p> 如果出现错误[Postfix] – warning: mail_queue_enter: create file maildrop Permission denied</p>
+<pre><code>    [jet@jet oschina_hexo_server]$ lpostdrop: warning: mail_queue_enter: create file maildrop/820792.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/821453.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/821762.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/822488.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/822928.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/823425.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/823907.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/824427.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/824928.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/825368.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/825899.3848: Permission denied
+    postdrop: warning: mail_queue_enter: create file maildrop/826355.3848: Permission denied
+
+
+    root@jet:/var/spool/postfix# postfix check  
+    postfix/postfix-script: warning: not owned by group postdrop: /var/spool/postfix/public  
+    postfix/postfix-script: warning: not owned by group postdrop: /var/spool/postfix/maildrop 
+
+    root@jet:/var/spool/postfix# /etc/init.d/postfix stop  
+    root@jet:/var/spool/postfix# killall -9 postdrop  
+    root@jet:/var/spool/postfix# chgrp -R postdrop /var/spool/postfix/public  
+    root@jet:/var/spool/postfix# chgrp -R postdrop /var/spool/postfix/maildrop/  
+    root@jet:/var/spool/postfix# postfix check 
+    root@jet:/var/spool/postfix# postfix start 
+    root@jet:/var/spool/postfix# postfix reload 
+    chmod g+s /usr/sbin/postqueue  
+    chmod g+s /usr/sbin/postdrop 
+
+    root@gandalf:/var/spool/postfix# postfix check #此时没有警告了
+</code></pre><h3 id="nslookup"><a href="#nslookup" class="headerlink" title="nslookup"></a>nslookup</h3><ul>
+<li><p><strong>命令是常用域名查询工具，就是查DNS信息用的命令</strong></p>
+<p>nslookup4有两种工作模式，即“交互模式”和“非交互模式”。在“交互模式”下，用户可以向域名服务器查询各类主机、域名的信息，或者输出域名中的主机列表。而在“非交互模式”下，用户可以针对一个主机或域名仅仅获取特定的名称或所需信息。  </p>
+<p>进入交互模式，直接输入nslookup命令，不加任何参数，则直接进入交互模式，此时nslookup会连接到默认的域名服务器（即<code>/etc/resolv.conf</code> 的第一个dns地址）。或者输入<code>nslookup -nameserver/ip</code>。进入非交互模式，就直接输入<code>nslookup 域名</code>就可以了。</p>
+<pre><code>  nslookup(选项)(参数)
+
+  -sil：不显示任何警告信息。
+
+  eg:
+    [jet@jet oschina_hexo_server]$ nslookup jet-han.oschina.io
+    Server:        114.114.114.114
+    Address:    114.114.114.114#53
+
+    Non-authoritative answer:
+    Name:    jet-han.oschina.io
+    Address: 103.21.119.115
+</code></pre></li>
+</ul>
+<h3 id="ip"><a href="#ip" class="headerlink" title="ip"></a>ip</h3><ul>
+<li><p><strong>显示或操纵Linux主机的路由、网络设备、策略路由和隧道，是Linux下较新的功能强大的网络配置工具</strong></p>
+<pre><code>  ip(选项)(参数)
+
+  #(参数)
+  网络对象：指定要管理的网络对象； 
+  具体操作：对指定的网络对象完成具体操作； 
+  help：显示网络对象支持的操作命令的帮助信息。
+
+  #(选项)
+  -V：显示指令版本信息；
+  -s：输出更详细的信息；
+  -f：强制使用指定的协议族；
+  -4：指定使用的网络层协议是IPv4协议； 
+  -6：指定使用的网络层协议是IPv6协议； 
+  -0：输出信息每条记录输出一行，即使内容较多也不换行显示； 
+  -r：显示主机时，不使用IP地址，而使用主机的域名。
+</code></pre><p>用ip命令显示网络设备的运行状态 </p>
+<pre><code>  [jet@jet oschina_hexo_server]$ ip -s link list
+  1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN 
+      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+      RX: bytes  packets  errors  dropped overrun mcast   
+      830        14       0       0       0       0       
+      TX: bytes  packets  errors  dropped carrier collsns 
+      830        14       0       0       0       0       
+  2: eth3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP qlen 1000
+    link/ether 00:0c:29:8b:22:5e brd ff:ff:ff:ff:ff:ff
+    RX: bytes  packets  errors  dropped overrun mcast   
+    121209665  198774   0       0       0       0       
+    TX: bytes  packets  errors  dropped carrier collsns 
+    227857521  157867   0       0       0       0 
+</code></pre><p>显示核心路由表</p>
+<pre><code>  [jet@jet oschina_hexo_server]$ ip route list 
+  10.111.24.0/24 dev eth3  proto kernel  scope link  src 10.111.24.222  metric 1 
+  default via 10.111.24.1 dev eth3  proto static 
+</code></pre><p>显示邻居表</p>
+<pre><code>  [jet@jet oschina_hexo_server]$ ip neigh list
+  fe80::ac9e:6493:cb07:4add dev eth3 lladdr 54:ee:75:03:60:e7 STALE
+  fe80::1870:3ef3:ba4f:e55b dev eth3 lladdr bc:9f:ef:8e:d3:13 STALE
+  fe80::a28d:16ff:fe84:ac43 dev eth3 lladdr a0:8d:16:84:ac:43 STALE
+  fe80::ca6:b92b:4736:a95a dev eth3 lladdr 24:a2:e1:39:ba:21 STALE
+  fe80::83c:b2a6:cc95:fae7 dev eth3 lladdr 54:4e:90:7a:6b:e3 STALE
+  fe80::8486:b8c:5150:15c1 dev eth3 lladdr 28:d2:44:74:a0:d4 STALE
+  fe80::1c2f:e7e6:82ee:17f0 dev eth3 lladdr 20:3c:ae:b0:87:88 STALE
+  fe80::78d2:a70e:cba3:5373 dev eth3 lladdr 28:d2:44:68:36:3c STALE
+  fe80::9c19:a5e5:918b:b069 dev eth3 lladdr 50:7b:9d:e6:7c:ac STALE
+  fe80::1c12:cb63:3897:fcb0 dev eth3 lladdr fc:d8:48:92:44:c9 STALE
+  fe80::184c:1bc1:a201:2fa7 dev eth3 lladdr 90:b0:ed:77:94:4a STALE
+  fe80::792a:9e54:8679:cb84 dev eth3 lladdr b8:ee:65:04:81:89 STALE
+  fe80::1098:1ed2:b23a:4ef dev eth3 lladdr 5c:ad:cf:6e:11:6a STALE
+  fe80::28bc:6b21:4fce:f51a dev eth3 lladdr 28:d2:44:c9:c0:ed STALE
+  fe80::1895:8cec:208d:5eec dev eth3 lladdr f4:5c:89:8e:ad:a5 STALE
+  fe80::1c44:bede:96a5:499a dev eth3 lladdr 20:ab:37:93:1f:43 STALE
+  fe80::5a:d7d:e3f6:6f9f dev eth3 lladdr 14:2d:27:f8:4b:79 STALE
+  fe80::61e9:b002:68c1:7ba dev eth3 lladdr 28:d2:44:6e:11:d7 STALE
+  fe80::1cbe:22d4:b466:d564 dev eth3 lladdr 40:33:1a:ad:1b:8c STALE
+  fe80::1863:6370:356f:c6ec dev eth3 lladdr 24:24:0e:de:6c:86 STALE
+  fe80::426c:8fff:fe3f:304e dev eth3 lladdr 40:6c:8f:3f:30:4e STALE
+  fe80::1824:b631:d44a:5bf3 dev eth3 lladdr 9c:fc:01:e7:c8:21 STALE
+  fe80::1038:72ee:9f9e:51ea dev eth3 lladdr 70:48:0f:60:e7:0d STALE
+  fe80::a069:d8a9:5fc0:219d dev eth3 lladdr ac:22:0b:c9:bb:6c STALE
+  fe80::8e4:27f0:1ac7:97cc dev eth3 lladdr 28:d2:44:6d:fb:6f STALE
+  fe80::59a0:8d02:8cb7:430c dev eth3 lladdr 28:d2:44:68:74:80 STALE
+  fe80::3884:7711:39ce:2b96 dev eth3 lladdr 48:5a:b6:df:8f:8d STALE
+  fe80::f8c1:52f5:5286:9bae dev eth3 lladdr 28:d2:44:75:5d:ec STALE
+  fe80::c9c:69:70b5:2796 dev eth3 lladdr 2c:20:0b:bf:2d:16 STALE
+  fe80::ee01:eeff:fe0a:fe55 dev eth3 lladdr ec:01:ee:0a:fe:55 STALE
+  fe80::3ea3:48ff:fe99:5bf6 dev eth3 lladdr 3c:a3:48:99:5b:f6 STALE
+  fe80::1092:6d00:3bfa:ad5f dev eth3 lladdr 7c:04:d0:32:44:24 STALE
+  fe80::c3e:8ab7:92f8:d0f6 dev eth3 lladdr 64:b0:a6:26:a5:f0 STALE
+  fe80::ca6:3dd9:1fe:f6a0 dev eth3 lladdr 24:24:0e:be:1a:57 STALE
+  fe80::d265:caff:fece:62c9 dev eth3 lladdr d0:65:ca:ce:62:c9 STALE
+  fe80::163e:bfff:fefc:ac78 dev eth3 lladdr 14:3e:bf:fc:ac:78 STALE
+  fe80::9ef3:87ff:fec0:c6fa dev eth3 lladdr 9c:f3:87:c0:c6:fa STALE
+  fe80::1415:65e3:71b0:4c9e dev eth3 lladdr d8:1d:72:52:6f:84 STALE
+  10.111.24.248 dev eth3 lladdr bc:75:74:5e:fb:2e STALE
+  10.111.24.220 dev eth3 lladdr 14:3e:bf:fc:ac:78 STALE
+  10.111.24.1 dev eth3 lladdr 10:47:80:28:02:e0 STALE
+  10.111.24.227 dev eth3 lladdr f4:8e:38:ba:47:3f REACHABLE
+</code></pre></li>
+</ul>
+<h3 id="scp"><a href="#scp" class="headerlink" title="scp"></a>scp</h3><ul>
+<li><p><strong>远程拷贝文件的命令</strong></p>
+<p>和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p>
+<pre><code>scp(选项)(参数)
+
+#(选项)
+-1：使用ssh协议版本1； 
+-2：使用ssh协议版本2； 
+-4：使用ipv4； -6：使用ipv6；
+-B：以批处理模式运行； 
+-C：使用压缩； 
+-F：指定ssh配置文件； 
+-l：指定宽带限制； 
+-o：指定使用的ssh选项； 
+-P：指定远程主机的端口号； 
+-p：保留文件的最后修改时间，最后访问时间和权限模式； 
+-q：不显示复制进度； 
+-r：以递归方式复制；
+-v  详细显示输出的具体情况。
+
+#(参数) 
+源文件：指定要复制的源文件。 
+目标文件：目标文件。格式为user@host：filename（文件名为目标文件的名称）。
+</code></pre></li>
+</ul>
+<p>  (1) 复制文件：</p>
+<p>  命令格式：  </p>
+<pre><code>   scp local_file remote_username@remote_ip:remote_folder  
+</code></pre><p>  或者  </p>
+<pre><code>   scp local_file remote_username@remote_ip:remote_file  
+</code></pre><p>  或者  </p>
+<pre><code>   scp local_file remote_ip:remote_folder  
+</code></pre><p>  或者 </p>
+<pre><code>   scp local_file remote_ip:remote_file 
+</code></pre><p>  第1,2个指定了用户名，命令执行后需要输入用户密码，第1个仅指定了远程的目录，文件名字不变，第2个指定了文件名 </p>
+<p>  第3,4个没有指定用户名，命令执行后需要输入用户名和密码，第3个仅指定了远程的目录，文件名字不变，第4个指定了文件名 </p>
+<p>  (2) 复制目录：</p>
+<p>  命令格式：</p>
+<pre><code>   scp -r local_folder remote_username@remote_ip:remote_folder 
+</code></pre><p>  或者  </p>
+<pre><code>   scp -r local_folder remote_ip:remote_folder  
+</code></pre><p>  第1个指定了用户名，命令执行后需要输入用户密码；<br>  第2个没有指定用户名，命令执行后需要输入用户名和密码；</p>
+<pre><code>  eg:
+  #从 本地 上传到 远程
+  scp /home/daisy/full.tar.gz root@172.19.2.75:/home/root 
+  #从 远程 下载到 本地
+  scp root@172.19.2.75:/home/root/full.tar.gz /home/daisy/
+</code></pre><h3 id="wget"><a href="#wget" class="headerlink" title="wget"></a>wget</h3><ul>
+<li><p><strong>直接从网络上下载文件</strong></p>
+<pre><code>wget [参数] [URL地址]
+-o FILE 把记录写到FILE文件中    eg : wget -O a.txt URL
+wget --limit-rate=300k URL  限速下载
+</code></pre></li>
+</ul>
+<h2 id="系统安全相关命令"><a href="#系统安全相关命令" class="headerlink" title="系统安全相关命令"></a>系统安全相关命令</h2><h3 id="vmstat"><a href="#vmstat" class="headerlink" title="vmstat"></a>vmstat</h3><ul>
+<li><strong>对操作系统的虚拟内存、进程、CPU活动进行监控</strong></li>
+</ul>
+<h3 id="iostat"><a href="#iostat" class="headerlink" title="iostat"></a>iostat</h3><ul>
+<li><p><strong>对系统的磁盘操作活动进行监视,汇报磁盘活动统计情况，同时也会汇报出CPU使用情况</strong></p>
+<pre><code> -p[磁盘] 显示磁盘和分区的情况
+</code></pre></li>
+</ul>
+<h3 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h3><ul>
+<li><p><strong>重复执行某一命令以观察变化</strong></p>
+<pre><code>watch [参数] [命令]
+-n  时隔多少秒刷新
+-d  高亮显示动态变化
+</code></pre></li>
+</ul>
+<h3 id="at"><a href="#at" class="headerlink" title="at"></a>at</h3><ul>
+<li><p><strong>在一个指定的时间执行一个指定任务，只能执行一次</strong></p>
+<pre><code>at [参数] [时间]
+HH:MM[am|pm] + number [minutes|hours|days|weeks] 强制在某年某月某日的某时刻进行该项任务
+atq 查看系统未执行的任务
+atrm n 删除编号为n的任务
+at -c n 显示编号为n的任务的内容
+</code></pre></li>
+</ul>
+<h3 id="passwd"><a href="#passwd" class="headerlink" title="passwd"></a>passwd</h3><ul>
+<li><p><strong>用于设置用户的认证信息，包括用户密码、密码过期时间等</strong></p>
+<p>系统管理者则能用它管理系统用户的密码。只有管理者可以指定用户名称，一般用户只能变更自己的密码。</p>
+<pre><code>passwd(选项)(参数)
+
+#(选项)
+-l  使密码失效
+-u  与-l相对，用户解锁
+-S  列出登陆用户passwd文件内的相关参数
+-n  后面接天数，shadow 的第 4 字段，多久不可修改密码天数
+-x  后面接天数，shadow 的第 5 字段，多久内必须要更动密码
+-w  后面接天数，shadow 的第 6 字段，密码过期前的警告天数
+-i  后面接『日期』，shadow 的第 7 字段，密码失效日期
+使用管道刘设置密码：echo &quot;zeng&quot; | passwd --stdin zenghao
+
+#(参数)
+用户名：需要设置密码的用户名。
+</code></pre><p>与用户、组账户信息相关的文件 存放用户信息：</p>
+<pre><code> /etc/passwd 
+ /etc/shadow 
+</code></pre><p>存放组信息：</p>
+<pre><code> /etc/group 
+ /etc/gshadow 
+</code></pre><p>用户信息文件分析（每项用:隔开） </p>
+<pre><code>例如：jack:X:503:504:::/home/jack/:/bin/bash
+jack　　//用户名
+X　　//口令、密码
+503　　//用户
+（0代表root、普通新建用户从500开始）
+504　　//所在组
+:　　//描述
+/home/jack/　　//用户主目录
+/bin/bash　　//用户缺省Shell
+</code></pre><p>组信息文件分析</p>
+<pre><code>例如：jack:$!$:???:13801:0:99999:7:*:*:
+jack　　//组名
+$!$　　//被加密的口令
+13801　　//创建日期与今天相隔的天数
+0　　//口令最短位数
+99999　　//用户口令
+7　　//到7天时提醒
+*　　//禁用天数
+*　　//过期天数
+</code></pre><p>如果是普通用户执行passwd只能修改自己的密码。如果新建用户后，要为新用户创建密码，则用passwd用户名，注意要以root用户的权限来创建</p>
+<pre><code>[root@jet ~]# passwd linuxde    //更改或创建linuxde用户的密码；
+Changing password for user linuxde.
+New UNIX password:          //请输入新密码；
+Retype new UNIX password:   //再输入一次；
+passwd: all authentication tokens updated successfully. //成功；
+</code></pre><p>普通用户如果想更改自己的密码，直接运行passwd即可，比如当前操作的用户是jet</p>
+<pre><code>[jet@jet ~]$ passwd
+Changing password for user linuxde. //更改jet用户的密码；
+(current) UNIX password:   //请输入当前密码；
+New UNIX password:         //请输入新密码；
+Retype new UNIX password:  //确认新密码；
+passwd: all authentication tokens updated successfully. //更改成功；
+</code></pre><p>比如我们让某个用户不能修改密码，可以用-l选项来锁定：</p>
+<pre><code>[root@localhost ~]# passwd -l linuxde    //锁定用户jet不能更改密码；
+Locking password for user linuxde.
+passwd: Success           //锁定成功；
+
+[jet@jet ~]# su linuxde   //通过su切换到jet用户；
+[jet@jet ~]$ passwd      //jet来更改密码；
+Changing password for user jet.
+Changing password for linuxde
+(current) UNIX password:          //输入jet的当前密码；
+passwd: Authentication token manipulation error     //失败，不能更改密码；
+</code></pre><p>清除密码</p>
+<pre><code>[root@jet ~]# passwd -d jet  //清除jet用户密码；
+Removing password for user jet.
+passwd: Success                         //清除成功；
+
+[root@jet ~]# passwd -S jet    //查询jet用户密码状态；
+Empty password.                         //空密码，也就是没有密码；
+</code></pre><p>【注】<br>　当我们清除一个用户的密码时，登录时就无需密码，这一点要加以注意。</p>
+</li>
+</ul>
+<h3 id="su"><a href="#su" class="headerlink" title="su"></a>su</h3><ul>
+<li><p><strong>切换当前用户身份到其他用户身份，变更时须输入所要变更的用户帐号与密码</strong></p>
+<pre><code>su [参数] user
+
+-c&lt;指令&gt;或--command=&lt;指令&gt;：执行完指定的指令后，即恢复原来的身份；  
+-f或——fast：适用于csh与tsch，使shell不用去读取启动文件； 
+-l或——login：改变身份时，也同时变更工作目录，以及HOME,SHELL,USER,logname。此外，也会变更PATH变量； 
+-m,-p或--preserve-environment：变更身份时，不要变更环境变量； 
+-s或--shell=：指定要执行的shell； 
+--help：显示帮助； 
+--version；显示版本信息。
+
+eg:
+  #变更帐号为root并在执行ls指令后退出变回原使用者： 
+  su -c ls root 
+  #变更帐号为root并传入-f选项给新执行的shell： 
+  su root -f 
+  #变更帐号为test并改变工作目录至test的家目录： 
+  su -test
+</code></pre></li>
+</ul>
+<h3 id="sudo"><a href="#sudo" class="headerlink" title="sudo"></a>sudo</h3><ul>
+<li><p><strong>以其他身份来执行命令，预设的身份为root</strong></p>
+<p>在/etc/sudoers中设置了可执行sudo指令的用户。若其未经授权的用户企图使用sudo，则会发出警告的邮件给管理员。用户使用sudo时，必须先输入密码，之后有5分钟的有效期限，超过期限则必须重新输入密码。</p>
+<pre><code>sudo(选项)(参数)
+
+-b：在后台执行指令； 
+-h：显示帮助； 
+-H：将HOME环境变量设为新身份的HOME环境变量； 
+-k：结束密码的有效期限，也就是下次再执行sudo时便需要输入密码；。 
+-l：列出目前用户可执行与无法执行的指令； 
+-p：改变询问密码的提示符号； 
+-s：执行指定的shell； -u&lt;用户&gt;：以指定的用户作为新的身份。若不加上此参数，则预设以root作为新的身份； -v：延长密码有效期限5分钟； 
+-V ：显示版本信息。
+</code></pre><p>配置sudo必须通过编辑<code>/etc/sudoers</code>文件，而且只有超级用户才可以修改它，还必须使用visudo编辑。之所以使用visudo有两个原因，一是它能够防止两个用户同时修改它；二是它也能进行有限的语法检查。所以，即使只有你一个超级用户，你也最好用visudo来检查一下语法。 </p>
+<p>visudo默认的是在vi里打开配置文件，用vi来修改文件。我们可以在编译时修改这个默认项。visudo不会擅自保存带有语法错误的配置文件，它会提示你出现的问题，并询问该如何处理，就像：</p>
+<pre><code>&gt;&gt;&gt; sudoers file: syntax error, line 22 &lt;&lt;
+</code></pre><p>此时我们有三种选择：键入“e”是重新编辑，键入“x”是不保存退出，键入“Q”是退出并保存。如果真选择Q，那么sudo将不会再运行，直到错误被纠正。 </p>
+<p>现在，我们一起来看一下神秘的配置文件，学一下如何编写它。让我们从一个简单的例子开始：让用户Foobar可以通过sudo执行所有root可执行的命令。以root身份用visudo打开配置文件，可以看到类似下面几行：</p>
+<pre><code># Runas alias specification 
+# User privilege specificationroot ALL=(ALL)ALL
+</code></pre><p>我们一看就明白个差不多了，root有所有权限，只要仿照现有root的例子就行，我们在下面加一行（最好用tab作为空白）： </p>
+<pre><code>foobar ALL=(ALL) ALL 
+</code></pre><p>保存退出后，切换到foobar用户，我们用它的身份执行命令：</p>
+<pre><code>[foobar@localhost ~]$ ls /root 
+ls: /root: 权限不够 
+
+[foobar@localhost ~]$ sudo ls /root 
+PassWord: 
+anaconda-ks.cfg Desktop install.log install.log.syslog 
+</code></pre><p>好了，我们限制一下foobar的权利，不让他为所欲为。比如我们只想让他像root那样使用ls和ifconfig，把那一行改为： </p>
+<pre><code>foobar localhost= /sbin/ifconfig, /bin/ls
+</code></pre><p>再来执行命令： </p>
+<pre><code>[foobar@localhost ~]$ sudo head -5 /etc/shadow 
+Password: 
+Sorry, user foobar is not allowed to execute &#39;/usr/bin/head -5 /etc/shadow&#39; as root on localhost.localdomain. 
+[foobar@localhost ~]$ sudo /sbin/ifconfigeth0 Linkencap:Ethernet HWaddr 00:14:85:EC:E9:9B...
+</code></pre><p>现在让我们来看一下那三个ALL到底是什么意思。第一个ALL是指网络中的主机，我们后面把它改成了主机名，它指明foobar可以在此主机上执行后面的命令。第二个括号里的ALL是指目标用户，也就是以谁的身份去执行命令。最后一个ALL当然就是指命令名了。例如，我们想让foobar用户在linux主机上以jimmy或rene的身份执行kill命令，这样编写配置文件：</p>
+<pre><code>foobar linux=(jimmy,rene) /bin/kill
+</code></pre><p>但这还有个问题，foobar到底以jimmy还是rene的身份执行？这时我们应该想到了sudo -u了，它正是用在这种时候。 foobar可以使用sudo -u jimmy kill PID或者sudo -u rene kill PID，但这样挺麻烦，其实我们可以不必每次加-u，把rene或jimmy设为默认的目标用户即可。再在上面加一行：</p>
+<pre><code>Defaults:foobar runas_default=rene 
+</code></pre><p>Defaults后面如果有冒号，是对后面用户的默认，如果没有，则是对所有用户的默认。就像配置文件中自带的一行： </p>
+<pre><code> Defaults env_reset 
+</code></pre><p>另一个问题是，很多时候，我们本来就登录了，每次使用sudo还要输入密码就显得烦琐了。我们可不可以不再输入密码呢？当然可以，我们这样修改配置文件： </p>
+<pre><code> foobar localhost=NOPASSWD: /bin/cat, /bin/ls 
+</code></pre><p>再来sudo一下： </p>
+<pre><code> [foobar@localhost ~]$ sudo ls /rootanaconda-ks.cfg Desktop install.log install.log.syslog 
+</code></pre><p>当然，你也可以说“某些命令用户foobar不可以运行”，通过使用!操作符，但这不是一个好主意。因为，用!操作符来从ALL中“剔出”一些命令一般是没什么效果的，一个用户完全可以把那个命令拷贝到别的地方，换一个名字后再来运行。</p>
+<p><strong>日志与安全</strong> </p>
+<p>sudo为安全考虑得很周到，不仅可以记录日志，还能在有必要时向系统管理员报告。但是，sudo的日志功能不是自动的，必须由管理员开启。这样来做： </p>
+<pre><code> touch /var/log/sudo 
+ vi /etc/syslog.conf 
+</code></pre><p>在syslog.conf最后面加一行（必须用tab分割开）并保存：</p>
+<pre><code> local2.debug /var/log/sudo 
+</code></pre><p>重启日志守候进程，</p>
+<pre><code> ps aux grep syslogd 
+</code></pre><p>把得到的syslogd进程的PID（输出的第二列是PID）填入下面：</p>
+<pre><code> kill –HUP PID 
+</code></pre><p>这样，sudo就可以写日志了： </p>
+<pre><code> [foobar@localhost ~]$ sudo ls /rootanaconda-ks.cfg 
+ Desktop install.log 
+ install.log.syslog 
+ $cat /var/log/sudoJul 28 22:52:54 localhost sudo: foobar : 
+ TTY=pts/1 ; pwd=/home/foobar ; USER=root ; command=/bin/ls /root 
+</code></pre><p>不过，有一个小小的“缺陷”，sudo记录日志并不是很忠实： </p>
+<pre><code> [foobar@localhost ~]$ sudo cat /etc/shadow &gt; /dev/null 
+ cat /var/log/sudo...Jul 28 23:10:24 localhost sudo: foobar : TTY=pts/1 ;
+ PWD=/home/foobar ; USER=root ; COMMAND=/bin/cat /etc/shadow 
+</code></pre><p>重定向没有被记录在案！为什么？因为在命令运行之前，shell把重定向的工作做完了，sudo根本就没看到重定向。这也有个好处，下面的手段不会得逞： </p>
+<pre><code>[foobar@localhost ~]$ sudo ls /root &gt; /etc/shadowbash: /etc/shadow: 权限不够 
+</code></pre><p>sudo 有自己的方式来保护安全。以root的身份执行sudo-V，查看一下sudo的设置。因为考虑到安全问题，一部分环境变量并没有传递给sudo后面的命令，或者被检查后再传递的，比如：PATH，HOME，SHELL等。当然，你也可以通过sudoers来配置这些环境变量。</p>
+</li>
+</ul>
+<h3 id="chgrp"><a href="#chgrp" class="headerlink" title="chgrp"></a>chgrp</h3><ul>
+<li><p><strong>改变文件或目录所属的用户组</strong></p>
+<p>该命令用来改变指定文件所属的用户组。其中，组名可以是用户组的id，也可以是用户组的组名。文件名可以 是由空格分开的要改变属组的文件列表，也可以是由通配符描述的文件集合。如果用户不是该文件的文件主或超级用户(root)，则不能改变该文件的组</p>
+<pre><code> chgrp(选项)(参数)
+
+ #(选项)
+ -c或——changes：效果类似“-v”参数，但仅回报更改的部分；
+ -f或--quiet或——silent：不显示错误信息； 
+ -h或--no-dereference：只对符号连接的文件作修改，而不是该其他任何相关文件； 
+ -R或——recursive：递归处理，将指令目录下的所有文件及子目录一并处理；
+ -v或——verbose：显示指令执行过程； 
+ --reference=&lt;参考文件或目录&gt;：把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同；
+
+ #(参数)
+ 组：指定新工作名称； 
+ 文件：指定要改变所属组的文件列表。多个文件或者目录之间使用空格隔开。
+
+ eg：  
+ chgrp users -R ./dir #递归地把dir目录下中的所有文件和子目录下所有文件的用户组修改为users 
+</code></pre></li>
+</ul>
+<h3 id="chown"><a href="#chown" class="headerlink" title="chown"></a>chown</h3><ul>
+<li><p><strong>改变某个文件或目录的所有者和所属的组</strong></p>
+<p>该命令可以向某个用户授权，使该用户变成指定文件的所有者或者改变文件所属的组。用户可以是用户或者是用户D，用户组可以是组名或组id。文件名可以使由空格分开的文件列表，在文件名中可以包含通配符。</p>
+<pre><code>chown(选项)(参数)
+#(选项)
+-c或——changes：效果类似“-v”参数，但仅回报更改的部分； 
+-f或--quite或——silent：不显示错误信息； 
+-h或--no-dereference：只对符号连接的文件作修改，而不更改其他任何相关文件；
+-R或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理； 
+-v或——version：显示指令执行过程； 
+--dereference：效果和“-h”参数相同； 
+--help：在线帮助； 
+--reference=&lt;参考文件或目录&gt;：把指定文件或目录的拥有者与所属群组全部设成和参考文件或目录的拥有者与所属群组相同； 
+--version：显示版本信息。
+
+#(参数)
+用户：组：指定所有者和所属工作组。当省略“：组”，仅改变文件所有者； 
+文件：指定要改变所有者和工作组的文件列表。支持多个文件和目标，支持shell通配符。
+
+#将目录/usr/meng及其下面的所有文件、子目录的文件主改成 liu： 
+chown -R liu /usr/meng
+
+#文件的属主和属组属性设置 
+chown user:market f01　　//把文件f01给uesr，添加到market组 ll -d f1 查看目录f1的属性
+</code></pre></li>
+</ul>
+<h3 id="chmod"><a href="#chmod" class="headerlink" title="chmod"></a>chmod</h3><ul>
+<li><p><strong>变更文件或目录的权限</strong></p>
+<p>在UNIX系统家族里，文件或目录权限的控制分别以读取、写入、执行3种一般权限来区分，另有3种特殊权限可供运用。用户可以使用chmod指令去变更文件与目录的权限，设置方式采用文字或数字代号皆可。符号连接的权限无法变更，如果用户对符号连接修改权限，其改变会作用在被连接的原始文件。</p>
+<p>权限范围的表示法如下：<br><code>u</code> User，即文件或目录的拥有者；<br><code>g</code> Group，即文件或目录的所属群组；<br><code>o</code> Other，除了文件或目录拥有者或所属群组之外，其他用户皆属于这个范围；<br><code>a</code> All，即全部的用户，包含拥有者，所属群组以及其他用户 ；<br><code>r</code> 读取权限，数字代号为“4”;<br><code>w</code> 写入权限，数字代号为“2”；<br><code>x</code> 执行或切换权限，数字代号为“1”； - 不具任何权限，数字代号为“0”；<br><code>s</code> 特殊功能说明：变更文件或目录的权限。 </p>
+<pre><code> chmod(选项)(参数)
+ #(选项)
+ -c或——changes：效果类似“-v”参数，但仅回报更改的部分； 
+ -f或--quiet或——silent：不显示错误信息； 
+ -R或——recursive：递归处理，将指令目录下的所有文件及子目录一并处理； 
+ -v或——verbose：显示指令执行过程；
+ --reference=&lt;参考文件或目录&gt;：把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同； 
+ &lt;权限范围&gt;+&lt;权限设置&gt;：开启权限范围的文件或目录的该选项权限设置； 
+ &lt;权限范围&gt;-&lt;权限设置&gt;：关闭权限范围的文件或目录的该选项权限设置； 
+ &lt;权限范围&gt;=&lt;权限设置&gt;：指定权限范围的文件或目录的该选项权限设置；
+
+ #(参数)
+ 权限模式：指定文件的权限模式； 
+ 文件：要改变权限的文件。
+
+eg：  
+  chmod 0755 file # 把file的文件权限改变为-rxwr-xr-x  
+  chmod g+w file # 向file的文件权限中加入用户组可写权限  
+</code></pre><p>Linux用 户分为：拥有者、组群(Group)、其他（other），Linux系统中，预设的情況下，系统中所有的帐号与一般身份使用者，以及root的相关信 息， 都是记录在<code>/etc/passwd</code>文件中。每个人的密码则是记录在<code>/etc/shadow</code>文件下。 此外，所有的组群名称记录在<code>/etc/group</code>內！ </p>
+<p>linux文件的用户权限的分析图</p>
+<p><img src="http://jet-han.oschina.io/images/linux/linux.gif" alt="权限" title="权限"></p>
+</li>
+<li><p><strong>文件权限管理</strong></p>
+<p><strong>三种基本权限</strong></p>
+<pre><code> R   读  数值表示为4  
+ W   写  数值表示为2  
+ X   可执行 数值表示为1  
+</code></pre></li>
+</ul>
+<p><img src="http://jet-han.oschina.io/images/linux/linux.png" alt="权限" title="权限"></p>
+<p> 如图所示，copyright.html文件的权限为-rw-rw-r—</p>
+<pre><code>  -rw-rw-r-- 一共十个字符，分成四段。
+  第一个字符“-”表示普通文件；这个位置还可能会出现“l”链接；“d”表示目录
+  第二三四个字符“rw-”表示当前所属用户的权限。     所以用数值表示为4+2=6
+  第五六七个字符“rw-”表示当前所属组的权限。        所以用数值表示为4+2=6
+  第八九十个字符“r-–”表示其他用户权限。                 所以用数值表示为4
+  所以操作此文件的权限用数值表示为664
+</code></pre><ul>
+<li><p><strong>用户及用户组管理</strong></p>
+<pre><code>/etc/passwd    存储用户账号
+/etc/group     存储组账号
+/etc/shadow    存储用户账号的密码
+/etc/gshadow   存储用户组账号的密码
+useradd        添加用户名
+userdel        删除用户名
+adduser        添加用户名
+groupadd       添加组名
+groupdel       删除组名
+passwd root    给root设置密码
+su root
+su – root
+/etc/profile   系统环境变量
+bash_profile   用户环境变量
+.bashrc        用户环境变量
+su user        切换用户，加载配置文件.bashrc
+su – user      切换用户，加载配置文件/etc/profile ，加载bash_profile
+</code></pre></li>
+</ul>
+<h3 id="who"><a href="#who" class="headerlink" title="who"></a>who</h3><ul>
+<li><p><strong>显示目前登录系统的用户信息</strong></p>
+<p>执行who命令可得知目前有那些用户登入系统，单独执行who命令会列出登入帐号，使用的终端机，登入时间以及从何处登入或正在使用哪个X显示器。</p>
+<pre><code>  who(选项)(参数)
+  #(选项)
+  -H或--heading：显示各栏位的标题信息列；
+  -i或-u或--idle：显示闲置时间，若该用户在前一分钟之内有进行任何动作，将标示成&quot;.&quot;号，如果该用户已超过24小时没有任何动作，则标示出&quot;old&quot;字符串； 
+  -m：此参数的效果和指定&quot;am i&quot;字符串相同； 
+  -q或--count：只显示登入系统的帐号名称和总人数； 
+  -s：此参数将忽略不予处理，仅负责解决who指令其他版本的兼容性问题；
+  -w或-T或--mesg或--message或--writable：显示用户的信息状态栏； 
+  --help：在线帮助；
+  --version：显示版本信息。
+
+  #(参数)
+  文件：指定查询文件。
+</code></pre></li>
+</ul>
+<h3 id="whoami"><a href="#whoami" class="headerlink" title="whoami"></a>whoami</h3><ul>
+<li><p><strong>打印当前有效的用户名称，相当于执行id -un命令</strong></p>
+<pre><code>  whoami(选项)
+
+  (选项)
+  --help：在线帮助；
+  --version：显示版本信息。
+</code></pre></li>
+</ul>
+<h3 id="which-1"><a href="#which-1" class="headerlink" title="which"></a>which</h3><ul>
+<li><p><strong>查找并显示给定命令的绝对路径</strong></p>
+<p>环境变量PATH中保存了查找命令时需要遍历的目录。which指令会在环境变量$PATH设置的目录里查找符合条件的文件。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。</p>
+<pre><code>which(选项)(参数)
+#(选项)
+-n&lt;文件名长度&gt;：制定文件名长度，指定的长度必须大于或等于所有文件中最长的文件名； 
+-p&lt;文件名长度&gt;：与-n参数相同，但此处的&lt;文件名长度&gt;包含了文件的路径；
+-w：指定输出时栏位的宽度；
+-V：显示版本信息。
+
+#(参数)
+指令名：指令名列表。
+
+查找文件、显示命令路径： 
+
+[root@jet ~]# which pwd 
+/bin/pwd 
+[root@jet ~]# which adduser 
+/usr/sbin/adduser 
+</code></pre></li>
+</ul>
+<p>　【注】<br>　which是根据使用者所配置的 PATH 变量内的目录去搜寻可运行档的！所以，不同的 PATH 配置内容所找到的命令当然不一样的！</p>
+<h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><h3 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h3><ul>
+<li><p><strong>压缩文件</strong></p>
+<p>gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩的命令，文件经它压缩过后，其名称后面会多处“.gz”扩展名，既方便又好用。gzip不仅可以用来压缩大的、较少使用的文件以节省磁盘空间，还可以和tar命令一起构成Linux操作系统中比较流行的压缩文件格式。据统计，gzip命令对文本文件有60%～70%的压缩率。减少文件大小有两个明显的好处，一是可以减少存储空间，二是通过网络传输文件时，可以减少传输的时间。</p>
+<pre><code>gzip(选项)(参数)
+#(选项)
+-a或——ascii：使用ASCII文字模式；
+-d或--decompress或----uncompress：解开压缩文件； 
+-f或——force：强行压缩文件。不理会文件名称或硬连接是否存在以及该文件是否为符号连接； 
+-h或——help：在线帮助；
+-l或——list：列出压缩文件的相关信息；
+-L或——license：显示版本与版权信息； 
+-n或--no-name：压缩文件时，不保存原来的文件名称及时间戳记； 
+-N或——name：压缩文件时，保存原来的文件名称及时间戳记； 
+-q或——quiet：不显示警告信息；
+-r或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理； 
+-S或&lt;压缩字尾字符串&gt;或----suffix&lt;压缩字尾字符串&gt;：更改压缩字尾字符串；
+-t或——test：测试压缩文件是否正确无误； 
+-v或——verbose：显示指令执行过程； 
+-V或——version：显示版本信息； -&lt;压缩效率&gt;：压缩效率是一个介于1~9的数值，预设值为“6”，指定愈大的数值，压缩效率就会愈高；
+--best：此参数的效果和指定“-9”参数相同； 
+--fast：此参数的效果和指定“-1”参数相同。
+
+#(参数)
+文件列表：指定要压缩的文件列表。
+</code></pre><p>把test6目录下的每个文件压缩成.gz文件 </p>
+<pre><code>gzip * 
+</code></pre><p>把上例中每个压缩的文件解压，并列出详细的信息 </p>
+<pre><code>gzip -dv * 
+</code></pre><p>详细显示例1中每个压缩的文件的信息，并不解压 </p>
+<pre><code>gzip -l * 
+</code></pre><p>压缩一个tar备份文件，此时压缩文件的扩展名为.tar.gz </p>
+<pre><code>gzip -r log.tar 
+</code></pre><p>递归的压缩目录 </p>
+<pre><code>gzip -rv test6 
+</code></pre><p>这样，所有test下面的文件都变成了<em>.gz，目录依然存在只是目录里面的文件相应变成了</em>.gz.这就是压缩，和打包不同。因为是对目录操作，所以需要加上-r选项，这样也可以对子目录进行递归了。 </p>
+<p>递归地解压目录 </p>
+<pre><code>gzip -dr test6
+</code></pre></li>
+</ul>
+<h3 id="gunzip"><a href="#gunzip" class="headerlink" title="gunzip"></a>gunzip</h3><ul>
+<li><p><strong>解压缩文件</strong></p>
+<p>gunzip是个使用广泛的解压缩程序，它用于解开被gzip压缩过的文件，这些压缩文件预设最后的扩展名为.gz。事实上gunzip就是gzip的硬连接，因此不论是压缩或解压缩，都可通过gzip指令单独完成。</p>
+<pre><code>gunzip(选项)(参数)
+#(选项)
+-a或——ascii：使用ASCII文字模式； 
+-c或--stdout或--to-stdout：把解压后的文件输出到标准输出设备； 
+-f或-force：强行解开压缩文件，不理会文件名称或硬连接是否存在以及该文件是否为符号连接；
+-h或——help：在线帮助； 
+-l或——list：列出压缩文件的相关信息；
+-L或——license：显示版本与版权信息； 
+-n或--no-name：解压缩时，若压缩文件内含有原来的文件名称及时间戳记，则将其忽略不予处理； 
+-N或——name：解压缩时，若压缩文件内含有原来的文件名称及时间戳记，则将其回存到解开的文件上； 
+-q或——quiet：不显示警告信息； 
+-r或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理； 
+-S或&lt;压缩字尾字符串&gt;或----suffix&lt;压缩字尾字符串&gt;：更改压缩字尾字符串；
+-t或——test：测试压缩文件是否正确无误； 
+-v或——verbose：显示指令执行过程； 
+-V或——version：显示版本信息；
+
+#(参数)
+文件列表：指定要解压缩的压缩包。
+</code></pre><p>首先将/etc目录下的所有文件以及子目录进行压缩，备份压缩包etc.zip到/opt目录，然后对etc.zip文件进行gzip压缩，设置gzip的压缩级别为9。 </p>
+<pre><code>zip –r /opt/etc.zip /etc 
+gzip -9v /opt/etc.zip
+</code></pre><p>查看上述etc.zip.gz文件的压缩信息。</p>
+<pre><code>gzip -l /opt/etc.zip.gz 
+compressed uncompressed ratio uncompressed_name 
+11938745 12767265 6.5% /opt/etc.zip 
+</code></pre><p>解压上述etc.zip.gz文件到当前目录。 </p>
+<pre><code>[root@mylinux ~]#gzip –d /opt/etc.zip.gz 
+或者执行 
+[root@mylinux ~]#gunzip /opt/etc.zip.gz 
+</code></pre><p>通过上面的示例可以知道gzip –d等价于gunzip命令。</p>
+</li>
+</ul>
+<h3 id="bzip2"><a href="#bzip2" class="headerlink" title="bzip2"></a>bzip2</h3><ul>
+<li><p><strong>创建和管理（包括解压缩）“.bz2”格式的压缩包</strong></p>
+<p>我们遇见Linux压缩打包方法有很多种，以下讲解了Linux压缩打包方法中的Linux bzip2命令的多种范例供大家查看，相信大家看完后会有很多收获。</p>
+<pre><code>bzip2(选项)(参数)
+#(选项)
+-c或——stdout：将压缩与解压缩的结果送到标准输出；
+-d或——decompress：执行解压缩； 
+-f或-force：bzip2在压缩或解压缩时，若输出文件与现有文件同名，预设不会覆盖现有文件。若要覆盖。请使用此参数； 
+-h或——help：在线帮助； 
+-k或——keep：bzip2在压缩或解压缩后，会删除原始文件。若要保留原始文件，请使用此参数； 
+-s或——small：降低程序执行时内存的使用量； 
+-t或——test：测试.bz2压缩文件的完整性； 
+-v或——verbose：压缩或解压缩文件时，显示详细的信息； 
+-z或——compress：强制执行压缩； 
+-V或——version：显示版本信息； 
+--repetitive-best：若文件中有重复出现的资料时，可利用此参数提高压缩效果； 
+--repetitive-fast：若文件中有重复出现的资料时，可利用此参数加快执行效果。
+
+#(参数)
+文件：指定要压缩的文件。
+</code></pre><p>压缩指定文件filename: </p>
+<pre><code>bzip2 filename 
+或 
+bzip2 -z filename 
+</code></pre><p>这里，压缩的时候不会输出，会将原来的文件filename给删除，替换成filename.bz2.如果以前有filename.bz2则不会替换并提示错误（如果想要替换则指定-f选项，例如bzip2 -f filename；如果filename是目录则也提醒错误不做任何操作；如果filename已经是压过的了有bz2后缀就提醒一下，不再压缩，没有bz2后缀会再次压缩。</p>
+<p>解压指定的文件filename.bz2: </p>
+<pre><code>bzip2 -d filename.bz2
+或
+bunzip2 filename.bz2 
+</code></pre><p>这里，解压的时候没标准输出，会将原来的文件filename.bz2给替换成filename。如果以前有filename则不会替换并提示错误（如果想要替换则指定-f选项，例如bzip2 -df filename.bz2。</p>
+<p>压缩解压的时候将结果也输出： </p>
+<pre><code>$bzip2 -v filename
+</code></pre><p>输入之后，输出如下：</p>
+<pre><code>filename: 0.119:1, 67.200 bits/byte, -740.00% saved, 5 in, 42 out.
+</code></pre><p>这里，加上-v选项就会输出了,只用压缩举例了，解压的时候同理bzip2 -dv filename.bz2不再举例了。</p>
+<p>模拟解压实际并不解压：</p>
+<pre><code>bzip2 -tv filename.bz2 
+</code></pre><p>输入之后，输出如下：</p>
+<pre><code>filename.bz2: ok 
+</code></pre><p>这里，-t指定要进行模拟解压，不实际生成结果，也就是说类似检查文件,当然就算目录下面有filename也不会有什么错误输出了，因为它根本不会真的解压文件。为了在屏幕上输出，这里加上-v选项了,如果是真的解压bzip2 -dv filename.bz2则输出的是把”ok”替换成了”done”。</p>
+<p>压缩解压的时候，除了生成结果文件，将原来的文件也保存: </p>
+<pre><code>bzip2 -k filename 
+</code></pre><p>这里，加上-k就保存原始的文件了，否则原始文件会被结果文件替代。只用压缩举例了，解压的时候同理$bzip2 -dk filename.bz2不再举例了。 </p>
+<p>解压到标准输出：</p>
+<pre><code>bzip2 -dc filename.bz2 
+</code></pre><p>输入之后，输出如下： </p>
+<pre><code>hahahhaahahha 
+</code></pre><p>这里，使用-c指定到标准输出，输出的是文件filename的内容，不会将filename.bz2删除。 </p>
+<p>压缩到标准输出： </p>
+<pre><code>bzip2 -c filename 
+bzip2: I won&#39;t write compressed data to a terminal.
+bzip2: For help, type: `bzip2 --help&#39;.
+</code></pre><p>这里，使用<code>-c</code>指定压缩到标准输出不删除原有文件，不同的是，压缩后的文件无法输出到标准输出。</p>
+<p>使用bzip2的时候将所有后面的看作文件(即使文件名以’-‘开头)：</p>
+<pre><code>bzip2 -- -myfilename 
+</code></pre><p>这里主要是为了防止文件名中-产生以为是选项的歧义。</p>
+</li>
+</ul>
+<h3 id="bzcat"><a href="#bzcat" class="headerlink" title="bzcat"></a>bzcat</h3><ul>
+<li><p><strong>读取数据而无需解压</strong></p>
+<p>解压缩指定的.bz2文件，并显示解压缩后的文件内容。保留原压缩文件，并且不生成解压缩后的文件</p>
+<pre><code> bzcat(参数)
+ #(参数)
+ .bz2压缩文件：指定要显示内容的.bz2压缩文件。
+</code></pre><p>将/tmp/man.config以bzip2格式压缩：</p>
+<pre><code>bzip2 -z man.config 
+</code></pre><p>此时man.config会变成man.config.bz2 将上面的压缩文件内容读出来： </p>
+<pre><code>bzcat man.config.bz2 
+</code></pre><p>此时屏幕上会显示 man.config.bz2 解压缩之后的文件内容。</p>
+</li>
+</ul>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><ul>
+<li><p><strong>为linux的文件和目录创建档案</strong></p>
+<p>利用tar，可以为某一特定文件创建档案（备份文件），也可以在档案中改变文件，或者向档案中加入新的文件。tar最初被用来在磁带上创建档案，现在，用户可以在任何设备上创建档案。利用tar命令，可以把一大堆的文件和目录全部打包成一个文件，这对于备份文件或将几个文件组合成为一个文件以便于网络传输是非常有用的。 首先要弄清两个概念：打包和压缩。打包是指将一大堆文件或目录变成一个总的文件；压缩则是将一个大的文件通过一些压缩算法变成一个小文件。 为什么要区分这两个概念呢？这源于Linux中很多压缩程序只能针对一个文件进行压缩，这样当你想要压缩一大堆文件时，你得先将这一大堆文件先打成一个包（tar命令），然后再用压缩程序进行压缩（gzip bzip2命令）。</p>
+<pre><code> tar(选项)(参数)
+ #(选项)
+ -A或--catenate：新增文件到以存在的备份文件；
+ -B：设置区块大小； 
+ -c或--create：建立新的备份文件； 
+ -C &lt;目录&gt;：这个选项用在解压缩，若要在特定目录解压缩，可以使用这个选项。
+ -d：记录文件的差别； 
+ -x或--extract或--get：从备份文件中还原文件；
+ -t或--list：列出备份文件的内容； 
+ -z或--gzip或--ungzip：通过gzip指令处理备份文件；
+ -Z或--compress或--uncompress：通过compress指令处理备份文件；
+ -f&lt;备份文件&gt;或--file=&lt;备份文件&gt;：指定备份文件；
+ -v或--verbose：显示指令执行过程； 
+ -r：添加文件到已经压缩的文件； 
+ -u：添加改变了和现有的文件到已经存在的压缩文件； 
+ -j：支持bzip2解压文件；
+ -v：显示操作过程；
+ -l：文件系统边界设置；
+ -k：保留原有文件不覆盖；
+ -m：保留文件不被覆盖；
+ -w：确认压缩文件的正确性； 
+ -p或--same-permissions：用原来的文件权限还原文件；
+ -P或--absolute-names：文件名使用绝对名称，不移除文件名称前的“/”号； 
+ -N &lt;日期格式&gt; 或 --newer=&lt;日期时间&gt;：只将较指定日期更新的文件保存到备份文件里； 
+ --exclude=&lt;范本样式&gt;：排除符合范本样式的文件。
+
+ #(参数)
+ 文件或目录：指定要打包的文件或目录列表。
+</code></pre><p>将文件全部打包成tar包：</p>
+<pre><code> tar -jcvf filename.tar.bz2 要被压缩的档案或目录名称 #压 缩
+ tar -jtvf filename.tar.bz2 #查 询
+ tar -jxvf filename.tar.bz2 -C 欲解压缩的目录 #解压缩
+ tar -cvf log.tar log2012.log  #仅打包，不压缩！ 
+ tar -zcvf log.tar.gz log2012.log  #打包后，以 gzip 压缩 
+ tar -jcvf log.tar.bz2 log2012.log #打包后，以 bzip2 压缩 
+</code></pre><p>在选项f之后的文件档名是自己取的，我们习惯上都用 .tar 来作为辨识。 如果加z选项，则以.tar.gz或.tgz来代表gzip压缩过的tar包；如果加j选项，则以.tar.bz2来作为tar包名。</p>
+<p>查阅上述tar包内有哪些文件： </p>
+<p>   tar -ztvf log.tar.gz </p>
+<p>由于我们使用 gzip 压缩的log.tar.gz，所以要查阅log.tar.gz包内的文件时，就得要加上z这个选项了。 </p>
+<p>将tar包解压缩：</p>
+<p>   tar -zxvf /opt/soft/test/log.tar.gz </p>
+<p>在预设的情况下，我们可以将压缩档在任何地方解开的 </p>
+<p>只将tar内的部分文件解压出来： </p>
+<p>   tar -zxvf /opt/soft/test/log30.tar.gz log2013.log </p>
+<p>我可以透过tar -ztvf来查阅 tar 包内的文件名称，如果单只要一个文件，就可以透过这个方式来解压部分文件！ </p>
+<p>文件备份下来，并且保存其权限：</p>
+<p>   tar -zcvpf log31.tar.gz log2014.log log2015.log log2016.log </p>
+<p>这个-p的属性是很重要的，尤其是当您要保留原本文件的属性时。</p>
+<p>在文件夹当中，比某个日期新的文件才备份： </p>
+<p>   tar -N “2012/11/13” -zcvf log17.tar.gz test </p>
+<p>备份文件夹内容是排除部分文件：</p>
+<p>   tar —exclude scf/service -zcvf scf.tar.gz scf/* </p>
+<p>其实最简单的使用 tar 就只要记忆底下的方式即可：</p>
+<p>   压　缩：tar -jcv -f filename.tar.bz2 要被压缩的文件或目录名称<br>   查　询：tar -jtv -f filename.tar.bz2<br>   解压缩：tar -jxv -f filename.tar.bz2 -C 欲解压缩的目录</p>
+</li>
+</ul>
+<h3 id="users"><a href="#users" class="headerlink" title="users"></a>users</h3><ul>
+<li><strong>显示当前登录系统地用户</strong></li>
+</ul>
+<h3 id="who-1"><a href="#who-1" class="headerlink" title="who"></a>who</h3><ul>
+<li><p><strong>登录在本机的用户与来源</strong></p>
+<pre><code>-H或--heading 　显示各栏位的标题信息列。
+</code></pre></li>
+</ul>
+<h3 id="w"><a href="#w" class="headerlink" title="w"></a>w</h3><ul>
+<li><p><strong>登录在本机的用户及其运行的程序</strong></p>
+<pre><code>  -s 　使用简洁格式列表，不显示用户登入时间，终端机阶段作业和程序所耗费的CPU时间。
+  -h 　不显示各栏位的标题信息列。
+</code></pre></li>
+</ul>
+<h3 id="write"><a href="#write" class="headerlink" title="write"></a>write</h3><ul>
+<li><strong>给当前联机的用户发消息</strong></li>
+</ul>
+<h3 id="wall"><a href="#wall" class="headerlink" title="wall"></a>wall</h3><ul>
+<li><strong>给所有登录再本机的用户发消息</strong></li>
+</ul>
+<h3 id="last"><a href="#last" class="headerlink" title="last"></a>last</h3><ul>
+<li><strong>查看用户的登陆日志</strong></li>
+</ul>
+<h3 id="lastlog"><a href="#lastlog" class="headerlink" title="lastlog"></a>lastlog</h3><ul>
+<li><strong>查看每个用户最后的登陆时间</strong></li>
+</ul>
+<h3 id="finger"><a href="#finger" class="headerlink" title="finger"></a>finger</h3><ul>
+<li><p><strong>查看用户信息</strong></p>
+<pre><code>-s 显示用户的注册名、实际姓名、终端名称、写状态、停滞时间、登录时间等信息
+-l 除了用-s选项显示的信息外，还显示用户主目录、登录shell、邮件状态等信息，以及用户主目录下的.plan、.project和.forward文件的内容。
+-p 除了不显示.plan文件和.project文件以外，与-l选项相同
+</code></pre></li>
+</ul>
+<h3 id="hostname"><a href="#hostname" class="headerlink" title="hostname"></a>hostname</h3><ul>
+<li><strong>查看主机名</strong></li>
+</ul>
+<h3 id="alias"><a href="#alias" class="headerlink" title="alias"></a>alias</h3><ul>
+<li><strong>添加别名</strong></li>
+</ul>
+<h3 id="unalias"><a href="#unalias" class="headerlink" title="unalias"></a>unalias</h3><ul>
+<li><strong>清除别名</strong></li>
+</ul>
+<h3 id="chage"><a href="#chage" class="headerlink" title="chage"></a>chage</h3><ul>
+<li><p>**修改用户密码的相关属性</p>
+<pre><code>-l  列出该账号的详细密码参数；
+-d  后面接日期，修改 shadow 第三字段(最近一次更改密码的日期)，格式YYYY-MM-DD
+-E  后面接日期，修改 shadow 第八字段(账号失效日)，格式 YYYY-MM-DD
+-I  后面接天数，修改 shadow 第七字段(密码失效日期)
+-m  后面接天数，修改 shadow 第四字段(密码最短保留天数)
+-M  后面接天数，修改 shadow 第五字段(密码多久需要进行变更)
+-W  后面接天数，修改 shadow 第六字段(密码过期前警告日期)
+</code></pre><h3 id="usermod"><a href="#usermod" class="headerlink" title="usermod"></a>usermod</h3></li>
+<li><p><strong>修改用户的相关属性</strong></p>
+<pre><code>-c  后面接账号的说明，即 /etc/passwd 第五栏的说明栏，可以加入一些账号的说明。
+-d  后面接账号的家目录，即修改 /etc/passwd 的第六栏；
+-e  后面接日期，格式是 YYYY-MM-DD 也就是在 /etc/shadow 内的第八个字段数据啦！
+-f  后面接天数为 shadow 的第七字段。
+-g  后面接初始群组，修改 /etc/passwd 的第四个字段，亦即是GID的字段！
+-G  后面接次要群组，修改这个使用者能够支持的群组
+-l  后面接账号名称。亦即是修改账号名称， /etc/passwd 的第一栏！
+-s  后面接 Shell 的实际档案，例如 /bin/bash 或 /bin/csh 等等。
+-u  后面接 UID 数字啦！即 /etc/passwd 第三栏的资料；
+-L  冻结密码
+-U  解冻密码
+</code></pre></li>
+</ul>
+<h3 id="id"><a href="#id" class="headerlink" title="id"></a>id</h3><ul>
+<li><strong>查看用户相关的id信息，还可以用来判断用户是否存在</strong></li>
+</ul>
+<h3 id="groups"><a href="#groups" class="headerlink" title="groups"></a>groups</h3><ul>
+<li><strong>查看登陆用户支持的群组， 第一个输出的群组为有效群组</strong></li>
+</ul>
+<h3 id="newgrp"><a href="#newgrp" class="headerlink" title="newgrp"></a>newgrp</h3><ul>
+<li><strong>切换有效群组</strong></li>
+</ul>
+<h3 id="groupmod"><a href="#groupmod" class="headerlink" title="groupmod"></a>groupmod</h3><ul>
+<li><p><strong>修改组信息</strong></p>
+<pre><code>-g  修改既有的 GID 数字
+-n  修改既有的组名
+</code></pre></li>
+</ul>
+<h3 id="groupdel-1"><a href="#groupdel-1" class="headerlink" title="groupdel"></a>groupdel</h3><ul>
+<li><strong>删除群组</strong></li>
+</ul>
+<h3 id="gpasswd"><a href="#gpasswd" class="headerlink" title="gpasswd"></a>gpasswd</h3><ul>
+<li><p><strong>群组管理员功能</strong></p>
+<pre><code>root管理员动作：
+    -gpasswd groupname 设定密码
+    -gpasswd [-A user1,...] [-M user3,...] groupname
+        -A  将 groupname 的主控权交由后面的使用者管理(该群组的管理员)
+        -M  将某些账号加入这个群组当中
+    -gpasswd [-r] groupname
+        -r  将 groupname 的密码移除
+群组管理员动作：
+    - gpasswd [-ad] user groupname 
+        -a  将某位使用者加入到 groupname 这个群组当中
+        -d  将某位使用者移除出 groupname 这个群组当中
+</code></pre></li>
+</ul>
+<h3 id="chfn"><a href="#chfn" class="headerlink" title="chfn"></a>chfn</h3><ul>
+<li><strong>修改个人信息</strong></li>
+</ul>
+<h3 id="cut"><a href="#cut" class="headerlink" title="cut"></a>cut</h3><ul>
+<li><p><strong>Print selected parts of lines from each FILE to standard output</strong></p>
+<pre><code>  -b ：以字节为单位进行分割。这些字节位置将忽略多字节字符边界，除非也指定了 -n 标志。
+  -c ：以字符为单位进行分割。
+  -d ：自定义分隔符，默认为制表符。
+  -f  ：与-d一起使用，指定显示哪个区域。
+</code></pre><h3 id="sort"><a href="#sort" class="headerlink" title="sort"></a>sort</h3></li>
+<li><p><strong>sort</strong></p>
+<pre><code>  -n   依照数值的大小排序。
+  -o&lt;输出文件&gt;   将排序后的结果存入指定的文件。
+  -r   以相反的顺序来排序。
+  -t&lt;分隔字符&gt;   指定排序时所用的栏位分隔字符。
+  -k  选择以哪个区间进行排序。
+</code></pre></li>
+</ul>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><ul>
+<li><strong>显示环境变量和普通变量</strong></li>
+</ul>
+<h3 id="env"><a href="#env" class="headerlink" title="env"></a>env</h3><ul>
+<li><strong>显示环境变量</strong></li>
+</ul>
+<h3 id="export"><a href="#export" class="headerlink" title="export"></a>export</h3><ul>
+<li><strong>把普通变量变成环境变量</strong></li>
+</ul>
+<h3 id="unset"><a href="#unset" class="headerlink" title="unset"></a>unset</h3><ul>
+<li><p><strong>删除一个环境变量</strong></p>
+<pre><code>aaa(){} 定义函数
+</code></pre><h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3></li>
+<li><p><strong>read</strong></p>
+<pre><code>-p  接提示字符
+-t  接等待的秒数
+</code></pre></li>
+</ul>
+<h3 id="declare-typeset"><a href="#declare-typeset" class="headerlink" title="declare/typeset"></a>declare/typeset</h3><ul>
+<li><p><strong>declare、typeset</strong></p>
+<pre><code>-i 声明为整数
+-a 声明为数组
+-f 声明为函数
+-r 声明为只读
+</code></pre></li>
+</ul>
+<h3 id="ulimit"><a href="#ulimit" class="headerlink" title="ulimit"></a>ulimit</h3><ul>
+<li><p><strong>限制使用者的某些系统资源</strong></p>
+<pre><code>-f  此 shell 可以建立的最大档案容量 (一般可能设定为 2GB)单位为 Kbytes eg: ulimit -f 1024 
+限制使用者仅能建立 1MBytes 以下的容量的档案
+</code></pre></li>
+</ul>
+<h3 id="date"><a href="#date" class="headerlink" title="date"></a>date</h3><ul>
+<li><p><strong>显示或设定系统的日期与时间</strong></p>
+<pre><code>date [参数]… [+格式]
+
+%H 小时(以00-23来表示)。 
+%M 分钟(以00-59来表示)。 
+%P AM或PM。
+%D 日期(含年月日)
+%U 该年中的周数。
+date -s “2015-10-17 01:01:01″ //时间设定
+date +%Y%m%d         //显示前天年月日
+date +%Y%m%d --date=&quot;+1 day/month/year&quot;  //显示前一天/月/年的日期
+date +%Y%m%d --date=&quot;-1 day/month/year&quot;  //显示后一天/月/年的日期
+date -d &#39;2 weeks&#39; 2周后的日期
+</code></pre></li>
+</ul>
+<h3 id="cal"><a href="#cal" class="headerlink" title="cal"></a>cal</h3><ul>
+<li><p><strong>查看日历</strong></p>
+<pre><code>-1  显示当月的月历
+-3  显示前、当、后一个月的日历
+-m  显示星期一为一个星期的第一天
+-s  （默认）星期天为第一天
+-j  显示当月是一年中的第几天的日历
+-y  显示当前年份的日历
+</code></pre></li>
+</ul>
+<h3 id="gcc"><a href="#gcc" class="headerlink" title="gcc"></a>gcc</h3><ul>
+<li><p><strong>命令</strong></p>
+<p>对于一个用Linux开发C程序的人来说，这个命令就非常重要了，它用于把C语言的源程序文件，编译成可执行程序，由于g++的很多参数跟它非常相似，所以这里只介绍gcc的参数，它的常用参数如下：</p>
+<pre><code>[plain] view plain copy print?
+-o ：output之意，用于指定生成一个可执行文件的文件名  
+-c ：用于把源文件生成目标文件（.o)，并阻止编译器创建一个完整的程序  
+-I ：增加编译时搜索头文件的路径  
+-L ：增加编译时搜索静态连接库的路径  
+-S ：把源文件生成汇编代码文件  
+-lm：表示标准库的目录中名为libm.a的函数库  
+-lpthread ：连接NPTL实现的线程库  
+-std= ：用于指定把使用的C语言的版本  
+
+# 例如：  
+# 把源文件test.c按照c99标准编译成可执行程序test  
+gcc -o test test.c -lm -std=c99  
+#把源文件test.c转换为相应的汇编程序源文件test.s  
+gcc -S test.c  
+</code></pre><h3 id="time"><a href="#time" class="headerlink" title="time"></a>time</h3></li>
+<li><p><strong>测算一个命令（即程序）的执行时间</strong></p>
+<p>它的使用非常简单，就像平时输入命令一样，不过在命令的前面加入一个time即可，例如：</p>
+<pre><code>[plain] view plain copy print?
+time ./process  
+time ps aux  
+</code></pre><p>在程序或命令运行结束后，在最后输出了三个时间，它们分别是：<br>user：用户CPU时间，命令执行完成花费的用户CPU时间，即命令在用户态中执行时间总和；<br>system：系统CPU时间，命令执行完成花费的系统CPU时间，即命令在核心态中执行时间总和；<br>real：实际时间，从command命令行开始执行到运行终止的消逝时间；</p>
+<p>注：用户CPU时间和系统CPU时间之和为CPU时间，即命令占用CPU执行的时间总和。实际时间要大于CPU时间，因为Linux是多任务操作系统，往往在执行一条命令时，系统还要处理其它任务。另一个需要注意的问题是即使每次执行相同命令，但所花费的时间也是不一样，其花费时间是与系统运行相关的。</p>
+</li>
+</ul>
+<h3 id="查看内存溢出"><a href="#查看内存溢出" class="headerlink" title="查看内存溢出"></a>查看内存溢出</h3><ul>
+<li><p><strong>查看内存溢出</strong></p>
+<pre><code>jmap -heap pid #打印heap的概要信息 
+jmap -histo pid #打印每个class的实例数目，内存占用，类全名信息 
+jmap -dump:format=b,file=heap.bin pid #输出heap信息到heap.bin文件 
+jhat -J-mx768m heap.bin #分析heap.bin文件 
+jstack -l pid &gt; deadlock.jstack #输出stack信息到deadlock.jstack 
+vi deadlock.jstack #使用vi查看
+</code></pre></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果文章对您有用请随意打赏，谢谢支持！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/weChat.jpg" alt="JET WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/Alipay.jpg" alt="JET Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+         
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jethan.bid/images/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jethan.bid/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jethan.bid/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jethan.bid" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jethan.bid" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jethan.bid/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jethan.bid/" style="color:#258FC6">http://jethan.bid/</a> ），版权所有，侵权必究。</p>
+</div>
+</div>
+
+
+      
+    </div> 
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux/" rel="tag"># linux</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/10/数据库之mysql-一/" rel="next" title="数据库之mysql(一)">
+                <i class="fa fa-chevron-left"></i> 数据库之mysql(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <div class="bdsharebuttonbox">
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+    <a href="#" class="bds_tieba" data-cmd="tieba" title="分享到百度贴吧"></a>
+    <a href="#" class="bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+    <a href="#" class="bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a class="bds_count" data-cmd="count"></a>
+  </div>
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "2",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "share": {
+        "bdSize": "16",
+        "bdStyle": "0"
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/ali.jpg"
+               alt="JET" />
+          <p class="site-author-name" itemprop="name">JET</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/jethan" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/fajie_han" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/jet-77-36" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://git.oschina.net/jet-han" target="_blank" title="码云">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  码云
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.baidu.com" title="百度" target="_blank">百度</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和登录命令"><span class="nav-number">2.</span> <span class="nav-text">安装和登录命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#shutdown-halt-reboot-exit-logout"><span class="nav-number">2.1.</span> <span class="nav-text">shutdown/halt/reboot/exit/logout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mount-umount"><span class="nav-number">2.2.</span> <span class="nav-text">mount/umount</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件处理命令"><span class="nav-number">3.</span> <span class="nav-text">文件处理命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#awk"><span class="nav-number">3.1.</span> <span class="nav-text">awk</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sed"><span class="nav-number">3.2.</span> <span class="nav-text">sed</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paste"><span class="nav-number">3.3.</span> <span class="nav-text">paste</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wc"><span class="nav-number">3.4.</span> <span class="nav-text">wc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uniq"><span class="nav-number">3.5.</span> <span class="nav-text">uniq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#file"><span class="nav-number">3.6.</span> <span class="nav-text">file</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mkdir"><span class="nav-number">3.7.</span> <span class="nav-text">mkdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">3.8.</span> <span class="nav-text">grep</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">3.9.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dd"><span class="nav-number">3.10.</span> <span class="nav-text">dd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gt-gt-gt-dev-null-dev-zero"><span class="nav-number">3.11.</span> <span class="nav-text">>->>-/dev/null-/dev/zero</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm"><span class="nav-number">3.12.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cd"><span class="nav-number">3.13.</span> <span class="nav-text">cd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ls"><span class="nav-number">3.14.</span> <span class="nav-text">ls</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mv"><span class="nav-number">3.15.</span> <span class="nav-text">mv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cp"><span class="nav-number">3.16.</span> <span class="nav-text">cp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#touch"><span class="nav-number">3.17.</span> <span class="nav-text">touch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pwd"><span class="nav-number">3.18.</span> <span class="nav-text">pwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rmdir"><span class="nav-number">3.19.</span> <span class="nav-text">rmdir</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rm-1"><span class="nav-number">3.20.</span> <span class="nav-text">rm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echo"><span class="nav-number">3.21.</span> <span class="nav-text">echo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cat"><span class="nav-number">3.22.</span> <span class="nav-text">cat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tac"><span class="nav-number">3.23.</span> <span class="nav-text">tac</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#more"><span class="nav-number">3.24.</span> <span class="nav-text">more</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#less"><span class="nav-number">3.25.</span> <span class="nav-text">less</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nl"><span class="nav-number">3.26.</span> <span class="nav-text">nl</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#head"><span class="nav-number">3.27.</span> <span class="nav-text">head</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tail"><span class="nav-number">3.28.</span> <span class="nav-text">tail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vi"><span class="nav-number">3.29.</span> <span class="nav-text">vi</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#管道"><span class="nav-number">3.30.</span> <span class="nav-text">管道</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">3.31.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ln"><span class="nav-number">3.32.</span> <span class="nav-text">ln</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#which"><span class="nav-number">3.33.</span> <span class="nav-text">which</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whereis"><span class="nav-number">3.34.</span> <span class="nav-text">whereis</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate"><span class="nav-number">3.35.</span> <span class="nav-text">locate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统管理相关命令"><span class="nav-number">4.</span> <span class="nav-text">系统管理相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ps"><span class="nav-number">4.1.</span> <span class="nav-text">ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#df"><span class="nav-number">4.2.</span> <span class="nav-text">df</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#du"><span class="nav-number">4.3.</span> <span class="nav-text">du</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#top"><span class="nav-number">4.4.</span> <span class="nav-text">top</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#free"><span class="nav-number">4.5.</span> <span class="nav-text">free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quota"><span class="nav-number">4.6.</span> <span class="nav-text">quota</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kill"><span class="nav-number">4.7.</span> <span class="nav-text">kill</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#killall"><span class="nav-number">4.8.</span> <span class="nav-text">killall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#useradd"><span class="nav-number">4.9.</span> <span class="nav-text">useradd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupadd"><span class="nav-number">4.10.</span> <span class="nav-text">groupadd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupdel"><span class="nav-number">4.11.</span> <span class="nav-text">groupdel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#crontab"><span class="nav-number">4.12.</span> <span class="nav-text">crontab</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络操作命令"><span class="nav-number">5.</span> <span class="nav-text">网络操作命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ifconfig"><span class="nav-number">5.1.</span> <span class="nav-text">ifconfig</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#netstat"><span class="nav-number">5.2.</span> <span class="nav-text">netstat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#telnet"><span class="nav-number">5.3.</span> <span class="nav-text">telnet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ping"><span class="nav-number">5.4.</span> <span class="nav-text">ping</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ftp"><span class="nav-number">5.5.</span> <span class="nav-text">ftp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sftp"><span class="nav-number">5.6.</span> <span class="nav-text">sftp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iptables"><span class="nav-number">5.7.</span> <span class="nav-text">iptables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mail"><span class="nav-number">5.8.</span> <span class="nav-text">mail</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nslookup"><span class="nav-number">5.9.</span> <span class="nav-text">nslookup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ip"><span class="nav-number">5.10.</span> <span class="nav-text">ip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scp"><span class="nav-number">5.11.</span> <span class="nav-text">scp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wget"><span class="nav-number">5.12.</span> <span class="nav-text">wget</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统安全相关命令"><span class="nav-number">6.</span> <span class="nav-text">系统安全相关命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vmstat"><span class="nav-number">6.1.</span> <span class="nav-text">vmstat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#iostat"><span class="nav-number">6.2.</span> <span class="nav-text">iostat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#watch"><span class="nav-number">6.3.</span> <span class="nav-text">watch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#at"><span class="nav-number">6.4.</span> <span class="nav-text">at</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#passwd"><span class="nav-number">6.5.</span> <span class="nav-text">passwd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#su"><span class="nav-number">6.6.</span> <span class="nav-text">su</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sudo"><span class="nav-number">6.7.</span> <span class="nav-text">sudo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chgrp"><span class="nav-number">6.8.</span> <span class="nav-text">chgrp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chown"><span class="nav-number">6.9.</span> <span class="nav-text">chown</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chmod"><span class="nav-number">6.10.</span> <span class="nav-text">chmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#who"><span class="nav-number">6.11.</span> <span class="nav-text">who</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#whoami"><span class="nav-number">6.12.</span> <span class="nav-text">whoami</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#which-1"><span class="nav-number">6.13.</span> <span class="nav-text">which</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它命令"><span class="nav-number">7.</span> <span class="nav-text">其它命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gzip"><span class="nav-number">7.1.</span> <span class="nav-text">gzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gunzip"><span class="nav-number">7.2.</span> <span class="nav-text">gunzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzip2"><span class="nav-number">7.3.</span> <span class="nav-text">bzip2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#bzcat"><span class="nav-number">7.4.</span> <span class="nav-text">bzcat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">7.5.</span> <span class="nav-text">tar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#users"><span class="nav-number">7.6.</span> <span class="nav-text">users</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#who-1"><span class="nav-number">7.7.</span> <span class="nav-text">who</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#w"><span class="nav-number">7.8.</span> <span class="nav-text">w</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#write"><span class="nav-number">7.9.</span> <span class="nav-text">write</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#wall"><span class="nav-number">7.10.</span> <span class="nav-text">wall</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#last"><span class="nav-number">7.11.</span> <span class="nav-text">last</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lastlog"><span class="nav-number">7.12.</span> <span class="nav-text">lastlog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#finger"><span class="nav-number">7.13.</span> <span class="nav-text">finger</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hostname"><span class="nav-number">7.14.</span> <span class="nav-text">hostname</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias"><span class="nav-number">7.15.</span> <span class="nav-text">alias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unalias"><span class="nav-number">7.16.</span> <span class="nav-text">unalias</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chage"><span class="nav-number">7.17.</span> <span class="nav-text">chage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#usermod"><span class="nav-number">7.18.</span> <span class="nav-text">usermod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id"><span class="nav-number">7.19.</span> <span class="nav-text">id</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groups"><span class="nav-number">7.20.</span> <span class="nav-text">groups</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#newgrp"><span class="nav-number">7.21.</span> <span class="nav-text">newgrp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupmod"><span class="nav-number">7.22.</span> <span class="nav-text">groupmod</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#groupdel-1"><span class="nav-number">7.23.</span> <span class="nav-text">groupdel</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gpasswd"><span class="nav-number">7.24.</span> <span class="nav-text">gpasswd</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#chfn"><span class="nav-number">7.25.</span> <span class="nav-text">chfn</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cut"><span class="nav-number">7.26.</span> <span class="nav-text">cut</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sort"><span class="nav-number">7.27.</span> <span class="nav-text">sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">7.28.</span> <span class="nav-text">set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#env"><span class="nav-number">7.29.</span> <span class="nav-text">env</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#export"><span class="nav-number">7.30.</span> <span class="nav-text">export</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unset"><span class="nav-number">7.31.</span> <span class="nav-text">unset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#read"><span class="nav-number">7.32.</span> <span class="nav-text">read</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#declare-typeset"><span class="nav-number">7.33.</span> <span class="nav-text">declare/typeset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ulimit"><span class="nav-number">7.34.</span> <span class="nav-text">ulimit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#date"><span class="nav-number">7.35.</span> <span class="nav-text">date</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cal"><span class="nav-number">7.36.</span> <span class="nav-text">cal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gcc"><span class="nav-number">7.37.</span> <span class="nav-text">gcc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#time"><span class="nav-number">7.38.</span> <span class="nav-text">time</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看内存溢出"><span class="nav-number">7.39.</span> <span class="nav-text">查看内存溢出</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+</div>
+
+
+<div class="powered-by">
+   私人所有
+</div>
+
+<div class="theme-info">
+  个人博客 - JET
+</div>
+<div class="total_count">
+本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+<span id="showDays"></span>
+</div>
+
+<script>
+	var birthDay = new Date('05/24/2017');
+	var now = new Date();
+	var duration = now.getTime() - birthDay.getTime();
+	var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+	document.getElementById('showDays').innerHTML='本站已运行' + total + '天';
+</script>
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "df3b3cf1ebaf4488b87044d478fddc2c",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("YcjsC7wG4DKNtrrxgWjheyjY-gzGzoHsz", "cK3ml93qLNpDivARtibfGlqW");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

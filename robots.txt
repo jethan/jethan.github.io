@@ -1,0 +1,8 @@
+# robotstxt.org/
+
+User-agent: *
+Allow: /
+Disallow: /css
+Disallow: /js
+Sitemap: http://jet-han.oschina.io/sitemap.xml
+Sitemap: http://jet-han.oschina.io/baidusitemap.xml
