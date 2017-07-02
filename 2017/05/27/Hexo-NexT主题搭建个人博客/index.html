@@ -113,14 +113,14 @@
 <meta property="og:title" content="Hexo-NexT主题搭建个人博客">
 <meta property="og:url" content="http://jet-han.oschina.io/2017/05/27/Hexo-NexT主题搭建个人博客/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:image" content="http://jet-han.oschina.io/images/icons/leiqiu.jpg">
+<meta property="og:image" content="http://jet-han.oschina.io/images/icons/hexo.jpg">
 <meta property="og:image" content="http://jethan.bid/images/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/express.png">
 <meta property="og:image" content="http://jethan.bid/images/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/hexo.png">
 <meta property="og:image" content="http://jethan.bid/images/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/hexo-next.png">
-<meta property="og:updated_time" content="2017-06-21T12:28:47.369Z">
+<meta property="og:updated_time" content="2017-06-24T08:51:50.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hexo-NexT主题搭建个人博客">
-<meta name="twitter:image" content="http://jet-han.oschina.io/images/icons/leiqiu.jpg">
+<meta name="twitter:image" content="http://jet-han.oschina.io/images/icons/hexo.jpg">
 
 
 
@@ -254,7 +254,7 @@ if(typeof scritpsrclink == 'undefined') {
     <div class="headband"></div>
 
     <a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
-         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jethan.bid/images/fork.png"
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jethan.bid/images/icons/fork.png"
          alt="Fork me on GitHub">
     </a>
 
@@ -458,8 +458,8 @@ if(typeof scritpsrclink == 'undefined') {
               
                 <span class="post-meta-item-text">更新于</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2017-06-21T20:28:47+08:00">
-                2017-06-21
+              <time title="更新于" itemprop="dateModified" datetime="2017-06-24T16:51:50+08:00">
+                2017-06-24
               </time>
             
           </span>
@@ -532,7 +532,7 @@ if(typeof scritpsrclink == 'undefined') {
       
 
       
-        <p><img src="http://jet-han.oschina.io/images/icons/leiqiu.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
+        <p><img src="http://jet-han.oschina.io/images/icons/hexo.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
 <a id="more"></a>
 <p>linux下搭建hexo之next主题个人博客，仅供参考！有问题请留言，谢谢支持！</p>
 <h1 id="所需环境"><a href="#所需环境" class="headerlink" title="所需环境"></a>所需环境</h1><ul>
@@ -783,7 +783,7 @@ tags: [nodejs, hexo, next]   #[标签1, 标签2..., 标签n]
 ---
 </code></pre></li>
 </ul>
-<h2 id="新增留言功能"><a href="#新增留言功能" class="headerlink" title="新增留言功能"></a>新增留言功能</h2><ul>
+<h2 id="网易云跟帖评论功能"><a href="#网易云跟帖评论功能" class="headerlink" title="网易云跟帖评论功能"></a>网易云跟帖评论功能</h2><ul>
 <li><p>主题配置文件</p>
 <pre><code>menu:
   home: /
@@ -824,12 +824,9 @@ tags: [nodejs, hexo, next]   #[标签1, 标签2..., 标签n]
 hexo g
 hexo s
 </code></pre></li>
-</ul>
-<h2 id="网易云跟帖评论功能"><a href="#网易云跟帖评论功能" class="headerlink" title="网易云跟帖评论功能"></a>网易云跟帖评论功能</h2><ul>
-<li><p>进入官网<a href="http://duoshuo.com/" target="_blank" rel="external">http://duoshuo.com/</a> 进行登录，建议不要使用微信进行登录，容易出现Scope 参数错误或没有 Scope 权限的问题。登录完成在首页进入后台管理，在设置里面包含：域名：zhangsan.duoshuo.com<br>在主题配置文件中<br>修改如下, duoshuo_shortname的值就是域名中的zhangsan</p>
-<pre><code> duoshuo_shortname: zhangsan  #开启多说评论功能
- #Share
- duoshuo_share: true          #开启多说的文章分享功能
+<li><p>进入官网<a href="https://manage.gentie.163.com" target="_blank" rel="external">https://manage.gentie.163.com</a> 进行注册、登录（可以用QQ）。登录完成在首页进入后台管理，填写基本信息（站点信息），获取代码找到 <code>productKey</code>的值，写入主题配置文件<code>gentie_productKey</code>处<br>在主题配置文件中<br>修改如下</p>
+<pre><code> # Gentie productKey
+ gentie_productKey: your key
 </code></pre></li>
 <li><p>留言功能已完成<br>去掉分类和其他的选项的留言功能，只需修改index.md<br>在source/categories/index.md 中修改如下</p>
 <pre><code>---
@@ -889,12 +886,12 @@ links:
 </ul>
 <h2 id="新增阅读量"><a href="#新增阅读量" class="headerlink" title="新增阅读量"></a>新增阅读量</h2><ul>
 <li><p>为每一篇文章统计阅读量<br>使用leancloud进行文章变更统计，进入官网<a href="https://leancloud.cn/" target="_blank" rel="external">https://leancloud.cn/</a> 注册<br>打开LeanCloud官网，进入注册页面注册。完成邮箱激活后，点击头像，进入控制台页面<br>创建新应用<br>点击应用创建新应用，应用名称随便起<br>创建Class文件<br>进入到应用后点击存储，在左侧点击设置，选择”创建Class”，名称必须为Counter<br>修改主题配置文件</p>
-<h2 id="文章阅读量"><a href="#文章阅读量" class="headerlink" title="文章阅读量"></a>文章阅读量</h2><pre><code>  leancloud_visitors:
+<pre><code>##文章阅读量
+  leancloud_visitors:
 enable: true
 app_id: **你的app_id**
 app_key: **你的app_key**
-</code></pre></li>
-<li><p>其中，app_id和app_key在你所创建的应用的设置-&gt;应用Key中<br>修改 themes/next/layout_macro/post.swig 文件<br>配置themes/next/layout/_layout.swig文件<br>在最后div标签中查找是否引用了_scripts/third-party/lean-analytics.swig文件，如果没有增加以下代码<br>修改语言配置文件 themes/next/languages/zh-Hans.yml post字段</p>
+</code></pre><p>其中，app_id和app_key在你所创建的应用的设置-&gt;应用Key中<br>修改 themes/next/layout_macro/post.swig 文件<br>配置themes/next/layout/_layout.swig文件<br>在最后div标签中查找是否引用了_scripts/third-party/lean-analytics.swig文件，如果没有增加以下代码<br>修改语言配置文件 themes/next/languages/zh-Hans.yml post字段</p>
 <pre><code>post:
   sticky: 置顶
   posted: 发表于
@@ -940,7 +937,7 @@ tags: [nodejs, hexo]
 </code></pre></li>
 </ul>
 <h2 id="为文章增加分享"><a href="#为文章增加分享" class="headerlink" title="为文章增加分享"></a>为文章增加分享</h2><ul>
-<li><p>使用百度分享<br>多说评论在前面的使用留言功能已经介绍了，这里只修改主题配置文件即可</p>
+<li><p>使用百度分享<br>只修改主题配置文件即可</p>
 <pre><code> baidushare:
    type: button
 </code></pre></li>
@@ -983,14 +980,15 @@ highlight_theme: night eighties       # 修改即可
   field: post
 </code></pre></li>
 </ul>
-<h2 id="统计站点访次数和访问量"><a href="#统计站点访次数和访问量" class="headerlink" title="统计站点访次数和访问量"></a>统计站点访次数和访问量</h2><ul>
+<h2 id="不蒜子统计站点访次数和访问量"><a href="#不蒜子统计站点访次数和访问量" class="headerlink" title="不蒜子统计站点访次数和访问量"></a>不蒜子统计站点访次数和访问量</h2><ul>
 <li><p>修改themes/next/layout/_partials目录下的footer.swig</p>
-<pre><code>&lt;div class=&quot;theme-info&quot;&gt;
-  {{ __('footer.theme') }} -
-  &lt;a class=&quot;theme-link&quot; href=&quot;https://github.com/iissnan/hexo-theme-next&quot;&gt;
-    NexT.{{ theme.scheme }}
-  &lt;/a&gt;
+<pre><code>&lt;div class=&quot;total_count&quot;&gt;
+本站共 &lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;site_pv&quot;&gt;次访问&lt;/span&gt;
+您是第 &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;site_uv&quot;&gt;个小伙伴&lt;/span&gt;
+本页累计 &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;page_pv&quot;&gt;次阅读&lt;/span&gt;
+&lt;span id=&quot;showDays&quot;&gt;&lt;/span&gt;
 &lt;/div&gt;
+{% endif %}
 </code></pre></li>
 </ul>
 <h2 id="百度-google收录你的站点"><a href="#百度-google收录你的站点" class="headerlink" title="百度/google收录你的站点"></a>百度/google收录你的站点</h2><ul>
@@ -1390,7 +1388,7 @@ deploy:
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#所需环境"><span class="nav-number">1.</span> <span class="nav-text">所需环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs安装"><span class="nav-number">1.1.</span> <span class="nav-text">nodejs安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git安装"><span class="nav-number">1.2.</span> <span class="nav-text">git安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Hexo"><span class="nav-number">2.</span> <span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令解释"><span class="nav-number">2.1.</span> <span class="nav-text">命令解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单栏"><span class="nav-number">2.2.</span> <span class="nav-text">菜单栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签和分类"><span class="nav-number">2.3.</span> <span class="nav-text">标签和分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增留言功能"><span class="nav-number">2.4.</span> <span class="nav-text">新增留言功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网易云跟帖评论功能"><span class="nav-number">2.5.</span> <span class="nav-text">网易云跟帖评论功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改头像"><span class="nav-number">2.6.</span> <span class="nav-text">修改头像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧边栏社交链接"><span class="nav-number">2.7.</span> <span class="nav-text">侧边栏社交链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#友情链接"><span class="nav-number">2.8.</span> <span class="nav-text">友情链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章配置"><span class="nav-number">2.9.</span> <span class="nav-text">文章配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启阅读全文"><span class="nav-number">2.9.1.</span> <span class="nav-text">开启阅读全文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增阅读量"><span class="nav-number">2.10.</span> <span class="nav-text">新增阅读量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章阅读量"><span class="nav-number">2.11.</span> <span class="nav-text">文章阅读量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章最近更新时间"><span class="nav-number">2.12.</span> <span class="nav-text">文章最近更新时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为文章增加分享"><span class="nav-number">2.13.</span> <span class="nav-text">为文章增加分享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为文章增加打赏"><span class="nav-number">2.14.</span> <span class="nav-text">为文章增加打赏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代码高亮主题"><span class="nav-number">2.15.</span> <span class="nav-text">设置代码高亮主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章添加音乐链接"><span class="nav-number">2.16.</span> <span class="nav-text">文章添加音乐链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地站内搜索"><span class="nav-number">2.17.</span> <span class="nav-text">本地站内搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计站点访次数和访问量"><span class="nav-number">2.18.</span> <span class="nav-text">统计站点访次数和访问量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度-google收录你的站点"><span class="nav-number">2.19.</span> <span class="nav-text">百度/google收录你的站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计本站运行天数"><span class="nav-number">2.20.</span> <span class="nav-text">统计本站运行天数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯公益404页面"><span class="nav-number">3.</span> <span class="nav-text">腾讯公益404页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#托管到github"><span class="nav-number">4.</span> <span class="nav-text">托管到github</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#所需环境"><span class="nav-number">1.</span> <span class="nav-text">所需环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nodejs安装"><span class="nav-number">1.1.</span> <span class="nav-text">nodejs安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git安装"><span class="nav-number">1.2.</span> <span class="nav-text">git安装</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Hexo"><span class="nav-number">2.</span> <span class="nav-text">安装Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令解释"><span class="nav-number">2.1.</span> <span class="nav-text">命令解释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#菜单栏"><span class="nav-number">2.2.</span> <span class="nav-text">菜单栏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标签和分类"><span class="nav-number">2.3.</span> <span class="nav-text">标签和分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网易云跟帖评论功能"><span class="nav-number">2.4.</span> <span class="nav-text">网易云跟帖评论功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改头像"><span class="nav-number">2.5.</span> <span class="nav-text">修改头像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#侧边栏社交链接"><span class="nav-number">2.6.</span> <span class="nav-text">侧边栏社交链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#友情链接"><span class="nav-number">2.7.</span> <span class="nav-text">友情链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章配置"><span class="nav-number">2.8.</span> <span class="nav-text">文章配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#开启阅读全文"><span class="nav-number">2.8.1.</span> <span class="nav-text">开启阅读全文</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新增阅读量"><span class="nav-number">2.9.</span> <span class="nav-text">新增阅读量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章最近更新时间"><span class="nav-number">2.10.</span> <span class="nav-text">文章最近更新时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为文章增加分享"><span class="nav-number">2.11.</span> <span class="nav-text">为文章增加分享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为文章增加打赏"><span class="nav-number">2.12.</span> <span class="nav-text">为文章增加打赏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代码高亮主题"><span class="nav-number">2.13.</span> <span class="nav-text">设置代码高亮主题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文章添加音乐链接"><span class="nav-number">2.14.</span> <span class="nav-text">文章添加音乐链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地站内搜索"><span class="nav-number">2.15.</span> <span class="nav-text">本地站内搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不蒜子统计站点访次数和访问量"><span class="nav-number">2.16.</span> <span class="nav-text">不蒜子统计站点访次数和访问量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百度-google收录你的站点"><span class="nav-number">2.17.</span> <span class="nav-text">百度/google收录你的站点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统计本站运行天数"><span class="nav-number">2.18.</span> <span class="nav-text">统计本站运行天数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#腾讯公益404页面"><span class="nav-number">3.</span> <span class="nav-text">腾讯公益404页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#托管到github"><span class="nav-number">4.</span> <span class="nav-text">托管到github</span></a></li></ol></div>
             
 
           </div>

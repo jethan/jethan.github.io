@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-06-22T15:17:47.090Z</updated>
+  <updated>2017-06-24T08:51:50.158Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/"/>
     <id>http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/</id>
     <published>2017-06-19T10:27:17.000Z</published>
-    <updated>2017-06-22T15:17:47.090Z</updated>
+    <updated>2017-06-24T08:51:50.158Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/pikaqiu3.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/linux.jpg" alt="linux" title="linux"></p>
 <a id="more"></a>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>　◆ <strong>安装和登录命令：</strong>login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；<br>　◆ <strong>文件处理命令：</strong>file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；<br>　◆ <strong>系统管理相关命令：</strong>df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；<br>　◆ <strong>网络操作命令：</strong>ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、nslookup；<br>　◆ <strong>系统安全相关命令：</strong>passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who、which、whois；<br>　◆ <strong>其它命令：</strong>tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。</p>
 <p><strong>系统管理命令</strong></p>
@@ -77,7 +77,7 @@ halt        #关机
 reboot      #重启
 exit   #退出当前shell
 logout  #退出登录shell
-</code></pre><h3 id="mount-umount"><a href="#mount-umount" class="headerlink" title="mount/umount"></a>mount/umount</h3><p><strong>命令说明</strong></p>
+</code></pre><h3 id="mount-unmount"><a href="#mount-unmount" class="headerlink" title="mount/unmount"></a>mount/unmount</h3><p><strong>命令说明</strong></p>
 <pre><code>fdisk -l   #查看磁盘情况
 fdisk /dev/sda   #为/dev/sda设备分区
 m   #显示所有命令
@@ -2758,6 +2758,106 @@ su – user      切换用户，加载配置文件/etc/profile ，加载bash_pro
 </code></pre></li>
 </ul>
 <p>　【注】<br>　which是根据使用者所配置的 PATH 变量内的目录去搜寻可运行档的！所以，不同的 PATH 配置内容所找到的命令当然不一样的！</p>
+<h3 id="ntpdate"><a href="#ntpdate" class="headerlink" title="ntpdate"></a>ntpdate</h3><p><strong>设置本地日期和时间</strong></p>
+<p> 服务器的时间不对的时候，可以使用ntpdate工具来校正时间。</p>
+<pre><code> ntpdate ip/site
+
+ eg:
+  /usr/sbin/ntpdate time.windows.com
+</code></pre><p> 以下是一些可用的NTP服务器地址：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>IP</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>210.72.145.44</td>
+<td>210.72.145.44</td>
+<td>中国（国家授时中心）</td>
+</tr>
+<tr>
+<td>133.100.11.8</td>
+<td>133.100.11.8</td>
+<td>日本（福冈大学）</td>
+</tr>
+<tr>
+<td>time-a.nist.gov</td>
+<td>129.6.15.28</td>
+<td>NIST,Gaithersburg,Maryland</td>
+</tr>
+<tr>
+<td>time-b.nist.gov</td>
+<td>129.6.15.29</td>
+<td>NIST,Gaithersburg,Maryland</td>
+</tr>
+<tr>
+<td>time-a.timefreq.bldrdoc.gov</td>
+<td>132.163.4.101</td>
+<td>NIST,Boulder,Colorado</td>
+</tr>
+<tr>
+<td>time-b.timefreq.bldrdoc.gov</td>
+<td>132.163.4.102</td>
+<td>NIST,Boulder,Colorado</td>
+</tr>
+<tr>
+<td>time-c.timefreq.bldrdoc.gov</td>
+<td>132.163.4.103</td>
+<td>NIST,Boulder,Colorado</td>
+</tr>
+<tr>
+<td>utcnist.colorado.edu</td>
+<td>128.138.140.44</td>
+<td>UniversityofColorado,Boulder</td>
+</tr>
+<tr>
+<td>time.nist.gov</td>
+<td>192.43.244.18</td>
+<td>NCAR,Boulder,Colorado</td>
+</tr>
+<tr>
+<td>time-nw.nist.gov</td>
+<td>131.107.1.10</td>
+<td>Microsoft,Redmond,Washington</td>
+</tr>
+<tr>
+<td>nist1.symmetricom.com</td>
+<td>69.25.96.13</td>
+<td>Symmetricom,SanJose,California</td>
+</tr>
+<tr>
+<td>nist1-dc.glassey.com</td>
+<td>216.200.93.8</td>
+<td>Abovenet,Virginia</td>
+</tr>
+<tr>
+<td>nist1-ny.glassey.com</td>
+<td>208.184.49.9</td>
+<td>Abovenet,NewYorkCity</td>
+</tr>
+<tr>
+<td>nist1-sj.glassey.com</td>
+<td>207.126.98.204</td>
+<td>Abovenet,SanJose,California</td>
+</tr>
+<tr>
+<td>nist1.aol-ca.truetime.com</td>
+<td>207.200.81.113</td>
+<td>TrueTime,AOLfacility,Sunnyvale,California</td>
+</tr>
+<tr>
+<td>nist1.aol-va.truetime.com</td>
+<td>64.236.96.53</td>
+<td>TrueTime,AOLfacility,Virginia</td>
+</tr>
+</tbody>
+</table>
+</div>
 <h2 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h2><h3 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h3><ul>
 <li><p><strong>压缩文件</strong></p>
 <p>gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩的命令，文件经它压缩过后，其名称后面会多处“.gz”扩展名，既方便又好用。gzip不仅可以用来压缩大的、较少使用的文件以节省磁盘空间，还可以和tar命令一起构成Linux操作系统中比较流行的压缩文件格式。据统计，gzip命令对文本文件有60%～70%的压缩率。减少文件大小有两个明显的好处，一是可以减少存储空间，二是通过网络传输文件时，可以减少传输的时间。</p>
@@ -3182,7 +3282,7 @@ vi deadlock.jstack #使用vi查看
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/pikaqiu3.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/linux.jpg&quot; alt=&quot;linux&quot; title=&quot;linux&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -3198,9 +3298,9 @@ vi deadlock.jstack #使用vi查看
     <link href="http://jet-han.oschina.io/2017/06/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8Bmysql-%E4%B8%80/"/>
     <id>http://jet-han.oschina.io/2017/06/10/数据库之mysql-一/</id>
     <published>2017-06-10T02:28:09.000Z</published>
-    <updated>2017-06-21T12:28:47.369Z</updated>
+    <updated>2017-06-24T08:51:50.159Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/lu.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <a id="more"></a>
 <h1 id="忘记mysql-root密码"><a href="#忘记mysql-root密码" class="headerlink" title="忘记mysql root密码"></a>忘记mysql root密码</h1><ul>
 <li><p>本站所有环境都是linux下</p>
@@ -3340,7 +3440,7 @@ mysql&gt;source test3.sql #恢复
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/lu.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -3356,9 +3456,9 @@ mysql&gt;source test3.sql #恢复
     <link href="http://jet-han.oschina.io/2017/05/30/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/"/>
     <id>http://jet-han.oschina.io/2017/05/30/Markdown-语法说明/</id>
     <published>2017-05-30T09:21:02.000Z</published>
-    <updated>2017-06-21T12:28:47.369Z</updated>
+    <updated>2017-06-24T08:51:50.157Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/pikaqiu.jpg" alt="Markdown" title="Markdown"></p>
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/markdown.jpg" alt="Markdown" title="Markdown"></p>
 <a id="more"></a>
 <h1 id="斜体和粗体"><a href="#斜体和粗体" class="headerlink" title="斜体和粗体"></a>斜体和粗体</h1><ul>
 <li><p><strong>代码:</strong></p>
@@ -3432,7 +3532,7 @@ mysql&gt;source test3.sql #恢复
 &lt;fajie_han@foxmail.com&gt;
 </code></pre><p><strong>显示效果：</strong></p>
 <p> <a href="https://www.baidu.com/" target="_blank" rel="external">https://www.baidu.com/</a></p>
-<p> <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#102;&#97;&#x6a;&#x69;&#x65;&#95;&#x68;&#x61;&#x6e;&#64;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#102;&#97;&#x6a;&#x69;&#x65;&#95;&#x68;&#x61;&#x6e;&#64;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p> <a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x66;&#97;&#x6a;&#x69;&#x65;&#x5f;&#x68;&#x61;&#x6e;&#64;&#x66;&#x6f;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;">&#x66;&#97;&#x6a;&#x69;&#x65;&#x5f;&#x68;&#x61;&#x6e;&#64;&#x66;&#x6f;&#120;&#109;&#97;&#105;&#108;&#x2e;&#99;&#111;&#x6d;</a></p>
 </li>
 </ul>
 <h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul>
@@ -3881,10 +3981,10 @@ $$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
 </code></pre><p><strong>效果显示</strong></p>
 </li>
 </ul>
-<div id="echarts2661" style="width: 81%;height: 400px;margin: 0 auto"></div>
+<div id="echarts5563" style="width: 81%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts2661'));
+        var myChart = echarts.init(document.getElementById('echarts5563'));
 
         // 指定图表的配置项和数据
         var option = {
@@ -4083,7 +4183,7 @@ c2(no)->op2->e</textarea><textarea id="flowchart-1-options" style="display: none
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/pikaqiu.jpg&quot; alt=&quot;Markdown&quot; title=&quot;Markdown&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/markdown.jpg&quot; alt=&quot;Markdown&quot; title=&quot;Markdown&quot;&gt;&lt;/p&gt;
     
     </summary>
     
@@ -4099,9 +4199,9 @@ c2(no)->op2->e</textarea><textarea id="flowchart-1-options" style="display: none
     <link href="http://jet-han.oschina.io/2017/05/27/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
     <id>http://jet-han.oschina.io/2017/05/27/Hexo-NexT主题搭建个人博客/</id>
     <published>2017-05-27T07:27:00.000Z</published>
-    <updated>2017-06-21T12:28:47.369Z</updated>
+    <updated>2017-06-24T08:51:50.157Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/leiqiu.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/hexo.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
 <a id="more"></a>
 <p>linux下搭建hexo之next主题个人博客，仅供参考！有问题请留言，谢谢支持！</p>
 <h1 id="所需环境"><a href="#所需环境" class="headerlink" title="所需环境"></a>所需环境</h1><ul>
@@ -4352,7 +4452,7 @@ tags: [nodejs, hexo, next]   #[标签1, 标签2..., 标签n]
 ---
 </code></pre></li>
 </ul>
-<h2 id="新增留言功能"><a href="#新增留言功能" class="headerlink" title="新增留言功能"></a>新增留言功能</h2><ul>
+<h2 id="网易云跟帖评论功能"><a href="#网易云跟帖评论功能" class="headerlink" title="网易云跟帖评论功能"></a>网易云跟帖评论功能</h2><ul>
 <li><p>主题配置文件</p>
 <pre><code>menu:
   home: /
@@ -4393,12 +4493,9 @@ tags: [nodejs, hexo, next]   #[标签1, 标签2..., 标签n]
 hexo g
 hexo s
 </code></pre></li>
-</ul>
-<h2 id="网易云跟帖评论功能"><a href="#网易云跟帖评论功能" class="headerlink" title="网易云跟帖评论功能"></a>网易云跟帖评论功能</h2><ul>
-<li><p>进入官网<a href="http://duoshuo.com/" target="_blank" rel="external">http://duoshuo.com/</a> 进行登录，建议不要使用微信进行登录，容易出现Scope 参数错误或没有 Scope 权限的问题。登录完成在首页进入后台管理，在设置里面包含：域名：zhangsan.duoshuo.com<br>在主题配置文件中<br>修改如下, duoshuo_shortname的值就是域名中的zhangsan</p>
-<pre><code> duoshuo_shortname: zhangsan  #开启多说评论功能
- #Share
- duoshuo_share: true          #开启多说的文章分享功能
+<li><p>进入官网<a href="https://manage.gentie.163.com" target="_blank" rel="external">https://manage.gentie.163.com</a> 进行注册、登录（可以用QQ）。登录完成在首页进入后台管理，填写基本信息（站点信息），获取代码找到 <code>productKey</code>的值，写入主题配置文件<code>gentie_productKey</code>处<br>在主题配置文件中<br>修改如下</p>
+<pre><code> # Gentie productKey
+ gentie_productKey: your key
 </code></pre></li>
 <li><p>留言功能已完成<br>去掉分类和其他的选项的留言功能，只需修改index.md<br>在source/categories/index.md 中修改如下</p>
 <pre><code>---
@@ -4458,12 +4555,12 @@ links:
 </ul>
 <h2 id="新增阅读量"><a href="#新增阅读量" class="headerlink" title="新增阅读量"></a>新增阅读量</h2><ul>
 <li><p>为每一篇文章统计阅读量<br>使用leancloud进行文章变更统计，进入官网<a href="https://leancloud.cn/" target="_blank" rel="external">https://leancloud.cn/</a> 注册<br>打开LeanCloud官网，进入注册页面注册。完成邮箱激活后，点击头像，进入控制台页面<br>创建新应用<br>点击应用创建新应用，应用名称随便起<br>创建Class文件<br>进入到应用后点击存储，在左侧点击设置，选择”创建Class”，名称必须为Counter<br>修改主题配置文件</p>
-<h2 id="文章阅读量"><a href="#文章阅读量" class="headerlink" title="文章阅读量"></a>文章阅读量</h2><pre><code>  leancloud_visitors:
+<pre><code>##文章阅读量
+  leancloud_visitors:
 enable: true
 app_id: **你的app_id**
 app_key: **你的app_key**
-</code></pre></li>
-<li><p>其中，app_id和app_key在你所创建的应用的设置-&gt;应用Key中<br>修改 themes/next/layout_macro/post.swig 文件<br>配置themes/next/layout/_layout.swig文件<br>在最后div标签中查找是否引用了_scripts/third-party/lean-analytics.swig文件，如果没有增加以下代码<br>修改语言配置文件 themes/next/languages/zh-Hans.yml post字段</p>
+</code></pre><p>其中，app_id和app_key在你所创建的应用的设置-&gt;应用Key中<br>修改 themes/next/layout_macro/post.swig 文件<br>配置themes/next/layout/_layout.swig文件<br>在最后div标签中查找是否引用了_scripts/third-party/lean-analytics.swig文件，如果没有增加以下代码<br>修改语言配置文件 themes/next/languages/zh-Hans.yml post字段</p>
 <pre><code>post:
   sticky: 置顶
   posted: 发表于
@@ -4509,7 +4606,7 @@ tags: [nodejs, hexo]
 </code></pre></li>
 </ul>
 <h2 id="为文章增加分享"><a href="#为文章增加分享" class="headerlink" title="为文章增加分享"></a>为文章增加分享</h2><ul>
-<li><p>使用百度分享<br>多说评论在前面的使用留言功能已经介绍了，这里只修改主题配置文件即可</p>
+<li><p>使用百度分享<br>只修改主题配置文件即可</p>
 <pre><code> baidushare:
    type: button
 </code></pre></li>
@@ -4552,14 +4649,15 @@ highlight_theme: night eighties       # 修改即可
   field: post
 </code></pre></li>
 </ul>
-<h2 id="统计站点访次数和访问量"><a href="#统计站点访次数和访问量" class="headerlink" title="统计站点访次数和访问量"></a>统计站点访次数和访问量</h2><ul>
+<h2 id="不蒜子统计站点访次数和访问量"><a href="#不蒜子统计站点访次数和访问量" class="headerlink" title="不蒜子统计站点访次数和访问量"></a>不蒜子统计站点访次数和访问量</h2><ul>
 <li><p>修改themes/next/layout/_partials目录下的footer.swig</p>
-<pre><code>&lt;div class=&quot;theme-info&quot;&gt;
-  {{ __('footer.theme') }} -
-  &lt;a class=&quot;theme-link&quot; href=&quot;https://github.com/iissnan/hexo-theme-next&quot;&gt;
-    NexT.{{ theme.scheme }}
-  &lt;/a&gt;
+<pre><code>&lt;div class=&quot;total_count&quot;&gt;
+本站共 &lt;span id=&quot;busuanzi_value_site_pv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;site_pv&quot;&gt;次访问&lt;/span&gt;
+您是第 &lt;span id=&quot;busuanzi_value_site_uv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;site_uv&quot;&gt;个小伙伴&lt;/span&gt;
+本页累计 &lt;span id=&quot;busuanzi_value_page_pv&quot;&gt;&lt;/span&gt;&lt;span id=&quot;page_pv&quot;&gt;次阅读&lt;/span&gt;
+&lt;span id=&quot;showDays&quot;&gt;&lt;/span&gt;
 &lt;/div&gt;
+{% endif %}
 </code></pre></li>
 </ul>
 <h2 id="百度-google收录你的站点"><a href="#百度-google收录你的站点" class="headerlink" title="百度/google收录你的站点"></a>百度/google收录你的站点</h2><ul>
@@ -4634,7 +4732,7 @@ deploy:
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/leiqiu.jpg&quot; alt=&quot;Hexo-NexT&quot; title=&quot;Hexo-NexT&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/hexo.jpg&quot; alt=&quot;Hexo-NexT&quot; title=&quot;Hexo-NexT&quot;&gt;&lt;/p&gt;
     
     </summary>
     

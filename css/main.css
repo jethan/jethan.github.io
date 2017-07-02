@@ -477,7 +477,7 @@ pre,
   padding: 0;
   font-size: 13px;
   color: #fff;
-  background: #002451;
+  background: #e6e9ed;
   line-height: 1.6;
 }
 pre,
@@ -494,7 +494,7 @@ code {
 }
 pre code {
   padding: 0;
-  color: #fff;
+  color: highlight-black /*$highlight-foreground*/;
   background: none;
   text-shadow: none;
 }
@@ -541,13 +541,13 @@ pre code {
   padding-right: 10px;
   color: #7285b7;
   text-align: right;
-  background-color: #000e20;
+  background-color: #4e5b6d;
 }
 .highlight .code pre {
   width: 100%;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: #002451;
+  background-color: #e6e9ed;
 }
 .highlight .line {
   height: 20px;
@@ -1811,7 +1811,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff1caf;
+  background: #ec1154;
 }
 .links-of-blogroll {
   font-size: 13px;
