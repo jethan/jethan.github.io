@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-07-02T14:49:25.107Z</updated>
+  <updated>2017-07-04T13:50:52.093Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/"/>
     <id>http://jet-han.oschina.io/2017/07/02/github搭建个人maven仓库/</id>
     <published>2017-07-02T10:28:56.000Z</published>
-    <updated>2017-07-02T14:49:25.107Z</updated>
+    <updated>2017-07-04T13:50:52.093Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/maven.jpg" alt="maven" title="maven"></p>
 <a id="more"></a>
@@ -58,7 +58,7 @@ git push origin master
 </code></pre><p><strong>目录查看和搜索</strong></p>
 <p>值得注意的是，github因为安全原因，把raw文件下载和原来的github域名分开了，而raw.githubusercontent.com这个域名是不支持目录浏览的。所以，想要浏览文件目录，或者搜索的话，可以直接到github域名下的仓库去查看。</p>
 <p>比如文件fastjson-1.2.5.jar：</p>
-<p><a href="https://github.com/jethan/maven_xm_repo/tree/master/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">浏览器url</font></a><br><a href="https://raw.githubusercontent.com/jethan/maven_xm_repo/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">maven仓库url</font></a></p>
+<p><a href="https://github.com/jethan/maven_xm_repo/tree/master/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">浏览器url</font></a><br><a href="https://raw.githubusercontent.com/jethan/maven_xm_repo/master/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">maven仓库url</font></a></p>
 <p><strong>maven仓库工作的机制</strong></p>
 <p>下面介绍一些maven仓库工作的原理。典型的一个maven依赖下会有这三个文件：</p>
 <pre><code>maven-metadata.xml
@@ -3626,7 +3626,7 @@ mysql&gt;source test3.sql #恢复
 &lt;fajie_han@foxmail.com&gt;
 </code></pre><p><strong>显示效果：</strong></p>
 <p> <a href="https://www.baidu.com/" target="_blank" rel="external">https://www.baidu.com/</a></p>
-<p> <a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#x6f;&#58;&#x66;&#x61;&#106;&#x69;&#x65;&#95;&#104;&#97;&#x6e;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#x61;&#106;&#x69;&#x65;&#95;&#104;&#97;&#x6e;&#x40;&#102;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p> <a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x66;&#x61;&#106;&#105;&#101;&#x5f;&#x68;&#97;&#x6e;&#64;&#x66;&#111;&#120;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;">&#x66;&#x61;&#106;&#105;&#101;&#x5f;&#x68;&#97;&#x6e;&#64;&#x66;&#111;&#120;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#x6d;</a></p>
 </li>
 </ul>
 <h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul>
@@ -4075,10 +4075,10 @@ $$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
 </code></pre><p><strong>效果显示</strong></p>
 </li>
 </ul>
-<div id="echarts2738" style="width: 81%;height: 400px;margin: 0 auto"></div>
+<div id="echarts7834" style="width: 81%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts2738'));
+        var myChart = echarts.init(document.getElementById('echarts7834'));
 
         // 指定图表的配置项和数据
         var option = {
