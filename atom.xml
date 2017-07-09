@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-07-09T15:06:35.521Z</updated>
+  <updated>2017-06-24T08:51:50.158Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,156 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>google-cloud搭建vpn</title>
-    <link href="http://jet-han.oschina.io/2017/07/09/%E5%93%88%E5%93%88/"/>
-    <id>http://jet-han.oschina.io/2017/07/09/哈哈/</id>
-    <published>2017-07-09T15:01:44.000Z</published>
-    <updated>2017-07-09T15:06:35.521Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/vpn.jpg" alt="vpn" title="vpn"></p>
-<a id="more"></a>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>由于公司需要，而老板又不舍得花钱，于是使用google cloud免费vps，搭建vpn。<br><a href="http://cloud.google.com/" target="_blank" rel="external"><font color="#0366d6">google cloud</font></a><br>需要翻墙访问，有gmail账户，单币种美金信用卡(好像有些双币种信用卡也可以，具体没试过)<br>免费试用1年，赠送300$，所以申请vps时，用最低配置，每个月接近5$，300$可以支撑一年，但是流量是收费的，所以流量很大情况下，可能用不到一年。<br>下面就是具体配置了，分两版：centos和ubuntu</p>
-<h1 id="Google-Cloud配置"><a href="#Google-Cloud配置" class="headerlink" title="Google Cloud配置"></a>Google Cloud配置</h1><p>建立好Compute Engine后，申请一个永久静态地址，然后配置SSH登录证书等内容。<br><a href="https://cloud.google.com/compute/docs/" target="_blank" rel="external"><font color="#0366d6">详情查看Google文档</font></a><br><a href="https://www.91yun.org/archives/2297" target="_blank" rel="external"><font color="#0366d6">如果实在不想看文档，可以看这里</font></a></p>
-<p>主要配置是在Google的Firewall rules里，这里决定了什么包可以访问到内部的instance，其后才是instance内部的iptables的配置。</p>
-<p>这里我们建立一条新的rule，source filter填写<code>0.0.0.0/0</code>，代表任何地方发出的包，除非你只想在特定IP上访问，否则就填写这个。<br>然后在Allowed protocols and ports里添加<code>udp:500;udp:4500;esp</code>。</p>
-<ul>
-<li>这里<code>udp:500</code>是<code>IPSEC</code>协议指定的端口，会通过这个端口来发送Control plane的包</li>
-<li><code>udp:4500</code>是当source或者destination在<code>NAT</code>后时转而使用的端口，另外当<code>NAT</code>被检测到后，Data plane的数据包也会被使用端口，这个时候<code>ESP</code>的数据包会被包含在<code>UDP</code>包中，端口也是这个</li>
-<li>最后<code>esp</code>就是允许Data plane的数据包通过</li>
-</ul>
-<p>另外需要勾选允许<code>ip forwarding</code>。</p>
-<h1 id="安装StrongSwan"><a href="#安装StrongSwan" class="headerlink" title="安装StrongSwan"></a>安装StrongSwan</h1><h2 id="从源文件编译安装"><a href="#从源文件编译安装" class="headerlink" title="从源文件编译安装"></a>从源文件编译安装</h2><p>安装PAM库和SSL库，以及make和gcc<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#ubuntu</div><div class="line">apt-get update</div><div class="line">apt-get install libpam0g-dev libssl-dev make gcc</div><div class="line"></div><div class="line">#centos</div><div class="line">yum -y update</div><div class="line">yum -y install pam-devel openssl-devel make gcc</div></pre></td></tr></table></figure></p>
-<h2 id="下载StrongSwan的源码并编译"><a href="#下载StrongSwan的源码并编译" class="headerlink" title="下载StrongSwan的源码并编译"></a>下载StrongSwan的源码并编译</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">#下载</div><div class="line">wget http://download.strongswan.org/strongswan.tar.gz</div><div class="line">tar xzf strongswan.tar.gz</div><div class="line">cd strongswan-*</div><div class="line"></div><div class="line">#生成 Makefile为编译做准备</div><div class="line">#OpenVZ使用以下参数</div><div class="line">./configure  --enable-eap-identity --enable-eap-md5 \</div><div class="line">--enable-eap-mschapv2 --enable-eap-tls --enable-eap-ttls --enable-eap-peap  \</div><div class="line">--enable-eap-tnc --enable-eap-dynamic --enable-eap-radius --enable-xauth-eap  \</div><div class="line">--enable-xauth-pam  --enable-dhcp  --enable-openssl  --enable-addrblock --enable-unity  \</div><div class="line">--enable-certexpire --enable-radattr --enable-tools --enable-openssl --disable-gmp --enable-kernel-libipsec</div><div class="line"></div><div class="line">#其它服务器执行</div><div class="line">./configure --prefix=/usr --sysconfdir=/etc/strongswan --enable-eap-identity \</div><div class="line">--enable-eap-md5 --enable-eap-mschapv2 --enable-eap-tls --enable-eap-ttls \</div><div class="line">-- enable-eap-peap  --enable-eap-tnc --enable-eap-dynamic \</div><div class="line">--enable-eap-radius  --enable-xauth-eap  --enable-xauth-pam  --enable-dhcp \</div><div class="line">--enable-addrblock --enable-unity  --enable-certexpire --enable-radattr \</div><div class="line">--enable-openssl --disable-gmp</div><div class="line"></div><div class="line">#编译并且安装</div><div class="line">make&amp;&amp;make install</div><div class="line">#生成ipsec和strongswan命令</div><div class="line">mv /usr/sbin/&#123;ipsec,strongswan&#125;</div></pre></td></tr></table></figure>
-<h3 id="判断VPS是Openvz还是KVM还是Xen"><a href="#判断VPS是Openvz还是KVM还是Xen" class="headerlink" title="判断VPS是Openvz还是KVM还是Xen"></a>判断VPS是Openvz还是KVM还是Xen</h3><p>1.通过系统上的相关目录或文件判断<br>执行：ls /proc/ ，一般Xen的VPS，/proc目录下面会有xen的目录，openvz的会有vz目录。<br>2.执行：free -m 看内存，openvz的没有swap，当然也有xen的没有swap，但是xen的是可以加的，openvz不行。<br>3.执行：uname -a  有些xen的VPS里面会显示有xen。<br>4.执行：ifconfig 查看网卡，openvz的一般都是venet0:<em> ，xen的一般都是eth</em>。<br>5.通过VPS控制面板查看，像SolusVM、vePortal控制面板上都显示虚拟技术。</p>
-<p>完成后执行<code>ipsec version</code>查看是否安装成功。</p>
-<h1 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h1><h2 id="生成CA私钥"><a href="#生成CA私钥" class="headerlink" title="生成CA私钥"></a>生成CA私钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipsec pki --gen --outform pem &gt; ca.pem</div></pre></td></tr></table></figure>
-<h2 id="利用私钥签名CA证书"><a href="#利用私钥签名CA证书" class="headerlink" title="利用私钥签名CA证书"></a>利用私钥签名CA证书</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipsec pki --self --in ca.pem --dn &quot;C=com, O=myvpn, CN=VPN CA&quot; --ca --outform pem &gt;ca.cert.pem</div></pre></td></tr></table></figure>
-<h2 id="生成server端私钥"><a href="#生成server端私钥" class="headerlink" title="生成server端私钥"></a>生成server端私钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipsec pki --gen --outform pem &gt; server.pem</div></pre></td></tr></table></figure>
-<h2 id="用CA证书签发server端证书"><a href="#用CA证书签发server端证书" class="headerlink" title="用CA证书签发server端证书"></a>用CA证书签发server端证书</h2><p>这里需要将下面的地址更换为google cloud中申请到的静态公网ip地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SERVER_ADDR=&quot;[REPLACE_WITH_YOUR_OWN_IP_ADDRESS]&quot;</div><div class="line">ipsec pki --pub --in server.pem | ipsec pki --issue --cacert ca.cert.pem \</div><div class="line">--cakey ca.pem --dn &quot;C=com, O=myvpn, CN=$SERVER_ADDR&quot; \</div><div class="line">--san=&quot;$SERVER_ADDR&quot; --flag serverAuth --flag ikeIntermediate \</div><div class="line">--outform pem &gt; server.cert.pem</div></pre></td></tr></table></figure>
-<h2 id="生成client端私钥"><a href="#生成client端私钥" class="headerlink" title="生成client端私钥"></a>生成client端私钥</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipsec pki --gen --outform pem &gt; client.pem</div></pre></td></tr></table></figure>
-<h2 id="利用CA证书签发client端证书"><a href="#利用CA证书签发client端证书" class="headerlink" title="利用CA证书签发client端证书"></a>利用CA证书签发client端证书</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ipsec pki --pub --in client.pem | ipsec pki --issue --cacert ca.cert.pem --cakey ca.pem --dn &quot;C=com, O=myvpn, CN=VPN Client&quot; --outform pem &gt; client.cert.pem</div></pre></td></tr></table></figure>
-<h2 id="生成client端p12证书"><a href="#生成client端p12证书" class="headerlink" title="生成client端p12证书"></a>生成client端p12证书</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs12 -export -inkey client.pem -in client.cert.pem -name &quot;client&quot; -certfile ca.cert.pem -caname &quot;VPN CA&quot;  -out client.cert.p12</div></pre></td></tr></table></figure>
-<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># if not root probably you need to prepend sudo in front of the following commands</div><div class="line">#for ubuntu </div><div class="line">cp -r ca.cert.pem /usr/local/etc/ipsec.d/cacerts/</div><div class="line">cp -r server.cert.pem /usr/local/etc/ipsec.d/certs/</div><div class="line">cp -r server.pem /usr/local/etc/ipsec.d/private/</div><div class="line">cp -r client.cert.pem /usr/local/etc/ipsec.d/certs/</div><div class="line">cp -r client.pem  /usr/local/etc/ipsec.d/private/</div><div class="line"></div><div class="line">#for centos</div><div class="line">cp -r ca.cert.pem /etc/strongswan/ipsec.d/cacerts/</div><div class="line">cp -r server.cert.pem /etc/strongswan/ipsec.d/certs/</div><div class="line">cp -r server.pem /etc/strongswan/ipsec.d/private/</div><div class="line">cp -r client.cert.pem /etc/strongswan/ipsec.d/certs/</div><div class="line">cp -r client.pem /etc/strongswan/ipsec.d/private/</div></pre></td></tr></table></figure>
-<h1 id="配置StrongSwan"><a href="#配置StrongSwan" class="headerlink" title="配置StrongSwan"></a>配置StrongSwan</h1><h2 id="配置ipsec-conf"><a href="#配置ipsec-conf" class="headerlink" title="配置ipsec.conf"></a>配置ipsec.conf</h2><p><strong>ubuntu:</strong><code>/usr/local/etc/ipsec.conf</code><br><strong>centos:</strong><code>/etc/strongswan/ipsec.conf</code><br>替换或新添加为如下内容(rightsourceip为申请的静态公网ip地址)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">config setup</div><div class="line">    uniqueids=never</div><div class="line"></div><div class="line">conn iOS_cert</div><div class="line">    keyexchange=ikev1</div><div class="line">    # strongswan version &gt;= 5.0.2, compatible with iOS 6.0,6.0.1</div><div class="line">    fragmentation=yes</div><div class="line">    left=%defaultroute</div><div class="line">    leftauth=pubkey</div><div class="line">    leftsubnet=0.0.0.0/0</div><div class="line">    leftcert=server.cert.pem</div><div class="line">    right=%any</div><div class="line">    rightauth=pubkey</div><div class="line">    rightauth2=xauth</div><div class="line">    rightsourceip=10.31.2.0/24</div><div class="line">    rightcert=client.cert.pem</div><div class="line">    auto=add</div><div class="line"></div><div class="line">conn android_xauth_psk</div><div class="line">    keyexchange=ikev1</div><div class="line">    left=%defaultroute</div><div class="line">    leftauth=psk</div><div class="line">    leftsubnet=0.0.0.0/0</div><div class="line">    right=%any</div><div class="line">    rightauth=psk</div><div class="line">    rightauth2=xauth</div><div class="line">    rightsourceip=10.31.2.0/24</div><div class="line">    auto=add</div><div class="line"></div><div class="line">conn networkmanager-strongswan</div><div class="line">    keyexchange=ikev2</div><div class="line">    left=%defaultroute</div><div class="line">    leftauth=pubkey</div><div class="line">    leftsubnet=0.0.0.0/0</div><div class="line">    leftcert=server.cert.pem</div><div class="line">    right=%any</div><div class="line">    rightauth=pubkey</div><div class="line">    rightsourceip=10.31.2.0/24</div><div class="line">    rightcert=client.cert.pem</div><div class="line">    auto=add</div><div class="line"></div><div class="line">conn windows7</div><div class="line">    keyexchange=ikev2</div><div class="line">    ike=aes256-sha1-modp1024!</div><div class="line">    rekey=no</div><div class="line">    left=%defaultroute</div><div class="line">    leftauth=pubkey</div><div class="line">    leftsubnet=0.0.0.0/0</div><div class="line">    leftcert=server.cert.pem</div><div class="line">    right=%any</div><div class="line">    rightauth=eap-mschapv2</div><div class="line">    rightsourceip=10.31.2.0/24</div><div class="line">    rightsendcert=never</div><div class="line">    eap_identity=%any</div><div class="line">    auto=add</div></pre></td></tr></table></figure></p>
-<h2 id="配置strongswan-conf"><a href="#配置strongswan-conf" class="headerlink" title="配置strongswan.conf"></a>配置strongswan.conf</h2><p><strong>ubuntu:</strong><code>/usr/local/etc/ipsec.conf</code><br><strong>centos:</strong><code>/etc/strongswan/ipsec.conf</code><br>替换或新添加为如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">charon &#123;</div><div class="line">         load_modular = yes</div><div class="line">         duplicheck.enable = no</div><div class="line">         compress = yes</div><div class="line">         plugins &#123;</div><div class="line">                 include strongswan.d/charon/*.conf</div><div class="line">         &#125;</div><div class="line">         dns1 = 8.8.8.8</div><div class="line">         dns2 = 8.8.4.4</div><div class="line">         nbns1 = 8.8.8.8</div><div class="line">         nbns2 = 8.8.4.4</div><div class="line"> &#125;</div><div class="line"> include strongswan.d/*.conf</div></pre></td></tr></table></figure></p>
-<h2 id="配置ipsec-secrets"><a href="#配置ipsec-secrets" class="headerlink" title="配置ipsec.secrets"></a>配置ipsec.secrets</h2><p><strong>ubuntu:</strong><code>/usr/local/etc/ipsec.conf</code><br><strong>centos:</strong><code>/etc/strongswan/ipsec.conf</code><br>替换或新添加为如下内容：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">: RSA server.pem</div><div class="line">: PSK &quot;mykey&quot;</div><div class="line">: XAUTH &quot;mykey&quot;</div><div class="line">[用户名] %any : EAP &quot;[密码]&quot;</div></pre></td></tr></table></figure></p>
-<p>注意将PSK、XAUTH处的”mykey”编辑为唯一且私密的字符串，并且将[用户名]改为自己想要的登录名，[密码]改为自己想要的密码（[]符号去掉），可以添加多行，得到多个用户。</p>
-<h1 id="配置iptables"><a href="#配置iptables" class="headerlink" title="配置iptables"></a>配置iptables</h1><h2 id="修改系统转发sysctrl-conf"><a href="#修改系统转发sysctrl-conf" class="headerlink" title="修改系统转发sysctrl.conf"></a>修改系统转发sysctrl.conf</h2><p>打开<code>/etc/sysctl.conf</code>，然后uncomment包含<code>net.ipv4.ip_forward=1</code>的这一行。</p>
-<p>保存后，执行<code>sysctl -p</code>。</p>
-<h2 id="修改iptables"><a href="#修改iptables" class="headerlink" title="修改iptables"></a>修改iptables</h2><p>将<code>INF</code>替换为自己的网络接口.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">INF=&quot;Your own network interface&quot;</div><div class="line">iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT</div><div class="line">iptables -A FORWARD -s 10.31.2.0/24  -j ACCEPT</div><div class="line">iptables -A INPUT -i $INF -p esp -j ACCEPT</div><div class="line">iptables -A INPUT -i $INF -p udp --dport 500 -j ACCEPT</div><div class="line">iptables -A INPUT -i $INF -p tcp --dport 500 -j ACCEPT</div><div class="line">iptables -A INPUT -i $INF -p udp --dport 4500 -j ACCEPT</div><div class="line"># for l2tp</div><div class="line">iptables -A INPUT -i $INF -p udp --dport 1701 -j ACCEPT</div><div class="line"># for pptp</div><div class="line">iptables -A INPUT -i $INF -p tcp --dport 1723 -j ACCEPT</div><div class="line">iptables -A FORWARD -j REJECT</div><div class="line">iptables -t nat -A POSTROUTING -s 10.31.2.0/24 -o $INF -j MASQUERADE</div></pre></td></tr></table></figure></p>
-<p>【注意】：<br>1.此处<code>$INF</code>为服务器网卡设备，对于OpenVZ主机请添<code>venet0</code>，其他主机添<code>eth0</code>，具体通过<code>ifconfig</code>查看使用的那个网卡<br>2.此处ip：<code>10.31.2.0/24</code>仅举例，必须与上文<code>ipsec.conf</code>中的设置保持一致，但可是设置多对。</p>
-<h2 id="保存iptables且开机自动启动"><a href="#保存iptables且开机自动启动" class="headerlink" title="保存iptables且开机自动启动"></a>保存iptables且开机自动启动</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#for ubuntu</div><div class="line">iptables-save &gt; /etc/iptables.rules</div><div class="line">cat &gt; /etc/network/if-up.d/iptables&lt;&lt;EOF</div><div class="line">#!/bin/sh</div><div class="line">iptables-restore &lt; /etc/iptables.rules</div><div class="line">EOF</div><div class="line">chmod +x /etc/network/if-up.d/iptables</div><div class="line"></div><div class="line">#for centos</div><div class="line">service iptables save</div></pre></td></tr></table></figure>
-<h2 id="重启ipsec-iptables-strongswan服务"><a href="#重启ipsec-iptables-strongswan服务" class="headerlink" title="重启ipsec/iptables/strongswan服务"></a>重启ipsec/iptables/strongswan服务</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">service iptables restart</div><div class="line">service strongswan restart</div><div class="line">ipsec restart</div></pre></td></tr></table></figure>
-<p>至此分讲完成。</p>
-<p>WP8.1手机安装<code>ca.cert.pem</code>，进入设置<code>VPN</code>添加<code>IKEv2</code>连接，地址为证书中的地址或IP，通过用户名-密码连接。<br>Windows连接也是一样，但注意将证书导入本地计算机而不是当前用户的“受信任的证书颁发机构”。<br>iOS/Android/Mac OS X设备添加<code>Cisco IPSec PSK</code>验证方式，预共享密钥是<code>/usr/local/etc/ipsec.secrets</code>或者<code>/etc/strongswan/ipsec.secrets</code>中PSK后的字符串（不含引号），用户名密码同上，可以通过任意域名或IP连接，不需要证书.</p>
-<h2 id="自动化安装脚本"><a href="#自动化安装脚本" class="headerlink" title="自动化安装脚本"></a>自动化安装脚本</h2><p>下面附上自动化安装脚本，<a href="https://raw.githubusercontent.com/jethan/vpn/master" target="_blank" rel="external"><font color="#0366d6">点我获取</font></a>，如若有问题请创建issue沟通。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/vpn.jpg&quot; alt=&quot;vpn&quot; title=&quot;vpn&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>github搭建个人maven仓库</title>
-    <link href="http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/"/>
-    <id>http://jet-han.oschina.io/2017/07/02/github搭建个人maven仓库/</id>
-    <published>2017-07-02T10:28:56.000Z</published>
-    <updated>2017-07-04T13:50:52.093Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/images/icons/maven.jpg" alt="maven" title="maven"></p>
-<a id="more"></a>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>三步：</p>
-<p>deploy到本地目录<br>把本地目录提交到gtihub上<br>配置github地址为仓库地址<br>配置local file maven仓库</p>
-<p>deploy到本地</p>
-<p>maven可以通过http, ftp, ssh等deploy到远程服务器，也可以deploy到本地文件系统里。</p>
-<p>例如把项目deploy到/home/jet/workspace/gerrit/maven_xm_repo/目录下：</p>
-<pre><code>&lt;distributionManagement&gt;
-    &lt;repository&gt;
-      &lt;id&gt;hengyunabc-mvn-repo&lt;/id&gt;
-      &lt;url&gt;file:/home/hengyunabc/code/maven-repo/repository/&lt;/url&gt;
-    &lt;/repository&gt;
-&lt;/distributionManagement&gt;
-</code></pre><p>推荐使用命令行来deploy，避免在项目里显式配置:</p>
-<pre><code>mvn deploy -DaltDeploymentRepository=maven_xm_repo::default::file:/home/jet/workspace/gerrit/maven_xm_repo/repository/
-</code></pre><p>上面把项目deploy到本地目录/home/jet/workspace/gerrit/maven_xm_repo/repository/里，下面把这个目录提交到github上。</p>
-<p>在Github上新建一个项目，然后把/home/jet/workspace/gerrit/maven_xm_repo/下的文件都提交到gtihub上。</p>
-<pre><code>cd /home/jet/workspace/gerrit/maven_xm_repo/
-git init
-git add .
-git commit -m &#39;deploy xxx&#39;
-git remote add origin git@github.com:jethan/maven_xm_repo.git
-git push origin master
-</code></pre><p>最终效果可以参考我的个人仓库：</p>
-<p><a href="https://github.com/jethan/maven_xm_repo" target="_blank" rel="external"><font color="#0366d6">maven_xm_repo</font></a></p>
-<p><strong>github maven仓库的使用</strong></p>
-<p>因为github使用了raw.githubusercontent.com这个域名用于raw文件下载。所以使用这个maven仓库，只要在pom.xml里增加：</p>
-<pre><code>&lt;repositories&gt;
-&lt;repository&gt;
-&lt;id&gt;hengyunabc-maven-repo&lt;/id&gt;
-&lt;url&gt;https://raw.githubusercontent.com/jethan/maven_xm_repo/master/repository&lt;/url&gt;
-&lt;/repository&gt;
-&lt;/repositories&gt;
-</code></pre><p><strong>目录查看和搜索</strong></p>
-<p>值得注意的是，github因为安全原因，把raw文件下载和原来的github域名分开了，而raw.githubusercontent.com这个域名是不支持目录浏览的。所以，想要浏览文件目录，或者搜索的话，可以直接到github域名下的仓库去查看。</p>
-<p>比如文件fastjson-1.2.5.jar：</p>
-<p><a href="https://github.com/jethan/maven_xm_repo/tree/master/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">浏览器url</font></a><br><a href="https://raw.githubusercontent.com/jethan/maven_xm_repo/master/repository/com/alibaba/fastjson/1.2.5/fastjson-1.2.5.jar" target="_blank" rel="external"><font color="#0366d6">maven仓库url</font></a></p>
-<p><strong>maven仓库工作的机制</strong></p>
-<p>下面介绍一些maven仓库工作的原理。典型的一个maven依赖下会有这三个文件：</p>
-<pre><code>maven-metadata.xml
-maven-metadata.xml.md5
-maven-metadata.xml.sha1
-</code></pre><p>maven-metadata.xml里面记录了最后deploy的版本和时间。</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;metadata modelVersion=&quot;1.1.0&quot;&gt;
-  &lt;groupId&gt;io.github.hengyunabc&lt;/groupId&gt;
-  &lt;artifactId&gt;mybatis-ehcache-spring&lt;/artifactId&gt;
-  &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-  &lt;versioning&gt;
-    &lt;snapshot&gt;
-      &lt;timestamp&gt;20150804.095005&lt;/timestamp&gt;
-      &lt;buildNumber&gt;1&lt;/buildNumber&gt;
-    &lt;/snapshot&gt;
-    &lt;lastUpdated&gt;20150804095005&lt;/lastUpdated&gt;
-
-  &lt;/versioning&gt;
-&lt;/metadata&gt;
-</code></pre><p>其中md5, sha1校验文件是用来保证这个meta文件的完整性。</p>
-<p>maven在编绎项目时，会先尝试请求<code>maven-metadata.xml</code>，如果没有找到，则会直接尝试请求到jar文件，在下载jar文件时也会尝试下载jar的md5, sha1文件。</p>
-<p><code>maven-metadata.xml</code>文件很重要，如果没有这个文件来指明最新的jar版本，那么即使远程仓库里的jar更新了版本，本地maven编绎时用上-U参数，也不会拉取到最新的jar！</p>
-<p>所以并不能简单地把jar包放到github上就完事了，一定要先在本地Deploy，生成maven-metadata.xml文件，并上传到github上。</p>
-<p><a href="http://maven.apache.org/ref/3.2.2/maven-repository-metadata/repository-metadata.html" target="_blank" rel="external"><font color="#0366d6">参考</font></a></p>
-<p><a href="https://maven.apache.org/repository/index.html" target="_blank" rel="external"><font color="#0366d6"><strong>maven的仓库关系</strong></font></a></p>
-<p><img src="http://jet-han.oschina.io/images/github搭建个人maven仓库/maven-repositories.png" alt="maven" title="maven"></p>
-<p>配置使用本地仓库</p>
-<p>想要使用本地file仓库里，在项目的pom.xml里配置，如：</p>
-<pre><code>&lt;repositories&gt;
-    &lt;repository&gt;
-        &lt;id&gt;hengyunabc-maven-repo&lt;/id&gt;
-        &lt;url&gt;file:/home/hengyunabc/code/maven-repo/repository/&lt;/url&gt;
-    &lt;/repository&gt;
-&lt;/repositories&gt;
-</code></pre><p><strong>注意事项</strong></p>
-<p>maven的repository并没有优先级的配置，也不能单独为某些依赖配置repository。所以如果项目配置了多个repository，在首次编绎时，会依次尝试下载依赖。如果没有找到，尝试下一个，整个流程会很长。</p>
-<p>所以尽量多个依赖放同一个仓库，不要每个项目都有一个自己的仓库。</p>
-<p><a href="http://stackoverflow.com/questions/14013644/hosting-a-maven-repository-on-github/14013645#14013645" target="_blank" rel="external"><font color="#0366d6">参考1<font></font></font></a><br><a href="http://cemerick.com/2010/08/24/hosting-maven-repos-on-github/" target="_blank" rel="external"><font color="#0366d6">参考2<font></font></font></a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/images/icons/maven.jpg&quot; alt=&quot;maven&quot; title=&quot;maven&quot;&gt;&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>linux常用操作命令(一)</title>
@@ -3682,7 +3532,7 @@ mysql&gt;source test3.sql #恢复
 &lt;fajie_han@foxmail.com&gt;
 </code></pre><p><strong>显示效果：</strong></p>
 <p> <a href="https://www.baidu.com/" target="_blank" rel="external">https://www.baidu.com/</a></p>
-<p> <a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x66;&#97;&#x6a;&#105;&#x65;&#95;&#104;&#97;&#x6e;&#64;&#102;&#x6f;&#120;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;">&#x66;&#97;&#x6a;&#105;&#x65;&#95;&#104;&#97;&#x6e;&#64;&#102;&#x6f;&#120;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a></p>
+<p> <a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#102;&#97;&#x6a;&#x69;&#x65;&#95;&#x68;&#97;&#110;&#64;&#102;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;">&#102;&#97;&#x6a;&#x69;&#x65;&#95;&#x68;&#97;&#110;&#64;&#102;&#x6f;&#x78;&#109;&#x61;&#x69;&#108;&#x2e;&#x63;&#111;&#x6d;</a></p>
 </li>
 </ul>
 <h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul>
@@ -4131,10 +3981,10 @@ $$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
 </code></pre><p><strong>效果显示</strong></p>
 </li>
 </ul>
-<div id="echarts4574" style="width: 81%;height: 400px;margin: 0 auto"></div>
+<div id="echarts3453" style="width: 81%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts4574'));
+        var myChart = echarts.init(document.getElementById('echarts3453'));
 
         // 指定图表的配置项和数据
         var option = {
