@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>equals、==和hashCode | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="equals、==和hashCode">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/08/01/equals、-和hashCode/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+<meta property="og:updated_time" content="2017-08-02T13:24:37.113Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="equals、==和hashCode">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <!-- <script src="http://s.6travel.com/titi126.js"> -->
+<script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="http://s.6travel.com/titi126.js">
+  <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Jet</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/message">留言打卡</a></li>
+                        
+                            <li><a href="/404.html">公益404</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Jet</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Jet</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/message">留言打卡</a></li>
+                
+                    <li><a href="/404.html">公益404</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-equals、-和hashCode" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/01/equals、-和hashCode/" class="article-date">
+      <time datetime="2017-08-01T15:47:35.000Z" itemprop="datePublished">2017-08-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      equals、==和hashCode
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<a id="more"></a>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
+<p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
+<p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>
+<p>==比较的是对象的地址<br>String重写的equals比较的是字符串的内容值<br>String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。<br>System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class Test &#123;</div><div class="line">  public static void main(String[] args) &#123;</div><div class="line">     String a=new String(&quot;foo&quot;);</div><div class="line">     String b=new String(&quot;foo&quot;);</div><div class="line"></div><div class="line">     String c=&quot;hello&quot;;</div><div class="line">     String d=&quot;hello&quot;;</div><div class="line"></div><div class="line">     System.out.println(&quot;memory address hashcode a:&quot;+System.identityHashCode(a));</div><div class="line">     System.out.println(&quot;memory address hashcode a:&quot;+System.identityHashCode(b));</div><div class="line">     System.out.println(&quot;String hashcode a:        &quot;+a.hashCode());</div><div class="line">     System.out.println(&quot;String hashcode a:        &quot;+b.hashCode());</div><div class="line">     System.out.println(&quot;a==b:                     &quot;+(a==b));</div><div class="line">     System.out.println(&quot;a.equals(b):              &quot;+a.equals(b));</div><div class="line"></div><div class="line">     System.out.println(&quot;&quot;);</div><div class="line"></div><div class="line">     System.out.println(&quot;memory address hashcode c:&quot;+System.identityHashCode(c));</div><div class="line">     System.out.println(&quot;memory address hashcode d:&quot;+System.identityHashCode(d));</div><div class="line">     System.out.println(&quot;String hashcode c:        &quot;+c.hashCode());</div><div class="line">     System.out.println(&quot;String hashcode d:        &quot;+d.hashCode());</div><div class="line">     System.out.println(&quot;c==d:                     &quot;+(c==d));</div><div class="line">     System.out.println(&quot;c.equals(d):              &quot;+c.equals(d));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>结果：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">memory address hashcode a:8222510</div><div class="line">memory address hashcode a:18581223</div><div class="line">String hashcode a:        101574</div><div class="line">String hashcode a:        101574</div><div class="line">a==b:                     false</div><div class="line">a.equals(b):              true</div><div class="line">memory address hashcode c:3526198</div><div class="line">memory address hashcode d:3526198</div><div class="line">String hashcode c:        99162322</div><div class="line">String hashcode d:        99162322</div><div class="line">c==d:                     true</div><div class="line">c.equals(d):              true</div></pre></td></tr></table></figure></p>
+<h2 id="从Java集合的常用需求为什么需要使用Hashcode"><a href="#从Java集合的常用需求为什么需要使用Hashcode" class="headerlink" title="从Java集合的常用需求为什么需要使用Hashcode"></a>从Java集合的常用需求为什么需要使用Hashcode</h2><p>Java中的集合（Collection）有两类，一类是List，再有一类是Set。前者集合内的元素是有序的，元素可以重复；后者元素无序，但元素不可重复。那么这里就有一个比较严重的问题了：要想保证元素不重复，可两个元素是否重复应该依据什么来判断呢？这就是 Object.equals方法了。但是，如果每增加一个元素就检查一次，那么当元素很多时，后添加到集合中的元素比较的次数就非常多了。也就是说，如果集合中现在已经有1000个元素，那么第1001个元素加入集合时，它就要调用1000次equals方法。这显然会大大降低效率。</p>
+<p>于是，Java采用了哈希表的原理。哈希算法也称为散列算法，是将数据依特定算法直接指定到一个地址上。可以这样简单理解，hashCode方法实际上返回的就是对象存储位置的映像。</p>
+<p>这样一来，当集合要添加新的元素时，先调用这个元素的hashCode方法，就能定位到它应该放置的bucket存储位置。如果这个位置上没有元素，它就可以直接存储在这个位置上，不用再进行任何比较了；如果这个位置上已经有元素了，就调用它的equals方法与新元素进行比较，相同的话就不存了，不相同就表示发生冲突了，散列表对于冲突有具体的解决办法，但最终还会将新元素保存在适当的位置。这样一来，实际调用equals方法的次数就大大降低了，几乎只需要一两次。</p>
+<p>简单归纳，hashmap的深入理解：</p>
+<p>HashMap的数据结构是基于<font color="#c00">数组和链表</font>的。（以数组存储元素，如有hash相同的元素，在数组结构中，创建链表结构，再把hash相同的元素放到链表的下一个节点）</p>
+<p>hashMap的结构类似这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据]<br>  元素1—&gt;[hashCode=1, key.value=y1的数据]<br>  。。。。。。<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]</p>
+<p>假设没有hashCode=1的元素加入，但是有两个hashCode=0的数据，它的结构就变成这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据].next—&gt;[hashCode=0, key.value=x2的数据]<br>  元素1—&gt;[null]<br>  ……<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]</p>
+<p>put和get都首先会调用hashcode方法，去查找相关的key，当有冲突时，再调用equals（这也是为什么刚开始就重温hashcode和equals的原因）！<br>HashMap基于hashing原理，我们通过put()和get()方法储存和获取对象。当我们将键值对传递给put()方法时，它调用键对象的hashCode()方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的equals()方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
+<p>当两个不同的键对象的hashcode相同时会发生什么？ 它们会储存在同一个bucket位置的链表中。键对象的equals()方法用来找到键值对。</p>
+<p><strong>HashMap的工作原理</strong><br>HashMap基于hashing原理，我们通过put()和get()方法储存和获取对象。当我们将键值对传递给put()方法时，它调用键对象的hashCode()方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的equals()方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
+<p>当两个不同的键对象的hashcode相同时会发生什么？ 它们会储存在同一个bucket位置的链表中。键对象的equals()方法用来找到键值对。</p>
+<h2 id="重写-equals-的时候必须重写-hashCode"><a href="#重写-equals-的时候必须重写-hashCode" class="headerlink" title="重写 equals 的时候必须重写 hashCode"></a>重写 equals 的时候必须重写 hashCode</h2><p>SUN官方的文档中规定”如果重定义equals方法，就必须重定义hashCode方法,以便用户可以将对象插入到散列(哈希)表中” </p>
+<p>那么 SUN 公司是出于什么考虑做了这个规定呢？ </p>
+<p>在集合框架中的HashSet，HashTable和HashMap都使用哈希表的形式存储数据，而hashCode计算出来的哈希码便是它们的身份证。哈希码的存在便可以： </p>
+<p>快速定位对象，提高哈希表集合的性能。<br>只有当哈希表中对象的索引即hashCode和对象的属性即equals同时相等时，才能够判断两个对象相等。<br>从上面可以看出，哈希码主要是为哈希表服务的，其实如果不需要使用哈希表，也可以不重写hashCode。但是SUN公司应该是出于对程序扩展性的考虑（万一以后需要将对象放入哈希表集合中），才会规定重写equals的同时需要重写hashCode，以避免后续开发不必要的麻烦。  </p>
+<p><strong>重写equals的注意事项</strong>  </p>
+<p>Java语言规范要求equals需要具有如下的特性： </p>
+<p><strong>自反性：</strong>对于任何非空引用 x，x.equals() 应该返回 true。<br><strong>对称性：</strong>对于任何引用 x 和 y，当且仅当 y.equals(x) 返回 true，x.equals(y) 也应该返回 true。<br><strong>传递性：</strong>对于任何引用 x、y 和 z，如果 x.equals(y)返回 true，y.equals(z) 也应返回同样的结果。<br><strong>一致性：</strong>如果 x 和 y 引用的对象没有发生变化，反复调用 x.equals(y) 应该返回同样的结果。<br>对于任意非空引用 x，x.equals(null) 应该返回 false。<br>在对象比较时，我们应该如何编写出一个符合特性的 equals 方法呢，《Core Java》中提出了如下建议：</p>
+<p>显式参数命名为 otherObject，稍后将它转换成另一个叫做 other 的变量。<br>检测 this 与 otherObject 是否引用同一个对象： </p>
+<p>if (this == otherObject) return true;<br>计算这个等式可以避免一个个比较类中的域，实现优化。</p>
+<p>检测 otherObject 是否为 null，如果为 null，返回 false。进行非空校验是十分重要的。</p>
+<p>比较 this 与 otherObject 是否属于同一个类。</p>
+<p>如果每个子类都重写了 equals，使用 getClass 检验：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if (getClass() != otherObject.getClass()) </div><div class="line">    return false;</div></pre></td></tr></table></figure></p>
+<p>如果所有子类都使用同一个 equals，就用 instanceof 检验：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">if (!(otherObject instanceof ClassName))</div><div class="line">    return false;</div></pre></td></tr></table></figure></p>
+<p>将 otherObject 转换为相应的类型变量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ClassName other = (ClassName) otherObject;</div></pre></td></tr></table></figure></p>
+<p>现在可以对所有需要比较的域进行比较了。</p>
+<p>基本类型使用 == 比较<br>对象使用 equals 比较<br>数组类型的域可以使用静态方法 Arrays.equals检测相应数组元素是否相等<br>如果所有域匹配，则返回 true<br>注意：子类重写父类 equals 方法时，必须完全覆盖父类方法，不能因为类型错误或者其他原因定义了一个完全无关的方法。可以使用 @Override 注解对覆盖父类的方法进行标记，这样编译器便会检测到覆盖过程中的错误。</p>
+<p><strong>重写 hashCode 的注意事项</strong><br>散列码（hash code）是由对象导出的一个整型值。散列码没有规律，在不同的对象中通过不同的算法生成，Java中生成 hashCode 的策略为（以下说明均摘自 Java API 8）：</p>
+<p><strong>String 类的 hashCode 根据其字符串内容，使用算法计算后返回哈希码。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Returns a hash code for this string. The hash code for a String object is computed as s[0]*31^(n-1) + s[1]*31^(n-2) + ... + s[n-1]</div></pre></td></tr></table></figure></p>
+<p><strong>Integer 类返回的哈希码为其包含的整数数值。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Returns: a hash code value for this object, equal to the primitive int value represented by this Integer object.</div></pre></td></tr></table></figure></p>
+<p><strong>Object 类的 hashCode 返回对象的内存地址经过处理后的数值。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Returns a hash code value for the object. This method is supported for the benefit of hash tables such as those provided by HashMap.</div></pre></td></tr></table></figure></p>
+<p>在自己的类中想要重写 hashCode 的话一般怎么做呢？建议合理地组合实例域的散列码，让各个不同对象产生的散列码更加均匀。例如我们现在有一个 Cat 对象，它有 name、size 和 color 三个不同域，那么可以重写 hashCode 方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">class Cat &#123;</div><div class="line">    ......</div><div class="line">    public int hashCode() &#123;</div><div class="line">        //hashCode是可以返回负值的</div><div class="line">        return 6 * name.hashCode()</div><div class="line">            + 8 * new Double(size).hashCode()</div><div class="line">            + 10 * color.hashCode();</div><div class="line">    &#125;</div><div class="line">    ......</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然还有更好的做法，我们可以直接调用静态方法 Objects.hash 并提供多个参数。这个方法会对各个参数调用 Object.hashCode，并组合返回的散列码。故以上的方法可以缩写为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">public int hashCode() &#123;</div><div class="line">    return Objects.hash(name, size, color);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>【注意】 <font color="#c00">equals与hashCode的定义必须一致，两个对象equals为true，就必须有相同的hashCode。</font>例如：如果定义的equals比较的是小猫的 name，那么hashCode就需要散列该 name，而不是小猫的 color 或 size。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
+        <p><span>发布时间:</span>2017年08月01日 - 23时47分</p>
+        <p><span>最后更新:</span>2017年08月02日 - 21时24分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/01/equals、-和hashCode/" title="equals、==和hashCode">http://jet-han.oschina.io/2017/08/01/equals、-和hashCode/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/01/equals、-和hashCode/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/07/28/HashMap工作原理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HashMap工作原理</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">2.</span> <span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从Java集合的常用需求为什么需要使用Hashcode"><span class="toc-number">3.</span> <span class="toc-text">从Java集合的常用需求为什么需要使用Hashcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写-equals-的时候必须重写-hashCode"><span class="toc-number">4.</span> <span class="toc-text">重写 equals 的时候必须重写 hashCode</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/07/28/HashMap工作原理/" title="下一篇: HashMap工作原理">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - Jet</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+  </div>
+</body>
+</html>
