@@ -1,0 +1,8 @@
+# robotstxt.org/
+
+User-agent: *
+Allow: /
+Disallow: /css
+Disallow: /js
+Sitemap: http://jethan.bid/sitemap.xml
+Sitemap: http://jethan.bid/baidusitemap.xml
