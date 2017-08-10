@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://jet-han.oschina.io/2017/07/26/Spring单例模式与线程安全/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/spring.jpg">
-<meta property="og:updated_time" content="2017-08-02T14:09:50.014Z">
+<meta property="og:updated_time" content="2017-08-04T13:08:25.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring单例模式与线程安全">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/spring.jpg">
@@ -34,8 +34,7 @@
   <!-- 加载特效 -->
     <script src="/js/pace.js"></script>
     <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <!-- <script src="http://s.6travel.com/titi126.js"> -->
-<script>
+  <script>
       var yiliaConfig = {
           rootUrl: '/',
           fancybox: true,
@@ -48,7 +47,6 @@
           open_in_new: false
       }
   </script>
-  <script src="http://s.6travel.com/titi126.js">
   <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 </head>
 
@@ -76,6 +74,11 @@
         
         <p class="header-subtitle">技术博客</p>
         
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
         
             <form>
                 <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
@@ -159,7 +162,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a>
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
                     </div>
                 </section>
                 
@@ -290,7 +293,7 @@
 <h2 id="线程安全"><a href="#线程安全" class="headerlink" title="线程安全"></a>线程安全</h2><p> Spring使用ThreadLocal解决线程安全问题 </p>
 <p>　　我们知道在一般情况下，只有无状态的Bean才可以在多线程环境下共享，在Spring中，绝大部分Bean都可以声明为singleton作用域。就是因为Spring对一些Bean（如RequestContextHolder、TransactionSynchronizationManager、LocaleContextHolder等）中非线程安全状态采用ThreadLocal进行处理，让它们也成为线程安全的状态，因为有状态的Bean就可以在多线程中共享了。 </p>
 <p>　　一般的Web应用划分为展现层、服务层和持久层三个层次，在不同的层中编写对应的逻辑，下层通过接口向上层开放功能调用。在一般情况下，从接收请求到返回响应所经过的所有程序调用都同属于一个线程<br>ThreadLocal是解决线程安全问题一个很好的思路，它通过为每个线程提供一个独立的变量副本解决了变量并发访问的冲突问题。在很多情况下，ThreadLocal比直接使用synchronized同步机制解决线程安全问题更简单，更方便，且结果程序拥有更高的并发性。<br>如果你的代码所在的进程中有多个线程在同时运行，而这些线程可能会同时运行这段代码。如果每次运行结果和单线程运行的结果是一样的，而且其他的变量的值也和预期的是一样的，就是线程安全的。 或者说:一个类或者程序所提供的接口对于线程来说是原子操作或者多个线程之间的切换不会导致该接口的执行结果存在二义性,也就是说我们不用考虑同步的问题。 　线程安全问题都是由全局变量及静态变量引起的。<br>若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全。<br>1） 常量始终是线程安全的，因为只存在读操作。<br>2）每次调用方法前都新建一个实例是线程安全的，因为不会访问共享的资源。<br>3）局部变量是线程安全的。因为每执行一个方法，都会在独立的空间创建局部变量，它不是共享的资源。局部变量包括方法的参数变量和方法内变量。<br>有状态就是有数据存储功能。有状态对象(Stateful Bean)，就是有实例变量的对象  ，可以保存数据，是非线程安全的。在不同方法调用间不保留任何状态。<br>无状态就是一次操作，不能保存数据。无状态对象(Stateless Bean)，就是没有实例变量的对象  .不能保存数据，是不变类，是线程安全的。<br>有状态对象:<br>无状态的Bean适合用不变模式，技术就是单例模式，这样可以共享实例，提高性能。有状态的Bean，多线程环境下不安全，那么适合用Prototype原型模式。Prototype: 每次对bean的请求都会创建一个新的bean实例。<br>Struts2默认的实现是Prototype模式。也就是每个请求都新生成一个Action实例，所以不存在线程安全问题。需要注意的是，如果由Spring管理action的生命周期， scope要配成prototype作用域。</p>
-<h2 id="线程安全案例："><a href="#线程安全案例：" class="headerlink" title="线程安全案例："></a>线程安全案例：</h2><p>SimpleDateFormat(下面简称sdf)类内部有一个Calendar对象引用,它用来储存和这个sdf相关的日期信息,例如sdf.parse(dateStr), sdf.format(date) 诸如此类的方法参数传入的日期相关String, Date等等, 都是交友Calendar引用来储存的.这样就会导致一个问题,如果你的sdf是个static的, 那么多个thread 之间就会共享这个sdf, 同时也是共享这个Calendar引用, 并且, 观察 sdf.parse() 方法,你会发现有如下的调用:</p>
+<h2 id="线程安全案例"><a href="#线程安全案例" class="headerlink" title="线程安全案例"></a>线程安全案例</h2><p>SimpleDateFormat(下面简称sdf)类内部有一个Calendar对象引用,它用来储存和这个sdf相关的日期信息,例如sdf.parse(dateStr), sdf.format(date) 诸如此类的方法参数传入的日期相关String, Date等等, 都是交友Calendar引用来储存的.这样就会导致一个问题,如果你的sdf是个static的, 那么多个thread 之间就会共享这个sdf, 同时也是共享这个Calendar引用, 并且, 观察 sdf.parse() 方法,你会发现有如下的调用:</p>
 <pre><code>Date parse() {
   calendar.clear(); // 清理calendar
   ... // 执行一些操作, 设置 calendar 的日期什么的
@@ -335,7 +338,8 @@
         return threadLocal.get().format(date);
     }
 }
-</code></pre><h1 id="或"><a href="#或" class="headerlink" title="或"></a>或</h1><pre><code>public class ThreadLocalDateUtil {
+</code></pre><p>或</p>
+<pre><code>public class ThreadLocalDateUtil {
     private static final String date_format = &quot;yyyy-MM-dd HH:mm:ss&quot;;
     private static ThreadLocal&lt;DateFormat&gt; threadLocal = new ThreadLocal&lt;DateFormat&gt;(); 
 
@@ -433,7 +437,7 @@
         <p><span>本文标题:</span><a href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年07月26日 - 18时06分</p>
-        <p><span>最后更新:</span>2017年08月02日 - 22时09分</p>
+        <p><span>最后更新:</span>2017年08月04日 - 21时08分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/26/Spring单例模式与线程安全/" title="Spring单例模式与线程安全">http://jet-han.oschina.io/2017/07/26/Spring单例模式与线程安全/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/26/Spring单例模式与线程安全/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -474,7 +478,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式"><span class="toc-number">2.</span> <span class="toc-text">单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全"><span class="toc-number">3.</span> <span class="toc-text">线程安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全案例："><span class="toc-number">4.</span> <span class="toc-text">线程安全案例：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">5.</span> <span class="toc-text">解决办法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#或"><span class="toc-number"></span> <span class="toc-text">或</span></a>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#单例模式"><span class="toc-number">2.</span> <span class="toc-text">单例模式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全"><span class="toc-number">3.</span> <span class="toc-text">线程安全</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全案例"><span class="toc-number">4.</span> <span class="toc-text">线程安全案例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决办法"><span class="toc-number">5.</span> <span class="toc-text">解决办法</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -556,7 +560,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -616,6 +620,7 @@
     </div>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="http://s.6travel.com/titi126.js"></script>
 
     <script>
         $(document).ready(function() {

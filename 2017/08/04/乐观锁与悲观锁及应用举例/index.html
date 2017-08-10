@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>乐观锁与悲观锁及应用举例 | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="keywords" content="mysql,乐观锁,悲观锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="乐观锁与悲观锁及应用举例">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/08/04/乐观锁与悲观锁及应用举例/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta property="og:updated_time" content="2017-08-04T13:08:25.931Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="乐观锁与悲观锁及应用举例">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Jet</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/message">留言打卡</a></li>
+                        
+                            <li><a href="/404.html">公益404</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Jet</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Jet</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/message">留言打卡</a></li>
+                
+                    <li><a href="/404.html">公益404</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-乐观锁与悲观锁及应用举例" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/04/乐观锁与悲观锁及应用举例/" class="article-date">
+      <time datetime="2017-08-04T03:53:43.000Z" itemprop="datePublished">2017-08-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      乐观锁与悲观锁及应用举例
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/mysql/">mysql</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/乐观锁/">乐观锁</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/悲观锁/">悲观锁</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<a id="more"></a>
+<h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//查出商品状态</div><div class="line">select status from items where id=10000;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders(id,item_id) values(null,10000);</div><div class="line">//修改商品状态为2</div><div class="line">update Items set status=2 where id=10000;</div></pre></td></tr></table></figure></p>
+<p><strong>上述场景在高并发环境下可能出现问题：</strong><br>前面已经提到只有商品的status=1是才能对它进行下单操作，上面第一步操作中，查询出来的商品status为1。但是当我们执行第三步update操作的时候，有可能出现其他人先一步对商品下单把Item的status修改为2了，但是我们并不知道数据已经被修改了，这样就可能造成同一个商品被下单2次，使得数据不一致。所以说这种方式是不安全的。<br>使用悲观锁来实现：在上面的场景中，商品信息从查询出来到修改，中间有一个处理订单的过程，使用悲观锁的原理就是，当我们在查询出items信息后就把当前的数据锁定，直到我们修改完毕后再解锁。那么在这个过程中，因为items被锁定了，就不会出现有第三者来对其进行修改了。<br>注：要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。我们可以使用命令设置MySQL为非autocommit模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">set autocommit=0;</div><div class="line">设置完autocommit后，我们就可以执行我们的正常业务了。具体如下：</div><div class="line">//开始事务</div><div class="line">begin;/begin work;/start transaction; (三者选一就可以)</div><div class="line">//查询出商品信息</div><div class="line">select status from items where id=10000 for update;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders (id,item_id) values (null,10000);</div><div class="line">//修改商品status为2</div><div class="line">update items set status=2 where id=10000;</div><div class="line">//提交事务</div><div class="line">commit;/commit work;</div></pre></td></tr></table></figure></p>
+<p>注：上面的begin/commit为事务的开始和结束，因为在前一步我们关闭了mysql的autocommit，所以需要手动控制事务的提交，在这里就不细表了。<br>上面的第一步我们执行了一次查询操作：select status from items where id=10000 for update;与普通查询不一样的是，我们使用了select…for update的方式，这样就通过数据库实现了悲观锁。此时在items表中，id为10000的 那条数据就被我们锁定了，其它的事务必须等本次事务提交之后才能执行。这样我们可以保证当前的数据不会被其它事务修改。<br>注：需要注意的是，在事务中，只有SELECT … FOR UPDATE 或LOCK IN SHARE MODE 同一笔数据时会等待其它事务结束后才执行，一般SELECT … 则不受此影响。拿上面的实例来说，当我执行select status from items where id=10000 for update;后。我在另外的事务中如果再次执行select status from items where id=10000 for update;则第二个事务会一直等待第一个事务的提交，此时第二个查询处于阻塞的状态，但是如果我是在第二个事务中执行select status from items where id=10000;则能正常查询出数据，不会受第一个事务的影响。<br>上面我们提到，使用select…for update会把数据给锁住，不过我们需要注意一些锁的级别，MySQL InnoDB默认Row-Level Lock，所以只有明确地指定主键，MySQL 才会执行Row lock (只锁住被选取的数据) ，否则MySQL 将会执行Table Lock (将整个数据表单给锁住)。除了主键外，使用索引也会影响数据库的锁定级别。<br>悲观锁并不是适用于任何场景，它也有它存在的一些不足，因为悲观锁大多数情况下依靠数据库的锁机制实现，以保证操作最大程度的独占性。如果加锁的时间过长，其他用户长时间无法访问，影响了程序的并发访问性，同时这样对数据库性能开销影响也很大，特别是对长事务而言，这样的开销往往无法承受。</p>
+<h2 id="乐观锁（-Optimistic-Locking-）"><a href="#乐观锁（-Optimistic-Locking-）" class="headerlink" title="乐观锁（ Optimistic Locking ）"></a>乐观锁（ Optimistic Locking ）</h2><p>相对悲观锁而言，乐观锁假设认为数据一般情况下不会造成冲突，所以在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则让返回用户错误的信息，让用户决定如何去做。那么我们如何实现乐观锁呢，一般来说有以下2种方式：  </p>
+<ol>
+<li><p>使用数据版本（Version）记录机制实现，这是乐观锁最常用的一种实现方式。何谓数据版本？即为数据增加一个版本标识，一般是通过为数据库表增加一个数字类型的 “version” 字段来实现。当读取数据时，将version字段的值一同读出，数据每更新一次，对此version值+1。当我们提交更新的时候，判断数据库表对应记录的当前版本信息与第一次取出来的version值进行比对，如果数据库表当前版本号与第一次取出来的version值相等，则予以更新，否则认为是过期数据。<br>如果更新操作顺序执行，则数据的版本（version）依次递增，不会产生冲突。但是如果发生有不同的业务操作对同一版本的数据进行修改，那么，先提交的操作（图中B）会把数据version更新为2，当A在B之后提交更新时发现数据的version已经被修改了，那么A的更新操作会失败。</p>
+</li>
+<li><p>乐观锁定的第二种实现方式和第一种差不多，同样是在需要乐观锁控制的table中增加一个字段，名称无所谓，字段类型使用时间戳（timestamp）, 和上面的version类似（其实不用新加字段，用需要修改的字段作为条件进行修改操作即可），也是在更新提交的时候检查当前数据库中数据的时间戳和自己更新前取到的时间戳进行对比，如果一致则OK，否则就是版本冲突。<br>以mysql InnoDB存储引擎为例，还是拿之前的例子商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；<br>下单操作包括3步骤：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//查询出商品信息</div><div class="line">select (status,version) from items where id=#&#123;id&#125;</div><div class="line">//根据商品信息生成订单</div><div class="line">//修改商品status为2</div><div class="line">update items set status=2,version=version+1 where id=#&#123;id&#125; and version=#&#123;version&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>为了使用乐观锁，我们需要首先修改items表，增加一个version字段，数据默认version可设为1；<br>其实我们周围的很多产品都有乐观锁的使用，比如我们经常使用的分布式存储引擎Tair，Tair中存储的每个数据都有版本号，版本号在每次更新后都会递增，相应的，在Tair put接口中也有此version参数，这个参数是为了解决并发更新同一个数据而设置的，这其实就是乐观锁；<br>很多情况下，更新数据是先get，修改get回来的数据，然后put回系统。如果有多个客户端get到同一份数据，都对其修改并保存，那么先保存的修改就会被后到达的修改覆盖，从而导致数据一致性问题,在大部分情况下应用能够接受，但在少量特殊情况下，这个是我们不希望发生的。<br>比如系统中有一个值”1”, 现在A和B客户端同时都取到了这个值。之后A和B客户端都想改动这个值，假设A要改成12，B要改成13，如果不加控制的话，无论A和B谁先更新成功，它的更新都会被后到的更新覆盖。Tair引入的乐观锁机制避免了这样的问题。刚刚的例子中，假设A和B同时取到数据，当时版本号是10，A先更新，更新成功后，值为12，版本为11。当B更新的时候，由于其基于的版本号是10，此时服务器会拒绝更新，返回version error，从而避免A的更新被覆盖。B可以选择get新版本的value，然后在其基础上修改，也可以选择强行更新。<br>当然了，乐观锁也是要精心挑选的，主要的目的就是避免锁的失败率过高又要规避ABA问题。关于锁力度太大导致接口操作失败率过高。<br>商品库存扣减时，尤其是在秒杀、聚划算这种高并发的场景下，若采用version号作为乐观锁，则每次只有一个事务能更新成功，业务感知上就是大量操作失败。<br>若挑选以库存数作为乐观锁<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">update item </div><div class="line">set </div><div class="line">    quantity=quantity-#sub_quantity# </div><div class="line">where </div><div class="line">    item_id = #id# </div><div class="line">    and quantity-#sub_quantity# &gt; 0</div></pre></td></tr></table></figure></p>
+<p>通过挑选乐观锁，可以减小锁力度，从而提升吞吐<br>乐观锁需要灵活运用,现在互联网高并发的架构中，受到fail-fast思路的影响，悲观锁已经非常少见了。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
+        <p><span>发布时间:</span>2017年08月04日 - 11时53分</p>
+        <p><span>最后更新:</span>2017年08月04日 - 21时08分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/04/乐观锁与悲观锁及应用举例/" title="乐观锁与悲观锁及应用举例">http://jet-han.oschina.io/2017/08/04/乐观锁与悲观锁及应用举例/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/04/乐观锁与悲观锁及应用举例/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/08/04/mysql事务隔离级别/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          mysql事务隔离级别
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/01/equals、-和hashCode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">equals、==和hashCode</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#悲观锁"><span class="toc-number">1.</span> <span class="toc-text">悲观锁</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#乐观锁（-Optimistic-Locking-）"><span class="toc-number">2.</span> <span class="toc-text">乐观锁（ Optimistic Locking ）</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/08/04/mysql事务隔离级别/" title="上一篇: mysql事务隔离级别">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/08/01/equals、-和hashCode/" title="下一篇: equals、==和hashCode">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - Jet</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="http://s.6travel.com/titi126.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+  </div>
+</body>
+</html>

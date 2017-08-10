@@ -14,7 +14,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/linux/awk.gif">
 <meta property="og:image" content="http://jet-han.oschina.io/img/linux/linux.gif">
 <meta property="og:image" content="http://jet-han.oschina.io/img/linux/linux.png">
-<meta property="og:updated_time" content="2017-08-02T13:24:37.127Z">
+<meta property="og:updated_time" content="2017-08-10T14:40:57.860Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用操作命令(一)">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/linux.jpg">
@@ -37,8 +37,7 @@
   <!-- 加载特效 -->
     <script src="/js/pace.js"></script>
     <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <!-- <script src="http://s.6travel.com/titi126.js"> -->
-<script>
+  <script>
       var yiliaConfig = {
           rootUrl: '/',
           fancybox: true,
@@ -51,7 +50,6 @@
           open_in_new: false
       }
   </script>
-  <script src="http://s.6travel.com/titi126.js">
   <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 </head>
 
@@ -79,6 +77,11 @@
         
         <p class="header-subtitle">技术博客</p>
         
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
         
             <form>
                 <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
@@ -162,7 +165,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a>
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
                     </div>
                 </section>
                 
@@ -1857,6 +1860,9 @@ eg:
 <pre><code>du [选项] [文件]
 -h  方便阅读的方式，会带单位
 -s  只显示总和的大小
+eg:
+#按照文件/文件夹从大到小降序排列，方便查找大文件
+du -sh * | sort -nr | head
 </code></pre></li>
 </ul>
 <h3 id="top"><a href="#top" class="headerlink" title="top"></a>top</h3><ul>
@@ -3610,7 +3616,7 @@ vi deadlock.jstack #使用vi查看
         <p><span>本文标题:</span><a href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年06月19日 - 18时27分</p>
-        <p><span>最后更新:</span>2017年08月02日 - 21时24分</p>
+        <p><span>最后更新:</span>2017年08月10日 - 22时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/06/19/linux常用操作命令-一/" title="linux常用操作命令(一)">http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/06/19/linux常用操作命令-一/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -3626,11 +3632,11 @@ vi deadlock.jstack #使用vi查看
 
 <nav id="article-nav">
   
-    <a href="/2017/07/02/github搭建个人maven仓库/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/06/24/git/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          github搭建个人maven仓库
+          git
         
       </div>
     </a>
@@ -3722,7 +3728,7 @@ vi deadlock.jstack #使用vi查看
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/07/02/github搭建个人maven仓库/" title="上一篇: github搭建个人maven仓库">
+            <a href="/2017/06/24/git/" title="上一篇: git">
                 <i class="fa fa-angle-left"></i>
             </a>
         
@@ -3733,7 +3739,7 @@ vi deadlock.jstack #使用vi查看
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -3793,6 +3799,7 @@ vi deadlock.jstack #使用vi查看
     </div>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="http://s.6travel.com/titi126.js"></script>
 
     <script>
         $(document).ready(function() {

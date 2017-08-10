@@ -14,7 +14,8 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/jvm.png">
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/stack1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/stack2.png">
-<meta property="og:updated_time" content="2017-08-02T13:24:37.114Z">
+<meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/jvm3.gif">
+<meta property="og:updated_time" content="2017-08-10T14:40:57.858Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm内存模型">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
@@ -37,8 +38,7 @@
   <!-- 加载特效 -->
     <script src="/js/pace.js"></script>
     <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
-  <!-- <script src="http://s.6travel.com/titi126.js"> -->
-<script>
+  <script>
       var yiliaConfig = {
           rootUrl: '/',
           fancybox: true,
@@ -51,7 +51,6 @@
           open_in_new: false
       }
   </script>
-  <script src="http://s.6travel.com/titi126.js">
   <script src="http://echarts.baidu.com/dist/echarts.common.min.js"></script>
 </head>
 
@@ -79,6 +78,11 @@
         
         <p class="header-subtitle">技术博客</p>
         
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
         
             <form>
                 <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
@@ -162,7 +166,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 10px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 10px;">mysql</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a>
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
                     </div>
                 </section>
                 
@@ -365,7 +369,7 @@
 <h2 id="内存溢出和内存泄漏"><a href="#内存溢出和内存泄漏" class="headerlink" title="内存溢出和内存泄漏"></a>内存溢出和内存泄漏</h2><p>内存溢出 out of memory，是指程序在申请内存时，没有足够的内存空间供其使用，出现out of memory；比如申请了一个integer，但给它存了long才能存下的数，那就是内存溢出。<br>内存泄露 memory leak，是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。<br>memory leak会最终会导致out ofmemory。</p>
 <p>Java 堆内存的OutOfMemoryError异常是实际应用中最常见的内存溢出异常情况。出现Java 堆内存溢出时，异常堆栈信息“java.lang.OutOfMemoryError”会跟着进一步提示“Java heapspace”。<br>要解决这个区域的异常，一般的手段是首先通过内存映像分析工具（如Eclipse Memory Analyzer）对dump 出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（Memory Overflow）。<br>如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots 的引用链。于是就能找到泄漏对象是通过怎样的路径与GC Roots 相关联并导致垃圾收集器无法自动回收它们的。掌握了泄漏对象的类型信息，以及GC Roots 引用链的信息，就可以比较准确地定位出泄漏代码的位置。<br>如果不存在泄漏，换句话说就是内存中的对象确实都还必须存活着，那就应当检查虚拟机的堆参数（-Xmx 与-Xms），与机器物理内存对比看是否还可以调大，从代码上检查是否存在某些对象生命周期过长、持有状态时间过长的情况，尝试减少程序运行期的内存消耗。</p>
 <h2 id="内存分配过程"><a href="#内存分配过程" class="headerlink" title="内存分配过程"></a>内存分配过程</h2><p>1、JVM 会试图为相关Java对象在Eden Space中初始化一块内存区域。<br>2、当Eden空间足够时，内存申请结束；否则到下一步。<br>3、JVM 试图释放在Eden中所有不活跃的对象（这属于1或更高级的垃圾回收）。释放后若Eden空间仍然不足以放入新对象，则试图将部分Eden中活跃对象放入Survivor区。<br>4、Survivor区被用来作为Eden及Old的中间交换区域，当Old区空间足够时，Survivor区的对象会被移到Old区，否则会被保留在Survivor区。<br>5、当Old区空间不够时，JVM 会在Old区进行完全的垃圾收集（0级）。<br>6、完全垃圾收集后，若Survivor及Old区仍然无法存放从Eden复制过来的部分对象，导致JVM无法在Eden区为新对象创建内存区域，则出现“outofmemory”错误。</p>
-<h2 id="对象访问"><a href="#对象访问" class="headerlink" title="对象访问"></a>对象访问</h2><p>对象访问在Java 语言中无处不在，是最普通的程序行为，但即使是最简单的访问，也会却涉及Java 栈、Java 堆、方法区这三个最重要内存区域之间的关联关系，如下面的这句代码：</p>
+<h2 id="对象访问"><a href="#对象访问" class="headerlink" title="对象访问"></a>对象访问</h2><p><img src="http://jet-han.oschina.io/img/jvm内存模型/jvm3.gif" alt="jvm" title="jvm"><br>对象访问在Java 语言中无处不在，是最普通的程序行为，但即使是最简单的访问，也会却涉及Java 栈、Java 堆、方法区这三个最重要内存区域之间的关联关系，如下面的这句代码：</p>
 <p>Object obj = newObject();</p>
 <p>假设这句代码出现在方法体中，那“Object obj”这部分的语义将会反映到Java 栈的本地变量表中，作为一个reference 类型数据出现。而“new Object()”这部分的语义将会反映到Java 堆中，形成一块存储了Object 类型所有实例数据值（Instance Data，对象中各个实例字段的数据）的结构化内存，根据具体类型以及虚拟机实现的对象内存布局（Object Memory Layout）的不同，这块内存的长度是不固定的。另外，在Java 堆中还必须包含能查找到此对象类型数据（如对象类型、父类、实现的接口、方法等）的地址信息，这些类型数据则存储在方法区中。<br>由于reference 类型在Java 虚拟机规范里面只规定了一个指向对象的引用，并没有定义这个引用应该通过哪种方式去定位，以及访问到Java 堆中的对象的具体位置，因此不同虚拟机实现的对象访问方式会有所不同，主流的访问方式有两种：使用句柄和直接指针。<br>如果使用句柄访问方式，Java 堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据和类型数据各自的具体地址信息。</p>
 
@@ -439,7 +443,7 @@
         <p><span>本文标题:</span><a href="/2017/07/20/jvm内存模型/">jvm内存模型</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年07月20日 - 14时44分</p>
-        <p><span>最后更新:</span>2017年08月02日 - 21时24分</p>
+        <p><span>最后更新:</span>2017年08月10日 - 22时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/20/jvm内存模型/" title="jvm内存模型">http://jet-han.oschina.io/2017/07/20/jvm内存模型/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/20/jvm内存模型/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -562,7 +566,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -622,6 +626,7 @@
     </div>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="http://s.6travel.com/titi126.js"></script>
 
     <script>
         $(document).ready(function() {

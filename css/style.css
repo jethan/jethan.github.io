@@ -3091,7 +3091,7 @@ a.gitment-editor-footer-tip:hover {
   margin: 0 3px;
   color: #999;
   background: #002b36;
-  border: 1px dashed #ccc;
+/*border: 1px dashed color-inline-border-color;*/
   border-radius: 3px;
   font-family: Menlo, Monaco, "Andale Mono", "lucida console", "Courier New", monospace;
   word-wrap: break-word;
@@ -3124,6 +3124,7 @@ a.gitment-editor-footer-tip:hover {
 }
 .article-entry strong {
   font-weight: bold;
+  color: #607d8b;
 }
 .article-entry .caption {
   display: block;
@@ -3746,6 +3747,7 @@ a.gitment-editor-footer-tip:hover {
 .article-entry h1 {
   font-size: 1.5em;
   margin-top: 30px;
+  color: #000;
 }
 .article-entry h2 {
   font-size: 1.3em;
