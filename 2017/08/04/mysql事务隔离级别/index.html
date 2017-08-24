@@ -5,16 +5,19 @@
   
   <title>mysql事务隔离级别 | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="mysql,事务隔离级别">
+  <meta name="description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
+<meta name="keywords" content="mysql,事务隔离级别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql事务隔离级别">
 <meta property="og:url" content="http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/index.html">
 <meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/transaction.jpg">
-<meta property="og:updated_time" content="2017-08-04T13:08:25.931Z">
+<meta property="og:updated_time" content="2017-08-13T01:45:26.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql事务隔离级别">
+<meta name="twitter:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
@@ -137,6 +140,8 @@
                         
                             <li><a href="/archives">归档</a></li>
                         
+                            <li><a href="/photos">相册</a></li>
+                        
                             <li><a href="/message">留言打卡</a></li>
                         
                             <li><a href="/404.html">公益404</a></li>
@@ -163,7 +168,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 15px;">mysql</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/bigdata/" style="font-size: 13.33px;">bigdata</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mysql/" style="font-size: 16.67px;">mysql</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/thread-pool/" style="font-size: 10px;">thread pool</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/定时/" style="font-size: 10px;">定时</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/搜索引擎/" style="font-size: 10px;">搜索引擎</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
                     </div>
                 </section>
                 
@@ -216,6 +221,8 @@
                     <li><a href="/">博客首页</a></li>
                 
                     <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
                 
                     <li><a href="/message">留言打卡</a></li>
                 
@@ -285,12 +292,12 @@
       
           
         <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<a id="more"></a>
 <h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong>  </p>
 <ol>
 <li>所有事务都可以看到其他未提交事务的执行结果  </li>
 <li>本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  </li>
-<li>该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据 </li>
+<li>该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据 <a id="more"></a>
+</li>
 </ol>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">#首先，修改隔离级别</div><div class="line">set tx_isolation=&apos;READ-UNCOMMITTED&apos;;  </div><div class="line">select @@tx_isolation; </div><div class="line">| @@tx_isolation |</div><div class="line">| READ-UNCOMMITTED |</div><div class="line">#事务A：启动一个事务  </div><div class="line">start transaction;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：也启动一个事务(那么两个事务交叉了)  </div><div class="line">#在事务B中执行更新语句，且不提交</div><div class="line">start transaction;   </div><div class="line">update tx set num=10 where id=1;  </div><div class="line">select * from tx;</div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 | </div><div class="line"></div><div class="line">#事务A：那么这时候事务A能看到这个更新了的数据吗?  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |   ---&gt;可以看到！说明我们读到了事务B还没有提交的数据  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：事务B回滚,仍然未提交  </div><div class="line">rollback;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务A：在事务A里面看到的也是B没有提交的数据</div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |      ---&gt;脏读意味着我在这个事务中(A中)，事务B虽然没有提交，但它任何一条数据变化，我都可以看到！  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">``` </div><div class="line"></div><div class="line">**第2级别：Read Committed(读取提交内容)**</div><div class="line">1. 这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）</div><div class="line">2. 它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变</div><div class="line">3. 这种隔离级别出现的问题是——不可重复读(Nonrepeatable Read)：不可重复读意味着我们在同一个事务中执行完全相同的select语句时可能看到不一样的结果。  </div><div class="line"> ——&gt;导致这种情况的原因可能有：(1)有一个交叉的事务有新的commit，导致了数据的改变;(2)一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit</div></pre></td></tr></table></figure>
 <h1 id="首先修改隔离级别"><a href="#首先修改隔离级别" class="headerlink" title="首先修改隔离级别"></a>首先修改隔离级别</h1><p>set tx_isolation=’read-committed’;<br>select @@tx_isolation;<br>| @@tx_isolation |<br>| READ-COMMITTED |  </p>
@@ -378,7 +385,7 @@
         <p><span>本文标题:</span><a href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月04日 - 11时58分</p>
-        <p><span>最后更新:</span>2017年08月04日 - 21时08分</p>
+        <p><span>最后更新:</span>2017年08月13日 - 09时45分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/04/mysql事务隔离级别/" title="mysql事务隔离级别">http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -394,18 +401,18 @@
 
 <nav id="article-nav">
   
-    <a href="/2017/08/04/spring事务的传播属性和隔离级别/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/08/05/乐观锁与悲观锁及应用举例/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          spring事务的传播属性和隔离级别
+          乐观锁与悲观锁及应用举例
         
       </div>
     </a>
   
   
-    <a href="/2017/08/04/乐观锁与悲观锁及应用举例/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">乐观锁与悲观锁及应用举例</div>
+    <a href="/2017/08/01/equals、-和hashCode/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">equals、==和hashCode</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -490,18 +497,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/08/04/spring事务的传播属性和隔离级别/" title="上一篇: spring事务的传播属性和隔离级别">
+            <a href="/2017/08/05/乐观锁与悲观锁及应用举例/" title="上一篇: 乐观锁与悲观锁及应用举例">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/08/04/乐观锁与悲观锁及应用举例/" title="下一篇: 乐观锁与悲观锁及应用举例">
+            <a href="/2017/08/01/equals、-和hashCode/" title="下一篇: equals、==和hashCode">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/10/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/10/数据库之mysql-一/">数据库之mysql(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
