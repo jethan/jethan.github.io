@@ -278,7 +278,7 @@
     <link href="http://jet-han.oschina.io/2017/08/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/"/>
     <id>http://jet-han.oschina.io/2017/08/15/大数据平台-ambari/</id>
     <published>2017-08-15T07:02:20.000Z</published>
-    <updated>2017-08-24T03:35:10.242Z</updated>
+    <updated>2017-08-24T10:00:33.499Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
@@ -348,7 +348,7 @@
 <p>2.启动ntpd服务</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y install ntp</div><div class="line">chkconfig ntpd on</div></pre></td></tr></table></figure>
 <p>centos7服务模式变化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/bin/systemctl start ntpd.service</div><div class="line">/bin/systemctl start chronyd.service</div><div class="line">/bin/systemctl stop firewalld.service</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/bin/systemctl start ntpd</div><div class="line">/bin/systemctl start chronyd</div><div class="line">/bin/systemctl stop firewalld</div></pre></td></tr></table></figure>
 <p>完成这两个操作以后，warning消失，如图<br><img src="http://jet-han.oschina.io/img/ambari/host-check-ok.png" alt="ambari" title="ambari"></p>
 <h3 id="Choose-Services"><a href="#Choose-Services" class="headerlink" title="Choose Services"></a>Choose Services</h3><p>选择需要安装的服务</p>
 <h3 id="Assign-Masters"><a href="#Assign-Masters" class="headerlink" title="Assign Masters"></a>Assign Masters</h3><p>分配主服务器</p>

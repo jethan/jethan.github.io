@@ -4,18 +4,16 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-08-24T03:37:47.300Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/08/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
+    <lastmod>2017-08-24T10:00:33.499Z</lastmod>
     <data>
         <display>
-        <title>solr安装与使用</title>
-        <pubTime>2017-08-16T09:11:01.000Z</pubTime>
+        <title>大数据平台-ambari</title>
+        <pubTime>2017-08-15T07:02:20.000Z</pubTime>
         
-        <tag>solr</tag>
-         
         <tag>bigdata</tag>
          
-        <tag>搜索引擎</tag>
+        <tag>ambari</tag>
          
          
            
@@ -28,16 +26,18 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
-    <lastmod>2017-08-24T03:35:10.242Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/08/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2017-08-24T03:37:47.300Z</lastmod>
     <data>
         <display>
-        <title>大数据平台-ambari</title>
-        <pubTime>2017-08-15T07:02:20.000Z</pubTime>
+        <title>solr安装与使用</title>
+        <pubTime>2017-08-16T09:11:01.000Z</pubTime>
         
+        <tag>solr</tag>
+         
         <tag>bigdata</tag>
          
-        <tag>ambari</tag>
+        <tag>搜索引擎</tag>
          
          
            

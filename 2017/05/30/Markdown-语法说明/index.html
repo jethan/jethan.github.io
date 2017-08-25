@@ -366,7 +366,7 @@
 &lt;fajie_han@foxmail.com&gt;
 </code></pre><p><strong>显示效果：</strong></p>
 <p> <a href="https://www.baidu.com/" target="_blank" rel="external">https://www.baidu.com/</a></p>
-<p> <a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x66;&#97;&#106;&#x69;&#101;&#95;&#104;&#x61;&#x6e;&#64;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;">&#x66;&#97;&#106;&#x69;&#101;&#95;&#104;&#x61;&#x6e;&#64;&#x66;&#111;&#x78;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
+<p> <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#102;&#97;&#x6a;&#105;&#101;&#95;&#104;&#x61;&#x6e;&#x40;&#102;&#x6f;&#x78;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;">&#102;&#97;&#x6a;&#105;&#101;&#95;&#104;&#x61;&#x6e;&#x40;&#102;&#x6f;&#x78;&#109;&#97;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;</a></p>
 </li>
 </ul>
 <h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul>
@@ -815,10 +815,10 @@ $$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
 </code></pre><p><strong>效果显示</strong></p>
 </li>
 </ul>
-<div id="echarts7997" style="width: 81%;height: 400px;margin: 0 auto"></div>
+<div id="echarts5705" style="width: 81%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts7997'));
+        var myChart = echarts.init(document.getElementById('echarts5705'));
 
         // 指定图表的配置项和数据
         var option = {
@@ -1469,6 +1469,43 @@ MathJax.Hub.Queue(function() {
 
         _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
       }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
     </script>
 
 
