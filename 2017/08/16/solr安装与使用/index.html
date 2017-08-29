@@ -13,7 +13,8 @@
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="solr+tomcat单节点Solr6部署在Tomcat8环境下 solr下载 在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。    日志处理：将Solr安装包">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/bigdata.jpg">
-<meta property="og:updated_time" content="2017-08-24T03:37:47.300Z">
+<meta property="og:image" content="http://jet-han.oschina.io/img/ambari/solr.png">
+<meta property="og:updated_time" content="2017-08-29T07:31:20.584Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="solr安装与使用">
 <meta name="twitter:description" content="solr+tomcat单节点Solr6部署在Tomcat8环境下 solr下载 在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。    日志处理：将Solr安装包">
@@ -295,10 +296,53 @@
 <p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
 <p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
 <p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br><a id="more"></a><br>配置<code>solr_home</code>：在磁盘任意位置新建目录，取名<code>solr_home</code>,把<code>.\solr-6.0.0\server\solr</code>下的整个solr文件夹复制到<code>solr_home</code>，编辑<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF</code>下的<code>web.xml</code>文件。<br>将<code>web.xml</code>文件注释去掉，<code>&lt;env-entry-value&gt;</code>中填刚才新建的<code>solr_home</code>路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">   &lt;env-entry-value&gt;E:\Tools\solr_home&lt;/env-entry-value&gt;</div><div class="line">   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">   &lt;env-entry-value&gt;/home/jet/workspace/github/bigdata/solr/solr_home&lt;/env-entry-value&gt;</div><div class="line">   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
 <p>这个<code>solr_home</code>里面的内容是复制<code>.\solr-6.0.0\server\solr\</code>下的内容，然后在该目录下新建文件夹<code>core0</code>，把 <code>.\solr-6.0.0\server\solr\configsets\basic_configs\</code>下的所有文件复制进来。 </p>
 <p>运行的话，直接双击<code>startup.sh</code></p>
-<p>访问<code>http://localhost:8080/solr</code>，可以看到<code>solr</code>管理界面，但是我们的sore还是空的，需要手动创建。在管理界面，点击<code>No cores available</code>选项，在弹出的窗口刚才新建的文件夹的名字。<br><code>Add core</code><br>这样，最简单的Solr就搭建完成了。</p>
+<p>访问<code>http://localhost:8080/solr/index.html</code>，可以看到<code>solr</code>管理界面，但是我们的sore还是空的，需要手动创建。在管理界面，点击<code>No cores available</code>选项，在弹出的窗口刚才新建的文件夹的名字。<br><code>Add core</code><br>这样，最简单的Solr就搭建完成了。</p>
+<p>【注意事项】<br>solr6以上必须要求jdk1.8以上版本，不然访问会报404,而且tomcat日志不会报任何错误信息<br>且访问路径是<code>localhost:8080/solr/index.html</code></p>
+<h2 id="solrcloud6"><a href="#solrcloud6" class="headerlink" title="solrcloud6"></a>solrcloud6</h2><h3 id="配置hosts"><a href="#配置hosts" class="headerlink" title="配置hosts"></a>配置hosts</h3><p>192.168.40.200 jet.solr.com<br>192.168.40.2 hadoop02.hadoop.com<br>192.168.40.3 hadoop03.hadoop.com</p>
+<h3 id="关闭防火墙-可以只执行第二步：推荐"><a href="#关闭防火墙-可以只执行第二步：推荐" class="headerlink" title="关闭防火墙(可以只执行第二步：推荐)"></a>关闭防火墙(可以只执行第二步：推荐)</h3><p>1) 永久关闭防火墙: <code>vi /etc/selinux/config</code>，将其中的SELinux设置：<code>SELINUX=disabled</code></p>
+<p>2) 关闭防火墙 : <code>systemctl disable firewalld.service</code> #禁用</p>
+<p>3) 关闭packagekit: <code>vi /etc/yum/pluginconf.d/langpacks.conf</code>，将<code>enabled</code>设为 <code>0</code></p>
+<h3 id="配置tomcat（各个solr节点一样）"><a href="#配置tomcat（各个solr节点一样）" class="headerlink" title="配置tomcat（各个solr节点一样）"></a>配置tomcat（各个solr节点一样）</h3><p><strong>启动与关闭</strong></p>
+<p><strong>启动：</strong>到bin目录下<code>./startup.sh</code></p>
+<p><strong>验证：</strong><code>http://192.168.40.200:8080</code></p>
+<p><strong>关闭：</strong>到bin目录下<code>./shutdown.sh</code></p>
+<h3 id="配置zookeeper（各个zookeeper节点上面）"><a href="#配置zookeeper（各个zookeeper节点上面）" class="headerlink" title="配置zookeeper（各个zookeeper节点上面）"></a>配置zookeeper（各个zookeeper节点上面）</h3><p><strong>(1)  解压</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf zookeeper-3.4.10.tar.gz</div></pre></td></tr></table></figure>
+<p><strong>(2)创建data和logs目录</strong></p>
+<p>创建目录并赋于写权限</p>
+<p>指定<code>zookeeper</code>的数据存放目录<code>/hadoop/zookeeper/data</code>和日志目录<code>/hadoop/zookeeper/logs</code></p>
+<p><strong>(3)拷贝zookeeper</strong><br>配制文件<code>zoo_sample.cfg</code>，文件在<code>conf</code>目录下</p>
+<p>拷贝<code>zookeeper</code>配制文件<code>zoo_sample.cfg</code>并重命名<code>zoo.cfg</code></p>
+<p><strong>(4)  修改zoo.cfg</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#</div><div class="line">#</div><div class="line"># Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"># or more contributor license agreements.  See the NOTICE file</div><div class="line"># distributed with this work for additional information</div><div class="line"># regarding copyright ownership.  The ASF licenses this file</div><div class="line"># to you under the Apache License, Version 2.0 (the</div><div class="line"># &quot;License&quot;); you may not use this file except in compliance</div><div class="line"># with the License.  You may obtain a copy of the License at</div><div class="line">#</div><div class="line">#   http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">#</div><div class="line"># Unless required by applicable law or agreed to in writing,</div><div class="line"># software distributed under the License is distributed on an</div><div class="line"># &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"># KIND, either express or implied.  See the License for the</div><div class="line"># specific language governing permissions and limitations</div><div class="line"># under the License.</div><div class="line">#</div><div class="line">#</div><div class="line">#</div><div class="line"></div><div class="line">clientPort=2181</div><div class="line">initLimit=10</div><div class="line">autopurge.purgeInterval=24</div><div class="line">syncLimit=5</div><div class="line">tickTime=3000</div><div class="line">dataDir=/hadoop/zookeeper/data #上面创建的数据目录</div><div class="line">dataLogDir=/hadoop/zookeeper/logs #上面创建的日志目录</div><div class="line">autopurge.snapRetainCount=30</div><div class="line">server.1=hadoop02.hadoop.com:2888:3888</div><div class="line">server.2=hadoop03.hadoop.com:2888:3888</div></pre></td></tr></table></figure>
+<p><strong>(5)进入data</strong><br>文件夹建立对应的myid文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /hadoop/zookeeper/data/myid</div></pre></td></tr></table></figure>
+<p><strong>(6)拷贝zookeeper</strong></p>
+<p>文件夹到其他机器,进行相同配置</p>
+<h3 id="配置solr（各个solr节点一样）"><a href="#配置solr（各个solr节点一样）" class="headerlink" title="配置solr（各个solr节点一样）"></a>配置solr（各个solr节点一样）</h3><p><a href="#solr-tomcat单节点">和上面单节点一样</a></p>
+<h3 id="配置solr服务"><a href="#配置solr服务" class="headerlink" title="配置solr服务"></a>配置solr服务</h3><p><strong>(1) 在solr下，上传相关信息至zookeeper</strong></p>
+<p>在<code>/home/jet/workspace/github/bigdata/solr/solr-6.0.0/server/scripts/cloud-scripts</code>目录下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./zkcli.sh -zkhost 192.168.40.2:2181,192.168.40.3:2181 -cmd upconfig -confdir /home/jet/workspace/github/bigdata/solr/solr_home/core0/conf -confname solrconfig.xml</div></pre></td></tr></table></figure>
+<p><strong>(2) 每一台solr和zookeeper关联</strong></p>
+<p>修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址：</p>
+<p>在JAVA_OPTS添加zookeepre地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_OPTS=&quot;-DzkHost=192.168.40.2:2181,192.168.40.3:2181&quot;</div></pre></td></tr></table></figure>
+<p><strong>(3) 启动每一台solr服务器</strong><br>进入对应tomcat bin目录启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh startup.sh</div></pre></td></tr></table></figure>
+<p><strong>(4) 查看tomcat日志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -fn 100 catalina.out</div></pre></td></tr></table></figure>
+<p>如下信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10035261 INFO  (zkCallback-4-thread-34-processing-n:192.168.40.200:8080_solr-EventThread) [   ] o.a.s.c.c.ConnectionManager Watcher org.apache.solr.common.cloud.ConnectionManager@6edf2d5f name:ZooKeeperConnection Watcher:192.168.40.2:2181,192.168.40.3:2181 got event WatchedEvent state:SyncConnected type:None path:null path:null type:None</div></pre></td></tr></table></figure>
+<p><strong>(5) 修改solr启动端口（各个节点的配置一样）</strong></p>
+<p>在solrhome下，有一个solr.xml文件，修改其中的内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$&#123;host:192.168.40.200&#125;</div><div class="line"></div><div class="line">$&#123;jetty.port:8080&#125;</div></pre></td></tr></table></figure>
+<p>然后访问地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.40.200:8080/solr/index.html#/</div></pre></td></tr></table></figure>
+<p>如下<br><img src="http://jet-han.oschina.io/img/ambari/solr.png" alt="solr" title="solr"></p>
+<h2 id="solr全文检索原理"><a href="#solr全文检索原理" class="headerlink" title="solr全文检索原理"></a>solr全文检索原理</h2><p><a href="http://www.cnblogs.com/guochunguang/articles/3641008.html" target="_blank" rel="external">solr全文检索实现原理</a></p>
 
       
       
@@ -370,7 +414,7 @@
         <p><span>本文标题:</span><a href="/2017/08/16/solr安装与使用/">solr安装与使用</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月16日 - 17时11分</p>
-        <p><span>最后更新:</span>2017年08月24日 - 11时37分</p>
+        <p><span>最后更新:</span>2017年08月29日 - 15时31分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/16/solr安装与使用/" title="solr安装与使用">http://jet-han.oschina.io/2017/08/16/solr安装与使用/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/16/solr安装与使用/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -411,7 +455,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#solr-tomcat单节点"><span class="toc-number">1.</span> <span class="toc-text">solr+tomcat单节点</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#solr-tomcat单节点"><span class="toc-number">1.</span> <span class="toc-text">solr+tomcat单节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#solrcloud6"><span class="toc-number">2.</span> <span class="toc-text">solrcloud6</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置hosts"><span class="toc-number">2.1.</span> <span class="toc-text">配置hosts</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关闭防火墙-可以只执行第二步：推荐"><span class="toc-number">2.2.</span> <span class="toc-text">关闭防火墙(可以只执行第二步：推荐)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置tomcat（各个solr节点一样）"><span class="toc-number">2.3.</span> <span class="toc-text">配置tomcat（各个solr节点一样）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置zookeeper（各个zookeeper节点上面）"><span class="toc-number">2.4.</span> <span class="toc-text">配置zookeeper（各个zookeeper节点上面）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置solr（各个solr节点一样）"><span class="toc-number">2.5.</span> <span class="toc-text">配置solr（各个solr节点一样）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置solr服务"><span class="toc-number">2.6.</span> <span class="toc-text">配置solr服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#solr全文检索原理"><span class="toc-number">3.</span> <span class="toc-text">solr全文检索原理</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
