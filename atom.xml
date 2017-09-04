@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-08-24T03:32:28.659Z</updated>
+  <updated>2017-09-04T02:05:41.432Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/08/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
     <id>http://jet-han.oschina.io/2017/08/17/nginx安装与使用/</id>
     <published>2017-08-17T07:53:11.000Z</published>
-    <updated>2017-08-24T03:32:28.659Z</updated>
+    <updated>2017-09-04T02:05:41.432Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
 <h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
@@ -34,7 +34,7 @@
 <p>安装完成，下面直接就可以启动Nginx了：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/nginx start</div></pre></td></tr></table></figure>
 <p>我是用：服务启动并设置开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">service nginx start</div><div class="line">chkconfig nginx on --level 35</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service nginx start</div><div class="line">chkconfig nginx on --level 35</div><div class="line"></div><div class="line">#指定配置文件启动</div><div class="line">/usr/sbin/nginx -c /etc/nginx/nginx.conf</div></pre></td></tr></table></figure>
 <p>启动成功如下</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[op@bogon init.d]$ ps aux | grep nginx</div><div class="line">root     19210  0.0  0.0  46348  1192 ?        Ss   14:57   0:00 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf</div><div class="line">nginx    19211  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19212  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19214  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19215  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19216  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19217  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">op       19219  0.0  0.0 103328   872 pts/0    S+   14:58   0:00 grep nginx</div></pre></td></tr></table></figure>
 <p>常用命令</p>
@@ -321,7 +321,7 @@
     <link href="http://jet-han.oschina.io/2017/08/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/"/>
     <id>http://jet-han.oschina.io/2017/08/15/大数据平台-ambari/</id>
     <published>2017-08-15T07:02:20.000Z</published>
-    <updated>2017-08-24T10:00:33.499Z</updated>
+    <updated>2017-09-04T02:05:41.432Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
@@ -397,6 +397,7 @@
 <h3 id="Assign-Masters"><a href="#Assign-Masters" class="headerlink" title="Assign Masters"></a>Assign Masters</h3><p>分配主服务器</p>
 <h3 id="Assign-slaves-and-Clients"><a href="#Assign-slaves-and-Clients" class="headerlink" title="Assign slaves and Clients"></a>Assign slaves and Clients</h3><p>分配从服务器和客户端</p>
 <h3 id="控制面板"><a href="#控制面板" class="headerlink" title="控制面板"></a>控制面板</h3><p><img src="http://jet-han.oschina.io/img/ambari/dashboard.png" alt="ambari" title="ambari"></p>
+<p>访问不了注意关闭防火墙</p>
 <h3 id="常见错误汇总"><a href="#常见错误汇总" class="headerlink" title="常见错误汇总"></a>常见错误汇总</h3><p>错误信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">2017-08-22 21:09:18,495 - Skipping installation of existing package hdp-select</div><div class="line">2017-08-22 21:09:18,755 - Using hadoop conf dir: /usr/hdp/current/hadoop-client/conf</div><div class="line">2017-08-22 21:09:18,757 - checked_call[&apos;hostid&apos;] &#123;&#125;</div><div class="line">2017-08-22 21:09:18,761 - checked_call returned (0, &apos;a8c00228&apos;)</div><div class="line">2017-08-22 21:09:18,763 - Package[&apos;ambari-metrics-monitor&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,829 - Skipping installation of existing package ambari-metrics-monitor</div><div class="line">2017-08-22 21:09:18,830 - Package[&apos;ambari-metrics-hadoop-sink&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,839 - Skipping installation of existing package ambari-metrics-hadoop-sink</div><div class="line">2017-08-22 21:09:18,840 - Package[&apos;ambari-metrics-grafana&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,849 - Installing package ambari-metrics-grafana (&apos;/usr/bin/yum -d 0 -e 0 -y install ambari-metrics-grafana&apos;)</div></pre></td></tr></table></figure></p>
 <p>手动安装即可<br><a href="https://community.hortonworks.com/questions/68432/why-does-my-ambari-create-cluster-fail-during-spar.html" target="_blank" rel="external">参考</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install ambari-metrics-monitor hdp-select -y</div><div class="line">yum install slider_2_6_1_0_129 hdp-select -y</div><div class="line">yum install spark_2_6_1_0_129 hdp-select -y</div><div class="line">yum install mysql-connector-java hdp-select -y</div><div class="line">yum install tez_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129-server hdp-select -y</div></pre></td></tr></table></figure>
@@ -2138,41 +2139,173 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     <link href="http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     <id>http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/</id>
     <published>2017-08-04T03:58:09.000Z</published>
-    <updated>2017-08-13T01:45:26.091Z</updated>
+    <updated>2017-09-04T02:05:41.432Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong>  </p>
-<ol>
-<li>所有事务都可以看到其他未提交事务的执行结果  </li>
-<li>本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  </li>
-<li>该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据 <a id="more"></a>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">#首先，修改隔离级别</div><div class="line">set tx_isolation=&apos;READ-UNCOMMITTED&apos;;  </div><div class="line">select @@tx_isolation; </div><div class="line">| @@tx_isolation |</div><div class="line">| READ-UNCOMMITTED |</div><div class="line">#事务A：启动一个事务  </div><div class="line">start transaction;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：也启动一个事务(那么两个事务交叉了)  </div><div class="line">#在事务B中执行更新语句，且不提交</div><div class="line">start transaction;   </div><div class="line">update tx set num=10 where id=1;  </div><div class="line">select * from tx;</div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 | </div><div class="line"></div><div class="line">#事务A：那么这时候事务A能看到这个更新了的数据吗?  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |   ---&gt;可以看到！说明我们读到了事务B还没有提交的数据  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：事务B回滚,仍然未提交  </div><div class="line">rollback;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务A：在事务A里面看到的也是B没有提交的数据</div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |      ---&gt;脏读意味着我在这个事务中(A中)，事务B虽然没有提交，但它任何一条数据变化，我都可以看到！  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">``` </div><div class="line"></div><div class="line">**第2级别：Read Committed(读取提交内容)**</div><div class="line">1. 这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）</div><div class="line">2. 它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变</div><div class="line">3. 这种隔离级别出现的问题是——不可重复读(Nonrepeatable Read)：不可重复读意味着我们在同一个事务中执行完全相同的select语句时可能看到不一样的结果。  </div><div class="line"> ——&gt;导致这种情况的原因可能有：(1)有一个交叉的事务有新的commit，导致了数据的改变;(2)一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit</div></pre></td></tr></table></figure>
-<h1 id="首先修改隔离级别"><a href="#首先修改隔离级别" class="headerlink" title="首先修改隔离级别"></a>首先修改隔离级别</h1><p>set tx_isolation=’read-committed’;<br>select @@tx_isolation;<br>| @@tx_isolation |<br>| READ-COMMITTED |  </p>
-<h1 id="事务A：启动一个事务"><a href="#事务A：启动一个事务" class="headerlink" title="事务A：启动一个事务"></a>事务A：启动一个事务</h1><p>start transaction;<br>select * from tx;<br>| id   | num  |<br>|    1 |    1 |<br>|    2 |    2 |<br>|    3 |    3 |  </p>
-<h1 id="事务B：也启动一个事务-那么两个事务交叉了"><a href="#事务B：也启动一个事务-那么两个事务交叉了" class="headerlink" title="事务B：也启动一个事务(那么两个事务交叉了)"></a>事务B：也启动一个事务(那么两个事务交叉了)</h1><h1 id="在这事务中更新数据，且未提交"><a href="#在这事务中更新数据，且未提交" class="headerlink" title="在这事务中更新数据，且未提交"></a>在这事务中更新数据，且未提交</h1><p>start transaction;<br>update tx set num=10 where id=1;<br>select * from tx;<br>| id   | num  |<br>|    1 |   10 |<br>|    2 |    2 |<br>|    3 |    3 |  </p>
-<h1 id="事务A：这个时候我们在事务A中能看到数据的变化吗"><a href="#事务A：这个时候我们在事务A中能看到数据的变化吗" class="headerlink" title="事务A：这个时候我们在事务A中能看到数据的变化吗?"></a>事务A：这个时候我们在事务A中能看到数据的变化吗?</h1><p>select * from tx;<br>| id   | num  |<br>|    1 |    1 |—-&gt;并不能看到！<br>|    2 |    2 |<br>|    3 |    3 |<br>|——&gt;相同的select语句，结果却不一样</p>
-<h1 id="事务B：如果提交了事务B呢"><a href="#事务B：如果提交了事务B呢" class="headerlink" title="事务B：如果提交了事务B呢?"></a>事务B：如果提交了事务B呢?</h1><p>commit;                          </p>
-<h1 id="事务A"><a href="#事务A" class="headerlink" title="事务A:"></a>事务A:</h1><p>select * from tx;<br>| id   | num  |<br>|    1 |   10 |—-&gt;因为事务B已经提交了，所以在A中我们看到了数据变化<br>|    2 |    2 |<br>|    3 |    3 |<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**第3级别：Repeatable Read(可重读)**</div><div class="line">1. 这是MySQL的默认事务隔离级别  </div><div class="line">2. 它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行  </div><div class="line">3. 此级别可能出现的问题——幻读(Phantom Read)：当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行  </div><div class="line">4. InnoDB和Falcon存储引擎通过多版本并发控制(MVCC，Multiversion Concurrency Control)机制解决了该问题  </div><div class="line"></div><div class="line">```  </div><div class="line">#首先，更改隔离级别  </div><div class="line">set tx_isolation=&apos;repeatable-read&apos;;  </div><div class="line">select @@tx_isolation;  </div><div class="line">| @@tx_isolation  |</div><div class="line">+------+------+</div><div class="line">| REPEATABLE-READ |</div><div class="line">+------+------+</div><div class="line"></div><div class="line">#事务A：启动一个事务</div><div class="line">start transaction;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |</div><div class="line">+------+------+</div><div class="line">|    1 |    1 |</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">+------+------+</div><div class="line"></div><div class="line">#事务B：开启一个新事务(那么这两个事务交叉了)</div><div class="line">#在事务B中更新数据，并提交</div><div class="line">start transaction;  </div><div class="line">update tx set num=10 where id=1;  </div><div class="line">select * from tx;  </div><div class="line">+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+  </div><div class="line">commit;  </div><div class="line"></div><div class="line">#事务A：这时候即使事务B已经提交了,但A能不能看到数据变化？</div><div class="line">select * from tx;+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |    1 | ---&gt;还是看不到的！(这个级别2不一样，也说明级别3解决了不可重复读问题)  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+  </div><div class="line"></div><div class="line">#事务A：只有当事务A也提交了，它才能够看到数据变化</div><div class="line">commit;select * from tx;  </div><div class="line">+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+</div></pre></td></tr></table></figure></p>
-<p><strong>第4级别：Serializable(可串行化)</strong></p>
-<ol>
-<li>这是最高的隔离级别</li>
-<li>它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之,它是在每个读的数据行上加上共享锁。</li>
-<li>在这个级别，可能导致大量的超时现象和锁竞争</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#首先修改隔离界别</div><div class="line">set tx_isolation=&apos;serializable&apos;;  </div><div class="line">select @@tx_isolation;  </div><div class="line">+----------------+  </div><div class="line">| @@tx_isolation |  </div><div class="line">+----------------+  </div><div class="line">| SERIALIZABLE   |  </div><div class="line">+----------------+  </div><div class="line"></div><div class="line">#事务A：开启一个新事务  </div><div class="line">start transaction;  </div><div class="line"></div><div class="line">#事务B：在A没有commit之前，这个交叉事务是不能更改数据的  </div><div class="line">start transaction;  </div><div class="line">insert tx values(&apos;4&apos;,&apos;4&apos;);  </div><div class="line">ERROR 1205 (HY000): Lock wait timeout exceeded;   </div><div class="line">try restarting transactionupdate tx set num=10 where id=1;ERROR 1205 (HY000): Lock wait timeout exceeded;   </div><div class="line">try restarting transaction</div></pre></td></tr></table></figure>
-<p><img src="http://jet-han.oschina.io/img/icons/transaction.jpg" alt="transaction" title="transaction"></p>
+<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong><br>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br><a id="more"></a></p>
+<pre><code>#首先，修改隔离级别
+set tx_isolation=&#39;READ-UNCOMMITTED&#39;;  
+select @@tx_isolation; 
+| @@tx_isolation |
+| READ-UNCOMMITTED |
+#事务A：启动一个事务  
+start transaction;  
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务B：也启动一个事务(那么两个事务交叉了)  
+#在事务B中执行更新语句，且不提交
+start transaction;   
+update tx set num=10 where id=1;  
+select * from tx;
+| id   | num  |  
+|    1 |   10 |  
+|    2 |    2 |  
+|    3 |    3 | 
+
+#事务A：那么这时候事务A能看到这个更新了的数据吗?  
+select * from tx;  
+| id   | num  |  
+|    1 |   10 |   ---&gt;可以看到！说明我们读到了事务B还没有提交的数据  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务B：事务B回滚,仍然未提交  
+rollback;  
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务A：在事务A里面看到的也是B没有提交的数据
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |      ---&gt;脏读意味着我在这个事务中(A中)，事务B虽然没有提交，但它任何一条数据变化，我都可以看到！  
+|    2 |    2 |  
+|    3 |    3 |  
+</code></pre><p><strong>第2级别：Read Committed(读取提交内容)</strong><br>1.这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）<br>2.它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变<br>3.这种隔离级别出现的问题是——不可重复读(Nonrepeatable Read)：不可重复读意味着我们在同一个事务中执行完全相同的select语句时可能看到不一样的结果。<br> ——&gt;导致这种情况的原因可能有：<br> (1)有一个交叉的事务有新的commit，导致了数据的改变;<br> (2)一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit</p>
+<pre><code>  #首先修改隔离级别
+  set tx_isolation=&#39;read-committed&#39;;  
+  select @@tx_isolation;  
+  | @@tx_isolation |  
+  | READ-COMMITTED |  
+
+  #事务A：启动一个事务
+  start transaction;  
+  select * from tx;  
+  | id   | num  |  
+  |    1 |    1 |  
+  |    2 |    2 |  
+  |    3 |    3 |  
+
+  #事务B：也启动一个事务(那么两个事务交叉了)
+  #在这事务中更新数据，且未提交
+  start transaction;  
+  update tx set num=10 where id=1;  
+  select * from tx; 
+  | id   | num  |  
+  |    1 |   10 |  
+  |    2 |    2 |  
+  |    3 |    3 |  
+
+  #事务A：这个时候我们在事务A中能看到数据的变化吗?
+  select * from tx;
+  | id   | num  |  
+  |    1 |    1 |---&gt;并不能看到！  
+  |    2 |    2 |                 
+  |    3 |    3 |     
+  |——&gt;相同的select语句，结果却不一样
+
+  #事务B：如果提交了事务B呢?           
+  commit;                          
+
+  #事务A:                           
+  select * from tx;  
+  | id   | num  |  
+  |    1 |   10 |---&gt;因为事务B已经提交了，所以在A中我们看到了数据变化  
+  |    2 |    2 |  
+  |    3 |    3 |  
+</code></pre><p><strong>第3级别：Repeatable Read(可重读)</strong><br>1.这是MySQL的默认事务隔离级别<br>2.它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行<br>3.此级别可能出现的问题——幻读(Phantom Read)：当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行<br>4.InnoDB和Falcon存储引擎通过多版本并发控制(MVCC，Multiversion Concurrency Control)机制解决了该问题  </p>
+<pre><code>    #首先，更改隔离级别  
+    set tx_isolation=&#39;repeatable-read&#39;;  
+    select @@tx_isolation;  
+    | @@tx_isolation  |
+    +------+------+
+    | REPEATABLE-READ |
+    +------+------+
+
+    #事务A：启动一个事务
+    start transaction;  
+    select * from tx;  
+    | id   | num  |
+    +------+------+
+    |    1 |    1 |
+    |    2 |    2 |
+    |    3 |    3 |
+    +------+------+
+
+    #事务B：开启一个新事务(那么这两个事务交叉了)
+    #在事务B中更新数据，并提交
+    start transaction;  
+    update tx set num=10 where id=1;  
+    select * from tx;  
+    +------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |   10 |  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+    commit;  
+
+    #事务A：这时候即使事务B已经提交了,但A能不能看到数据变化？
+    select * from tx;+------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |    1 | ---&gt;还是看不到的！(这个级别2不一样，也说明级别3解决了不可重复读问题)  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+
+    #事务A：只有当事务A也提交了，它才能够看到数据变化
+    commit;select * from tx;  
+    +------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |   10 |  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+</code></pre><p><strong>第4级别：Serializable(可串行化)</strong><br>1.这是最高的隔离级别<br>2.它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之,它是在每个读的数据行上加上共享锁。<br>3.在这个级别，可能导致大量的超时现象和锁竞争</p>
+<pre><code>    #首先修改隔离界别
+    set tx_isolation=&#39;serializable&#39;;  
+    select @@tx_isolation;  
+    +----------------+  
+    | @@tx_isolation |  
+    +----------------+  
+    | SERIALIZABLE   |  
+    +----------------+  
+
+    #事务A：开启一个新事务  
+    start transaction;  
+
+    #事务B：在A没有commit之前，这个交叉事务是不能更改数据的  
+    start transaction;  
+    insert tx values(&#39;4&#39;,&#39;4&#39;);  
+    ERROR 1205 (HY000): Lock wait timeout exceeded;   
+    try restarting transactionupdate tx set num=10 where id=1;ERROR 1205 (HY000): Lock wait timeout exceeded;   
+    try restarting transaction  
+</code></pre><p><img src="http://jet-han.oschina.io/img/mysql事务隔离级别/transaction.jpg" alt="transaction" title="transaction"></p>
 ]]></content>
     
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;mysql事务隔离级别&quot;&gt;&lt;a href=&quot;#mysql事务隔离级别&quot; class=&quot;headerlink&quot; title=&quot;mysql事务隔离级别&quot;&gt;&lt;/a&gt;mysql事务隔离级别&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;第1级别：Read Uncommitted(读取未提交内容)&lt;/strong&gt;  &lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;所有事务都可以看到其他未提交事务的执行结果  &lt;/li&gt;
-&lt;li&gt;本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  &lt;/li&gt;
-&lt;li&gt;该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据
+&lt;h2 id=&quot;mysql事务隔离级别&quot;&gt;&lt;a href=&quot;#mysql事务隔离级别&quot; class=&quot;headerlink&quot; title=&quot;mysql事务隔离级别&quot;&gt;&lt;/a&gt;mysql事务隔离级别&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;第1级别：Read Uncommitted(读取未提交内容)&lt;/strong&gt;&lt;br&gt;1.所有事务都可以看到其他未提交事务的执行结果&lt;br&gt;2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少&lt;br&gt;3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据&lt;br&gt;
     
     </summary>
     

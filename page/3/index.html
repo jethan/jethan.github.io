@@ -415,11 +415,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong>  </p>
-<ol>
-<li>所有事务都可以看到其他未提交事务的执行结果  </li>
-<li>本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  </li>
-<li>该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据
+<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong><br>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br>
           
       
       

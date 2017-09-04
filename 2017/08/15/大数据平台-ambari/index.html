@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/ambari/host-check.png">
 <meta property="og:image" content="http://jet-han.oschina.io/img/ambari/host-check-ok.png">
 <meta property="og:image" content="http://jet-han.oschina.io/img/ambari/dashboard.png">
-<meta property="og:updated_time" content="2017-08-24T10:00:33.499Z">
+<meta property="og:updated_time" content="2017-09-04T02:05:41.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据平台-ambari">
 <meta name="twitter:description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
@@ -369,6 +369,7 @@
 <h3 id="Assign-Masters"><a href="#Assign-Masters" class="headerlink" title="Assign Masters"></a>Assign Masters</h3><p>分配主服务器</p>
 <h3 id="Assign-slaves-and-Clients"><a href="#Assign-slaves-and-Clients" class="headerlink" title="Assign slaves and Clients"></a>Assign slaves and Clients</h3><p>分配从服务器和客户端</p>
 <h3 id="控制面板"><a href="#控制面板" class="headerlink" title="控制面板"></a>控制面板</h3><p><img src="http://jet-han.oschina.io/img/ambari/dashboard.png" alt="ambari" title="ambari"></p>
+<p>访问不了注意关闭防火墙</p>
 <h3 id="常见错误汇总"><a href="#常见错误汇总" class="headerlink" title="常见错误汇总"></a>常见错误汇总</h3><p>错误信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">2017-08-22 21:09:18,495 - Skipping installation of existing package hdp-select</div><div class="line">2017-08-22 21:09:18,755 - Using hadoop conf dir: /usr/hdp/current/hadoop-client/conf</div><div class="line">2017-08-22 21:09:18,757 - checked_call[&apos;hostid&apos;] &#123;&#125;</div><div class="line">2017-08-22 21:09:18,761 - checked_call returned (0, &apos;a8c00228&apos;)</div><div class="line">2017-08-22 21:09:18,763 - Package[&apos;ambari-metrics-monitor&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,829 - Skipping installation of existing package ambari-metrics-monitor</div><div class="line">2017-08-22 21:09:18,830 - Package[&apos;ambari-metrics-hadoop-sink&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,839 - Skipping installation of existing package ambari-metrics-hadoop-sink</div><div class="line">2017-08-22 21:09:18,840 - Package[&apos;ambari-metrics-grafana&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,849 - Installing package ambari-metrics-grafana (&apos;/usr/bin/yum -d 0 -e 0 -y install ambari-metrics-grafana&apos;)</div></pre></td></tr></table></figure></p>
 <p>手动安装即可<br><a href="https://community.hortonworks.com/questions/68432/why-does-my-ambari-create-cluster-fail-during-spar.html" target="_blank" rel="external">参考</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install ambari-metrics-monitor hdp-select -y</div><div class="line">yum install slider_2_6_1_0_129 hdp-select -y</div><div class="line">yum install spark_2_6_1_0_129 hdp-select -y</div><div class="line">yum install mysql-connector-java hdp-select -y</div><div class="line">yum install tez_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129-server hdp-select -y</div></pre></td></tr></table></figure>
@@ -445,7 +446,7 @@
         <p><span>本文标题:</span><a href="/2017/08/15/大数据平台-ambari/">大数据平台-ambari</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月15日 - 15时02分</p>
-        <p><span>最后更新:</span>2017年08月24日 - 18时00分</p>
+        <p><span>最后更新:</span>2017年09月04日 - 10时05分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/15/大数据平台-ambari/" title="大数据平台-ambari">http://jet-han.oschina.io/2017/08/15/大数据平台-ambari/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/15/大数据平台-ambari/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

@@ -5,19 +5,19 @@
   
   <title>mysql事务隔离级别 | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
+  <meta name="description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)1.所有事务都可以看到其他未提交事务的执行结果2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
 <meta name="keywords" content="mysql,事务隔离级别">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql事务隔离级别">
 <meta property="og:url" content="http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
+<meta property="og:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)1.所有事务都可以看到其他未提交事务的执行结果2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/img/icons/transaction.jpg">
-<meta property="og:updated_time" content="2017-08-13T01:45:26.091Z">
+<meta property="og:image" content="http://jet-han.oschina.io/img/mysql事务隔离级别/transaction.jpg">
+<meta property="og:updated_time" content="2017-09-04T02:05:41.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql事务隔离级别">
-<meta name="twitter:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)    所有事务都可以看到其他未提交事务的执行结果   本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少   该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
+<meta name="twitter:description" content="mysql事务隔离级别第1级别：Read Uncommitted(读取未提交内容)1.所有事务都可以看到其他未提交事务的执行结果2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
@@ -292,28 +292,164 @@
       
           
         <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong>  </p>
-<ol>
-<li>所有事务都可以看到其他未提交事务的执行结果  </li>
-<li>本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少  </li>
-<li>该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据 <a id="more"></a>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line">#首先，修改隔离级别</div><div class="line">set tx_isolation=&apos;READ-UNCOMMITTED&apos;;  </div><div class="line">select @@tx_isolation; </div><div class="line">| @@tx_isolation |</div><div class="line">| READ-UNCOMMITTED |</div><div class="line">#事务A：启动一个事务  </div><div class="line">start transaction;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：也启动一个事务(那么两个事务交叉了)  </div><div class="line">#在事务B中执行更新语句，且不提交</div><div class="line">start transaction;   </div><div class="line">update tx set num=10 where id=1;  </div><div class="line">select * from tx;</div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 | </div><div class="line"></div><div class="line">#事务A：那么这时候事务A能看到这个更新了的数据吗?  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |   10 |   ---&gt;可以看到！说明我们读到了事务B还没有提交的数据  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务B：事务B回滚,仍然未提交  </div><div class="line">rollback;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line"></div><div class="line">#事务A：在事务A里面看到的也是B没有提交的数据</div><div class="line">select * from tx;  </div><div class="line">| id   | num  |  </div><div class="line">|    1 |    1 |      ---&gt;脏读意味着我在这个事务中(A中)，事务B虽然没有提交，但它任何一条数据变化，我都可以看到！  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">``` </div><div class="line"></div><div class="line">**第2级别：Read Committed(读取提交内容)**</div><div class="line">1. 这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）</div><div class="line">2. 它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变</div><div class="line">3. 这种隔离级别出现的问题是——不可重复读(Nonrepeatable Read)：不可重复读意味着我们在同一个事务中执行完全相同的select语句时可能看到不一样的结果。  </div><div class="line"> ——&gt;导致这种情况的原因可能有：(1)有一个交叉的事务有新的commit，导致了数据的改变;(2)一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit</div></pre></td></tr></table></figure>
-<h1 id="首先修改隔离级别"><a href="#首先修改隔离级别" class="headerlink" title="首先修改隔离级别"></a>首先修改隔离级别</h1><p>set tx_isolation=’read-committed’;<br>select @@tx_isolation;<br>| @@tx_isolation |<br>| READ-COMMITTED |  </p>
-<h1 id="事务A：启动一个事务"><a href="#事务A：启动一个事务" class="headerlink" title="事务A：启动一个事务"></a>事务A：启动一个事务</h1><p>start transaction;<br>select * from tx;<br>| id   | num  |<br>|    1 |    1 |<br>|    2 |    2 |<br>|    3 |    3 |  </p>
-<h1 id="事务B：也启动一个事务-那么两个事务交叉了"><a href="#事务B：也启动一个事务-那么两个事务交叉了" class="headerlink" title="事务B：也启动一个事务(那么两个事务交叉了)"></a>事务B：也启动一个事务(那么两个事务交叉了)</h1><h1 id="在这事务中更新数据，且未提交"><a href="#在这事务中更新数据，且未提交" class="headerlink" title="在这事务中更新数据，且未提交"></a>在这事务中更新数据，且未提交</h1><p>start transaction;<br>update tx set num=10 where id=1;<br>select * from tx;<br>| id   | num  |<br>|    1 |   10 |<br>|    2 |    2 |<br>|    3 |    3 |  </p>
-<h1 id="事务A：这个时候我们在事务A中能看到数据的变化吗"><a href="#事务A：这个时候我们在事务A中能看到数据的变化吗" class="headerlink" title="事务A：这个时候我们在事务A中能看到数据的变化吗?"></a>事务A：这个时候我们在事务A中能看到数据的变化吗?</h1><p>select * from tx;<br>| id   | num  |<br>|    1 |    1 |—-&gt;并不能看到！<br>|    2 |    2 |<br>|    3 |    3 |<br>|——&gt;相同的select语句，结果却不一样</p>
-<h1 id="事务B：如果提交了事务B呢"><a href="#事务B：如果提交了事务B呢" class="headerlink" title="事务B：如果提交了事务B呢?"></a>事务B：如果提交了事务B呢?</h1><p>commit;                          </p>
-<h1 id="事务A"><a href="#事务A" class="headerlink" title="事务A:"></a>事务A:</h1><p>select * from tx;<br>| id   | num  |<br>|    1 |   10 |—-&gt;因为事务B已经提交了，所以在A中我们看到了数据变化<br>|    2 |    2 |<br>|    3 |    3 |<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">**第3级别：Repeatable Read(可重读)**</div><div class="line">1. 这是MySQL的默认事务隔离级别  </div><div class="line">2. 它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行  </div><div class="line">3. 此级别可能出现的问题——幻读(Phantom Read)：当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行  </div><div class="line">4. InnoDB和Falcon存储引擎通过多版本并发控制(MVCC，Multiversion Concurrency Control)机制解决了该问题  </div><div class="line"></div><div class="line">```  </div><div class="line">#首先，更改隔离级别  </div><div class="line">set tx_isolation=&apos;repeatable-read&apos;;  </div><div class="line">select @@tx_isolation;  </div><div class="line">| @@tx_isolation  |</div><div class="line">+------+------+</div><div class="line">| REPEATABLE-READ |</div><div class="line">+------+------+</div><div class="line"></div><div class="line">#事务A：启动一个事务</div><div class="line">start transaction;  </div><div class="line">select * from tx;  </div><div class="line">| id   | num  |</div><div class="line">+------+------+</div><div class="line">|    1 |    1 |</div><div class="line">|    2 |    2 |</div><div class="line">|    3 |    3 |</div><div class="line">+------+------+</div><div class="line"></div><div class="line">#事务B：开启一个新事务(那么这两个事务交叉了)</div><div class="line">#在事务B中更新数据，并提交</div><div class="line">start transaction;  </div><div class="line">update tx set num=10 where id=1;  </div><div class="line">select * from tx;  </div><div class="line">+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+  </div><div class="line">commit;  </div><div class="line"></div><div class="line">#事务A：这时候即使事务B已经提交了,但A能不能看到数据变化？</div><div class="line">select * from tx;+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |    1 | ---&gt;还是看不到的！(这个级别2不一样，也说明级别3解决了不可重复读问题)  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+  </div><div class="line"></div><div class="line">#事务A：只有当事务A也提交了，它才能够看到数据变化</div><div class="line">commit;select * from tx;  </div><div class="line">+------+------+  </div><div class="line">| id   | num  |  </div><div class="line">+------+------+  </div><div class="line">|    1 |   10 |  </div><div class="line">|    2 |    2 |  </div><div class="line">|    3 |    3 |  </div><div class="line">+------+------+</div></pre></td></tr></table></figure></p>
-<p><strong>第4级别：Serializable(可串行化)</strong></p>
-<ol>
-<li>这是最高的隔离级别</li>
-<li>它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之,它是在每个读的数据行上加上共享锁。</li>
-<li>在这个级别，可能导致大量的超时现象和锁竞争</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#首先修改隔离界别</div><div class="line">set tx_isolation=&apos;serializable&apos;;  </div><div class="line">select @@tx_isolation;  </div><div class="line">+----------------+  </div><div class="line">| @@tx_isolation |  </div><div class="line">+----------------+  </div><div class="line">| SERIALIZABLE   |  </div><div class="line">+----------------+  </div><div class="line"></div><div class="line">#事务A：开启一个新事务  </div><div class="line">start transaction;  </div><div class="line"></div><div class="line">#事务B：在A没有commit之前，这个交叉事务是不能更改数据的  </div><div class="line">start transaction;  </div><div class="line">insert tx values(&apos;4&apos;,&apos;4&apos;);  </div><div class="line">ERROR 1205 (HY000): Lock wait timeout exceeded;   </div><div class="line">try restarting transactionupdate tx set num=10 where id=1;ERROR 1205 (HY000): Lock wait timeout exceeded;   </div><div class="line">try restarting transaction</div></pre></td></tr></table></figure>
-<p><img src="http://jet-han.oschina.io/img/icons/transaction.jpg" alt="transaction" title="transaction"></p>
+<h2 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h2><p><strong>第1级别：Read Uncommitted(读取未提交内容)</strong><br>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br><a id="more"></a></p>
+<pre><code>#首先，修改隔离级别
+set tx_isolation=&#39;READ-UNCOMMITTED&#39;;  
+select @@tx_isolation; 
+| @@tx_isolation |
+| READ-UNCOMMITTED |
+#事务A：启动一个事务  
+start transaction;  
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务B：也启动一个事务(那么两个事务交叉了)  
+#在事务B中执行更新语句，且不提交
+start transaction;   
+update tx set num=10 where id=1;  
+select * from tx;
+| id   | num  |  
+|    1 |   10 |  
+|    2 |    2 |  
+|    3 |    3 | 
+
+#事务A：那么这时候事务A能看到这个更新了的数据吗?  
+select * from tx;  
+| id   | num  |  
+|    1 |   10 |   ---&gt;可以看到！说明我们读到了事务B还没有提交的数据  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务B：事务B回滚,仍然未提交  
+rollback;  
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |  
+|    2 |    2 |  
+|    3 |    3 |  
+
+#事务A：在事务A里面看到的也是B没有提交的数据
+select * from tx;  
+| id   | num  |  
+|    1 |    1 |      ---&gt;脏读意味着我在这个事务中(A中)，事务B虽然没有提交，但它任何一条数据变化，我都可以看到！  
+|    2 |    2 |  
+|    3 |    3 |  
+</code></pre><p><strong>第2级别：Read Committed(读取提交内容)</strong><br>1.这是大多数数据库系统的默认隔离级别（但不是MySQL默认的）<br>2.它满足了隔离的简单定义：一个事务只能看见已经提交事务所做的改变<br>3.这种隔离级别出现的问题是——不可重复读(Nonrepeatable Read)：不可重复读意味着我们在同一个事务中执行完全相同的select语句时可能看到不一样的结果。<br> ——&gt;导致这种情况的原因可能有：<br> (1)有一个交叉的事务有新的commit，导致了数据的改变;<br> (2)一个数据库被多个实例操作时,同一事务的其他实例在该实例处理其间可能会有新的commit</p>
+<pre><code>  #首先修改隔离级别
+  set tx_isolation=&#39;read-committed&#39;;  
+  select @@tx_isolation;  
+  | @@tx_isolation |  
+  | READ-COMMITTED |  
+
+  #事务A：启动一个事务
+  start transaction;  
+  select * from tx;  
+  | id   | num  |  
+  |    1 |    1 |  
+  |    2 |    2 |  
+  |    3 |    3 |  
+
+  #事务B：也启动一个事务(那么两个事务交叉了)
+  #在这事务中更新数据，且未提交
+  start transaction;  
+  update tx set num=10 where id=1;  
+  select * from tx; 
+  | id   | num  |  
+  |    1 |   10 |  
+  |    2 |    2 |  
+  |    3 |    3 |  
+
+  #事务A：这个时候我们在事务A中能看到数据的变化吗?
+  select * from tx;
+  | id   | num  |  
+  |    1 |    1 |---&gt;并不能看到！  
+  |    2 |    2 |                 
+  |    3 |    3 |     
+  |——&gt;相同的select语句，结果却不一样
+
+  #事务B：如果提交了事务B呢?           
+  commit;                          
+
+  #事务A:                           
+  select * from tx;  
+  | id   | num  |  
+  |    1 |   10 |---&gt;因为事务B已经提交了，所以在A中我们看到了数据变化  
+  |    2 |    2 |  
+  |    3 |    3 |  
+</code></pre><p><strong>第3级别：Repeatable Read(可重读)</strong><br>1.这是MySQL的默认事务隔离级别<br>2.它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行<br>3.此级别可能出现的问题——幻读(Phantom Read)：当用户读取某一范围的数据行时，另一个事务又在该范围内插入了新行，当用户再读取该范围的数据行时，会发现有新的“幻影” 行<br>4.InnoDB和Falcon存储引擎通过多版本并发控制(MVCC，Multiversion Concurrency Control)机制解决了该问题  </p>
+<pre><code>    #首先，更改隔离级别  
+    set tx_isolation=&#39;repeatable-read&#39;;  
+    select @@tx_isolation;  
+    | @@tx_isolation  |
+    +------+------+
+    | REPEATABLE-READ |
+    +------+------+
+
+    #事务A：启动一个事务
+    start transaction;  
+    select * from tx;  
+    | id   | num  |
+    +------+------+
+    |    1 |    1 |
+    |    2 |    2 |
+    |    3 |    3 |
+    +------+------+
+
+    #事务B：开启一个新事务(那么这两个事务交叉了)
+    #在事务B中更新数据，并提交
+    start transaction;  
+    update tx set num=10 where id=1;  
+    select * from tx;  
+    +------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |   10 |  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+    commit;  
+
+    #事务A：这时候即使事务B已经提交了,但A能不能看到数据变化？
+    select * from tx;+------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |    1 | ---&gt;还是看不到的！(这个级别2不一样，也说明级别3解决了不可重复读问题)  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+
+    #事务A：只有当事务A也提交了，它才能够看到数据变化
+    commit;select * from tx;  
+    +------+------+  
+    | id   | num  |  
+    +------+------+  
+    |    1 |   10 |  
+    |    2 |    2 |  
+    |    3 |    3 |  
+    +------+------+  
+</code></pre><p><strong>第4级别：Serializable(可串行化)</strong><br>1.这是最高的隔离级别<br>2.它通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。简言之,它是在每个读的数据行上加上共享锁。<br>3.在这个级别，可能导致大量的超时现象和锁竞争</p>
+<pre><code>    #首先修改隔离界别
+    set tx_isolation=&#39;serializable&#39;;  
+    select @@tx_isolation;  
+    +----------------+  
+    | @@tx_isolation |  
+    +----------------+  
+    | SERIALIZABLE   |  
+    +----------------+  
+
+    #事务A：开启一个新事务  
+    start transaction;  
+
+    #事务B：在A没有commit之前，这个交叉事务是不能更改数据的  
+    start transaction;  
+    insert tx values(&#39;4&#39;,&#39;4&#39;);  
+    ERROR 1205 (HY000): Lock wait timeout exceeded;   
+    try restarting transactionupdate tx set num=10 where id=1;ERROR 1205 (HY000): Lock wait timeout exceeded;   
+    try restarting transaction  
+</code></pre><p><img src="http://jet-han.oschina.io/img/mysql事务隔离级别/transaction.jpg" alt="transaction" title="transaction"></p>
 
       
       
@@ -385,7 +521,7 @@
         <p><span>本文标题:</span><a href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月04日 - 11时58分</p>
-        <p><span>最后更新:</span>2017年08月13日 - 09时45分</p>
+        <p><span>最后更新:</span>2017年09月04日 - 10时05分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/04/mysql事务隔离级别/" title="mysql事务隔离级别">http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -426,7 +562,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql事务隔离级别"><span class="toc-number">1.</span> <span class="toc-text">mysql事务隔离级别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#首先修改隔离级别"><span class="toc-number"></span> <span class="toc-text">首先修改隔离级别</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务A：启动一个事务"><span class="toc-number"></span> <span class="toc-text">事务A：启动一个事务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务B：也启动一个事务-那么两个事务交叉了"><span class="toc-number"></span> <span class="toc-text">事务B：也启动一个事务(那么两个事务交叉了)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在这事务中更新数据，且未提交"><span class="toc-number"></span> <span class="toc-text">在这事务中更新数据，且未提交</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务A：这个时候我们在事务A中能看到数据的变化吗"><span class="toc-number"></span> <span class="toc-text">事务A：这个时候我们在事务A中能看到数据的变化吗?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务B：如果提交了事务B呢"><span class="toc-number"></span> <span class="toc-text">事务B：如果提交了事务B呢?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#事务A"><span class="toc-number"></span> <span class="toc-text">事务A:</span></a>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql事务隔离级别"><span class="toc-number">1.</span> <span class="toc-text">mysql事务隔离级别</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
