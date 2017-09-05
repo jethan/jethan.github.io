@@ -277,8 +277,10 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在Java中除了long和double类型的基本类型变量的赋值操作外都是原子操作，也就是说，对于变量值的简单读写操作没有必要进行同步。 </p>
-<h2 id="vilatile"><a href="#vilatile" class="headerlink" title="vilatile"></a>vilatile</h2><p>Java中的原子操作包括：<br>1）除long和double之外的基本类型的赋值操作<br>2）所有引用reference的赋值操作<br>3）java.concurrent.Atomic.* 包中所有类的一切操作。<br>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。</p>
+<p>volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来了解一下与内存模型相关的概念和知识，然后分析了volatile关键字的实现原理，最后给出了几个使用volatile关键字的场景。</p>
+<p>在Java中除了long和double类型的基本类型变量的赋值和读取操作外都是原子操作，也就是说，对于变量值的简单读取操作没有必要进行同步。</p>
+<p>count++不是原子操作，是3个原子操作组合<br>1.读取主存中的count值，赋值给一个局部成员变量tmp<br>2.tmp+1<br>3.将tmp赋值给count<br>
           
       
       

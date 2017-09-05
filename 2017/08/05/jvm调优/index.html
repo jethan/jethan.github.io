@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/jvm.jpeg">
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/jvm内存溢出.png">
 <meta property="og:image" content="http://jet-han.oschina.io/img/jvm内存模型/jmap.png">
-<meta property="og:updated_time" content="2017-08-13T01:45:26.065Z">
+<meta property="og:updated_time" content="2017-09-05T02:34:05.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jvm调优">
 <meta name="twitter:description" content="JVM内存模型1.根据Java虚拟机规范，JVM将内存划分为：New（年轻代）Tenured（年老代）永久代（Perm）">
@@ -299,7 +299,10 @@
 <h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br><a id="more"></a><br><img src="http://jet-han.oschina.io/img/jvm内存模型/jvm2.gif" alt="jvm" title="jvm"><br>  其中New和Tenured属于堆内存，堆内存会从JVM启动参数（-Xmx:3G）指定的内存中分配，Perm不属于堆内存，有虚拟机直接分配，但可以通过-XX:PermSize -XX:MaxPermSize 等参数调整其大小。<br><img src="http://jet-han.oschina.io/img/jvm内存模型/jvm4.jpg" alt="jvm" title="jvm"></p>
 <p><strong>年轻代（New）：</strong>年轻代用来存放JVM刚分配的Java对象<br><strong>年老代（Tenured)：</strong>年轻代中经过垃圾回收没有回收掉的对象将被Copy到年老代<br><strong>永久代（Perm）：</strong>永久代存放Class、Method元信息，其大小跟项目的规模、类、方法的量有关，一般设置为128M就足够，设置原则是预留30%的空间。</p>
 <p>New又分为几个部分：<br><strong>Eden：</strong>Eden用来存放JVM刚分配的对象<br><strong>Survivor1</strong><br><strong>Survivro2：</strong>两个Survivor空间一样大，当Eden中的对象经过垃圾回收没有被回收掉时，会在两个Survivor之间来回Copy，当满足某个条件，比如Copy次数，就会被Copy到Tenured。显然，Survivor只是增加了对象在年轻代中的逗留时间，增加了被垃圾回收的可能性。</p>
-<p><strong>各代如何设置比例</strong><br><strong>堆大小设置</strong><br>JVM 中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。32位系统下，一般限制在1.5G~2G；64为操作系统对内存无限制。我在Windows Server 2003 系统，3.5G物理内存，JDK5.0下测试，最大可设置为1478m。<br><strong>典型设置：</strong><br>- java -Xmx3550m -Xms3550m -Xmn2g -Xss128k<br>- -Xmx3550m：设置JVM最大可用内存为3550M。<br>- -Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。<br>- -Xmn2g：设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。<br>- -Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。<br>- java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0<br>- -XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>- -XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6<br>- -XX:MaxPermSize=16m:设置持久代大小为16m。<br>- -XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。  </p>
+<p><strong>各代如何设置比例</strong><br><strong>堆大小设置</strong><br>JVM 中最大堆大小有三方面限制：相关操作系统的数据模型（32-bt还是64-bit）限制；系统的可用虚拟内存限制；系统的可用物理内存限制。32位系统下，一般限制在1.5G~2G；64为操作系统对内存无限制。我在Windows Server 2003 系统，3.5G物理内存，JDK5.0下测试，最大可设置为1478m。<br><strong>典型设置：</strong><br>- java -Xmx3550m -Xms3550m -Xmn2g -Xss128k<br>- -Xmx3550m：设置JVM最大可用内存为3550M。<br>- -Xms3550m：设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。<br>- -Xmn2g：设置年轻代大小为2G。整个JVM内存大小=年轻代大小 + 年老代大小 + 持久代大小。持久代一般固定大小为64m，所以增大年轻代后，将会减小年老代大小。此值对系统性能影响较大，Sun官方推荐配置为整个堆的3/8。<br>- -Xss128k：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。更具应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。<br>- java -Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0<br>- -XX:NewRatio=4:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5<br>- -XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6<br>- -XX:MaxPermSize=16m:设置持久代大小为16m。<br>- -XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。对于年老代比较多的应用，可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概论。 </p>
+<p>如果程序确实需要大量的线程，现有的设置不能达到要求，那么可以通过修改MaxProcessMemory，JVMMemory，ThreadStackSize这三个因素，来增加能创建的线程数：<br>a. MaxProcessMemory 使用64位JVM<br>    经测试在，64位jvm下生成的线程数不受上述公式的制约，值为63260，这个数值应该足够用了，<br>    测试数据如下, (指令|能启动的线程数量)</p>
+<p>java -Xms512M -Xmx2G -cp . TestNativeOutOfMemoryError  | 63389<br>java -Xms512M -Xmx8G -cp . TestNativeOutOfMemoryError  | 63260<br>java -Xms512M -Xmx16G -cp . TestNativeOutOfMemoryError  | 63385<br>java -Xms512M -Xmx32G -cp . TestNativeOutOfMemoryError  | 63380<br>java -Xms512M -Xmx64G -cp . TestNativeOutOfMemoryError  |63387</p>
+<p>b. JVMMemory   减少JVMMemory的分配(即减少xms/xmx的大小)<br>c. ThreadStackSize  减小单个线程的栈大小 (-Xss)</p>
 <h2 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h2><p>垃圾回收算法可以分为三类，都基于标记-清除（复制）算法：<br><strong>Serial算法（单线程）<br>并行算法<br>并发算法</strong><br>JVM会根据机器的硬件配置对每个内存代选择适合的回收算法，比如，如果机器多于1个核，会对年轻代选择并行算法，关于选择细节请参考JVM调优文档。 </p>
 <p>稍微解释下的是，并行算法是用多线程进行垃圾回收，回收期间会暂停程序的执行，而并发算法，也是多线程回收，但期间不停止应用执行。所以，并发算法适用于交互性高的一些程序。经过观察，并发算法会减少年轻代的大小，其实就是使用了一个大的年老代，这反过来跟并行算法相比吞吐量相对较低。  </p>
 <p><strong>还有一个问题是，垃圾回收动作何时执行？</strong></p>
@@ -404,7 +407,7 @@
         <p><span>本文标题:</span><a href="/2017/08/05/jvm调优/">jvm调优</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月05日 - 16时05分</p>
-        <p><span>最后更新:</span>2017年08月13日 - 09时45分</p>
+        <p><span>最后更新:</span>2017年09月05日 - 10时34分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/05/jvm调优/" title="jvm调优">http://jet-han.oschina.io/2017/08/05/jvm调优/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/05/jvm调优/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
