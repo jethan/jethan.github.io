@@ -249,78 +249,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-nginx安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/17/nginx安装与使用/" class="article-date">
-      <time datetime="2017-08-17T07:53:11.000Z" itemprop="datePublished">2017-08-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/17/nginx安装与使用/">nginx安装与使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
-<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
-<p>填写如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/nginx/">nginx</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/17/nginx安装与使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-redis安装及使用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -371,148 +299,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/08/17/redis安装及使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-solr安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/16/solr安装与使用/" class="article-date">
-      <time datetime="2017-08-16T09:11:01.000Z" itemprop="datePublished">2017-08-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/16/solr安装与使用/">solr安装与使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
-<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
-<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
-<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bigdata/">bigdata</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索引擎/">搜索引擎</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/16/solr安装与使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-大数据平台-ambari" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/15/大数据平台-ambari/" class="article-date">
-      <time datetime="2017-08-15T07:02:20.000Z" itemprop="datePublished">2017-08-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/15/大数据平台-ambari/">大数据平台-ambari</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
-<p>目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ambari/">ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bigdata/">bigdata</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/15/大数据平台-ambari/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -583,6 +369,218 @@
       
         <p class="article-more-link">
           <a  href="/2017/08/08/设计模式/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-并发编程之线程池ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/" class="article-date">
+      <time datetime="2017-08-06T05:32:02.000Z" itemprop="datePublished">2017-08-06</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>当前越来越多的系统使用多线程来处理任务，但是为每一个任务创建线程并不是合理的方案，原因有2点：一是创建线程的开销很大，一个任务一个线程的方式会有性能上的损失；二是可能导致线程数量的膨胀，不但不易于线程的管理，还可能导致内存被消耗完，导致out of memory（OOM）,从而使系统崩溃。为了解决这个问题，线程池应运而生。线程池有两个作用：一个是限制线程的数量，不会导致线程的膨胀；二是线程复用，线程执行完一个人任务之后，可以接着执行下一个任务，减少了创建线程的开销。 </p>
+<p>java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread-pool/">thread pool</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-线程的实现方式" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/05/线程的实现方式/" class="article-date">
+      <time datetime="2017-08-05T08:32:32.000Z" itemprop="datePublished">2017-08-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/05/线程的实现方式/">线程的实现方式</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="线程实现方式"><a href="#线程实现方式" class="headerlink" title="线程实现方式"></a>线程实现方式</h2><ol>
+<li>继承java.lang.Thread类  </li>
+<li>实现java.lang.Runnable接口</li>
+</ol>
+<p><strong>区别：</strong>第一种是继承，第二种是实现<br><strong>好处：</strong>  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/runnable/">runnable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/05/线程的实现方式/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-jvm调优" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/05/jvm调优/" class="article-date">
+      <time datetime="2017-08-05T08:05:44.000Z" itemprop="datePublished">2017-08-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/05/jvm调优/">jvm调优</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/05/jvm调优/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

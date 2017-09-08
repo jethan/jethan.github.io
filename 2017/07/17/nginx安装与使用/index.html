@@ -9,11 +9,11 @@
 <meta name="keywords" content="linux,nginx">
 <meta property="og:type" content="article">
 <meta property="og:title" content="nginx安装与使用">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/08/17/nginx安装与使用/index.html">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/07/17/nginx安装与使用/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="nginx安装第一步，在/etc/yum.repos.d/目录下创建一个源配置文件nginx.repo： 12cd /etc/yum.repos.d/  vim nginx.repo 填写如下内容： 12345[nginx]name=nginx repo  baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  gpgch">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/nginx.jpg">
-<meta property="og:updated_time" content="2017-09-04T02:05:41.432Z">
+<meta property="og:updated_time" content="2017-09-08T08:07:10.228Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx安装与使用">
 <meta name="twitter:description" content="nginx安装第一步，在/etc/yum.repos.d/目录下创建一个源配置文件nginx.repo： 12cd /etc/yum.repos.d/  vim nginx.repo 填写如下内容： 12345[nginx]name=nginx repo  baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  gpgch">
@@ -251,8 +251,8 @@
       <div class="body-wrap"><article id="post-nginx安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/17/nginx安装与使用/" class="article-date">
-      <time datetime="2017-08-17T07:53:11.000Z" itemprop="datePublished">2017-08-17</time>
+      <a href="/2017/07/17/nginx安装与使用/" class="article-date">
+      <time datetime="2017-07-17T07:53:11.000Z" itemprop="datePublished">2017-07-17</time>
 </a>
     </div>
   
@@ -317,6 +317,7 @@
 <p>上面的例子中仅允许<code>192.168.1.0/24</code>和<code>10.1.1.0/16</code>网络段访问这个<code>location</code>字段，但<code>192.168.1.1</code>是个例外。<br>注意规则的匹配顺序，如果你使用过apache你可能会认为你可以随意控制规则的顺序并且他们能够正常的工作，但实际上不行。</p>
 <p>下面的这个例子将拒绝掉所有的连接：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  #这里将永远输出403错误。</div><div class="line">  deny all;</div><div class="line">  #这些指令不会被启用，因为到达的连接在第一条已经被拒绝</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
       
       
         <div class="page-reward">
@@ -384,13 +385,13 @@
 </div>
 
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/17/nginx安装与使用/">nginx安装与使用</a></p>
+        <p><span>本文标题:</span><a href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
-        <p><span>发布时间:</span>2017年08月17日 - 15时53分</p>
-        <p><span>最后更新:</span>2017年09月04日 - 10时05分</p>
+        <p><span>发布时间:</span>2017年07月17日 - 15时53分</p>
+        <p><span>最后更新:</span>2017年09月08日 - 16时07分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/17/nginx安装与使用/" title="nginx安装与使用">http://jet-han.oschina.io/2017/08/17/nginx安装与使用/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/17/nginx安装与使用/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/17/nginx安装与使用/" title="nginx安装与使用">http://jet-han.oschina.io/2017/07/17/nginx安装与使用/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/17/nginx安装与使用/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -403,9 +404,18 @@
 
 <nav id="article-nav">
   
+    <a href="/2017/07/20/jvm内存模型/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          jvm内存模型
+        
+      </div>
+    </a>
   
-    <a href="/2017/08/17/redis安装及使用/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">redis安装及使用</div>
+  
+    <a href="/2017/07/16/solr安装与使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">solr安装与使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -490,16 +500,18 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2017/07/20/jvm内存模型/" title="上一篇: jvm内存模型">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/08/17/redis安装及使用/" title="下一篇: redis安装及使用">
+            <a href="/2017/07/16/solr安装与使用/" title="下一篇: solr安装与使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">多线程之volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">多线程之volatile</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");

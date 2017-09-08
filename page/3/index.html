@@ -249,213 +249,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-spring事务的传播属性和隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/spring事务的传播属性和隔离级别/" class="article-date">
-      <time datetime="2017-08-05T04:03:28.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="spring事务传播属性"><a href="#spring事务传播属性" class="headerlink" title="spring事务传播属性"></a>spring事务传播属性</h2><p><strong>Propagation（事务的传播属性） ：</strong>key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：<br><strong>PROPAGATION_REQUIRED</strong>—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。<br><strong>PROPAGATION_SUPPORTS</strong>—支持当前事务，如果当前没有事务，就以非事务方式执行。<br><strong>PROPAGATION_MANDATORY</strong>—支持当前事务，如果当前没有事务，就抛出异常。<br><strong>PROPAGATION_REQUIRES_NEW</strong>—新建事务，如果当前存在事务，把当前事务挂起。<br><strong>PROPAGATION_NOT_SUPPORTED</strong>—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。<br><strong>PROPAGATION_NEVER</strong>—以非事务方式执行，如果当前存在事务，则抛出异常。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务传播属性/">事务传播属性</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/隔离级别/">隔离级别</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/spring事务的传播属性和隔离级别/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-乐观锁与悲观锁及应用举例" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/乐观锁与悲观锁及应用举例/" class="article-date">
-      <time datetime="2017-08-05T03:53:43.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/mysql/">mysql</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/乐观锁/">乐观锁</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/悲观锁/">悲观锁</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/乐观锁与悲观锁及应用举例/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mysql事务隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/04/mysql事务隔离级别/" class="article-date">
-      <time datetime="2017-08-04T03:58:09.000Z" itemprop="datePublished">2017-08-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h1 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h1><h2 id="第1级别：Read-Uncommitted-读取未提交内容"><a href="#第1级别：Read-Uncommitted-读取未提交内容" class="headerlink" title="第1级别：Read Uncommitted(读取未提交内容)"></a>第1级别：Read Uncommitted(读取未提交内容)</h2><p>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/mysql/">mysql</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务隔离级别/">事务隔离级别</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/04/mysql事务隔离级别/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-equals、-和hashCode" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -578,6 +371,222 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/28/HashMap工作原理/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-volatile用法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/28/volatile用法/" class="article-date">
+      <time datetime="2017-07-28T07:39:33.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/volatile用法/">多线程之volatile</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。</p>
+<p>volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来了解一下与内存模型相关的概念和知识，然后分析了volatile关键字的实现原理，最后给出了几个使用volatile关键字的场景。</p>
+<p>在Java中除了long和double类型的基本类型变量的赋值和读取操作外都是原子操作，也就是说，对于变量值的简单读取操作没有必要进行同步。</p>
+<p>count++不是原子操作，是3个原子操作组合<br>1.读取主存中的count值，赋值给一个局部成员变量tmp<br>2.tmp+1<br>3.将tmp赋值给count<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/28/volatile用法/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-java常量池" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/28/java常量池/" class="article-date">
+      <time datetime="2017-07-28T04:36:43.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/java常量池/">java常量池</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>接上一篇文章继续探索string类牵带出的常量池</p>
+<h2 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h2><p><strong>程序计数器：</strong><br>1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。</p>
+<p>2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。</p>
+<p>我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/常量池/">常量池</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/28/java常量池/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-string比较之‘’equals‘’和‘’==‘’" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/" class="article-date">
+      <time datetime="2017-07-28T03:06:56.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
+<h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
+<p>这里s2属于字符串字面量，下一节会详细介绍</p>
+<p>在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/">==</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

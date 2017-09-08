@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-09-04T02:05:41.432Z</updated>
+  <updated>2017-08-19T01:43:49.206Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,60 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>nginx安装与使用</title>
-    <link href="http://jet-han.oschina.io/2017/08/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/08/17/nginx安装与使用/</id>
-    <published>2017-08-17T07:53:11.000Z</published>
-    <updated>2017-09-04T02:05:41.432Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
-<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
-<p>填写如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>保存，则会产生一个<code>/etc/yum.repos.d/nginx.repo</code>文件。</p>
-<p>下面直接执行如下指令即可自动安装好Nginx：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install nginx</div></pre></td></tr></table></figure>
-<p>安装完成，下面直接就可以启动Nginx了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/nginx start</div></pre></td></tr></table></figure>
-<p>我是用：服务启动并设置开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service nginx start</div><div class="line">chkconfig nginx on --level 35</div><div class="line"></div><div class="line">#指定配置文件启动</div><div class="line">/usr/sbin/nginx -c /etc/nginx/nginx.conf</div></pre></td></tr></table></figure>
-<p>启动成功如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[op@bogon init.d]$ ps aux | grep nginx</div><div class="line">root     19210  0.0  0.0  46348  1192 ?        Ss   14:57   0:00 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf</div><div class="line">nginx    19211  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19212  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19214  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19215  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19216  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19217  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">op       19219  0.0  0.0 103328   872 pts/0    S+   14:58   0:00 grep nginx</div></pre></td></tr></table></figure>
-<p>常用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">sudo nginx #启动nginx</div><div class="line">nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx</div><div class="line">nginx -t   #测试配置是否有语法错误</div><div class="line"></div><div class="line">nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]</div><div class="line"></div><div class="line">-?,-h           : 打开帮助信息</div><div class="line">-v              : 显示版本信息并退出</div><div class="line">-V              : 显示版本和配置选项信息，然后退出</div><div class="line">-t              : 检测配置文件是否有语法错误，然后退出</div><div class="line">-q              : 在检测配置文件期间屏蔽非错误信息</div><div class="line">-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）</div><div class="line">-p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）</div><div class="line">-c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）</div><div class="line">-g directives   : 设置配置文件外的全局指令</div></pre></td></tr></table></figure>
-<h2 id="nginx-配置"><a href="#nginx-配置" class="headerlink" title="nginx 配置"></a>nginx 配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">user nginx;</div><div class="line">#启动进程,通常设置成和cpu的数量相等</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line">#全局错误日志及PID文件</div><div class="line">#error_log  /data/nginx/logs/error.log  warn;</div><div class="line">#error_log  /data/nginx/logs/error.log  notice;</div><div class="line">#error_log  /data/nginx/logs/error.log  info;</div><div class="line"></div><div class="line">#pid        /data/nginx/pid/nginx.pid;</div><div class="line"></div><div class="line">#工作模式及连接数上限</div><div class="line">events &#123;</div><div class="line">   #epoll是多路复用IO(I/O Multiplexing)中的一种方式,</div><div class="line">    #仅用于linux2.6以上内核,可以大大提高nginx的性能</div><div class="line">    use  epoll;</div><div class="line"></div><div class="line">    #单个后台worker process进程的最大并发链接数</div><div class="line">    worker_connections  1024;</div><div class="line"></div><div class="line">    # 并发总数是 worker_processes 和 worker_connections 的乘积</div><div class="line">    # 即 max_clients = worker_processes * worker_connections</div><div class="line">    # 在设置了反向代理的情况下，max_clients = worker_processes * worker_connections / 4  为什么</div><div class="line">    # 为什么上面反向代理要除以4，应该说是一个经验值</div><div class="line">    # 根据以上条件，正常情况下的Nginx Server可以应付的最大连接数为：4 * 8000 = 32000</div><div class="line">    # worker_connections 值的设置跟物理内存大小有关</div><div class="line">    # 因为并发受IO约束，max_clients的值须小于系统可以打开的最大文件数</div><div class="line">    # 而系统可以打开的最大文件数和内存大小成正比，一般1GB内存的机器上可以打开的文件数大约是10万左右</div><div class="line">    # 我们来看看360M内存的VPS可以打开的文件句柄数是多少：</div><div class="line">    # $ cat /proc/sys/fs/file-max</div><div class="line">    # 输出 34336</div><div class="line">    # 32000 &lt; 34336，即并发连接总数小于系统可以打开的文件句柄总数，这样就在操作系统可以承受的范围之内</div><div class="line">    # 所以，worker_connections 的值需根据 worker_processes 进程数目和系统可以打开的最大文件总数进行适当地进行设置</div><div class="line">    # 使得并发总数小于操作系统可以打开的最大文件数目</div><div class="line">    # 其实质也就是根据主机的物理CPU和内存进行配置</div><div class="line">    # 当然，理论上的并发总数可能会和实际有所偏差，因为主机还有其他的工作进程需要消耗系统资源。</div><div class="line">    # ulimit -SHn 65535</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    #设定mime类型,类型由mime.type文件定义</div><div class="line">    include    mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line">    #设定日志格式</div><div class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</div><div class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</div><div class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line">    access_log  logs/access.log  main;</div><div class="line"></div><div class="line">    #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，</div><div class="line">    #对于普通应用，必须设为 on,</div><div class="line">    #如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，</div><div class="line">    #以平衡磁盘与网络I/O处理速度，降低系统的uptime.</div><div class="line">    sendfile    on;</div><div class="line">    #tcp_nopush    on;</div><div class="line"></div><div class="line">    #连接超时时间</div><div class="line">    #keepalive_timeout  0;</div><div class="line">    keepalive_timeout  65;</div><div class="line">    tcp_nodelay    on;</div><div class="line"></div><div class="line">    #开启gzip压缩</div><div class="line">    gzip  on;</div><div class="line">    gzip_disable &quot;MSIE [1-6].&quot;;</div><div class="line"></div><div class="line">    #设定请求缓冲</div><div class="line">    client_header_buffer_size    128k;</div><div class="line">    large_client_header_buffers  4 128k;</div><div class="line"></div><div class="line">    #设定虚拟主机配置</div><div class="line">    server &#123;</div><div class="line">        #侦听80端口</div><div class="line">        listen    80;</div><div class="line">        #定义使用 www.nginx.cn访问</div><div class="line">        server_name  www.nginx.cn;</div><div class="line"></div><div class="line">        #定义服务器的默认网站根目录位置</div><div class="line">        root html;</div><div class="line"></div><div class="line">        #设定本虚拟主机的访问日志</div><div class="line">        access_log  logs/nginx.access.log  main;</div><div class="line"></div><div class="line">        #默认请求</div><div class="line">        location / &#123;</div><div class="line"></div><div class="line">            #定义首页索引文件的名称</div><div class="line">            index index.php index.html index.htm;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        # 定义错误提示页面</div><div class="line">        error_page  500 502 503 504 /50x.html;</div><div class="line">        location = /50x.html &#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #静态文件，nginx自己处理</div><div class="line">        location ~ ^/(images|javascript|js|css|flash|media|static)/ &#123;</div><div class="line">            #过期30天，静态文件不怎么更新，过期可以设大一点，</div><div class="line">            #如果频繁更新，则可以设置得小一点。</div><div class="line">            expires 30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #PHP 脚本请求全部转发到 FastCGI处理. 使用FastCGI默认配置.</div><div class="line">        location ~ .php$ &#123;</div><div class="line">            fastcgi_pass 127.0.0.1:9000;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</div><div class="line">            include fastcgi_params;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #禁止访问 .htxxx 文件</div><div class="line">            location ~ /.ht &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>nginx <code>502</code>错误,而通过服务器地址:原始端口号(8080)可以访问<br>查看<code>/var/log/nginx/error.log</code><br>显示为 <code>failed (13: Permission denied)</code><br>命令行临时关闭selinux确认是否由此设置引起的 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ getenforce    #查看selinux状态</div><div class="line">$ setenforce 0</div></pre></td></tr></table></figure>
-<p>然后测试是否可以访问如果可以则证明是<code>selinux</code>的问题，于是先关掉s<code>elinux</code></p>
-<p><strong>nginx拒绝或允许指定IP,是使用模块HTTP访问控制模块（HTTP Access）.</strong></p>
-<p>控制规则按照声明的顺序进行检查，首条匹配IP的访问规则将被启用。 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/16;</div><div class="line">  deny    all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的例子中仅允许<code>192.168.1.0/24</code>和<code>10.1.1.0/16</code>网络段访问这个<code>location</code>字段，但<code>192.168.1.1</code>是个例外。<br>注意规则的匹配顺序，如果你使用过apache你可能会认为你可以随意控制规则的顺序并且他们能够正常的工作，但实际上不行。</p>
-<p>下面的这个例子将拒绝掉所有的连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  #这里将永远输出403错误。</div><div class="line">  deny all;</div><div class="line">  #这些指令不会被启用，因为到达的连接在第一条已经被拒绝</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/1</div><div class="line">&#125;</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/nginx.jpg&quot; alt=&quot;nginx&quot; title=&quot;nginx&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;nginx安装&quot;&gt;&lt;a href=&quot;#nginx安装&quot; class=&quot;headerlink&quot; title=&quot;nginx安装&quot;&gt;&lt;/a&gt;nginx安装&lt;/h2&gt;&lt;p&gt;第一步，在&lt;code&gt;/etc/yum.repos.d/&lt;/code&gt;目录下创建一个源配置文件&lt;code&gt;nginx.repo&lt;/code&gt;：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;cd /etc/yum.repos.d/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;vim nginx.repo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;填写如下内容：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[nginx]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;name=nginx repo  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;gpgcheck=0  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;enabled=1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="nginx" scheme="http://jet-han.oschina.io/categories/nginx/"/>
-    
-    
-      <category term="linux" scheme="http://jet-han.oschina.io/tags/linux/"/>
-    
-      <category term="nginx" scheme="http://jet-han.oschina.io/tags/nginx/"/>
-    
-  </entry>
   
   <entry>
     <title>redis安装及使用</title>
@@ -231,194 +177,6 @@
       <category term="cache" scheme="http://jet-han.oschina.io/tags/cache/"/>
     
       <category term="redis" scheme="http://jet-han.oschina.io/tags/redis/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>solr安装与使用</title>
-    <link href="http://jet-han.oschina.io/2017/08/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/08/16/solr安装与使用/</id>
-    <published>2017-08-16T09:11:01.000Z</published>
-    <updated>2017-08-29T07:31:20.584Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
-<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
-<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
-<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br><a id="more"></a><br>配置<code>solr_home</code>：在磁盘任意位置新建目录，取名<code>solr_home</code>,把<code>.\solr-6.0.0\server\solr</code>下的整个solr文件夹复制到<code>solr_home</code>，编辑<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF</code>下的<code>web.xml</code>文件。<br>将<code>web.xml</code>文件注释去掉，<code>&lt;env-entry-value&gt;</code>中填刚才新建的<code>solr_home</code>路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">   &lt;env-entry-value&gt;/home/jet/workspace/github/bigdata/solr/solr_home&lt;/env-entry-value&gt;</div><div class="line">   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
-<p>这个<code>solr_home</code>里面的内容是复制<code>.\solr-6.0.0\server\solr\</code>下的内容，然后在该目录下新建文件夹<code>core0</code>，把 <code>.\solr-6.0.0\server\solr\configsets\basic_configs\</code>下的所有文件复制进来。 </p>
-<p>运行的话，直接双击<code>startup.sh</code></p>
-<p>访问<code>http://localhost:8080/solr/index.html</code>，可以看到<code>solr</code>管理界面，但是我们的sore还是空的，需要手动创建。在管理界面，点击<code>No cores available</code>选项，在弹出的窗口刚才新建的文件夹的名字。<br><code>Add core</code><br>这样，最简单的Solr就搭建完成了。</p>
-<p>【注意事项】<br>solr6以上必须要求jdk1.8以上版本，不然访问会报404,而且tomcat日志不会报任何错误信息<br>且访问路径是<code>localhost:8080/solr/index.html</code></p>
-<h2 id="solrcloud6"><a href="#solrcloud6" class="headerlink" title="solrcloud6"></a>solrcloud6</h2><h3 id="配置hosts"><a href="#配置hosts" class="headerlink" title="配置hosts"></a>配置hosts</h3><p>192.168.40.200 jet.solr.com<br>192.168.40.2 hadoop02.hadoop.com<br>192.168.40.3 hadoop03.hadoop.com</p>
-<h3 id="关闭防火墙-可以只执行第二步：推荐"><a href="#关闭防火墙-可以只执行第二步：推荐" class="headerlink" title="关闭防火墙(可以只执行第二步：推荐)"></a>关闭防火墙(可以只执行第二步：推荐)</h3><p>1) 永久关闭防火墙: <code>vi /etc/selinux/config</code>，将其中的SELinux设置：<code>SELINUX=disabled</code></p>
-<p>2) 关闭防火墙 : <code>systemctl disable firewalld.service</code> #禁用</p>
-<p>3) 关闭packagekit: <code>vi /etc/yum/pluginconf.d/langpacks.conf</code>，将<code>enabled</code>设为 <code>0</code></p>
-<h3 id="配置tomcat（各个solr节点一样）"><a href="#配置tomcat（各个solr节点一样）" class="headerlink" title="配置tomcat（各个solr节点一样）"></a>配置tomcat（各个solr节点一样）</h3><p><strong>启动与关闭</strong></p>
-<p><strong>启动：</strong>到bin目录下<code>./startup.sh</code></p>
-<p><strong>验证：</strong><code>http://192.168.40.200:8080</code></p>
-<p><strong>关闭：</strong>到bin目录下<code>./shutdown.sh</code></p>
-<h3 id="配置zookeeper（各个zookeeper节点上面）"><a href="#配置zookeeper（各个zookeeper节点上面）" class="headerlink" title="配置zookeeper（各个zookeeper节点上面）"></a>配置zookeeper（各个zookeeper节点上面）</h3><p><strong>(1)  解压</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf zookeeper-3.4.10.tar.gz</div></pre></td></tr></table></figure>
-<p><strong>(2)创建data和logs目录</strong></p>
-<p>创建目录并赋于写权限</p>
-<p>指定<code>zookeeper</code>的数据存放目录<code>/hadoop/zookeeper/data</code>和日志目录<code>/hadoop/zookeeper/logs</code></p>
-<p><strong>(3)拷贝zookeeper</strong><br>配制文件<code>zoo_sample.cfg</code>，文件在<code>conf</code>目录下</p>
-<p>拷贝<code>zookeeper</code>配制文件<code>zoo_sample.cfg</code>并重命名<code>zoo.cfg</code></p>
-<p><strong>(4)  修改zoo.cfg</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#</div><div class="line">#</div><div class="line"># Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"># or more contributor license agreements.  See the NOTICE file</div><div class="line"># distributed with this work for additional information</div><div class="line"># regarding copyright ownership.  The ASF licenses this file</div><div class="line"># to you under the Apache License, Version 2.0 (the</div><div class="line"># &quot;License&quot;); you may not use this file except in compliance</div><div class="line"># with the License.  You may obtain a copy of the License at</div><div class="line">#</div><div class="line">#   http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">#</div><div class="line"># Unless required by applicable law or agreed to in writing,</div><div class="line"># software distributed under the License is distributed on an</div><div class="line"># &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"># KIND, either express or implied.  See the License for the</div><div class="line"># specific language governing permissions and limitations</div><div class="line"># under the License.</div><div class="line">#</div><div class="line">#</div><div class="line">#</div><div class="line"></div><div class="line">clientPort=2181</div><div class="line">initLimit=10</div><div class="line">autopurge.purgeInterval=24</div><div class="line">syncLimit=5</div><div class="line">tickTime=3000</div><div class="line">dataDir=/hadoop/zookeeper/data #上面创建的数据目录</div><div class="line">dataLogDir=/hadoop/zookeeper/logs #上面创建的日志目录</div><div class="line">autopurge.snapRetainCount=30</div><div class="line">server.1=hadoop02.hadoop.com:2888:3888</div><div class="line">server.2=hadoop03.hadoop.com:2888:3888</div></pre></td></tr></table></figure>
-<p><strong>(5)进入data</strong><br>文件夹建立对应的myid文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /hadoop/zookeeper/data/myid</div></pre></td></tr></table></figure>
-<p><strong>(6)拷贝zookeeper</strong></p>
-<p>文件夹到其他机器,进行相同配置</p>
-<h3 id="配置solr（各个solr节点一样）"><a href="#配置solr（各个solr节点一样）" class="headerlink" title="配置solr（各个solr节点一样）"></a>配置solr（各个solr节点一样）</h3><p><a href="#solr-tomcat单节点">和上面单节点一样</a></p>
-<h3 id="配置solr服务"><a href="#配置solr服务" class="headerlink" title="配置solr服务"></a>配置solr服务</h3><p><strong>(1) 在solr下，上传相关信息至zookeeper</strong></p>
-<p>在<code>/home/jet/workspace/github/bigdata/solr/solr-6.0.0/server/scripts/cloud-scripts</code>目录下执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./zkcli.sh -zkhost 192.168.40.2:2181,192.168.40.3:2181 -cmd upconfig -confdir /home/jet/workspace/github/bigdata/solr/solr_home/core0/conf -confname solrconfig.xml</div></pre></td></tr></table></figure>
-<p><strong>(2) 每一台solr和zookeeper关联</strong></p>
-<p>修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址：</p>
-<p>在JAVA_OPTS添加zookeepre地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_OPTS=&quot;-DzkHost=192.168.40.2:2181,192.168.40.3:2181&quot;</div></pre></td></tr></table></figure>
-<p><strong>(3) 启动每一台solr服务器</strong><br>进入对应tomcat bin目录启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh startup.sh</div></pre></td></tr></table></figure>
-<p><strong>(4) 查看tomcat日志</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -fn 100 catalina.out</div></pre></td></tr></table></figure>
-<p>如下信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10035261 INFO  (zkCallback-4-thread-34-processing-n:192.168.40.200:8080_solr-EventThread) [   ] o.a.s.c.c.ConnectionManager Watcher org.apache.solr.common.cloud.ConnectionManager@6edf2d5f name:ZooKeeperConnection Watcher:192.168.40.2:2181,192.168.40.3:2181 got event WatchedEvent state:SyncConnected type:None path:null path:null type:None</div></pre></td></tr></table></figure>
-<p><strong>(5) 修改solr启动端口（各个节点的配置一样）</strong></p>
-<p>在solrhome下，有一个solr.xml文件，修改其中的内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$&#123;host:192.168.40.200&#125;</div><div class="line"></div><div class="line">$&#123;jetty.port:8080&#125;</div></pre></td></tr></table></figure>
-<p>然后访问地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.40.200:8080/solr/index.html#/</div></pre></td></tr></table></figure>
-<p>如下<br><img src="http://jet-han.oschina.io/img/ambari/solr.png" alt="solr" title="solr"></p>
-<h2 id="solr全文检索原理"><a href="#solr全文检索原理" class="headerlink" title="solr全文检索原理"></a>solr全文检索原理</h2><p><a href="http://www.cnblogs.com/guochunguang/articles/3641008.html" target="_blank" rel="external">solr全文检索实现原理</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/bigdata.jpg&quot; alt=&quot;bigdata&quot; title=&quot;bigdata&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;solr-tomcat单节点&quot;&gt;&lt;a href=&quot;#solr-tomcat单节点&quot; class=&quot;headerlink&quot; title=&quot;solr+tomcat单节点&quot;&gt;&lt;/a&gt;solr+tomcat单节点&lt;/h2&gt;&lt;p&gt;Solr6部署在Tomcat8环境下&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://archive.apache.org/dist/lucene/solr/6.0.0/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;solr下载&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   &lt;/p&gt;
-&lt;p&gt;日志处理：将Solr安装包中&lt;code&gt;.\solr-6.0.0\server\lib\ext&lt;/code&gt;内的5个jar包复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib&lt;/code&gt;下。将&lt;code&gt;.\solr-6.0.0\server\resources&lt;/code&gt;下的&lt;code&gt;log4j.properties&lt;/code&gt;文件复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes&lt;/code&gt;中，这里的&lt;code&gt;classes&lt;/code&gt;目录需要自己新建。&lt;code&gt;log4j.properties&lt;/code&gt;文件中有一行&lt;code&gt;log4j.appender.file.File=${solr.log}/solr.log&lt;/code&gt;指定log文件的存放路径，可以指定到特定的目录。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/categories/bigdata/"/>
-    
-    
-      <category term="solr" scheme="http://jet-han.oschina.io/tags/solr/"/>
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
-    
-      <category term="搜索引擎" scheme="http://jet-han.oschina.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>大数据平台-ambari</title>
-    <link href="http://jet-han.oschina.io/2017/08/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/"/>
-    <id>http://jet-han.oschina.io/2017/08/15/大数据平台-ambari/</id>
-    <published>2017-08-15T07:02:20.000Z</published>
-    <updated>2017-09-04T02:05:41.432Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
-<p>目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的<br><a id="more"></a></p>
-<h2 id="安装ambari-server"><a href="#安装ambari-server" class="headerlink" title="安装ambari-server"></a>安装ambari-server</h2><p>执行<code>yum list ambari-server</code>查看是否有ambari源，如果没有则在<code>/etc/yum.repo.d/</code>目录下，创建ambari源文件<code>ambari.repo</code>，并填写以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#VERSION_NUMBER=2.5.1</div><div class="line"></div><div class="line">[Updates-ambari-2.5.1.0]</div><div class="line">name=ambari-2.5.1.0 - Updates</div><div class="line">baseurl=http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.5.1.0</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins</div><div class="line">enabled=1</div><div class="line">priority=1</div></pre></td></tr></table></figure>
-<p>其中的版本号可以改成你想要安装的且官网中存在的版本号,执行<code>yum update</code>更新源</p>
-<p> 再执行<code>yum list ambari-server</code>查看结果如下：</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> [jet@ambari yum.repos.d]$ yum list ambari-server</div><div class="line">Loaded plugins: fastestmirror, refresh-packagekit, security</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line"> * base: mirror.bit.edu.cn</div><div class="line"> * extras: mirrors.163.com</div><div class="line"> * updates: mirrors.neusoft.edu.cn</div><div class="line">Available Packages</div><div class="line">ambari-server.x86_64                     2.5.1.0-159                      Updates-ambari-2.5.1.0</div></pre></td></tr></table></figure>
-<p>执行命令<code>sudo yum install ambari-server</code>开始安装</p>
-<h2 id="设置并启动ambari-server"><a href="#设置并启动ambari-server" class="headerlink" title="设置并启动ambari-server"></a>设置并启动ambari-server</h2><p>设置ambari-server，根据自己需要修改默认配置，注意如果选择postgresql数据库，不要选择4，要选择1，不然后面start的时候会报错，拒绝连接，没找到原因</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server setup</div></pre></td></tr></table></figure>
-<p>启动ambari-server：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server start</div></pre></td></tr></table></figure>
-<p>由于我之前安装过2.2.2版本，这次运行时出错了，log文件里面错误如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.apache.ambari.server.AmbariException: Current database store version is not compatible with current server version, serverVersion=2.5.1.0, schemaVersion=2.2.2.0</div></pre></td></tr></table></figure>
-<p>运行下面的命令进行升级后重新启动，成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server upgrade</div></pre></td></tr></table></figure>
-<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>通过<code>http://localhost:8080</code>访问ambari web管理界面<br>默认用户名密码是:<code>admin/admin</code></p>
-<p>如下图所示：<br><img src="http://jet-han.oschina.io/img/ambari/ambari-server.png" alt="bigdata" title="bigdata"></p>
-<h3 id="多台计算无密码登录-ssh"><a href="#多台计算无密码登录-ssh" class="headerlink" title="多台计算无密码登录-ssh"></a>多台计算无密码登录-ssh</h3><p>强烈建议使用root账户配置</p>
-<p>1.安装ssh.  <code>yum install openssh-server</code> 安装完成后会在<code>~</code>目录（当前用户主目录，即这里的<code>/root</code>）下产生一个隐藏文件夹<code>.ssh</code>（<code>ls -al</code> 可以查看隐藏文件）。如果没有这个文件，自己新建即可（<code>mkdir .ssh</code>）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[root@ambari ~]# ls -al</div><div class="line">total 60</div><div class="line">dr-xr-x---.  6 root root   269 Aug 22 17:26 .</div><div class="line">dr-xr-xr-x. 18 root root   236 Apr 14 12:51 ..</div><div class="line">-rw-------.  1 root root  1441 Apr 14 12:17 anaconda-ks.cfg</div><div class="line">-rw-------.  1 root root 13050 Aug 22 17:20 .bash_history</div><div class="line">-rw-r--r--.  1 root root    18 Dec 29  2013 .bash_logout</div><div class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bash_profile</div><div class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bashrc</div><div class="line">drwxr-xr-x.  3 root root    18 Apr 14 12:51 .cache</div><div class="line">drwxr-xr-x.  3 root root    18 Apr 14 12:51 .config</div><div class="line">-rw-r--r--.  1 root root   100 Dec 29  2013 .cshrc</div><div class="line">-rw-r--r--.  1 root root   404 Aug 22 17:26 id_rsa.pub</div><div class="line">drwxr-xr-x.  2 root root    40 Apr 20 14:27 .oracle_jre_usage</div><div class="line">-rw-------.  1 root root   247 Apr 17 18:38 .psql_history</div><div class="line">-rw-r--r--.  1 root root  6899 Aug 22 16:39 remove.sh</div><div class="line">-rw-------.  1 root root  1024 Apr 20 14:40 .rnd</div><div class="line">drwx------.  2 root root    80 Aug 22 17:27 .ssh</div></pre></td></tr></table></figure>
-<p>2.进入<code>.ssh</code>目录下面，在每台机器上执行：<code>ssh-keygen -t rsa</code>  之后一路回车，产生密钥；</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@ambari .ssh]# ll</div><div class="line">total 16</div><div class="line">-rw-------. 1 root root 1679 Aug 22 17:25 id_rsa</div><div class="line">-rw-r--r--. 1 root root  404 Aug 22 17:25 id_rsa.pub</div></pre></td></tr></table></figure>
-<p>3。完成第二步后会产生两个文件：</p>
-<p><code>id-rsa</code>     #私钥</p>
-<p><code>id-rsa.pub</code>   #公钥</p>
-<p>4.在第一台机器的目录<code>.ssh</code>下执行命令，<code>cat id_rsa.pub &gt;&gt; authorized_keys</code>；生成<code>authorized_keys</code>文件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ambari .ssh]# ll</div><div class="line">total 16</div><div class="line">-rw-r-----. 1 root root  404 Aug 22 17:26 authorized_keys</div></pre></td></tr></table></figure>
-<p>5.然后将第一台机器的<code>.ssh</code>目录下面的<code>authorized_keys</code>文件拷贝到第二台计算机的<code>/root/.ssh</code>目录下，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp authorized_keys root@hadoop02.hadoop.com:/root/.ssh/</div></pre></td></tr></table></figure>
-<p>6.再转到第二台机器的<code>.ssh</code>目录下，会发现刚刚传输过来的文件<code>authorized_keys</code>，然后执行命令<code>cat id-rsa.pub &gt;&gt; authorized_keys</code>，将第二台计算机的公钥也加进来</p>
-<p>7.将第二台计算机新生成的<code>authorized_keys</code>传输到第三台计算机，将第三台计算机的公钥<code>id-rsa.pub</code>添加到从第二台计算机传过来的<code>authorized_keys</code>里面。</p>
-<p>8.依次类推，直至集群中的最后一台计算机。</p>
-<p>9.在集群的最后一台计算机执行完添加后，生成的<code>authorized_keys</code>文件就包含集群中所有计算机的公钥，如果以后还有机器加进到集群中来，可以直接添加到文件<code>authorized_keys</code>。最后，将最后生成的<code>authorized_keys</code>复制到集群中的每一台计算机的<code>.ssh</code>目录下，覆盖掉之前的<code>authorized_keys</code>即可。</p>
-<p>10.完成第九步后，就可以在集群中任意一台计算机上，免密码ssh登录到其他计算了。否则<br>错误：<code>Agent admitted failure to sign using the key</code><br>解决：<code>ssh-add  ~/.ssh/id_rsa</code></p>
-<p>如果需无密码登录到目标主机，只需要将自己的公钥<code>id_rsa.pub</code>添加到对应的目标主机的 <code>.ssh/authorized_keys</code>文件中即可，注意所属账户的<code>.ssh</code>,如以下是免密码登录到<code>jet</code>用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat id_rsa.pub | ssh jet@10.111.24.144 &apos;cat - &gt;&gt; ~/.ssh/authorized_keys&apos;</div></pre></td></tr></table></figure>
-<p>一般以上几步就ok了，但我的仍要输入密码，<br>用root用户登陆查看系统的日志文件：$ <code>tail /var/log/secure -n 20</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">…………</div><div class="line">Aug  22 10:26:43 MasterServer sshd[2734]: Authentication refused: bad ownership or modes for file /home/hadooper/.ssh/authorized_keys</div><div class="line">Aug  22 10:26:48 MasterServer sshd[2734]: Accepted password for hadooper from ::1 port 37456 ssh2</div><div class="line">Aug  22 10:26:48 MasterServer sshd[2734]: pam_unix(sshd:session): session opened for user hadooper by (uid=0)</div><div class="line">Aug  22 10:36:30 MasterServer sshd[2809]: Accepted password for hadooper from 192.168.1.241 port 36257 ssh2</div><div class="line">Aug  22 10:36:30 MasterServer sshd[2809]: pam_unix(sshd:session): session opened for user hadooper by (uid=0)</div><div class="line">Aug  22 10:38:28 MasterServer sshd[2857]: Authentication refused: bad ownership or modes for directory /home/hadooper/.ssh</div><div class="line">…………</div></pre></td></tr></table></figure>
-<p>提示<code>/home/root/.ssh</code>和 <code>/home/root/.ssh/authorized_keys</code>权限不对，修改如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod 700 /root/.ssh</div><div class="line">chmod 640 /root/.ssh/authorized_keys</div></pre></td></tr></table></figure>
-<p>测试<code>ssh root@hadoop02.hadoop.com</code>第一次登录可能需要yes确认，之后就可以直接登录了。</p>
-<p>下面是ambari界面安装添加集群过程，只介绍重要的可能遇到问题的部分</p>
-<h3 id="Install-Options"><a href="#Install-Options" class="headerlink" title="Install Options"></a>Install Options</h3><p><img src="http://jet-han.oschina.io/img/ambari/install-options.png" alt="ambari" title="ambari"></p>
-<p>【注意】<br><strong>1.Target Hosts</strong></p>
-<p>图中的hosts为各个客户机的hostname，一定要用域名的格式，配置方式如下两步：  </p>
-<p>集群中每台机器各自命名，最好添加ip号作为后缀，编辑<code>/etc/sysconfig/network</code></p>
-<p><strong>ambari-server<code>192.168.40.1</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=ambari.hadoop.com</div></pre></td></tr></table></figure></p>
-<p><strong>ambari-agent<code>192.168.40.2</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=hadoop02.hadoop.com</div></pre></td></tr></table></figure></p>
-<p><strong>ambari-agent<code>192.168.40.3</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=hadoop03.hadoop.com</div></pre></td></tr></table></figure></p>
-<p>集群中每台机器都需要配置一样的，编辑文件<code>/etc/hosts</code></p>
-<p><strong>192.168.40.1 192.168.40.2 192.168.40.3</strong></p>
-<figure class="highlight plain"><figcaption><span>ambari.hadoop.com</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">192.168.40.2 hadoop02.hadoop.com</div><div class="line">192.168.40.3 hadoop03.hadoop.com</div></pre></td></tr></table></figure>
-<p><strong>2.Host Registration Information</strong></p>
-<p>注意这里是之前配置的<strong>免密码登录的用户的私钥</strong></p>
-<p>我前面是用root用户配置的，所以应该用<code>/root/.ssh/id_rsa</code></p>
-<p>ssh user是<code>root</code>，ssh默认端口就是<code>22</code></p>
-<h3 id="Hosts-Check"><a href="#Hosts-Check" class="headerlink" title="Hosts Check"></a>Hosts Check</h3><p><img src="http://jet-han.oschina.io/img/ambari/host-check.png" alt="ambari" title="ambari"></p>
-<p>一般就是图中的两个<code>warning</code>：</p>
-<p>1.关闭防火墙</p>
-<p>关闭防火墙 sudo service iptables stop 临时关闭命令<br>关闭selinux</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">getenforce</div><div class="line">setenforce 0</div><div class="line"></div><div class="line">[说明]</div><div class="line">setenforce 1 #设置SELinux 成为enforcing模式</div><div class="line">setenforce 0 #设置SELinux 成为permissive模式</div></pre></td></tr></table></figure>
-<p>或者直接修改配置文件关闭<code>/etc/selinux/config</code>(需要重启服务器)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELINUX=disabled</div></pre></td></tr></table></figure>
-<p>2.启动ntpd服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y install ntp</div><div class="line">chkconfig ntpd on</div></pre></td></tr></table></figure>
-<p>centos7服务模式变化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/bin/systemctl start ntpd</div><div class="line">/bin/systemctl start chronyd</div><div class="line">/bin/systemctl stop firewalld</div></pre></td></tr></table></figure>
-<p>完成这两个操作以后，warning消失，如图<br><img src="http://jet-han.oschina.io/img/ambari/host-check-ok.png" alt="ambari" title="ambari"></p>
-<h3 id="Choose-Services"><a href="#Choose-Services" class="headerlink" title="Choose Services"></a>Choose Services</h3><p>选择需要安装的服务</p>
-<h3 id="Assign-Masters"><a href="#Assign-Masters" class="headerlink" title="Assign Masters"></a>Assign Masters</h3><p>分配主服务器</p>
-<h3 id="Assign-slaves-and-Clients"><a href="#Assign-slaves-and-Clients" class="headerlink" title="Assign slaves and Clients"></a>Assign slaves and Clients</h3><p>分配从服务器和客户端</p>
-<h3 id="控制面板"><a href="#控制面板" class="headerlink" title="控制面板"></a>控制面板</h3><p><img src="http://jet-han.oschina.io/img/ambari/dashboard.png" alt="ambari" title="ambari"></p>
-<p>访问不了注意关闭防火墙</p>
-<h3 id="常见错误汇总"><a href="#常见错误汇总" class="headerlink" title="常见错误汇总"></a>常见错误汇总</h3><p>错误信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">2017-08-22 21:09:18,495 - Skipping installation of existing package hdp-select</div><div class="line">2017-08-22 21:09:18,755 - Using hadoop conf dir: /usr/hdp/current/hadoop-client/conf</div><div class="line">2017-08-22 21:09:18,757 - checked_call[&apos;hostid&apos;] &#123;&#125;</div><div class="line">2017-08-22 21:09:18,761 - checked_call returned (0, &apos;a8c00228&apos;)</div><div class="line">2017-08-22 21:09:18,763 - Package[&apos;ambari-metrics-monitor&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,829 - Skipping installation of existing package ambari-metrics-monitor</div><div class="line">2017-08-22 21:09:18,830 - Package[&apos;ambari-metrics-hadoop-sink&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,839 - Skipping installation of existing package ambari-metrics-hadoop-sink</div><div class="line">2017-08-22 21:09:18,840 - Package[&apos;ambari-metrics-grafana&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,849 - Installing package ambari-metrics-grafana (&apos;/usr/bin/yum -d 0 -e 0 -y install ambari-metrics-grafana&apos;)</div></pre></td></tr></table></figure></p>
-<p>手动安装即可<br><a href="https://community.hortonworks.com/questions/68432/why-does-my-ambari-create-cluster-fail-during-spar.html" target="_blank" rel="external">参考</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install ambari-metrics-monitor hdp-select -y</div><div class="line">yum install slider_2_6_1_0_129 hdp-select -y</div><div class="line">yum install spark_2_6_1_0_129 hdp-select -y</div><div class="line">yum install mysql-connector-java hdp-select -y</div><div class="line">yum install tez_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129-server hdp-select -y</div></pre></td></tr></table></figure>
-<p>此版本新增了自动启动服务功能，再也不用手动去挨个点击启动了</p>
-<p>在admin-services auto start去enable对应的服务即可，太方便了</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/bigdata.jpg&quot; alt=&quot;bigdata&quot; title=&quot;bigdata&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 &lt;a href=&quot;https://segmentfault.com/a/1190000006101419&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;详见&lt;/a&gt;），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。&lt;br&gt;Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。&lt;br&gt;Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。&lt;/p&gt;
-&lt;p&gt;目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的&lt;br&gt;
-    
-    </summary>
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/categories/bigdata/"/>
-    
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
-    
-      <category term="ambari" scheme="http://jet-han.oschina.io/tags/ambari/"/>
     
   </entry>
   
@@ -3084,6 +2842,249 @@ public void setFlag() {
       <category term="spring" scheme="http://jet-han.oschina.io/tags/spring/"/>
     
       <category term="scope" scheme="http://jet-han.oschina.io/tags/scope/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>jvm内存模型</title>
+    <link href="http://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
+    <id>http://jet-han.oschina.io/2017/07/20/jvm内存模型/</id>
+    <published>2017-07-20T06:44:40.000Z</published>
+    <updated>2017-08-13T01:45:26.065Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="jvm" title="jvm"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br><a id="more"></a><br><img src="http://jet-han.oschina.io/img/jvm内存模型/jvm.png" alt="jvm" title="jvm"></p>
+<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。<br>由于Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间的计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。<br>如果线程正在执行的是一个Java 方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Natvie 方法，这个计数器值则为空（Undefined）。<br>此内存区域是唯一一个在Java 虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
+<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>线程私有，它的生命周期与线程相同。虚拟机栈描述的是Java 方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。<br>动画是由一帧一帧图片连续切换结果的结果而产生的，其实虚拟机的运行和动画也类似，每个在虚拟机中运行的程序也是由许多的帧的切换产生的结果，只是这些帧里面存放的是方法的局部变量，操作数栈，动态链接，方法返回地址和一些额外的附加信息组成。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
+<p>对于执行引擎来说，活动线程中，只有栈顶的栈帧是有效的，称为当前栈帧，这个栈帧所关联的方法称为当前方法。执行引擎所运行的所有字节码指令都只针对当前栈帧进行操作。<br>局部变量表<br>局部变量表是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。在Java程序被编译成Class文件时，就在方法的Code属性的max_locals数据项中确定了该方法所需要分配的最大局部变量表的容量。<br>局部变量表的容量以变量槽（Slot）为最小单位，32位虚拟机中一个Slot可以存放一个32位以内的数据类型（boolean、byte、char、short、int、float、reference和returnAddress八种）。<br>reference类型虚拟机规范没有明确说明它的长度，但一般来说，虚拟机实现至少都应当能从此引用中直接或者间接地查找到对象在Java堆中的起始地址索引和方法区中的对象类型数据。<br>returnAddress类型是为字节码指令jsr、jsr_w和ret服务的，它指向了一条字节码指令的地址。<br>虚拟机是使用局部变量表完成参数值到参数变量列表的传递过程的，如果是实例方法（非static），那么局部变量表的第0位索引的Slot默认是用于传递方法所属对象实例的引用，在方法中通过this访问。<br> Slot是可以重用的，当Slot中的变量超出了作用域，那么下一次分配Slot的时候，将会覆盖原来的数据。Slot对对象的引用会影响GC（要是被引用，将不会被回收）。<br> 系统不会为局部变量赋予初始值（实例变量和类变量都会被赋予初始值）。也就是说不存在类变量那样的准备阶段。</p>
+<h2 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h2><p>和局部变量区一样，操作数栈也是被组织成一个以字长为单位的数组。但是和前者不同的是，它不是通过索引来访问，而是通过标准的栈操作——压栈和出栈—来访问的。比如，如果某个指令把一个值压入到操作数栈中，稍后另一个指令就可以弹出这个值来使用。<br>虚拟机在操作数栈中存储数据的方式和在局部变量区中是一样的：如int、long、float、double、reference和returnType的存储。对于byte、short以及char类型的值在压入到操作数栈之前，也会被转换为int。<br>虚拟机把操作数栈作为它的工作区——大多数指令都要从这里弹出数据，执行运算，然后把结果压回操作数栈。比如，iadd指令就要从操作数栈中弹出两个整数，执行加法运算，其结果又压回到操作数栈中，看看下面的示例，它演示了虚拟机是如何把两个int类型的局部变量相加，再把结果保存到第三个局部变量的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">begin  </div><div class="line">iload_0    // push the int in local variable 0 ontothe stack  </div><div class="line">iload_1    //push the int in local variable 1 onto the stack  </div><div class="line">iadd       // pop two ints, add them, push result  </div><div class="line">istore_2   // pop int, store into local variable 2  </div><div class="line">end</div></pre></td></tr></table></figure></p>
+<p>在这个字节码序列里，前两个指令iload_0和iload_1将存储在局部变量中索引为0和1的整数压入操作数栈中，其后iadd指令从操作数栈中弹出那两个整数相加，再将结果压入操作数栈。第四条指令istore_2则从操作数栈中弹出结果，并把它存储到局部变量区索引为2的位置。下图详细表述了这个过程中局部变量和操作数栈的状态变化，图中没有使用的局部变量区和操作数栈区域以空白表示。</p>
+<p><img src="http://jet-han.oschina.io/img/jvm内存模型/stack1.png" alt="stack" title="stack"></p>
+<h2 id="动态连接"><a href="#动态连接" class="headerlink" title="动态连接"></a>动态连接</h2><p>虚拟机运行的时候,运行时常量池会保存大量的符号引用，这些符号引用可以看成是每个方法的间接引用。如果代表栈帧A的方法想调用代表栈帧B的方法，那么这个虚拟机的方法调用指令就会以B方法的符号引用作为参数，但是因为符号引用并不是直接指向代表B方法的内存位置，所以在调用之前还必须要将符号引用转换为直接引用，然后通过直接引用才可以访问到真正的方法。<br>如果符号引用是在类加载阶段或者第一次使用的时候转化为直接应用，那么这种转换成为静态解析，如果是在运行期间转换为直接引用，那么这种转换就成为动态连接。</p>
+<h2 id="返回地址"><a href="#返回地址" class="headerlink" title="返回地址"></a>返回地址</h2><p>方法的返回分为两种情况，一种是正常退出，退出后会根据方法的定义来决定是否要传返回值给上层的调用者，一种是异常导致的方法结束，这种情况是不会传返回值给上层的调用方法。<br>不过无论是那种方式的方法结束，在退出当前方法时都会跳转到当前方法被调用的位置，如果方法是正常退出的，则调用者的PC计数器的值就可以作为返回地址,，果是因为异常退出的，则是需要通过异常处理表来确定。<br>方法的的一次调用就对应着栈帧在虚拟机栈中的一次入栈出栈操作，因此方法退出时可能做的事情包括：恢复上层方法的局部变量表以及操作数栈，如果有返回值的话，就把返回值压入到调用者栈帧的操作数栈中，还会把PC计数器的值调整为方法调用入口的下一条指令。<br><img src="http://jet-han.oschina.io/img/jvm内存模型/stack2.png" alt="stack" title="stack"><br>异常<br>在Java 虚拟机规范中，对虚拟机栈规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError 异常；如果虚拟机栈可以动态扩展（当前大部分的Java 虚拟机都可动态扩展，只不过Java 虚拟机规范中也允许固定长度的虚拟机栈），当扩展时无法申请到足够的内存时会抛出OutOfMemoryError 异常。</p>
+<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈（Native MethodStacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java 方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native 方法服务。虚拟机规范中对本地方法栈中的方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它。甚至有的虚拟机（譬如Sun HotSpot 虚拟机）直接就把本地方法栈和虚拟机栈合二为一。<br>与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是Java 虚拟机所管理的内存中最大的一块。Java 堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。但是随着JIT 编译器的发展与逃逸分析技术的逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也渐渐变得不是那么“绝对”了。<br>堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC 堆”。<br>堆的大小可以通过-Xms(最小值)和-Xmx(最大值)参数设置，-Xms为JVM启动时申请的最小内存，默认为操作系统物理内存的1/64但小于1G，-Xmx为JVM可申请的最大内存，默认为物理内存的1/4但小于1G，默认当空余堆内存小于40%时，JVM会增大Heap到-Xmx指定的大小，可通过-XX:MinHeapFreeRation=来指定这个比列；当空余堆内存大于70%时，JVM会减小heap的大小到-Xms指定的大小，可通过XX:MaxHeapFreeRation=来指定这个比列，对于运行系统，为避免在运行时频繁调整Heap的大小，通常-Xms与-Xmx的值设成一样。</p>
+<p>如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java 堆中还可以细分为：新生代和老年代；<br>新生代：程序新创建的对象都是从新生代分配内存，新生代由Eden Space和两块相同大小的Survivor Space(通常又称S0和S1或From和To)构成，可通过-Xmn参数来指定新生代的大小，也可以通过-XX:SurvivorRation来调整Eden Space及SurvivorSpace的大小。<br>老年代：用于存放经过多次新生代GC仍然存活的对象，例如缓存对象，新建的对象也有可能直接进入老年代，主要有两种情况：1、大对象，可通过启动参数设置-XX:PretenureSizeThreshold=1024(单位为字节，默认为0)来代表超过多大时就不在新生代分配，而是直接在老年代分配。2、大的数组对象，且数组中无引用外部对象。<br>老年代所占的内存大小为-Xmx对应的值减去-Xmn对应的值。</p>
+<p>如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError 异常。</p>
+<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区在一个jvm实例的内部，类型信息被存储在一个称为方法区的内存逻辑区中。类型信息是由类加载器在类加载时从类文件中提取出来的。类(静态)变量也存储在方法区中。<br>简单说方法区用来存储类型的元数据信息，一个.class文件是类被java虚拟机使用之前的表现形式，一旦这个类要被使用，java虚拟机就会对其进行装载、连接（验证、准备、解析）和初始化。而装载（后的结果就是由.class文件转变为方法区中的一段特定的数据结构。这个数据结构会存储如下信息：</p>
+<p><strong>类型信息</strong><br>      这个类型的全限定名<br>      这个类型的直接超类的全限定名<br>      这个类型是类类型还是接口类型<br>      这个类型的访问修饰符<br>      任何直接超接口的全限定名的有序列表 </p>
+<p><strong>字段信息</strong><br>      字段名<br>      字段类型<br>      字段的修饰符  </p>
+<p><strong>方法信息</strong><br>      方法名<br>      方法返回类型<br>      方法参数的数量和类型（按照顺序）<br>      方法的修饰符</p>
+<p><strong>其他信息</strong><br>      除了常量以外的所有类（静态）变量<br>      一个指向ClassLoader的指针<br>      一个指向Class对象的指针<br>      常量池（常量数据以及对其他类型的符号引用）  </p>
+<p>JVM为每个已加载的类型都维护一个常量池。常量池就是这个类型用到的常量的一个有序集合，包括实际的常量(string,integer,和floating point常量)和对类型，域和方法的符号引用。池中的数据项象数组项一样，是通过索引访问的。</p>
+<p>每个类的这些元数据，无论是在构建这个类的实例还是调用这个类某个对象的方法，都会访问方法区的这些元数据。<br>构建一个对象时，JVM会在堆中给对象分配空间，这些空间用来存储当前对象实例属性以及其父类的实例属性（而这些属性信息都是从方法区获得），注意，这里并不是仅仅为当前对象的实例属性分配空间，还需要给父类的实例属性分配，到此其实我们就可以回答第一个问题了，即实例化父类的某个子类时，JVM也会同时构建父类的一个对象。从另外一个角度也可以印证这个问题：调用当前类的构造方法时，首先会调用其父类的构造方法直到Object，而构造方法的调用意味着实例的创建，所以子类实例化时，父类肯定也会被实例化。<br>类变量被类的所有实例共享，即使没有类实例时你也可以访问它。这些变量只与类相关，所以在方法区中，它们成为类数据在逻辑上的一部分。在JVM使用一个类之前，它必须在方法区中为每个non-final类变量分配空间。</p>
+<p>方法区主要有以下几个特点：<br>1、方法区是线程安全的。由于所有的线程都共享方法区，所以，方法区里的数据访问必须被设计成线程安全的。例如，假如同时有两个线程都企图访问方法区中的同一个类，而这个类还没有被装入JVM，那么只允许一个线程去装载它，而其它线程必须等待<br>2、方法区的大小不必是固定的，JVM可根据应用需要动态调整。同时，方法区也不一定是连续的，方法区可以在一个堆(甚至是JVM自己的堆)中自由分配。<br>3、方法区也可被垃圾收集，当某个类不在被使用(不可触及)时，JVM将卸载这个类，进行垃圾收集</p>
+<p>可以通过-XX:PermSize 和 -XX:MaxPermSize 参数限制方法区的大小。<br>对于习惯在HotSpot 虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区称为“永久代”（PermanentGeneration），本质上两者并不等价，仅仅是因为HotSpot 虚拟机的设计团队选择把GC 分代收集扩展至方法区，或者说使用永久代来实现方法区而已。对于其他虚拟机（如BEA JRockit、IBM J9 等）来说是不存在永久代的概念的。<br>相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入了方法区就如永久代的名字一样“永久”存在了。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。<br>当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>特征</th>
+<th>作用</th>
+<th>配置参数</th>
+<th>异常</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>程序计数器</td>
+<td>占用内存小，线程私有，生命周期与线程相同</td>
+<td>大致为字节码行号指示器</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>虚拟机栈</td>
+<td>线程私有，生命周期与线程相同，使用连续的内存空间</td>
+<td>Java 方法执行的内存模型，存储局部变量表、操作栈、动态链接、方法出口等信息</td>
+<td>-Xss</td>
+<td>StackOverflowError OutOfMemoryError</td>
+</tr>
+<tr>
+<td>java堆</td>
+<td>线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
+<td>保存对象实例，所有对象实例（包括数组）都要在堆上分配</td>
+<td>-Xms<br>-Xsx<br>-Xmn</td>
+<td>OutOfMemoryError</td>
+</tr>
+<tr>
+<td>方法区</td>
+<td>线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
+<td>存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据</td>
+<td>-XX:PermSize:<br>16M<br>-XX:MaxPermSize<br>64M</td>
+<td>OutOfMemoryError</td>
+</tr>
+<tr>
+<td>运行时常量池</td>
+<td>方法区的一部分，具有动态性</td>
+<td>存放字面量及符号引用</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存（Direct Memory）并不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用，而且也可能导致OutOfMemoryError 异常出现，所以我们放到这里一起讲解。<br>在JDK 1.4 中新加入了NIO（NewInput/Output）类，引入了一种基于通道（Channel）与缓冲区（Buffer）的I/O 方式，它可以使用Native 函数库直接分配堆外内存，然后通过一个存储在Java 堆里面的DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java 堆和Native 堆中来回复制数据。</p>
+<h2 id="堆与栈的对比"><a href="#堆与栈的对比" class="headerlink" title="堆与栈的对比"></a>堆与栈的对比</h2><p>经常有人把Java 内存区分为堆内存（Heap）和栈内存（Stack），这种分法比较粗糙，Java内存区域的划分实际上远比这复杂。这种划分方式的流行只能说明大多数程序员最关注的、与对象内存分配关系最密切的内存区域是这两块。<br>堆很灵活，但是不安全。对于对象，我们要动态地创建、销毁，不能说后创建的对象没有销毁，先前创建的对象就不能销毁，那样的话我们的程序就寸步难行，所以Java中用堆来存储对象。而一旦堆中的对象被销毁，我们继续引用这个对象的话，就会出现著名的 NullPointerException，这就是堆的缺点——<font color="#e07878">错误的引用逻辑只有在运行时才会被发现</font>。<br>栈不灵活，但是很严格，是安全的，易于管理。因为只要上面的引用没有销毁，下面引用就一定还在，在大部分程序中，都是先定义的变量、引用先进栈，后定义的后进栈，同时，区块内部的变量、引用在进入区块时压栈，区块结束时出栈，理解了这种机制，我们就可以很方便地理解各种编程语言的作用域的概念了，同时这也是栈的优点——<font color="#e07878">错误的引用逻辑在编译时就可以被发现</font>。  </p>
+<p><font color="#e07878">栈—主要存放引用和基本数据类型</font>。  </p>
+<p><font color="#e07878">堆—用来存放 new 出来的对象实例</font>。</p>
+<h2 id="内存溢出和内存泄漏"><a href="#内存溢出和内存泄漏" class="headerlink" title="内存溢出和内存泄漏"></a>内存溢出和内存泄漏</h2><p>内存溢出 out of memory，是指程序在申请内存时，没有足够的内存空间供其使用，出现out of memory；比如申请了一个integer，但给它存了long才能存下的数，那就是内存溢出。<br>内存泄露 memory leak，是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。<br>memory leak会最终会导致out ofmemory。</p>
+<p>Java 堆内存的OutOfMemoryError异常是实际应用中最常见的内存溢出异常情况。出现Java 堆内存溢出时，异常堆栈信息“java.lang.OutOfMemoryError”会跟着进一步提示“Java heapspace”。<br>要解决这个区域的异常，一般的手段是首先通过内存映像分析工具（如Eclipse Memory Analyzer）对dump 出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（Memory Overflow）。<br>如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots 的引用链。于是就能找到泄漏对象是通过怎样的路径与GC Roots 相关联并导致垃圾收集器无法自动回收它们的。掌握了泄漏对象的类型信息，以及GC Roots 引用链的信息，就可以比较准确地定位出泄漏代码的位置。<br>如果不存在泄漏，换句话说就是内存中的对象确实都还必须存活着，那就应当检查虚拟机的堆参数（-Xmx 与-Xms），与机器物理内存对比看是否还可以调大，从代码上检查是否存在某些对象生命周期过长、持有状态时间过长的情况，尝试减少程序运行期的内存消耗。</p>
+<h2 id="内存分配过程"><a href="#内存分配过程" class="headerlink" title="内存分配过程"></a>内存分配过程</h2><p>1、JVM 会试图为相关Java对象在Eden Space中初始化一块内存区域。<br>2、当Eden空间足够时，内存申请结束；否则到下一步。<br>3、JVM 试图释放在Eden中所有不活跃的对象（这属于1或更高级的垃圾回收）。释放后若Eden空间仍然不足以放入新对象，则试图将部分Eden中活跃对象放入Survivor区。<br>4、Survivor区被用来作为Eden及Old的中间交换区域，当Old区空间足够时，Survivor区的对象会被移到Old区，否则会被保留在Survivor区。<br>5、当Old区空间不够时，JVM 会在Old区进行完全的垃圾收集（0级）。<br>6、完全垃圾收集后，若Survivor及Old区仍然无法存放从Eden复制过来的部分对象，导致JVM无法在Eden区为新对象创建内存区域，则出现“outofmemory”错误。</p>
+<h2 id="对象访问"><a href="#对象访问" class="headerlink" title="对象访问"></a>对象访问</h2><p><img src="http://jet-han.oschina.io/img/jvm内存模型/jvm3.gif" alt="jvm" title="jvm"><br>对象访问在Java 语言中无处不在，是最普通的程序行为，但即使是最简单的访问，也会却涉及Java 栈、Java 堆、方法区这三个最重要内存区域之间的关联关系，如下面的这句代码：</p>
+<p>Object obj = newObject();</p>
+<p>假设这句代码出现在方法体中，那“Object obj”这部分的语义将会反映到Java 栈的本地变量表中，作为一个reference 类型数据出现。而“new Object()”这部分的语义将会反映到Java 堆中，形成一块存储了Object 类型所有实例数据值（Instance Data，对象中各个实例字段的数据）的结构化内存，根据具体类型以及虚拟机实现的对象内存布局（Object Memory Layout）的不同，这块内存的长度是不固定的。另外，在Java 堆中还必须包含能查找到此对象类型数据（如对象类型、父类、实现的接口、方法等）的地址信息，这些类型数据则存储在方法区中。<br>由于reference 类型在Java 虚拟机规范里面只规定了一个指向对象的引用，并没有定义这个引用应该通过哪种方式去定位，以及访问到Java 堆中的对象的具体位置，因此不同虚拟机实现的对象访问方式会有所不同，主流的访问方式有两种：使用句柄和直接指针。<br>如果使用句柄访问方式，Java 堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据和类型数据各自的具体地址信息。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;jvm&quot; title=&quot;jvm&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="java" scheme="http://jet-han.oschina.io/categories/java/"/>
+    
+    
+      <category term="jvm" scheme="http://jet-han.oschina.io/tags/jvm/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>nginx安装与使用</title>
+    <link href="http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <id>http://jet-han.oschina.io/2017/07/17/nginx安装与使用/</id>
+    <published>2017-07-17T07:53:11.000Z</published>
+    <updated>2017-09-08T08:07:10.228Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
+<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
+<p>填写如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>保存，则会产生一个<code>/etc/yum.repos.d/nginx.repo</code>文件。</p>
+<p>下面直接执行如下指令即可自动安装好Nginx：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install nginx</div></pre></td></tr></table></figure>
+<p>安装完成，下面直接就可以启动Nginx了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/nginx start</div></pre></td></tr></table></figure>
+<p>我是用：服务启动并设置开机启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service nginx start</div><div class="line">chkconfig nginx on --level 35</div><div class="line"></div><div class="line">#指定配置文件启动</div><div class="line">/usr/sbin/nginx -c /etc/nginx/nginx.conf</div></pre></td></tr></table></figure>
+<p>启动成功如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[op@bogon init.d]$ ps aux | grep nginx</div><div class="line">root     19210  0.0  0.0  46348  1192 ?        Ss   14:57   0:00 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf</div><div class="line">nginx    19211  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19212  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19214  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19215  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19216  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19217  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">op       19219  0.0  0.0 103328   872 pts/0    S+   14:58   0:00 grep nginx</div></pre></td></tr></table></figure>
+<p>常用命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">sudo nginx #启动nginx</div><div class="line">nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx</div><div class="line">nginx -t   #测试配置是否有语法错误</div><div class="line"></div><div class="line">nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]</div><div class="line"></div><div class="line">-?,-h           : 打开帮助信息</div><div class="line">-v              : 显示版本信息并退出</div><div class="line">-V              : 显示版本和配置选项信息，然后退出</div><div class="line">-t              : 检测配置文件是否有语法错误，然后退出</div><div class="line">-q              : 在检测配置文件期间屏蔽非错误信息</div><div class="line">-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）</div><div class="line">-p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）</div><div class="line">-c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）</div><div class="line">-g directives   : 设置配置文件外的全局指令</div></pre></td></tr></table></figure>
+<h2 id="nginx-配置"><a href="#nginx-配置" class="headerlink" title="nginx 配置"></a>nginx 配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">user nginx;</div><div class="line">#启动进程,通常设置成和cpu的数量相等</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line">#全局错误日志及PID文件</div><div class="line">#error_log  /data/nginx/logs/error.log  warn;</div><div class="line">#error_log  /data/nginx/logs/error.log  notice;</div><div class="line">#error_log  /data/nginx/logs/error.log  info;</div><div class="line"></div><div class="line">#pid        /data/nginx/pid/nginx.pid;</div><div class="line"></div><div class="line">#工作模式及连接数上限</div><div class="line">events &#123;</div><div class="line">   #epoll是多路复用IO(I/O Multiplexing)中的一种方式,</div><div class="line">    #仅用于linux2.6以上内核,可以大大提高nginx的性能</div><div class="line">    use  epoll;</div><div class="line"></div><div class="line">    #单个后台worker process进程的最大并发链接数</div><div class="line">    worker_connections  1024;</div><div class="line"></div><div class="line">    # 并发总数是 worker_processes 和 worker_connections 的乘积</div><div class="line">    # 即 max_clients = worker_processes * worker_connections</div><div class="line">    # 在设置了反向代理的情况下，max_clients = worker_processes * worker_connections / 4  为什么</div><div class="line">    # 为什么上面反向代理要除以4，应该说是一个经验值</div><div class="line">    # 根据以上条件，正常情况下的Nginx Server可以应付的最大连接数为：4 * 8000 = 32000</div><div class="line">    # worker_connections 值的设置跟物理内存大小有关</div><div class="line">    # 因为并发受IO约束，max_clients的值须小于系统可以打开的最大文件数</div><div class="line">    # 而系统可以打开的最大文件数和内存大小成正比，一般1GB内存的机器上可以打开的文件数大约是10万左右</div><div class="line">    # 我们来看看360M内存的VPS可以打开的文件句柄数是多少：</div><div class="line">    # $ cat /proc/sys/fs/file-max</div><div class="line">    # 输出 34336</div><div class="line">    # 32000 &lt; 34336，即并发连接总数小于系统可以打开的文件句柄总数，这样就在操作系统可以承受的范围之内</div><div class="line">    # 所以，worker_connections 的值需根据 worker_processes 进程数目和系统可以打开的最大文件总数进行适当地进行设置</div><div class="line">    # 使得并发总数小于操作系统可以打开的最大文件数目</div><div class="line">    # 其实质也就是根据主机的物理CPU和内存进行配置</div><div class="line">    # 当然，理论上的并发总数可能会和实际有所偏差，因为主机还有其他的工作进程需要消耗系统资源。</div><div class="line">    # ulimit -SHn 65535</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    #设定mime类型,类型由mime.type文件定义</div><div class="line">    include    mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line">    #设定日志格式</div><div class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</div><div class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</div><div class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line">    access_log  logs/access.log  main;</div><div class="line"></div><div class="line">    #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，</div><div class="line">    #对于普通应用，必须设为 on,</div><div class="line">    #如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，</div><div class="line">    #以平衡磁盘与网络I/O处理速度，降低系统的uptime.</div><div class="line">    sendfile    on;</div><div class="line">    #tcp_nopush    on;</div><div class="line"></div><div class="line">    #连接超时时间</div><div class="line">    #keepalive_timeout  0;</div><div class="line">    keepalive_timeout  65;</div><div class="line">    tcp_nodelay    on;</div><div class="line"></div><div class="line">    #开启gzip压缩</div><div class="line">    gzip  on;</div><div class="line">    gzip_disable &quot;MSIE [1-6].&quot;;</div><div class="line"></div><div class="line">    #设定请求缓冲</div><div class="line">    client_header_buffer_size    128k;</div><div class="line">    large_client_header_buffers  4 128k;</div><div class="line"></div><div class="line">    #设定虚拟主机配置</div><div class="line">    server &#123;</div><div class="line">        #侦听80端口</div><div class="line">        listen    80;</div><div class="line">        #定义使用 www.nginx.cn访问</div><div class="line">        server_name  www.nginx.cn;</div><div class="line"></div><div class="line">        #定义服务器的默认网站根目录位置</div><div class="line">        root html;</div><div class="line"></div><div class="line">        #设定本虚拟主机的访问日志</div><div class="line">        access_log  logs/nginx.access.log  main;</div><div class="line"></div><div class="line">        #默认请求</div><div class="line">        location / &#123;</div><div class="line"></div><div class="line">            #定义首页索引文件的名称</div><div class="line">            index index.php index.html index.htm;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        # 定义错误提示页面</div><div class="line">        error_page  500 502 503 504 /50x.html;</div><div class="line">        location = /50x.html &#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #静态文件，nginx自己处理</div><div class="line">        location ~ ^/(images|javascript|js|css|flash|media|static)/ &#123;</div><div class="line">            #过期30天，静态文件不怎么更新，过期可以设大一点，</div><div class="line">            #如果频繁更新，则可以设置得小一点。</div><div class="line">            expires 30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #PHP 脚本请求全部转发到 FastCGI处理. 使用FastCGI默认配置.</div><div class="line">        location ~ .php$ &#123;</div><div class="line">            fastcgi_pass 127.0.0.1:9000;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</div><div class="line">            include fastcgi_params;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #禁止访问 .htxxx 文件</div><div class="line">            location ~ /.ht &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>nginx <code>502</code>错误,而通过服务器地址:原始端口号(8080)可以访问<br>查看<code>/var/log/nginx/error.log</code><br>显示为 <code>failed (13: Permission denied)</code><br>命令行临时关闭selinux确认是否由此设置引起的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ getenforce    #查看selinux状态</div><div class="line">$ setenforce 0</div></pre></td></tr></table></figure>
+<p>然后测试是否可以访问如果可以则证明是<code>selinux</code>的问题，于是先关掉s<code>elinux</code></p>
+<p><strong>nginx拒绝或允许指定IP,是使用模块HTTP访问控制模块（HTTP Access）.</strong></p>
+<p>控制规则按照声明的顺序进行检查，首条匹配IP的访问规则将被启用。 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/16;</div><div class="line">  deny    all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的例子中仅允许<code>192.168.1.0/24</code>和<code>10.1.1.0/16</code>网络段访问这个<code>location</code>字段，但<code>192.168.1.1</code>是个例外。<br>注意规则的匹配顺序，如果你使用过apache你可能会认为你可以随意控制规则的顺序并且他们能够正常的工作，但实际上不行。</p>
+<p>下面的这个例子将拒绝掉所有的连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  #这里将永远输出403错误。</div><div class="line">  deny all;</div><div class="line">  #这些指令不会被启用，因为到达的连接在第一条已经被拒绝</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/nginx.jpg&quot; alt=&quot;nginx&quot; title=&quot;nginx&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;nginx安装&quot;&gt;&lt;a href=&quot;#nginx安装&quot; class=&quot;headerlink&quot; title=&quot;nginx安装&quot;&gt;&lt;/a&gt;nginx安装&lt;/h2&gt;&lt;p&gt;第一步，在&lt;code&gt;/etc/yum.repos.d/&lt;/code&gt;目录下创建一个源配置文件&lt;code&gt;nginx.repo&lt;/code&gt;：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;cd /etc/yum.repos.d/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;vim nginx.repo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;填写如下内容：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[nginx]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;name=nginx repo  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;gpgcheck=0  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;enabled=1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="nginx" scheme="http://jet-han.oschina.io/categories/nginx/"/>
+    
+    
+      <category term="linux" scheme="http://jet-han.oschina.io/tags/linux/"/>
+    
+      <category term="nginx" scheme="http://jet-han.oschina.io/tags/nginx/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>solr安装与使用</title>
+    <link href="http://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
+    <id>http://jet-han.oschina.io/2017/07/16/solr安装与使用/</id>
+    <published>2017-07-16T09:11:01.000Z</published>
+    <updated>2017-09-08T08:07:23.284Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
+<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
+<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
+<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
+<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br><a id="more"></a><br>配置<code>solr_home</code>：在磁盘任意位置新建目录，取名<code>solr_home</code>,把<code>.\solr-6.0.0\server\solr</code>下的整个solr文件夹复制到<code>solr_home</code>，编辑<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF</code>下的<code>web.xml</code>文件。<br>将<code>web.xml</code>文件注释去掉，<code>&lt;env-entry-value&gt;</code>中填刚才新建的<code>solr_home</code>路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">   &lt;env-entry-value&gt;/home/jet/workspace/github/bigdata/solr/solr_home&lt;/env-entry-value&gt;</div><div class="line">   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
+<p>这个<code>solr_home</code>里面的内容是复制<code>.\solr-6.0.0\server\solr\</code>下的内容，然后在该目录下新建文件夹<code>core0</code>，把 <code>.\solr-6.0.0\server\solr\configsets\basic_configs\</code>下的所有文件复制进来。 </p>
+<p>运行的话，直接双击<code>startup.sh</code></p>
+<p>访问<code>http://localhost:8080/solr/index.html</code>，可以看到<code>solr</code>管理界面，但是我们的sore还是空的，需要手动创建。在管理界面，点击<code>No cores available</code>选项，在弹出的窗口刚才新建的文件夹的名字。<br><code>Add core</code><br>这样，最简单的Solr就搭建完成了。</p>
+<p>【注意事项】<br>solr6以上必须要求jdk1.8以上版本，不然访问会报404,而且tomcat日志不会报任何错误信息<br>且访问路径是<code>localhost:8080/solr/index.html</code></p>
+<h2 id="solrcloud6"><a href="#solrcloud6" class="headerlink" title="solrcloud6"></a>solrcloud6</h2><h3 id="配置hosts"><a href="#配置hosts" class="headerlink" title="配置hosts"></a>配置hosts</h3><p>192.168.40.200 jet.solr.com<br>192.168.40.2 hadoop02.hadoop.com<br>192.168.40.3 hadoop03.hadoop.com</p>
+<h3 id="关闭防火墙-可以只执行第二步：推荐"><a href="#关闭防火墙-可以只执行第二步：推荐" class="headerlink" title="关闭防火墙(可以只执行第二步：推荐)"></a>关闭防火墙(可以只执行第二步：推荐)</h3><p>1) 永久关闭防火墙: <code>vi /etc/selinux/config</code>，将其中的SELinux设置：<code>SELINUX=disabled</code></p>
+<p>2) 关闭防火墙 : <code>systemctl disable firewalld.service</code> #禁用</p>
+<p>3) 关闭packagekit: <code>vi /etc/yum/pluginconf.d/langpacks.conf</code>，将<code>enabled</code>设为 <code>0</code></p>
+<h3 id="配置tomcat（各个solr节点一样）"><a href="#配置tomcat（各个solr节点一样）" class="headerlink" title="配置tomcat（各个solr节点一样）"></a>配置tomcat（各个solr节点一样）</h3><p><strong>启动与关闭</strong></p>
+<p><strong>启动：</strong>到bin目录下<code>./startup.sh</code></p>
+<p><strong>验证：</strong><code>http://192.168.40.200:8080</code></p>
+<p><strong>关闭：</strong>到bin目录下<code>./shutdown.sh</code></p>
+<h3 id="配置zookeeper（各个zookeeper节点上面）"><a href="#配置zookeeper（各个zookeeper节点上面）" class="headerlink" title="配置zookeeper（各个zookeeper节点上面）"></a>配置zookeeper（各个zookeeper节点上面）</h3><p><strong>(1)  解压</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf zookeeper-3.4.10.tar.gz</div></pre></td></tr></table></figure>
+<p><strong>(2)创建data和logs目录</strong></p>
+<p>创建目录并赋于写权限</p>
+<p>指定<code>zookeeper</code>的数据存放目录<code>/hadoop/zookeeper/data</code>和日志目录<code>/hadoop/zookeeper/logs</code></p>
+<p><strong>(3)拷贝zookeeper</strong><br>配制文件<code>zoo_sample.cfg</code>，文件在<code>conf</code>目录下</p>
+<p>拷贝<code>zookeeper</code>配制文件<code>zoo_sample.cfg</code>并重命名<code>zoo.cfg</code></p>
+<p><strong>(4)  修改zoo.cfg</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#</div><div class="line">#</div><div class="line"># Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"># or more contributor license agreements.  See the NOTICE file</div><div class="line"># distributed with this work for additional information</div><div class="line"># regarding copyright ownership.  The ASF licenses this file</div><div class="line"># to you under the Apache License, Version 2.0 (the</div><div class="line"># &quot;License&quot;); you may not use this file except in compliance</div><div class="line"># with the License.  You may obtain a copy of the License at</div><div class="line">#</div><div class="line">#   http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">#</div><div class="line"># Unless required by applicable law or agreed to in writing,</div><div class="line"># software distributed under the License is distributed on an</div><div class="line"># &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"># KIND, either express or implied.  See the License for the</div><div class="line"># specific language governing permissions and limitations</div><div class="line"># under the License.</div><div class="line">#</div><div class="line">#</div><div class="line">#</div><div class="line"></div><div class="line">clientPort=2181</div><div class="line">initLimit=10</div><div class="line">autopurge.purgeInterval=24</div><div class="line">syncLimit=5</div><div class="line">tickTime=3000</div><div class="line">dataDir=/hadoop/zookeeper/data #上面创建的数据目录</div><div class="line">dataLogDir=/hadoop/zookeeper/logs #上面创建的日志目录</div><div class="line">autopurge.snapRetainCount=30</div><div class="line">server.1=hadoop02.hadoop.com:2888:3888</div><div class="line">server.2=hadoop03.hadoop.com:2888:3888</div></pre></td></tr></table></figure>
+<p><strong>(5)进入data</strong><br>文件夹建立对应的myid文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /hadoop/zookeeper/data/myid</div></pre></td></tr></table></figure>
+<p><strong>(6)拷贝zookeeper</strong></p>
+<p>文件夹到其他机器,进行相同配置</p>
+<h3 id="配置solr（各个solr节点一样）"><a href="#配置solr（各个solr节点一样）" class="headerlink" title="配置solr（各个solr节点一样）"></a>配置solr（各个solr节点一样）</h3><p><a href="#solr-tomcat单节点">和上面单节点一样</a></p>
+<h3 id="配置solr服务"><a href="#配置solr服务" class="headerlink" title="配置solr服务"></a>配置solr服务</h3><p><strong>(1) 在solr下，上传相关信息至zookeeper</strong></p>
+<p>在<code>/home/jet/workspace/github/bigdata/solr/solr-6.0.0/server/scripts/cloud-scripts</code>目录下执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./zkcli.sh -zkhost 192.168.40.2:2181,192.168.40.3:2181 -cmd upconfig -confdir /home/jet/workspace/github/bigdata/solr/solr_home/core0/conf -confname solrconfig.xml</div></pre></td></tr></table></figure>
+<p><strong>(2) 每一台solr和zookeeper关联</strong></p>
+<p>修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址：</p>
+<p>在JAVA_OPTS添加zookeepre地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_OPTS=&quot;-DzkHost=192.168.40.2:2181,192.168.40.3:2181&quot;</div></pre></td></tr></table></figure>
+<p><strong>(3) 启动每一台solr服务器</strong><br>进入对应tomcat bin目录启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh startup.sh</div></pre></td></tr></table></figure>
+<p><strong>(4) 查看tomcat日志</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -fn 100 catalina.out</div></pre></td></tr></table></figure>
+<p>如下信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10035261 INFO  (zkCallback-4-thread-34-processing-n:192.168.40.200:8080_solr-EventThread) [   ] o.a.s.c.c.ConnectionManager Watcher org.apache.solr.common.cloud.ConnectionManager@6edf2d5f name:ZooKeeperConnection Watcher:192.168.40.2:2181,192.168.40.3:2181 got event WatchedEvent state:SyncConnected type:None path:null path:null type:None</div></pre></td></tr></table></figure>
+<p><strong>(5) 修改solr启动端口（各个节点的配置一样）</strong></p>
+<p>在solrhome下，有一个solr.xml文件，修改其中的内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$&#123;host:192.168.40.200&#125;</div><div class="line"></div><div class="line">$&#123;jetty.port:8080&#125;</div></pre></td></tr></table></figure>
+<p>然后访问地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.40.200:8080/solr/index.html#/</div></pre></td></tr></table></figure>
+<p>如下<br><img src="http://jet-han.oschina.io/img/ambari/solr.png" alt="solr" title="solr"></p>
+<h2 id="solr全文检索原理"><a href="#solr全文检索原理" class="headerlink" title="solr全文检索原理"></a>solr全文检索原理</h2><p><a href="http://www.cnblogs.com/guochunguang/articles/3641008.html" target="_blank" rel="external">solr全文检索实现原理</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/bigdata.jpg&quot; alt=&quot;bigdata&quot; title=&quot;bigdata&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;solr-tomcat单节点&quot;&gt;&lt;a href=&quot;#solr-tomcat单节点&quot; class=&quot;headerlink&quot; title=&quot;solr+tomcat单节点&quot;&gt;&lt;/a&gt;solr+tomcat单节点&lt;/h2&gt;&lt;p&gt;Solr6部署在Tomcat8环境下&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://archive.apache.org/dist/lucene/solr/6.0.0/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;solr下载&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   &lt;/p&gt;
+&lt;p&gt;日志处理：将Solr安装包中&lt;code&gt;.\solr-6.0.0\server\lib\ext&lt;/code&gt;内的5个jar包复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib&lt;/code&gt;下。将&lt;code&gt;.\solr-6.0.0\server\resources&lt;/code&gt;下的&lt;code&gt;log4j.properties&lt;/code&gt;文件复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes&lt;/code&gt;中，这里的&lt;code&gt;classes&lt;/code&gt;目录需要自己新建。&lt;code&gt;log4j.properties&lt;/code&gt;文件中有一行&lt;code&gt;log4j.appender.file.File=${solr.log}/solr.log&lt;/code&gt;指定log文件的存放路径，可以指定到特定的目录。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="bigdata" scheme="http://jet-han.oschina.io/categories/bigdata/"/>
+    
+    
+      <category term="solr" scheme="http://jet-han.oschina.io/tags/solr/"/>
+    
+      <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
+    
+      <category term="搜索引擎" scheme="http://jet-han.oschina.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   
