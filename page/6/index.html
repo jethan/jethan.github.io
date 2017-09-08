@@ -249,77 +249,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/24/git/" class="article-date">
-      <time datetime="2017-06-24T08:51:27.000Z" itemprop="datePublished">2017-06-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/24/git/">git</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/git.jpg" alt="git" title="git"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>集中式vs分布式</strong></p>
-<p>Linus一直痛恨的CVS、VSS及SVN都是集中式的版本控制系统，而Git是分布式版本控制系统，集中式和分布式版本控制系统有什么区别呢？</p>
-<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/git/">git</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本控制/">版本控制</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/24/git/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-linux常用操作命令-一" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -370,6 +299,75 @@
       
         <p class="article-more-link">
           <a  href="/2017/06/19/linux常用操作命令-一/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-redis安装及使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/06/17/redis安装及使用/" class="article-date">
+      <time datetime="2017-06-17T06:02:45.000Z" itemprop="datePublished">2017-06-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/17/redis安装及使用/">redis安装及使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
+<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/redis/">redis</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cache/">cache</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nosql/">nosql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/06/17/redis安装及使用/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

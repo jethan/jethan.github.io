@@ -249,78 +249,6 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-equals、-和hashCode" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/01/equals、-和hashCode/" class="article-date">
-      <time datetime="2017-08-01T15:47:35.000Z" itemprop="datePublished">2017-08-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
-<p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
-<p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>
-<p>==比较的是对象的地址<br>String重写的equals比较的是字符串的内容值<br>String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。<br>System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/01/equals、-和hashCode/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-HashMap工作原理" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -587,6 +515,75 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-Spring单例模式与线程安全" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/26/Spring单例模式与线程安全/" class="article-date">
+      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/26/Spring单例模式与线程安全/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

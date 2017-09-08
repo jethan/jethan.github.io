@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-08-19T01:43:49.206Z</updated>
+  <updated>2017-08-13T01:45:26.109Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,171 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>redis安装及使用</title>
-    <link href="http://jet-han.oschina.io/2017/08/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/08/17/redis安装及使用/</id>
-    <published>2017-08-17T06:02:45.000Z</published>
-    <updated>2017-08-19T01:43:49.206Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
-<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br><a id="more"></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>一、在线源安装</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[op@bogon yum.repos.d]$ yum install redis</div><div class="line">Loaded plugins: fastestmirror</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line">* base: mirrors.btte.net</div><div class="line">* extras: mirrors.btte.net</div><div class="line">* updates: mirrors.btte.net</div><div class="line">base                                                     | 3.7 kB     00:00</div><div class="line">extras                                                   | 3.5 kB     00:00</div><div class="line">updates                                                  | 3.5 kB     00:00</div><div class="line">updates/primary_db                                       | 4.6 MB     00:25</div><div class="line">Setting up Install Process</div><div class="line">No package redis available.</div><div class="line">Error: Nothing to do</div></pre></td></tr></table></figure>
-<p>实际上redia位于第三方的yum源里面，不在centos官方yum源里面，如何解决呢？</p>
-<p>1、去下面的网站下载EPEL对应的版本：（epel是fedora维护的yum源，里面软件众多）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://fedoraproject.org/wiki/EPEL</div></pre></td></tr></table></figure>
-<p>2、我下载的是这个：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm</div></pre></td></tr></table></figure>
-<p>3、安装epel：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">rpm -ivh epel-release-6-8.noarch.rpm</div><div class="line">warning: epel-release-6-8.noarch.rpm: Header V3 RSA/SHA256 Signature, key ID 0608b895: NOKEY</div><div class="line">Preparing...                ########################################### [100%]</div><div class="line">   1:epel-release           ########################################### [100%]</div></pre></td></tr></table></figure>
-<p>4、安装redis：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">[op@bogon yum.repos.d]$ yum install redis</div><div class="line">Loaded plugins: fastestmirror</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line">epel/metalink                                            | 4.1 kB     00:00</div><div class="line">* base: mirrors.btte.net</div><div class="line">* epel: mirrors.sohu.com</div><div class="line">* extras: mirrors.btte.net</div><div class="line">* updates: mirrors.btte.net</div><div class="line">epel                                                     | 4.3 kB     00:00</div><div class="line">epel/primary_db                                          | 5.0 MB     00:43</div><div class="line">Setting up Install Process</div><div class="line">Resolving Dependencies</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package redis.x86_64 0:2.4.10-1.el6 will be installed</div><div class="line">--&gt; Finished Dependency Resolution</div><div class="line">Dependencies Resolved</div><div class="line">================================================================================</div><div class="line">Package         Arch             Version                  Repository      Size</div><div class="line">================================================================================</div><div class="line">Installing:</div><div class="line">redis           x86_64           2.4.10-1.el6             epel           213 k</div><div class="line">Transaction Summary</div><div class="line">================================================================================</div><div class="line">Install       1 Package(s)</div><div class="line">Total download size: 213 k</div><div class="line">Installed size: 668 k</div><div class="line">Is this ok [y/N]:y</div></pre></td></tr></table></figure>
-<p>查看版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[op@bogon yum.repos.d]$ redis-server -v</div><div class="line">Redis server version 2.4.10 (00000000:0)</div></pre></td></tr></table></figure>
-<p><strong>二、软件包安装</strong></p>
-<p>1)  下载redis安装包</p>
-<p>可去<a href="http://redis.io" target="_blank" rel="external">官网</a> 下载，也可通过wget命令，</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://download.redis.io/redis-stable.tar.gz</div></pre></td></tr></table></figure>
-<p>2)  解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar –zxvf redis-stable.tar.gz</div></pre></td></tr></table></figure>
-<p>3)  编译、安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd redis-stable</div><div class="line">make&amp;&amp;make install</div></pre></td></tr></table></figure>
-<p>如果提示<code>gcc command</code>不识别，请自行安装<code>gcc</code>:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum install gcc -y</div><div class="line">yum install gcc-g++ -y</div></pre></td></tr></table></figure>
-<p>如果提示<code>couldn’t execute tcl : no such file or dicrectory</code>，请自行安装<code>tcl</code>;<br>如果提示: <code>erroo:jmalloc/jemalloc.h:no such file or dicrectory</code><br>请执行<code>make distclean</code>，然后再<code>make</code></p>
-<p>注意：若此时执行<code>redis-server –v</code> (查看版本命令)，若提示<code>redis-server command not found</code>，查看环境变量：<code>echo $PATH</code>，使用<code>whereis redis-server</code>查看<code>redis-server</code>命令目录，使用<code>ln -s redis-server命令目录/redis-server 环境变量bin目录/redis-server</code>创建软链接，客户端命令相同；</p>
-<p>如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo ln -s /usr/local/bin/redis-server /usr/sbin/redis-server</div><div class="line">sudo ln -s /usr/local/bin/redis-cli /usr/sbin/redis-cli</div></pre></td></tr></table></figure>
-<p><code>/usr/sbin/redis-server</code>环境变量中的命令，不存在<br><code>/usr/local/bin/redis-server</code>是<code>make install</code>后创建的</p>
-<p>结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[op@bogon ~]$ ll /usr/sbin/redis-server</div><div class="line">lrwxrwxrwx. 1 root root 27 Aug 18 15:17 /usr/sbin/redis-server -&gt; /usr/local/bin/redis-server</div></pre></td></tr></table></figure>
-<p>或者直接将<code>/usr/local/bin</code>目录加到环境变量，如何添加，此处不做详细介绍，可查看修改/etc/profile。</p>
-<p>二．配置redis多实例环境</p>
-<ol>
-<li>创建配置文件目录，dump file 目录，进程pid目录，log目录等</li>
-</ol>
-<p>这里配置多实例环境</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /data</div><div class="line">mkdir -p redis/conf redis/log redis/pid redis/dump</div></pre></td></tr></table></figure>
-<p>注意各个目录的权限和所属用户及用户组,否则启动会报错<br>dump和pid两个目录必须属于redis</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[op@bogon redis]$ ll</div><div class="line">total 20</div><div class="line">drwxrwxr-x. 2 op    op   4096 Aug 18 11:52 conf</div><div class="line">drwxr-xr-x. 2 redis root 4096 Aug 18 11:26 dump</div><div class="line">drwxr-xr-x. 2 op    op   4096 Aug 18 11:25 logs</div><div class="line">-rw-------. 1 root  root    0 Aug 18 11:52 nohup.out</div><div class="line">drwxr-xr-x. 2 redis root 4096 Aug 18 11:52 pid</div><div class="line">-rwxr-xr-x. 1 op    op    171 Aug 18 11:50 start.sh</div></pre></td></tr></table></figure>
-<ol>
-<li>修改配置文件，配置参数</li>
-</ol>
-<p>软件源安装配置文件在/etc/redis.conf<br>软件包安装配置文件在redis-stable/redis.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cp /etc/redis.conf /data/redis/conf/redis-6380.conf</div><div class="line">cp /etc/redis.conf /data/redis/conf/redis-6381.conf</div></pre></td></tr></table></figure>
-<p>建立日志文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">vi redis/log/redis-6380.log //建立日志空文件并保存</div><div class="line">vi redis/log/redis-6381.log</div></pre></td></tr></table></figure>
-<p>这里以端口6380为例进行配置</p>
-<p>打开redis-6380.conf文件<br>修改端口(默认6379)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># Accept connections on the specified port, default is 6379.</div><div class="line"># If port 0 is specified Redis will not listen on a TCP socket.</div><div class="line">port 6380</div></pre></td></tr></table></figure>
-<p>修改pid目录为新建目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># When running daemonized, Redis writes a pid file in /var/run/redis.pid by</div><div class="line"># default. You can specify a custom pid file location here.</div><div class="line">pidfile /data/redis/pid/redis-6380.pid</div></pre></td></tr></table></figure>
-<p>修改dump目录为新建目录及文件名</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># The working directory.</div><div class="line">#</div><div class="line"># The DB will be written inside this directory, with the filename specified</div><div class="line"># above using the &apos;dbfilename&apos; configuration directive.</div><div class="line">#</div><div class="line"># Also the Append Only File will be created inside this directory.</div><div class="line">#</div><div class="line"># Note that you must specify a directory here, not a file name.</div><div class="line">dir /data/redis/dump/</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"># The filename where to dump the DB</div><div class="line">dbfilename dump-6380.rdb</div></pre></td></tr></table></figure>
-<p>修改log存储目录为新建目录</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Specify the log file name. Also &apos;stdout&apos; can be used to force</div><div class="line"># Redis to log on the standard output. Note that if you use standard</div><div class="line"># output for logging but daemonize, logs will be sent to /dev/null</div><div class="line">logfile /data/redis/logs/redis-6380.log</div></pre></td></tr></table></figure>
-<p>修改redis后台运行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"># By default Redis does not run as a daemon. Use &apos;yes&apos; if you need it.</div><div class="line"># Note that Redis will write a pid file in /var/run/redis.pid when daemonized.</div><div class="line">daemonize yes</div></pre></td></tr></table></figure>
-<ol>
-<li>持久化</li>
-</ol>
-<p>默认rdb，可选择是否开启aof，若开启，修改配置文件appendonly</p>
-<ol>
-<li>编写启动脚本，一次性启动</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi start.sh</div></pre></td></tr></table></figure>
-<p>脚本内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">nohup redis-server /data/redis/conf/redis-6380.conf &amp;</div><div class="line">nohup redis-server /data/redis/conf/redis-6381.conf &amp;</div></pre></td></tr></table></figure>
-<ol>
-<li>启动redis，查看各目录下文件</li>
-</ol>
-<p>查看进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@bogon conf]# ps aux | grep redis</div><div class="line">root     22900  0.0  0.0  39944  2632 ?        Ssl  Aug14   0:24 redis-server /data/redis/conf/redis-6381.conf</div><div class="line">root     22901  0.0  0.0  39944  3748 ?        Ssl  Aug14   0:25 redis-server /data/redis/conf/redis-6380.conf</div><div class="line">root     39320  0.0  0.0 103332   876 pts/0    S+   15:41   0:00 grep redis</div></pre></td></tr></table></figure>
-<p>关闭redis服务</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@bogon conf]# redis-cli shutdown</div></pre></td></tr></table></figure>
-<p>查看dump信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls -al /data/redis/dump</div></pre></td></tr></table></figure>
-<p>若配置了aof持久化方式，data目录下还会有aof的相关文件，后面会详细介绍</p>
-<ol>
-<li>客户端连接redis</li>
-</ol>
-<p>本机连接，不指定则连接默认端口6379</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli</div></pre></td></tr></table></figure>
-<p>其他客户机连接，需要指定ip和要连接的端口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-cli -h 192.168.132.25 -p 6380</div></pre></td></tr></table></figure>
-<p>如若是拒绝连接，则是因为redis配置默认是只允许本机连接的，所以要开启其他客户机访问，就将所有<code>bind</code>信息注释掉</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># If you want you can bind a single interface, if the bind option is not</div><div class="line"># specified all the interfaces will listen for incoming connections.</div><div class="line">#</div><div class="line">#bind 127.0.0.1</div><div class="line">#bind 192.168.132.25</div></pre></td></tr></table></figure>
-<p>若是没有路由，则是防火墙问题，防火墙添加路由，或者直接关闭防火墙</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo service iptables status #查看防火墙状态</div><div class="line">sudo service iptables stop #关闭防火墙服务</div></pre></td></tr></table></figure>
-<h2 id="数据备份与恢复"><a href="#数据备份与恢复" class="headerlink" title="数据备份与恢复"></a>数据备份与恢复</h2><p>前面的配置提到了两种持久化方式，接下来详细介绍</p>
-<h3 id="RDB方式-默认"><a href="#RDB方式-默认" class="headerlink" title="RDB方式(默认)"></a>RDB方式(默认)</h3><p>RDB方式的持久化是通过快照（snapshotting）完成的，当符合一定条件时Redis会自动将内存中的所有数据进行快照并存储在硬盘上。进行快照的条件可以由用户在配置文件中自定义，由两个参数构成：时间和改动的键的个数。当在指定的时间内被更改的键的个数大于指定的数值时就会进行快照。RDB是redis默认采用的持久化方式，在配置文件中已经预置了3个条件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">save 900 1    # 900秒内有至少1个键被更改则进行快照</div><div class="line">save 300 10   # 300秒内有至少10个键被更改则进行快照</div><div class="line">save 60 10000 # 60秒内有至少10000个键被更改则进行快照</div></pre></td></tr></table></figure>
-<p>可以存在多个条件，条件之间是“或”的关系，只要满足其中一个条件，就会进行快照。 如果想要禁用自动快照，只需要将所有的save参数删除即可。</p>
-<p>Redis默认会将快照文件存储在<code>/var/lib/redis/</code>目录(可CONFIG GET dir来查看)的dump.rdb文件中，可以通过配置dir和dbfilename两个参数分别指定快照文件的存储路径和文件名。</p>
-<p>Redis实现快照的过程</p>
-<p>Redis使用fork函数复制一份当前进程（父进程）的副本（子进程）；<br>父进程继续接收并处理客户端发来的命令，而子进程开始将内存中的数据写入硬盘中的临时文件；<br>当子进程写入完所有数据后会用该临时文件替换旧的RDB文件，至此一次快照操作完成。<br>在执行fork的时候操作系统（类Unix操作系统）会使用写时复制（copy-on-write）策略，即fork函数发生的一刻父子进程共享同一内存数据，当父进程要更改其中某片数据时（如执行一个写命令 ），操作系统会将该片数据复制一份以保证子进程的数据不受影响，所以新的RDB文件存储的是执行fork一刻的内存数据。</p>
-<p>Redis在进行快照的过程中不会修改RDB文件，只有快照结束后才会将旧的文件替换成新的，也就是说任何时候RDB文件都是完整的。这使得我们可以通过定时备份RDB文件来实 现Redis数据库备份。RDB文件是经过压缩（可以配置rdbcompression参数以禁用压缩节省CPU占用）的二进制格式，所以占用的空间会小于内存中的数据大小，更加利于传输。</p>
-<p>除了自动快照，还可以手动发送SAVE或BGSAVE命令让Redis执行快照，两个命令的区别在于，前者是由主进程进行快照操作，会阻塞住其他请求，后者会通过fork子进程进行快照操作。 Redis启动后会读取RDB快照文件，将数据从硬盘载入到内存。根据数据量大小与结构和服务器性能不同，这个时间也不同。通常将一个记录一千万个字符串类型键、大小为1GB的快照文件载入到内 存中需要花费20～30秒钟。 通过RDB方式实现持久化，一旦Redis异常退出，就会丢失最后一次快照以后更改的所有数据。这就需要开发者根据具体的应用场合，通过组合设置自动快照条件的方式来将可能发生的数据损失控制在能够接受的范围。如果数据很重要以至于无法承受任何损失，则可以考虑使用AOF方式进行持久化。</p>
-<p>手动备份与恢复</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">redis 127.0.0.1:6379&gt; SAVE   #redis 备份目录中创建dump.rdb文件</div><div class="line"></div><div class="line">redis 127.0.0.1:6379&gt; CONFIG GET dir #获取rdb存放目录</div><div class="line">1) &quot;dir&quot;</div><div class="line">2) &quot;/data/redis/dump/&quot;</div></pre></td></tr></table></figure>
-<p>恢复，将备份文件dump.rdb放到对应的dir目录，重启redis服务即可恢复rdb数据</p>
-<h3 id="AOF方式"><a href="#AOF方式" class="headerlink" title="AOF方式"></a>AOF方式</h3><p>默认情况下Redis没有开启AOF(append only file)方式的持久化，可以在redis.conf中通过appendonly参数开启：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appendonly yes</div></pre></td></tr></table></figure>
-<p>在启动时Redis会逐个执行AOF文件中的命令来将硬盘中的数据载入到内存中，载入的速度相较RDB会慢一些</p>
-<p>开启AOF持久化后每执行一条会更改Redis中的数据的命令，Redis就会将该命令写入硬盘中的AOF文件。AOF文件的保存位置和RDB文件的位置相同，都是通过dir参数设置的，默认的文件名是<code>appendonly.aof</code>，可以通过<code>appendfilename</code>参数修改：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">appendfilename appendonly.aof</div></pre></td></tr></table></figure>
-<p>配置redis自动重写AOF文件的条件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">auto-aof-rewrite-percentage 100  # 当目前的AOF文件大小超过上一次重写时的AOF文件大小的百分之多少时会再次进行重写，如果之前没有重写过，则以启动时的AOF文件大小为依据</div><div class="line">auto-aof-rewrite-min-size 64mb   # 允许重写的最小AOF文件大小配置写入AOF文件后，要求系统刷新硬盘缓存的机制</div><div class="line"></div><div class="line"># appendfsync always   # 每次执行写入都会执行同步，最安全也最慢</div><div class="line">appendfsync everysec   # 每秒执行一次同步操作</div><div class="line"># appendfsync no       # 不主动进行同步操作，而是完全交由操作系统来做（即每30秒一次），最快也最不</div></pre></td></tr></table></figure>
-<p>Redis允许同时开启AOF和RDB，既保证了数据安全又使得进行备份等操作十分容易。此时重新启动Redis后Redis会使用AOF文件来恢复数据，因为AOF方式的持久化可能丢失的数据更少</p>
-<h3 id="主从同步-复制"><a href="#主从同步-复制" class="headerlink" title="主从同步(复制)"></a>主从同步(复制)</h3><p>通过持久化功能，Redis保证了即使在服务器重启的情况下也不会损失（或少量损失）数据。但是由于数据是存储在一台服务器上的，如果这台服务器的硬盘出现故障，也会导致数据丢失。为了避免单点故障，我们希望将数据库复制多个副本以部署在不同的服务器上，即使有一台服务器出现故障其他服务器依然可以继续提供服务。这就要求当一台服务器上的数据库更新后，可以自动将更新的数据同步到其他服务器上，Redis提供了复制（replication）功能可以自动实现同步的过程。</p>
-<p>配置方法</p>
-<p>通过配置文件 从数据库的配置文件中加入<code>slaveof master-ip master-port</code>，主数据库无需配置</p>
-<p>通过命令行参数 启动redis-server的时候，使用命令行参数<code>--slaveof master-ip master port</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">redis-server --port 6380 --slaveof 192.168.133.25 6379</div></pre></td></tr></table></figure>
-<p>从数据库启动以后再设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">slaveof master-ip master-port</div></pre></td></tr></table></figure>
-<p>如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">192.168.133.24:6380&gt; slaveof 192.168.133.25 6379</div><div class="line">OK</div></pre></td></tr></table></figure>
-<p>查看从库状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">info</div></pre></td></tr></table></figure>
-<p>从库info</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">192.168.133.24:6380&gt; info</div><div class="line"># Server</div><div class="line">redis_version:2.8.19</div><div class="line">redis_git_sha1:00000000</div><div class="line">redis_git_dirty:0</div><div class="line">redis_build_id:4a607fa14f74d354</div><div class="line">redis_mode:standalone</div><div class="line">os:Linux 2.6.32-358.el6.x86_64 x86_64</div><div class="line">arch_bits:64</div><div class="line">...</div><div class="line"># Replication</div><div class="line">role:slave #角色是从</div><div class="line">master_host:192.168.133.25</div><div class="line">master_port:6379</div><div class="line">master_link_status:up #状态是up</div><div class="line">master_last_io_seconds_ago:0</div><div class="line">master_sync_in_progress:0</div><div class="line">slave_repl_offset:1323763642</div><div class="line">slave_priority:100</div><div class="line">slave_read_only:1</div><div class="line">connected_slaves:0</div><div class="line">master_repl_offset:0</div><div class="line">repl_backlog_active:0</div><div class="line">repl_backlog_size:1048576</div><div class="line">repl_backlog_first_byte_offset:0</div><div class="line">repl_backlog_histlen:0</div></pre></td></tr></table></figure>
-<p>查看主库状态</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">192.168.133.25:6379&gt; info</div><div class="line"># Server</div><div class="line">redis_version:2.8.19</div><div class="line">redis_git_sha1:00000000</div><div class="line">redis_git_dirty:0</div><div class="line">redis_build_id:4a607fa14f74d354</div><div class="line">redis_mode:standalone</div><div class="line">os:Linux 2.6.32-358.el6.x86_64 x86_64</div><div class="line">arch_bits:64</div><div class="line">...</div><div class="line"># Replication</div><div class="line">role:master</div><div class="line">connected_slaves:1</div><div class="line">slave0:ip=192.168.133.25,port=6380,state=online,offset=1426459508,lag=0</div><div class="line">master_repl_offset:1426478361</div><div class="line">repl_backlog_active:1</div><div class="line">repl_backlog_size:1048576</div><div class="line">repl_backlog_first_byte_offset:1425429786</div><div class="line">repl_backlog_histlen:1048576</div></pre></td></tr></table></figure>
-<p>查看数据同步情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">192.168.133.24:6380&gt; dbsize</div><div class="line">(integer) 58562</div><div class="line"></div><div class="line">192.168.133.25:6379&gt; dbsize</div><div class="line">(integer) 58562</div></pre></td></tr></table></figure>
-<p>从数据库停止接收其他数据库的同步转主数据库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SLAVEOF NO ONE</div></pre></td></tr></table></figure>
-<p>如</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">192.168.133.24:6380&gt; slaveof no one</div><div class="line">OK</div></pre></td></tr></table></figure>
-<p>结果如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Replication</div><div class="line">role:master</div><div class="line">connected_slaves:0</div><div class="line">master_repl_offset:1722534164</div><div class="line">repl_backlog_active:0</div><div class="line">repl_backlog_size:1048576</div><div class="line">repl_backlog_first_byte_offset:0</div><div class="line">repl_backlog_histlen:0</div></pre></td></tr></table></figure>
-<p>优点及应用场景</p>
-<p>读写分离 通过复制可以实现读写分离以提高服务器的负载能力。在常见的场景中，读的频率大于写，当单机的Redis无法应付大量的读请求时（尤其是较耗资源的请求，比如SORT命令等）可以通过复制功能建立多个从数据库，主数据库只进行写操作，而从数据库负责读操作。</p>
-<p>从数据库持久化 持久化通常相对比较耗时，为了提高性能，可以通过复制功能建立一个（或若干个）从数据库，并在从数据库中启用持久化，同时在主数据库禁用持久化。当从数据库崩溃时重启后主数据库会自动将数据同步过来，所以无需担心数据丢失。而当主数据库崩溃时，需要在从数据库中使用SLAVEOF NO ONE命令将从数据库提升成主数据库继续服务，并在原来的主数据库启动后使用SLAVEOF命令将其设置成新的主数据库的从数据库，即可将数据同步回来。</p>
-<h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><p><a href="http://www.redis.net.cn" target="_blank" rel="external">更多资料查看</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/redis.jpg&quot; alt=&quot;redis&quot; title=&quot;redis&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;序言&quot;&gt;&lt;a href=&quot;#序言&quot; class=&quot;headerlink&quot; title=&quot;序言&quot;&gt;&lt;/a&gt;序言&lt;/h2&gt;&lt;p&gt;最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="redis" scheme="http://jet-han.oschina.io/categories/redis/"/>
-    
-    
-      <category term="nosql" scheme="http://jet-han.oschina.io/tags/nosql/"/>
-    
-      <category term="cache" scheme="http://jet-han.oschina.io/tags/cache/"/>
-    
-      <category term="redis" scheme="http://jet-han.oschina.io/tags/redis/"/>
-    
-  </entry>
   
   <entry>
     <title>设计模式</title>
@@ -3085,6 +2920,107 @@ public void setFlag() {
       <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
     
       <category term="搜索引擎" scheme="http://jet-han.oschina.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>crontab安装及使用</title>
+    <link href="http://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
+    <id>http://jet-han.oschina.io/2017/07/16/crontab安装及使用/</id>
+    <published>2017-07-16T08:24:22.000Z</published>
+    <updated>2017-08-28T08:23:42.575Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/linux.jpg" alt="linux" title="linux"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>经常有需求要在服务器定时执行各种脚本或者服务（shell脚本，python脚本等等），那么自然就会用到crontab<br><a id="more"></a></p>
+<h2 id="安装crontab"><a href="#安装crontab" class="headerlink" title="安装crontab:"></a>安装crontab:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@CentOS ~]# yum install vixie-cron</div></pre></td></tr></table></figure>
+<p>如下即安装成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">[root@bogon mysql]# yum install vixie-cron</div><div class="line">Loaded plugins: fastestmirror, security</div><div class="line">Setting up Install Process</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line"> * base: mirror.bit.edu.cn</div><div class="line"> * extras: mirror.bit.edu.cn</div><div class="line"> * updates: mirror.bit.edu.cn</div><div class="line">Resolving Dependencies</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package cronie.x86_64 0:1.4.4-16.el6_8.2 will be installed</div><div class="line">--&gt; Processing Dependency: dailyjobs for package: cronie-1.4.4-16.el6_8.2.x86_64</div><div class="line">--&gt; Processing Dependency: /usr/sbin/sendmail for package: cronie-1.4.4-16.el6_8.2.x86_64</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package cronie-anacron.x86_64 0:1.4.4-16.el6_8.2 will be installed</div><div class="line">--&gt; Processing Dependency: crontabs for package: cronie-anacron-1.4.4-16.el6_8.2.x86_64</div><div class="line">---&gt; Package sendmail.x86_64 0:8.14.4-9.el6_8.1 will be installed</div><div class="line">--&gt; Processing Dependency: procmail for package: sendmail-8.14.4-9.el6_8.1.x86_64</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package crontabs.noarch 0:1.10-33.el6 will be installed</div><div class="line">---&gt; Package procmail.x86_64 0:3.22-25.1.el6_5.1 will be installed</div><div class="line">--&gt; Finished Dependency Resolution</div><div class="line"></div><div class="line">Dependencies Resolved</div><div class="line"></div><div class="line">============================================================================================================================================================================</div><div class="line"> Package                                      Arch                                 Version                                         Repository                          Size</div><div class="line">============================================================================================================================================================================</div><div class="line">Installing:</div><div class="line"> cronie                                       x86_64                               1.4.4-16.el6_8.2                                base                                75 k</div><div class="line">Installing for dependencies:</div><div class="line"> cronie-anacron                               x86_64                               1.4.4-16.el6_8.2                                base                                31 k</div><div class="line"> crontabs                                     noarch                               1.10-33.el6                                     base                                10 k</div><div class="line"> procmail                                     x86_64                               3.22-25.1.el6_5.1                               base                               162 k</div><div class="line"> sendmail                                     x86_64                               8.14.4-9.el6_8.1                                base                               717 k</div><div class="line"></div><div class="line">Transaction Summary</div><div class="line">============================================================================================================================================================================</div><div class="line">Install       5 Package(s)</div><div class="line"></div><div class="line">Total download size: 995 k</div><div class="line">Installed size: 2.1 M</div><div class="line">Is this ok [y/N]: y</div><div class="line">Downloading Packages:</div><div class="line">(1/5): cronie-1.4.4-16.el6_8.2.x86_64.rpm                                                                                                            |  75 kB     00:00     </div><div class="line">(2/5): cronie-anacron-1.4.4-16.el6_8.2.x86_64.rpm                                                                                                    |  31 kB     00:00     </div><div class="line">(3/5): crontabs-1.10-33.el6.noarch.rpm                                                                                                               |  10 kB     00:00     </div><div class="line">(4/5): procmail-3.22-25.1.el6_5.1.x86_64.rpm                                                                                                         | 162 kB     00:00     </div><div class="line">(5/5): sendmail-8.14.4-9.el6_8.1.x86_64.rpm                                                                                                          | 717 kB     00:00     </div><div class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div><div class="line">Total                                                                                                                                       788 kB/s | 995 kB     00:01     </div><div class="line">Running rpm_check_debug</div><div class="line">Running Transaction Test</div><div class="line">Transaction Test Succeeded</div><div class="line">Running Transaction</div><div class="line">  Installing : procmail-3.22-25.1.el6_5.1.x86_64                                                                                                                        1/5 </div><div class="line">  Installing : sendmail-8.14.4-9.el6_8.1.x86_64                                                                                                                         2/5 </div><div class="line">  Installing : cronie-1.4.4-16.el6_8.2.x86_64                                                                                                                           3/5 </div><div class="line">  Installing : crontabs-1.10-33.el6.noarch                                                                                                                              4/5 </div><div class="line">  Installing : cronie-anacron-1.4.4-16.el6_8.2.x86_64                                                                                                                   5/5 </div><div class="line">  Verifying  : crontabs-1.10-33.el6.noarch                                                                                                                              1/5 </div><div class="line">  Verifying  : procmail-3.22-25.1.el6_5.1.x86_64                                                                                                                        2/5 </div><div class="line">  Verifying  : cronie-anacron-1.4.4-16.el6_8.2.x86_64                                                                                                                   3/5 </div><div class="line">  Verifying  : sendmail-8.14.4-9.el6_8.1.x86_64                                                                                                                         4/5 </div><div class="line">  Verifying  : cronie-1.4.4-16.el6_8.2.x86_64                                                                                                                           5/5 </div><div class="line"></div><div class="line">Installed:</div><div class="line">  cronie.x86_64 0:1.4.4-16.el6_8.2                                                                                                                                          </div><div class="line"></div><div class="line">Dependency Installed:</div><div class="line">  cronie-anacron.x86_64 0:1.4.4-16.el6_8.2        crontabs.noarch 0:1.10-33.el6        procmail.x86_64 0:3.22-25.1.el6_5.1        sendmail.x86_64 0:8.14.4-9.el6_8.1       </div><div class="line"></div><div class="line">Complete!</div></pre></td></tr></table></figure>
+<p>说明：<br>vixie-cron软件包是cron的主程序；<br>crontabs软件包是用来安装、卸装、或列举用来驱动 cron 守护进程的表格的程序。</p>
+<p>cron 是linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service crond start //启动服务</div><div class="line">service crond stop //关闭服务</div><div class="line">service crond restart //重启服务</div><div class="line">service crond reload //重新载入配置</div><div class="line">service crond status //查看服务状态</div></pre></td></tr></table></figure>
+<p>执行命令：<code>ntsysv</code> 查看开机启动的服务，tab键选择菜单</p>
+<p>加入开机自动启动:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --level 35 crond on</div></pre></td></tr></table></figure>
+<h2 id="使用crontab"><a href="#使用crontab" class="headerlink" title="使用crontab"></a>使用crontab</h2><p>1.crontab命令</p>
+<p>功能说明：设置计时器。</p>
+<p>语　　法：crontab [-u &lt;用户名称&gt;][配置文件] 或 crontab [-u &lt;用户名称&gt;][-elr]</p>
+<p>补充说明：cron是一个常驻服务，它提供计时器的功能，让用户在特定的时间得以执行预设的指令或程序。只要用户会编辑计时器的配置文件，就可以使用计时器的功能。其配置文件格式如下：<br>Minute Hour Day Month DayOFWeek Command</p>
+<p>参　　数：<br>　-e 　编辑该用户的计时器设置。<br>　-l 　列出该用户的计时器设置。<br>　-r 　删除该用户的计时器设置。<br>　-u&lt;用户名称&gt; 　指定要设定计时器的用户名称。</p>
+<p>2.crontab 格式</p>
+<p>基本格式 :</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>*</th>
+<th>command</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>分</td>
+<td>时</td>
+<td>日</td>
+<td>月</td>
+<td>周</td>
+<td>命令</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>第1列表示分钟0～59 每分钟用*或者 */1表示<br>第2列表示小时0～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>第6列要运行的命令  </p>
+<p><strong>示例：</strong></p>
+<p>每晚凌晨0点执行sql_backup.sh脚本，并将日志输出追加到backlog_date.log文件中，date是按天的时间<br>2&gt;&amp;1表示将错误信息重定向至标准输出</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 0 * * * sh /home/backups/mysql/sql_backup.sh &gt;&gt; /home/logs/mysql_backup/backlog_`date +&quot;\%Y\%m\%d&quot;`.log 2&gt;&amp;1</div></pre></td></tr></table></figure>
+<p>每晚的21:30重启apache。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30 21 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure></p>
+<p>每月1、10、22日的4 : 45重启apache。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">45 4 1,10,22 * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每周六、周日的1 : 10重启apache。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10 1 * * 6,0 /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每天18 : 00至23 : 00之间每隔30分钟重启apache。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0,30 18-23 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每星期六的23 : 00 pm重启apache。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 23 * * 6 /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每一小时重启apache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* */1 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>晚上11点到早上7点之间，每隔一小时重启apache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每月的4号与每周一到周三的11点重启apache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 11 4 * mon-wed /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>一月一号的4点重启apache</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 4 1 jan * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
+<p>每分钟同步time.windows.com服务器时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0-59/1 * * * * /usr/sbin/ntpdate time.windows.com</div></pre></td></tr></table></figure>
+<p>在以上任何值中，星号（<code>*</code>）可以用来代表所有有效的值。譬如，月份值中的星号意味着在满足其它制约条件后每月都执行该命令。</p>
+<p>整数间的短线（<code>-</code>）<strong>指定一个整数范围</strong>。譬如，1-4 意味着整数 1、2、3、4。</p>
+<p>用逗号（<code>,</code>）隔开的一系列值<strong>指定一个列表</strong>。譬如，3, 4, 6, 8 标明这四个指定的整数。</p>
+<p>正斜线（<code>/</code>）可以用来<strong>指定间隔频率</strong>。在范围后加上 <code>/&lt;integer&gt;</code> 意味着在范围内可以跳过 integer。譬如，<code>0-59/2</code> 可以用来在分钟字段定义每两分钟。间隔频率值还可以和星号一起使用。例如，<code>*/3</code> 的值可以用在月份字段中表示每三个月运行一次任务。</p>
+<p>开头为井号（<code>#</code>）的行是注释，不会被处理。</p>
+<p><strong>crontab命令主要有3个参数：</strong></p>
+<p>　　-e ：编辑用户的crontab。</p>
+<p>　　-l　：列出用户的crontab的内容。</p>
+<p>　　-r　：删除用户的crontab的内容。</p>
+<p>　　执行crontab -e，将自动打开编辑器，你可以编辑自己的crontab文件，语法和 /etc/crontab 文件一样，不同的只是，不必再指出执行的用户，编辑后保存即可。</p>
+<p>　　crontab -l用来查看自己的crontab文件内能，crontab -r删除自己的crontab。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/linux.jpg&quot; alt=&quot;linux&quot; title=&quot;linux&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;经常有需求要在服务器定时执行各种脚本或者服务（shell脚本，python脚本等等），那么自然就会用到crontab&lt;br&gt;
+    
+    </summary>
+    
+      <category term="linux" scheme="http://jet-han.oschina.io/categories/linux/"/>
+    
+    
+      <category term="crontab" scheme="http://jet-han.oschina.io/tags/crontab/"/>
+    
+      <category term="定时" scheme="http://jet-han.oschina.io/tags/%E5%AE%9A%E6%97%B6/"/>
     
   </entry>
   

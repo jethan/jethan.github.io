@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>http://jet-han.oschina.io/2017/06/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2017-09-08T08:11:26.275Z</lastmod>
+    <data>
+        <display>
+        <title>redis安装及使用</title>
+        <pubTime>2017-06-17T06:02:45.000Z</pubTime>
+        
+        <tag>nosql</tag>
+         
+        <tag>cache</tag>
+         
+        <tag>redis</tag>
+         
+         
+           
+             
+              <breadCrumb title="redis" url="http://jet-han.oschina.io/categories/redis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://jet-han.oschina.io/2017/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
     <lastmod>2017-09-08T08:07:52.501Z</lastmod>
     <data>
@@ -362,30 +386,6 @@
 
     
     
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-08-19T01:43:49.206Z</lastmod>
-    <data>
-        <display>
-        <title>redis安装及使用</title>
-        <pubTime>2017-08-17T06:02:45.000Z</pubTime>
-        
-        <tag>nosql</tag>
-         
-        <tag>cache</tag>
-         
-        <tag>redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="redis" url="http://jet-han.oschina.io/categories/redis/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
     
   <url>
     <loc>http://jet-han.oschina.io/2017/06/12/Java%20Generics/</loc>
@@ -410,6 +410,8 @@
     </data>
     </url>
 
+    
+    
     
     
   <url>
@@ -441,8 +443,6 @@
     </data>
     </url>
 
-    
-    
     
   <url>
     <loc>http://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
@@ -493,28 +493,6 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
-    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
-    <data>
-        <display>
-        <title>web.xml加载顺序</title>
-        <pubTime>2017-08-05T06:42:06.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>web</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/</loc>
     <lastmod>2017-08-13T01:45:26.093Z</lastmod>
     <data>
@@ -532,6 +510,28 @@
            
              
               <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
+    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
+    <data>
+        <display>
+        <title>web.xml加载顺序</title>
+        <pubTime>2017-08-05T06:42:06.000Z</pubTime>
+        
+        <tag>java</tag>
+         
+        <tag>web</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
           
         </display>
     </data>
