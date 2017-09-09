@@ -950,6 +950,69 @@
   </entry>
   
   <entry>
+    <title>mysql数据库引擎</title>
+    <link href="http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
+    <id>http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</id>
+    <published>2017-08-06T06:16:24.000Z</published>
+    <updated>2017-09-09T05:06:49.657Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
+<h2 id="数据库引擎任务"><a href="#数据库引擎任务" class="headerlink" title="数据库引擎任务"></a>数据库引擎任务</h2><p>在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。</p>
+<p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br><a id="more"></a></p>
+<h2 id="MySQL数据库引擎类别"><a href="#MySQL数据库引擎类别" class="headerlink" title="MySQL数据库引擎类别"></a>MySQL数据库引擎类别</h2><p>　　你能用的数据库引擎取决于mysql在安装的时候是如何被编译的。要添加一个新的引擎，就必须重新编译MYSQL。在缺省情况下，MYSQL支持三个引擎：ISAM、MYISAM和HEAP。另外两种类型INNODB和BERKLEY（BDB），也常常可以使用。</p>
+<h3 id="ISAM"><a href="#ISAM" class="headerlink" title="ISAM"></a>ISAM</h3><p>　　ISAM是一个定义明确且历经时间考验的数据表格管理方法，它在设计之时就考虑到数据库被查询的次数要远大于更新的次数。因此，ISAM执行读取操作的速度很快，而且不占用大量的内存和存储资源。ISAM的两个主要不足之处在于，它不支持事务处理，也不能够容错：如果你的硬盘崩溃了，那么数据文件就无法恢复了。如果你正在把ISAM用在关键任务应用程序里，那就必须经常备份你所有的实时数据，通过其复制特性，MYSQL能够支持这样的备份应用程序。</p>
+<h3 id="MYISAM"><a href="#MYISAM" class="headerlink" title="MYISAM"></a>MYISAM</h3><p>　　MYISAM是MYSQL的ISAM扩展格式和缺省的数据库引擎。除了提供ISAM里所没有的索引和字段管理的功能，MYISAM还使用一种表格锁定的机制，来优化多个并发的读写操作。其代价是你需要经常运行OPTIMIZE TABLE命令，来恢复被更新机制所浪费的空间。MYISAM还有一些有用的扩展，例如用来修复数据库文件的MYISAMCHK工具和用来恢复浪费空间的MYISAMPACK工具。<br>　　MYISAM强调了快速读取操作，这可能就是为什么MYSQL受到了WEB开发如此青睐的主要原因：在WEB开发中你所进行的大量数据操作都是读取操作。所以，大多数虚拟主机提供商和INTERNET平台提供商只允许使用MYISAM格式。</p>
+<h3 id="HEAP"><a href="#HEAP" class="headerlink" title="HEAP"></a>HEAP</h3><p>　　HEAP允许只驻留在内存里的临时表格。驻留在内存里让HEAP要比ISAM和MYISAM都快，但是它所管理的数据是不稳定的，而且如果在关机之前没有进行保存，那么所有的数据都会丢失。在数据行被删除的时候，HEAP也不会浪费大量的空间。HEAP表格在你需要使用SELECT表达式来选择和操控数据的时候非常有用。要记住，在用完表格之后就删除表格。</p>
+<h3 id="INNODB和BERKLEYDB"><a href="#INNODB和BERKLEYDB" class="headerlink" title="INNODB和BERKLEYDB"></a>INNODB和BERKLEYDB</h3><p>　　INNODB和BERKLEYDB（BDB）数据库引擎都是造就MYSQL灵活性的技术的直接产品，这项技术就是MYSQL++ API。在使用MYSQL的时候，你所面对的每一个挑战几乎都源于ISAM和MYISAM数据库引擎不支持事务处理也不支持外来键。尽管要比ISAM和MYISAM引擎慢很多，但是INNODB和BDB包括了对事务处理和外来键的支持，这两点都是前两个引擎所没有的。如前所述，如果你的设计需要这些特性中的一者或者两者，那你就要被迫使用后两个引擎中的一个了。</p>
+<h2 id="mysql数据引擎更换方式"><a href="#mysql数据引擎更换方式" class="headerlink" title="mysql数据引擎更换方式"></a>mysql数据引擎更换方式</h2><h3 id="查看当前数据库支持的引擎和默认的数据库引擎"><a href="#查看当前数据库支持的引擎和默认的数据库引擎" class="headerlink" title="查看当前数据库支持的引擎和默认的数据库引擎"></a>查看当前数据库支持的引擎和默认的数据库引擎</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">show engines;</div></pre></td></tr></table></figure>
+<p>我的查询结果如下：</p>
+<p><img src="http://jet-han.oschina.io/img/mysql-engines/mysql_engines.png" alt="mysql" title="mysql"></p>
+<h3 id="更改数据库引擎"><a href="#更改数据库引擎" class="headerlink" title="更改数据库引擎"></a>更改数据库引擎</h3><h4 id="更改方式1：修改配置文件my-ini"><a href="#更改方式1：修改配置文件my-ini" class="headerlink" title="更改方式1：修改配置文件my.ini"></a>更改方式1：修改配置文件my.ini</h4><p>修改<code>my.ini</code>，在<code>[mysqld]</code>后面添加<code>default-storage-engine=InnoDB</code>，重启服务，数据库默认的引擎修改为<code>InnoDB</code></p>
+<h4 id="更改方式2-在建表的时候指定"><a href="#更改方式2-在建表的时候指定" class="headerlink" title="更改方式2:在建表的时候指定"></a>更改方式2:在建表的时候指定</h4><p> 建表时指定：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create table mytbl(   </div><div class="line">    id int primary key,   </div><div class="line">    name varchar(50)   </div><div class="line">)type=MyISAM;</div></pre></td></tr></table></figure>
+<h4 id="更改方式3：建表后更改"><a href="#更改方式3：建表后更改" class="headerlink" title="更改方式3：建表后更改"></a>更改方式3：建表后更改</h4><p>　　<code>alter table mytbl2 type = InnoDB;</code></p>
+<h3 id="查看修改结果"><a href="#查看修改结果" class="headerlink" title="查看修改结果"></a>查看修改结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#方式1：</div><div class="line">show table status from mytest; </div><div class="line">#方式2：</div><div class="line">show create table table_name</div></pre></td></tr></table></figure>
+<h2 id="MyIASM-和-Innodb引擎详解"><a href="#MyIASM-和-Innodb引擎详解" class="headerlink" title="MyIASM 和 Innodb引擎详解"></a>MyIASM 和 Innodb引擎详解</h2><h3 id="Innodb引擎"><a href="#Innodb引擎" class="headerlink" title="Innodb引擎"></a>Innodb引擎</h3><p>　　Innodb引擎提供了对数据库<strong>ACID事务的支持</strong>，并且实现了SQL标准的四种隔离级别，关于数据库事务与其隔离级别的内容请见<a href="http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">数据库事务与其隔离级别</a>。该引擎还提供了<strong>行级锁和外键约束</strong>，它的设计目标是处理大容量数据库系统，它本身其实就是基于MySQL后台的完整数据库系统，MySQL运行时Innodb会在内存中建立缓冲池，用于缓冲数据和索引。但是该引擎不支持<code>FULLTEXT</code>类型的索引，而且它没有保存表的行数，当<code>SELECT COUNT(*) FROM TABLE</code>时需要扫描全表。当需要使用数据库事务时，该引擎当然是首选。由于锁的粒度更小，写操作不会锁定全表，所以在并发较高时，使用<code>Innodb</code>引擎会提升效率。但是使用行级锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表。</p>
+<p><strong>ACID</strong></p>
+<p><strong>A  事务的原子性(Atomicity)：</strong>指一个事务要么全部执行,要么不执行.也就是说一个事务不可能只执行了一半就停止了.比如你从取款机取钱,这个事务可以分成两个步骤:1划卡,2出钱.不可能划了卡,而钱却没出来.这两步必须同时完成.要么就不完成.<br><strong>C 事务的一致性(Consistency)：</strong>指事务的运行并不改变数据库中数据的一致性.例如,完整性约束了a+b=10,一个事务改变了a,那么b也应该随之改变.<br><strong>I 独立性(Isolation）:</strong>事务的独立性也有称作隔离性,是指两个以上的事务不会出现交错执行的状态.因为这样可能会导致数据不一致.<br><strong>D 持久性(Durability）:</strong>事务的持久性是指事务执行成功以后,该事务所对数据库所作的更改便是持久的保存在数据库之中，不会无缘无故的回滚.  </p>
+<h3 id="MyIASM引擎"><a href="#MyIASM引擎" class="headerlink" title="MyIASM引擎"></a>MyIASM引擎</h3><p>　　MyIASM是MySQL默认的引擎，但是它<font color="#e07878">没有提供对数据库事务的支持，也不支持行级锁和外键</font>，因此当<code>INSERT</code>(插入)或<code>UPDATE</code>(更新)数据时即写操作需要锁定整个表，效率便会低一些。不过和Innodb不同，MyIASM中存储了表的行数，于是<code>SELECT COUNT(*) FROM TABLE</code>时只需要直接读取已经保存好的值而不需要进行全表扫描。如果表的读操作远远多于写操作且不需要数据库事务的支持，那么MyIASM也是很好的选择。</p>
+<h3 id="两种引擎的选择"><a href="#两种引擎的选择" class="headerlink" title="两种引擎的选择"></a>两种引擎的选择</h3><p>　　大尺寸的数据集趋向于选择InnoDB引擎，因为它<font color="#e07878">支持事务处理和故障恢复,支持行级锁和外键</font>。数据库的大小决定了故障恢复的时间长短，InnoDB可以利用事务日志进行数据恢复，这会比较快。主键查询在InnoDB引擎下也会相当快，不过需要注意的是如果主键太长也会导致性能问题，关于这个问题我会在下文中讲到。大批的<code>INSERT</code>语句(在每个<code>INSERT</code>语句中写入多行，批量插入)在MyISAM下会快一些，但是<code>UPDATE</code>语句在InnoDB下则会更快一些，尤其是在并发量大的时候。</p>
+<h3 id="Index——索引"><a href="#Index——索引" class="headerlink" title="Index——索引"></a>Index——索引</h3><p>　　索引（Index）是帮助MySQL高效获取数据的数据结构。MyIASM和Innodb都使用了树这种数据结构做为索引。下面我接着讲这两种引擎使用的索引结构，讲到这里，首先应该谈一下B-Tree和B+Tree。</p>
+<h4 id="MyIASM引擎的索引结构"><a href="#MyIASM引擎的索引结构" class="headerlink" title="MyIASM引擎的索引结构"></a>MyIASM引擎的索引结构</h4><p>　　MyISAM引擎的索引结构为<code>B+Tree</code>，其中<code>B+Tree</code>的数据域存储的内容为实际数据的地址，也就是说它的索引和实际的数据是分开的，只不过是用索引指向了实际的数据，这种索引就是所谓的<strong>非聚集索引</strong>。如下图所示：</p>
+<p><img src="http://jet-han.oschina.io/img/mysql-engines/MyIasm1.png" alt="mysql" title="mysql"></p>
+<p>　　这里设表一共有三列，假设我们以Col1为主键，则上图是一个MyISAM表的主索引（Primary key）示意。可以看出MyISAM的索引文件仅仅保存数据记录的地址。在MyISAM中，主索引和辅助索引（Secondary key）在结构上没有任何区别，只是主索引要求key是唯一的，而辅助索引的key可以重复。如果我们在Col2上建立一个辅助索引，则此索引的结构如下图所示：</p>
+<p><img src="http://jet-han.oschina.io/img/mysql-engines/MyIasm2.png" alt="mysql" title="mysql"></p>
+<p>　　同样也是一颗B+Tree，data域保存数据记录的地址。因此，MyISAM中索引检索的算法为首先按照B+Tree搜索算法搜索索引，如果指定的Key存在，则取出其data域的值，然后以data域的值为地址，读取相应数据记录。</p>
+<h4 id="Innodb引擎的索引结构"><a href="#Innodb引擎的索引结构" class="headerlink" title="Innodb引擎的索引结构"></a>Innodb引擎的索引结构</h4><p>　　与MyISAM引擎的索引结构同样也是<code>B+Tree</code>，但是Innodb的索引文件本身就是数据文件，即<code>B+Tree</code>的数据域存储的就是实际的数据，这种索引就是聚集索引。这个索引的key就是数据表的主键，因此<code>InnoDB</code>表数据文件本身就是主索引。</p>
+<p>　　并且和MyISAM不同，InnoDB的辅助索引数据域存储的也是相应记录主键的值而不是地址，所以当以辅助索引查找时，会先根据辅助索引找到主键，再根据主键索引找到实际的数据。所以Innodb不建议使用过长的主键，否则会使辅助索引变得过大。建议使用自增的字段作为主键，这样B+Tree的每一个结点都会被顺序的填满，而不会频繁的分裂调整，会有效的提升插入数据的效率。</p>
+<h3 id="两者区别："><a href="#两者区别：" class="headerlink" title="两者区别："></a>两者区别：</h3><p>　　第一个重大区别是InnoDB的数据文件本身就是索引文件。从上文知道，MyISAM索引文件和数据文件是分离的，索引文件仅保存数据记录的地址。而在InnoDB中，表数据文件本身就是按B+Tree组织的一个索引结构，这棵树的叶节点data域保存了完整的数据记录。这个索引的key是数据表的主键，因此InnoDB表数据文件本身就是主索引。</p>
+<p><img src="http://jet-han.oschina.io/img/mysql-engines/Innodb1.png" alt="mysql" title="mysql"></p>
+<p>　　上图是InnoDB主索引（同时也是数据文件）的示意图，可以看到叶节点包含了完整的数据记录。这种索引叫做聚集索引。因为InnoDB的数据文件本身要按主键聚集，所以InnoDB要求表必须有主键（MyISAM可以没有），如果没有显式指定，则MySQL系统会自动选择一个可以唯一标识数据记录的列作为主键，如果不存在这种列，则MySQL自动为InnoDB表生成一个隐含字段作为主键，这个字段长度为6个字节，类型为长整形。</p>
+<p>　　第二个与MyISAM索引的不同是InnoDB的辅助索引data域存储相应记录主键的值而不是地址。换句话说，InnoDB的所有辅助索引都引用主键作为data域。例如，下图为定义在Col3上的一个辅助索引：</p>
+<p><img src="http://jet-han.oschina.io/img/mysql-engines/Innodb2.png" alt="mysql" title="mysql"></p>
+<p>　　这里以英文字符的<code>ASCII</code>码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录。</p>
+<p>　　了解不同存储引擎的索引实现方式对于正确使用和优化索引都非常有帮助，例如知道了InnoDB的索引实现后，就很容易明白为什么不建议使用过长的字段作为主键，因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大。再例如，用非单调(可能是指“非递增”的意思)的字段作为主键在InnoDB中不是个好主意，因为InnoDB数据文件本身是一颗<code>B+Tree</code>，非单调(可能是指“非递增”的意思)的主键会造成在插入新记录时数据文件为了维持<code>B+Tree</code>的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择。</p>
+<p><strong>MyISAM适合：</strong><br>(1)做很多count 的计算；<br>(2)读多写少，插入不频繁，查询非常频繁；<br>(3)没有事务。<br><strong>InnoDB适合：</strong><br>(1)可靠性要求比较高，或者要求事务；<br>(2)表更新和查询都相当的频繁，并且表锁定的机会比较大的情况指定数据引擎的创建；<br>(3)支持行级锁，外键。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;数据库引擎&quot;&gt;&lt;a href=&quot;#数据库引擎&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎&quot;&gt;&lt;/a&gt;数据库引擎&lt;/h2&gt;&lt;p&gt;　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。&lt;/p&gt;
+&lt;h2 id=&quot;数据库引擎任务&quot;&gt;&lt;a href=&quot;#数据库引擎任务&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎任务&quot;&gt;&lt;/a&gt;数据库引擎任务&lt;/h2&gt;&lt;p&gt;在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。&lt;/p&gt;
+&lt;p&gt;设计并创建数据库以保存系统所需的关系或XML文档&lt;br&gt;实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。&lt;br&gt;为单位或客户部署实现的系统&lt;br&gt;提供日常管理支持以优化数据库的性能&lt;br&gt;
+    
+    </summary>
+    
+      <category term="mysql" scheme="http://jet-han.oschina.io/categories/mysql/"/>
+    
+    
+      <category term="mysql,MyIsam,Innodb" scheme="http://jet-han.oschina.io/tags/mysql-MyIsam-Innodb/"/>
+    
+  </entry>
+  
+  <entry>
     <title>并发编程之线程池ThreadPoolExecutor</title>
     <link href="http://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/"/>
     <id>http://jet-han.oschina.io/2017/08/06/并发编程之线程池ThreadPoolExecutor/</id>
@@ -1987,7 +2050,7 @@ select * from tx;
     <link href="http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
     <id>http://jet-han.oschina.io/2017/07/28/HashMap工作原理/</id>
     <published>2017-07-28T08:05:02.000Z</published>
-    <updated>2017-09-06T10:38:49.022Z</updated>
+    <updated>2017-09-08T09:21:53.669Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br><a id="more"></a></p>
@@ -2004,7 +2067,7 @@ select * from tx;
 <p>当重新调整HashMap大小的时候，确实存在条件竞争，因为如果两个线程都发现HashMap需要重新调整大小了，它们会同时试着调整大小。在调整大小的过程中，存储在链表中的元素的次序会反过来，因为移动到新的bucket位置的时候，HashMap并不会将元素放在链表的尾部，而是放在头部，这是为了避免尾部遍历(tail traversing)。如果条件竞争发生了，那么就死循环了。这个时候，你可以质问面试官，为什么这么奇怪，要在多线程的环境下使用HashMap呢？：）</p>
 <p>为什么<code>String</code>, <code>Interger</code>这样的<code>wrapper</code>类适合作为键？ String, Interger这样的wrapper类作为HashMap的键是再适合不过了，而且<code>String</code>最为常用。因为String是不可变的，也是final的，而且已经重写了<code>equals()</code>和<code>hashCode()</code>方法了。其他的wrapper类也有这个特点。不可变性是必要的，因为为了要计算<code>hashCode()</code>，就要防止键值改变，如果键值在放入时和获取时返回不同的hashcode的话，那么就不能从HashMap中找到你想要的对象。不可变性还有其他的优点如线程安全。如果你可以仅仅通过将某个field声明成final就能保证hashCode是不变的，那么请这么做吧。因为获取对象的时候要用到equals()和hashCode()方法，那么键对象正确的重写这两个方法是非常重要的。如果两个不相等的对象返回不同的hashcode的话，那么碰撞的几率就会小些，这样就能提高HashMap的性能。<br>我们可以使用自定义的对象作为键吗？ 这是前一个问题的延伸。当然你可能使用任何对象作为键，只要它遵守了equals()和hashCode()方法的定义规则，并且当对象插入到Map中之后将不会再改变了。如果这个自定义对象时不可变的，那么它已经满足了作为键的条件，因为当它创建之后就已经不能改变了。<br>我们可以使用CocurrentHashMap来代替Hashtable吗？这是另外一个很热门的面试题，因为ConcurrentHashMap越来越多人用了。我们知道Hashtable是synchronized的，但是ConcurrentHashMap同步性能更好，因为它仅仅根据同步级别对map的一部分进行上锁。ConcurrentHashMap当然可以代替HashTable，但是HashTable提供更强的线程安全性。看看这篇博客查看Hashtable和ConcurrentHashMap的区别。<br>我个人很喜欢这个问题，因为这个问题的深度和广度，也不直接的涉及到不同的概念。让我们再来看看这些问题设计哪些知识点：</p>
 <p>hashing的概念<br>HashMap中解决碰撞的方法<br><code>equals()</code>和<code>hashCode()</code>的应用，以及它们在HashMap中的重要性<br>不可变对象的好处<br>HashMap多线程的条件竞争<br>重新调整HashMap的大小</p>
-<p><strong>HashMap的工作原理</strong><br>HashMap基于hashing原理，我们通过<code>put()</code>和<code>get()</code>方法储存和获取对象。当我们将键值对传递给<code>put()</code>方法时，它调用键对象的<code>hashCode()</code>方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的<code>equals()</code>方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
+<h3 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h3><p>HashMap基于hashing原理，我们通过<code>put()</code>和<code>get()</code>方法储存和获取对象。当我们将键值对传递给<code>put()</code>方法时，它调用键对象的<code>hashCode()</code>方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的<code>equals()</code>方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
 <p>当两个不同的键对象的<code>hashcode</code>相同时会发生什么？ 它们会储存在同一个<code>bucket位置的链表中。键对象的</code>equals()<code>方法用来找到键值对</code>。</p>
 <p>因为HashMap的好处非常多，我曾经在电子商务的应用中使用HashMap作为缓存。因为金融领域非常多的运用Java，也出于性能的考虑，我们会经常用到<code>HashMap</code>和<code>ConcurrentHashMap</code>。</p>
 <p>简单归纳，hashmap的深入理解：</p>
@@ -2012,6 +2075,26 @@ select * from tx;
 <p>hashMap的结构类似这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据]<br>  元素1—&gt;[hashCode=1, key.value=y1的数据]<br>  。。。。。。<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]  </p>
 <p>假设没有hashCode=1的元素加入，但是有两个hashCode=0的数据，它的结构就变成这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据].next—&gt;[hashCode=0, key.value=x2的数据]<br>  元素1—&gt;[null]<br>  ……<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]  </p>
 <p><code>put</code>和<code>get</code>都首先会调用<code>hashcode</code>方法，去查找相关的<code>key</code>，当有冲突时，再调用<code>equals</code>（这也是为什么刚开始就重温<code>hashcode</code>和<code>equals</code>的原因）！</p>
+<h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>要知道hashmap是什么，首先要搞清楚它的数据结构，在java编程语言中，最基本的结构就是两种，一个是数组，另外一个是模拟指针（引用），所有的数据结构都可以用这两个基本结构来构造的，hashmap也不例外。Hashmap实际上是一个数组和链表的结合体（在数据结构中，一般称之为“链表散列“），请看下图（横排表示数组，纵排表示数组元素【实际上是一个链表】）。 </p>
+<p><img src="http://jet-han.oschina.io/img/hashmap/hashmap1.jpg" alt="java" title="java"></p>
+<p>从图中我们可以看到一个hashmap就是一个数组结构，当新建一个hashmap的时候，就会初始化一个数组。我们来看看java代码： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line">* The table, resized as necessary. Length MUST Always be a power of two. </div><div class="line">*  FIXME 这里需要注意这句话，至于原因后面会讲到 </div><div class="line">*/  </div><div class="line">transient Entry[] table;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;  </div><div class="line">final K key;  </div><div class="line">V value;  </div><div class="line">final int hash;  </div><div class="line">Entry&lt;K,V&gt; next;  </div><div class="line">..........  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的Entry就是数组中的元素，它持有一个指向下一个元素的引用，这就构成了链表。<br>当我们往hashmap中put元素的时候，先根据key的hash值得到这个元素在数组中的位置（即下标），然后就可以把这个元素放到对应的位置中了。如果这个元素所在的位子上已经存放有其他元素了，那么在同一个位子上的元素将以链表的形式存放，新加入的放在链头，最先加入的放在链尾。<br>从hashmap中get元素时，首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。从这里我们可以想象得到，如果每个位置上的链表只有一个元素，那么hashmap的get效率将是最高的，但是理想总是美好的，现实总是有困难需要我们去克服  </p>
+<h3 id="hash算法"><a href="#hash算法" class="headerlink" title="hash算法"></a>hash算法</h3><p>我们可以看到在hashmap中要找到某个元素，需要根据key的hash值来求得对应数组中的位置。如何计算这个位置就是hash算法。前面说过hashmap的数据结构是数组和链表的结合，所以我们当然希望这个hashmap里面的元素位置尽量的分布均匀些，尽量使得每个位置上的元素数量只有一个，那么当我们用hash算法求得这个位置的时候，马上就可以知道对应位置的元素就是我们要的，而不用再去遍历链表。   </p>
+<p>所以我们首先想到的就是把hashcode对数组长度取模运算，这样一来，元素的分布相对来说是比较均匀的。但是，“模”运算的消耗还是比较大的，能不能找一种更快速，消耗更小的方式那？java中时这样做的， </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static int indexFor(int h, int length) &#123;  </div><div class="line">       return h &amp; (length-1);  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>首先算得key得hashcode值，然后跟数组的长度-1做一次“与”运算（<code>&amp;</code>）。看上去很简单，其实比较有玄机。比如数组的长度是2的4次方，那么hashcode就会和2的4次方-1做“与”运算。很多人都有这个疑问，为什么hashmap的数组初始化大小都是2的次方大小时，hashmap的效率最高，我以2的4次方举例，来解释一下为什么数组大小为2的幂时hashmap访问的性能最高。 </p>
+<p>看下图，左边两组是数组长度为16（2的4次方），右边两组是数组长度为15。两组的hashcode均为8和9，但是很明显，当它们和1110“与”的时候，产生了相同的结果，也就是说它们会定位到数组中的同一个位置上去，这就产生了碰撞，8和9会被放到同一个链表上，那么查询的时候就需要遍历这个链表，得到8或者9，这样就降低了查询的效率。同时，我们也可以发现，当数组长度为15的时候，hashcode的值会与14（1110）进行“与”，那么最后一位永远是0，而0001，0011，0101，1001，1011，0111，1101这几个位置永远都不能存放元素了，空间浪费相当大，更糟的是这种情况中，数组可以使用的位置比数组长度小了很多，这意味着进一步增加了碰撞的几率，减慢了查询的效率！ </p>
+<p><img src="http://jet-han.oschina.io/img/hashmap/hashmap2.jpg" alt="java" title="java"></p>
+<p>所以说，当数组长度为2的n次幂的时候，不同的key算得得index相同的几率较小，那么数据在数组上分布就比较均匀，也就是说碰撞的几率小，相对的，查询的时候就不用遍历某个位置上的链表，这样查询效率也就较高了。<br>说到这里，我们再回头看一下hashmap中默认的数组大小是多少，查看源代码可以得知是16，为什么是16，而不是15，也不是20呢，看到上面annegu的解释之后我们就清楚了吧，显然是因为16是2的整数次幂的原因，在小数据量的情况下16比15和20更能减少key之间的碰撞，而加快查询的效率。   </p>
+<p>所以，在存储大容量数据的时候，最好预先指定hashmap的size为2的整数次幂次方。就算不指定的话，也会以大于且最接近指定值大小的2次幂来初始化的，代码如下(HashMap的构造方法中)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// Find a power of 2 &gt;= initialCapacity  </div><div class="line">int capacity = 1;  </div><div class="line">while (capacity &lt; initialCapacity)   </div><div class="line">capacity &lt;&lt;= 1;</div></pre></td></tr></table></figure></p>
+<h3 id="hashmap的resize"><a href="#hashmap的resize" class="headerlink" title="hashmap的resize"></a>hashmap的resize</h3><p>当hashmap中的元素越来越多的时候，碰撞的几率也就越来越高（因为数组的长度是固定的），所以为了提高查询的效率，就要对hashmap的数组进行扩容，数组扩容这个操作也会出现在ArrayList中，所以这是一个通用的操作，很多人对它的性能表示过怀疑，不过想想我们的“均摊”原理，就释然了，而在hashmap数组扩容之后，最消耗性能的点就出现了：原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize。   </p>
+<p>那么hashmap什么时候进行扩容呢？当hashmap中的元素个数超过数组大小<em>loadFactor时，就会进行数组扩容，loadFactor的默认值为0.75，也就是说，默认情况下，数组大小为16，那么当hashmap中元素个数超过16</em>0.75=12的时候，就把数组的大小扩展为2<em>16=32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以如果我们已经预知hashmap中元素的个数，那么预设元素的个数能够有效的提高hashmap的性能。比如说，我们有1000个元素new HashMap(1000), 但是理论上来讲new HashMap(1024)更合适，不过上面annegu已经说过，即使是1000，hashmap也自动会将其设置为1024。 但是new HashMap(1024)还不是更合适的，因为0.75</em>1000 &lt; 1000, 也就是说为了让0.75 * size &gt; 1000, 我们必须这样new HashMap(2048)才最合适，既考虑了&amp;的问题，也避免了resize的问题。   </p>
+<h3 id="key的hashcode与equals方法改写"><a href="#key的hashcode与equals方法改写" class="headerlink" title="key的hashcode与equals方法改写"></a>key的hashcode与equals方法改写</h3><p>在第一部分hashmap的数据结构中，annegu就写了get方法的过程：首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。所以，hashcode与equals方法对于找到对应元素是两个关键方法。     </p>
+<p>Hashmap的key可以是任何类型的对象，例如User这种对象，为了保证两个具有相同属性的user的hashcode相同，我们就需要改写hashcode方法，比方把hashcode值的计算与User对象的id关联起来，那么只要user对象拥有相同id，那么他们的hashcode也能保持一致了，这样就可以找到在hashmap数组中的位置了。如果这个位置上有多个元素，还需要用key的equals方法在对应位置的链表中找到需要的元素，所以只改写了hashcode方法是不够的，equals方法也是需要改写滴~当然啦，按正常思维逻辑，equals方法一般都会根据实际的业务内容来定义，例如根据user对象的id来判断两个user是否相等。<br>在改写equals方法的时候，需要满足以下三点：<br>(1)    自反性：就是说a.equals(a)必须为true。<br>(2)    对称性：就是说a.equals(b)=true的话，b.equals(a)也必须为true。<br>(3)    传递性：就是说a.equals(b)=true，并且b.equals(c)=true的话，a.equals(c)也必须为true。<br>通过改写key对象的equals和hashcode方法，我们可以将任意的业务对象作为map的key(前提是你确实有这样的需要)。   </p>
+<p>本文主要描述了HashMap的结构，和hashmap中hash函数的实现，以及该实现的特性，同时描述了hashmap中resize带来性能消耗的根本原因，以及将普通的域模型对象作为key的基本要求。尤其是hash函数的实现，可以说是整个HashMap的精髓所在，只有真正理解了这个hash函数，才可以说对HashMap有了一定的理解。</p>
+<p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
 ]]></content>
     
     <summary type="html">
@@ -2920,107 +3003,6 @@ public void setFlag() {
       <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
     
       <category term="搜索引擎" scheme="http://jet-han.oschina.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>crontab安装及使用</title>
-    <link href="http://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/07/16/crontab安装及使用/</id>
-    <published>2017-07-16T08:24:22.000Z</published>
-    <updated>2017-08-28T08:23:42.575Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/linux.jpg" alt="linux" title="linux"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>经常有需求要在服务器定时执行各种脚本或者服务（shell脚本，python脚本等等），那么自然就会用到crontab<br><a id="more"></a></p>
-<h2 id="安装crontab"><a href="#安装crontab" class="headerlink" title="安装crontab:"></a>安装crontab:</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@CentOS ~]# yum install vixie-cron</div></pre></td></tr></table></figure>
-<p>如下即安装成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div></pre></td><td class="code"><pre><div class="line">[root@bogon mysql]# yum install vixie-cron</div><div class="line">Loaded plugins: fastestmirror, security</div><div class="line">Setting up Install Process</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line"> * base: mirror.bit.edu.cn</div><div class="line"> * extras: mirror.bit.edu.cn</div><div class="line"> * updates: mirror.bit.edu.cn</div><div class="line">Resolving Dependencies</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package cronie.x86_64 0:1.4.4-16.el6_8.2 will be installed</div><div class="line">--&gt; Processing Dependency: dailyjobs for package: cronie-1.4.4-16.el6_8.2.x86_64</div><div class="line">--&gt; Processing Dependency: /usr/sbin/sendmail for package: cronie-1.4.4-16.el6_8.2.x86_64</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package cronie-anacron.x86_64 0:1.4.4-16.el6_8.2 will be installed</div><div class="line">--&gt; Processing Dependency: crontabs for package: cronie-anacron-1.4.4-16.el6_8.2.x86_64</div><div class="line">---&gt; Package sendmail.x86_64 0:8.14.4-9.el6_8.1 will be installed</div><div class="line">--&gt; Processing Dependency: procmail for package: sendmail-8.14.4-9.el6_8.1.x86_64</div><div class="line">--&gt; Running transaction check</div><div class="line">---&gt; Package crontabs.noarch 0:1.10-33.el6 will be installed</div><div class="line">---&gt; Package procmail.x86_64 0:3.22-25.1.el6_5.1 will be installed</div><div class="line">--&gt; Finished Dependency Resolution</div><div class="line"></div><div class="line">Dependencies Resolved</div><div class="line"></div><div class="line">============================================================================================================================================================================</div><div class="line"> Package                                      Arch                                 Version                                         Repository                          Size</div><div class="line">============================================================================================================================================================================</div><div class="line">Installing:</div><div class="line"> cronie                                       x86_64                               1.4.4-16.el6_8.2                                base                                75 k</div><div class="line">Installing for dependencies:</div><div class="line"> cronie-anacron                               x86_64                               1.4.4-16.el6_8.2                                base                                31 k</div><div class="line"> crontabs                                     noarch                               1.10-33.el6                                     base                                10 k</div><div class="line"> procmail                                     x86_64                               3.22-25.1.el6_5.1                               base                               162 k</div><div class="line"> sendmail                                     x86_64                               8.14.4-9.el6_8.1                                base                               717 k</div><div class="line"></div><div class="line">Transaction Summary</div><div class="line">============================================================================================================================================================================</div><div class="line">Install       5 Package(s)</div><div class="line"></div><div class="line">Total download size: 995 k</div><div class="line">Installed size: 2.1 M</div><div class="line">Is this ok [y/N]: y</div><div class="line">Downloading Packages:</div><div class="line">(1/5): cronie-1.4.4-16.el6_8.2.x86_64.rpm                                                                                                            |  75 kB     00:00     </div><div class="line">(2/5): cronie-anacron-1.4.4-16.el6_8.2.x86_64.rpm                                                                                                    |  31 kB     00:00     </div><div class="line">(3/5): crontabs-1.10-33.el6.noarch.rpm                                                                                                               |  10 kB     00:00     </div><div class="line">(4/5): procmail-3.22-25.1.el6_5.1.x86_64.rpm                                                                                                         | 162 kB     00:00     </div><div class="line">(5/5): sendmail-8.14.4-9.el6_8.1.x86_64.rpm                                                                                                          | 717 kB     00:00     </div><div class="line">----------------------------------------------------------------------------------------------------------------------------------------------------------------------------</div><div class="line">Total                                                                                                                                       788 kB/s | 995 kB     00:01     </div><div class="line">Running rpm_check_debug</div><div class="line">Running Transaction Test</div><div class="line">Transaction Test Succeeded</div><div class="line">Running Transaction</div><div class="line">  Installing : procmail-3.22-25.1.el6_5.1.x86_64                                                                                                                        1/5 </div><div class="line">  Installing : sendmail-8.14.4-9.el6_8.1.x86_64                                                                                                                         2/5 </div><div class="line">  Installing : cronie-1.4.4-16.el6_8.2.x86_64                                                                                                                           3/5 </div><div class="line">  Installing : crontabs-1.10-33.el6.noarch                                                                                                                              4/5 </div><div class="line">  Installing : cronie-anacron-1.4.4-16.el6_8.2.x86_64                                                                                                                   5/5 </div><div class="line">  Verifying  : crontabs-1.10-33.el6.noarch                                                                                                                              1/5 </div><div class="line">  Verifying  : procmail-3.22-25.1.el6_5.1.x86_64                                                                                                                        2/5 </div><div class="line">  Verifying  : cronie-anacron-1.4.4-16.el6_8.2.x86_64                                                                                                                   3/5 </div><div class="line">  Verifying  : sendmail-8.14.4-9.el6_8.1.x86_64                                                                                                                         4/5 </div><div class="line">  Verifying  : cronie-1.4.4-16.el6_8.2.x86_64                                                                                                                           5/5 </div><div class="line"></div><div class="line">Installed:</div><div class="line">  cronie.x86_64 0:1.4.4-16.el6_8.2                                                                                                                                          </div><div class="line"></div><div class="line">Dependency Installed:</div><div class="line">  cronie-anacron.x86_64 0:1.4.4-16.el6_8.2        crontabs.noarch 0:1.10-33.el6        procmail.x86_64 0:3.22-25.1.el6_5.1        sendmail.x86_64 0:8.14.4-9.el6_8.1       </div><div class="line"></div><div class="line">Complete!</div></pre></td></tr></table></figure>
-<p>说明：<br>vixie-cron软件包是cron的主程序；<br>crontabs软件包是用来安装、卸装、或列举用来驱动 cron 守护进程的表格的程序。</p>
-<p>cron 是linux的内置服务，但它不自动起来，可以用以下的方法启动、关闭这个服务：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service crond start //启动服务</div><div class="line">service crond stop //关闭服务</div><div class="line">service crond restart //重启服务</div><div class="line">service crond reload //重新载入配置</div><div class="line">service crond status //查看服务状态</div></pre></td></tr></table></figure>
-<p>执行命令：<code>ntsysv</code> 查看开机启动的服务，tab键选择菜单</p>
-<p>加入开机自动启动:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chkconfig --level 35 crond on</div></pre></td></tr></table></figure>
-<h2 id="使用crontab"><a href="#使用crontab" class="headerlink" title="使用crontab"></a>使用crontab</h2><p>1.crontab命令</p>
-<p>功能说明：设置计时器。</p>
-<p>语　　法：crontab [-u &lt;用户名称&gt;][配置文件] 或 crontab [-u &lt;用户名称&gt;][-elr]</p>
-<p>补充说明：cron是一个常驻服务，它提供计时器的功能，让用户在特定的时间得以执行预设的指令或程序。只要用户会编辑计时器的配置文件，就可以使用计时器的功能。其配置文件格式如下：<br>Minute Hour Day Month DayOFWeek Command</p>
-<p>参　　数：<br>　-e 　编辑该用户的计时器设置。<br>　-l 　列出该用户的计时器设置。<br>　-r 　删除该用户的计时器设置。<br>　-u&lt;用户名称&gt; 　指定要设定计时器的用户名称。</p>
-<p>2.crontab 格式</p>
-<p>基本格式 :</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>*</th>
-<th>*</th>
-<th>*</th>
-<th>*</th>
-<th>*</th>
-<th>command</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>分</td>
-<td>时</td>
-<td>日</td>
-<td>月</td>
-<td>周</td>
-<td>命令</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>第1列表示分钟0～59 每分钟用*或者 */1表示<br>第2列表示小时0～23（0表示0点）<br>第3列表示日期1～31<br>第4列表示月份1～12<br>第5列标识号星期0～6（0表示星期天）<br>第6列要运行的命令  </p>
-<p><strong>示例：</strong></p>
-<p>每晚凌晨0点执行sql_backup.sh脚本，并将日志输出追加到backlog_date.log文件中，date是按天的时间<br>2&gt;&amp;1表示将错误信息重定向至标准输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 0 * * * sh /home/backups/mysql/sql_backup.sh &gt;&gt; /home/logs/mysql_backup/backlog_`date +&quot;\%Y\%m\%d&quot;`.log 2&gt;&amp;1</div></pre></td></tr></table></figure>
-<p>每晚的21:30重启apache。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">30 21 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure></p>
-<p>每月1、10、22日的4 : 45重启apache。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">45 4 1,10,22 * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每周六、周日的1 : 10重启apache。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10 1 * * 6,0 /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每天18 : 00至23 : 00之间每隔30分钟重启apache。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0,30 18-23 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每星期六的23 : 00 pm重启apache。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 23 * * 6 /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每一小时重启apache</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* */1 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>晚上11点到早上7点之间，每隔一小时重启apache</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 23-7/1 * * * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每月的4号与每周一到周三的11点重启apache</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 11 4 * mon-wed /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>一月一号的4点重启apache</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0 4 1 jan * /usr/local/etc/rc.d/lighttpd restart</div></pre></td></tr></table></figure>
-<p>每分钟同步time.windows.com服务器时间</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">0-59/1 * * * * /usr/sbin/ntpdate time.windows.com</div></pre></td></tr></table></figure>
-<p>在以上任何值中，星号（<code>*</code>）可以用来代表所有有效的值。譬如，月份值中的星号意味着在满足其它制约条件后每月都执行该命令。</p>
-<p>整数间的短线（<code>-</code>）<strong>指定一个整数范围</strong>。譬如，1-4 意味着整数 1、2、3、4。</p>
-<p>用逗号（<code>,</code>）隔开的一系列值<strong>指定一个列表</strong>。譬如，3, 4, 6, 8 标明这四个指定的整数。</p>
-<p>正斜线（<code>/</code>）可以用来<strong>指定间隔频率</strong>。在范围后加上 <code>/&lt;integer&gt;</code> 意味着在范围内可以跳过 integer。譬如，<code>0-59/2</code> 可以用来在分钟字段定义每两分钟。间隔频率值还可以和星号一起使用。例如，<code>*/3</code> 的值可以用在月份字段中表示每三个月运行一次任务。</p>
-<p>开头为井号（<code>#</code>）的行是注释，不会被处理。</p>
-<p><strong>crontab命令主要有3个参数：</strong></p>
-<p>　　-e ：编辑用户的crontab。</p>
-<p>　　-l　：列出用户的crontab的内容。</p>
-<p>　　-r　：删除用户的crontab的内容。</p>
-<p>　　执行crontab -e，将自动打开编辑器，你可以编辑自己的crontab文件，语法和 /etc/crontab 文件一样，不同的只是，不必再指出执行的用户，编辑后保存即可。</p>
-<p>　　crontab -l用来查看自己的crontab文件内能，crontab -r删除自己的crontab。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/linux.jpg&quot; alt=&quot;linux&quot; title=&quot;linux&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;经常有需求要在服务器定时执行各种脚本或者服务（shell脚本，python脚本等等），那么自然就会用到crontab&lt;br&gt;
-    
-    </summary>
-    
-      <category term="linux" scheme="http://jet-han.oschina.io/categories/linux/"/>
-    
-    
-      <category term="crontab" scheme="http://jet-han.oschina.io/tags/crontab/"/>
-    
-      <category term="定时" scheme="http://jet-han.oschina.io/tags/%E5%AE%9A%E6%97%B6/"/>
     
   </entry>
   
