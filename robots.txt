@@ -4,5 +4,7 @@ User-agent: *
 Allow: /
 Disallow: /css
 Disallow: /js
+Disallow: /cv
+Disallow: http://jet-han.oschina.io/cv/
 Sitemap: http://jet-han.oschina.io/sitemap.xml
 Sitemap: http://jet-han.oschina.io/baidusitemap.xml
