@@ -24,26 +24,6 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/Spring%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2017-10-15T09:36:33.895Z</lastmod>
-    <data>
-        <display>
-        <title>Spring单例模式与线程安全</title>
-        <pubTime>2017-07-26T10:06:49.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/</loc>
     <lastmod>2017-10-15T09:36:33.895Z</lastmod>
     <data>
@@ -61,6 +41,26 @@
            
              
               <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/26/Spring%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</loc>
+    <lastmod>2017-10-15T09:36:33.895Z</lastmod>
+    <data>
+        <display>
+        <title>Spring单例模式与线程安全</title>
+        <pubTime>2017-07-26T10:06:49.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
           
         </display>
     </data>
@@ -542,6 +542,8 @@
 
     
     
+    
+    
   <url>
     <loc>http://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-08-13T01:45:26.109Z</lastmod>
@@ -572,8 +574,6 @@
     </url>
 
     
-    
-    
   <url>
     <loc>http://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2017-08-13T01:45:26.098Z</lastmod>
@@ -587,30 +587,6 @@
         <tag>thread</tag>
          
         <tag>runnable</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/</loc>
-    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
-    <data>
-        <display>
-        <title>string比较之‘’equals‘’和‘’==‘’</title>
-        <pubTime>2017-07-28T03:06:56.000Z</pubTime>
-        
-        <tag>string</tag>
-         
-        <tag>==</tag>
-         
-        <tag>equals</tag>
          
          
            
@@ -669,16 +645,18 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
-    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/</loc>
+    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
     <data>
         <display>
-        <title>spring scope prototype与singleton</title>
-        <pubTime>2017-07-26T10:06:11.000Z</pubTime>
+        <title>string比较之‘’equals‘’和‘’==‘’</title>
+        <pubTime>2017-07-28T03:06:56.000Z</pubTime>
         
-        <tag>spring</tag>
+        <tag>string</tag>
          
-        <tag>scope</tag>
+        <tag>==</tag>
+         
+        <tag>equals</tag>
          
          
            
@@ -703,6 +681,28 @@
         <tag>事务传播属性</tag>
          
         <tag>隔离级别</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
+    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
+    <data>
+        <display>
+        <title>spring scope prototype与singleton</title>
+        <pubTime>2017-07-26T10:06:11.000Z</pubTime>
+        
+        <tag>spring</tag>
+         
+        <tag>scope</tag>
          
          
            
@@ -755,28 +755,6 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/24/git/</loc>
-    <lastmod>2017-08-13T01:45:26.062Z</lastmod>
-    <data>
-        <display>
-        <title>git</title>
-        <pubTime>2017-06-24T08:51:27.000Z</pubTime>
-        
-        <tag>版本控制</tag>
-         
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="git" url="http://jet-han.oschina.io/categories/git/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
     <lastmod>2017-08-13T01:45:26.062Z</lastmod>
     <data>
@@ -812,6 +790,28 @@
            
              
               <breadCrumb title="linux" url="http://jet-han.oschina.io/categories/linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/06/24/git/</loc>
+    <lastmod>2017-08-13T01:45:26.062Z</lastmod>
+    <data>
+        <display>
+        <title>git</title>
+        <pubTime>2017-06-24T08:51:27.000Z</pubTime>
+        
+        <tag>版本控制</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="git" url="http://jet-han.oschina.io/categories/git/"/>
           
         </display>
     </data>
