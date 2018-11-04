@@ -136,15 +136,15 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">博客首页</a></li>
+                            <li><a href="/">首页</a></li>
                         
                             <li><a href="/archives">归档</a></li>
                         
                             <li><a href="/photos">相册</a></li>
                         
-                            <li><a href="/message">留言打卡</a></li>
+                            <li><a href="/message">留言</a></li>
                         
-                            <li><a href="/404.html">公益404</a></li>
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                         
                         </ul>
                     </nav>
@@ -218,15 +218,15 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">博客首页</a></li>
+                    <li><a href="/">首页</a></li>
                 
                     <li><a href="/archives">归档</a></li>
                 
                     <li><a href="/photos">相册</a></li>
                 
-                    <li><a href="/message">留言打卡</a></li>
+                    <li><a href="/message">留言</a></li>
                 
-                    <li><a href="/404.html">公益404</a></li>
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -250,6 +250,77 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-java常用集合" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/28/java常用集合/" class="article-date">
+      <time datetime="2017-05-28T02:48:30.000Z" itemprop="datePublished">2017-05-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/28/java常用集合/">java常用集合/容器</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Collection  顶级接口<br>├ List         子接口    按进入先后有序保存   可重复<br>│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全<br>│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全<br>│ └ Vector     实现类    老的动态数组             同步     线程安全<br>│ 　  └ Stack  实现类<br>├ Set    子接口   仅接收一次，并做内部排序<br>│  ├ SortedSet 子接口<br>│  │     └NavigableSet 子接口<br>│  │         └ TreeSet  实现类<br>│  └ HashSet 实现类  以哈希表的形式存放元素，插入删除速度很快，元素无序但不允许重复<br>│   　 └ LinkedHashSet<br>└ Queue  子接口 队列  </p>
+<p>Map  顶级接口<br>├ SortedMap  子接口 (extends Map)<br>│   └ NavigableMap 子接口 (extends SortedMap)<br>│        └ TreeMap 实现类 (extends AbstractMap)<br>├ HashTable  实现类 (extends Dictionary(abstract)) 线程安全<br>├ AbstractMap 实现类<br>├ HashMap   实现类 (extends AbstractMap)  线程不安全<br>│   └ LinkedHashMap  子类<br>├ LinkedHashMap  实现类 (extends HashMap)<br>├ IdentityHashMap 实现类 (extends AbstractMap)<br>└ WeakHashMap 实现类 (extends AbstractMap)</p>
+<p>关系图如下：<br><img src="http://jet-han.oschina.io/img/java集合/container.jpg" alt="java" title="java"><br><img src="http://jet-han.oschina.io/img/java集合/collection.bmp" alt="java" title="java"></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ArrayList/">ArrayList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arrays/">Arrays</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collection/">Collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collections/">Collections</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashSet/">HashSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedHashMap/">LinkedHashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedList/">LinkedList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Map/">Map</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeMap/">TreeMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeSet/">TreeSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vector/">Vector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WeakHashMap/">WeakHashMap</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/05/28/java常用集合/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-递归和迭代" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -282,7 +353,7 @@
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>递归最大的有点就是把一个复杂的算法分解成若干相同的可重复的步骤。所以，使用递归实现一个计算逻辑往往只需要很短的代码就能解决，并且这样的代码也比较容易理解。但是，递归就意味着大量的函数调用。函数调用的局部状态之所以用栈来记录的。所以，这样就可能浪费大量的空间，如果递归太深的话还有可能导致堆栈溢出。</p>
 <p>递归都可以用迭代来代替。但是相对于递归的简单易懂，迭代就比较生硬难懂了。尤其是遇到一个比较复杂的场景的时候。但是，代码的难以理解带来的优点也比较明显。迭代的效率比递归要高，并且在空间消耗上也比较小。</p>
 <p>原则：</p>
-<p><strong>递归中一定有迭代，但是迭代中不一定有递归，大部分可以相互转换。<br>能用迭代的不要用递归，递归调用函数不仅浪费空间，如果递归太深的话还容易造成堆栈的溢出。</strong><br>
+<p><strong>递归中一定有迭代，但是迭代中不一定有递归，大部分可以相互转换。<br>能用迭代的不要用递归，递归调用函数不仅浪费空间，如果递归太深的话还容易造成堆栈的溢出。</strong><br></p>
           
       
       
@@ -353,7 +424,7 @@
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是<font color="#e07878">不可变类</font>，任何对String的改变都 会引发<font color="#e07878">新的String对象的生成</font>；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行<code>append</code>时，一般都会选择StringBuffer吧！<br>先说一下集合的故事，HashTable是线程安全的，很多方法都是synchronized方法，而HashMap不是线程安全的，但其在单线程程序中的性能比HashTable要高。<br>StringBuffer和StringBuilder类的区别也是如此，他们的原理和操作基本相同，区别在于StringBufferd<font color="#e07878">支持并发操作，线性安全的</font>，适合多线程中使用。StringBuilder不支持并发操作，线性不安全的，不适合多线程中使用。新引入的StringBuilder类不是线程安全的，但其在单线程中的性能比StringBuffer高。</p>
 <p><strong>String 字符串常量<br>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全）</strong></p>
-<p>一般情况向性能比较：<br>String &lt; StringBuffer &lt; StringBuilder<br>
+<p>一般情况向性能比较：<br>String &lt; StringBuffer &lt; StringBuilder<br></p>
           
       
       
@@ -424,7 +495,7 @@
               <p><img src="http://jet-han.oschina.io/img/icons/hexo.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
 <p>linux下搭建hexo之next主题个人博客，仅供参考！有问题请留言，谢谢支持！</p>
 <h1 id="所需环境"><a href="#所需环境" class="headerlink" title="所需环境"></a>所需环境</h1><ul>
-<li><p>下载安装nodejs和git(for linux)，声明一下我的搭建环境centos6.8</p>
+<li><p>下载安装nodejs和git(for linux)，声明一下我的搭建环境centos6.8</p></li></ul>
           
       
       

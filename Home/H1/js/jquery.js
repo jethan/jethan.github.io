@@ -373,7 +373,7 @@
 				function(a, b) {
 					return p ? b.getElementsByClassName(a) : void 0
 				}, r = [], q = [], (c.qsa = $.test(g.querySelectorAll)) && (ja(function(a) {
-					o.appendChild(a).innerHTML = "<a id="" + u + ""></a><select id="" + u + "-\f]" msallowcapture=""><option selected></option></select>", a.querySelectorAll("[msallowcapture^='']").length && q.push("[*^$]=" + L + "*(?:''|\"\")"), a.querySelectorAll("[selected]").length || q.push("\\[" + L + "*(?:value|" + K + ")"), a.querySelectorAll("[id~=" + u + "-]").length || q.push("~="), a.querySelectorAll(":checked").length || q.push(":checked"), a.querySelectorAll("a#" + u + "+*").length || q.push(".#.+[+~]")
+					o.appendChild(a).innerHTML = "<a id="" +="" u="" ""=""></a><select id="" +="" u="" "-\f]"="" msallowcapture=""><option selected></option></select>", a.querySelectorAll("[msallowcapture^='']").length && q.push("[*^$]=" + L + "*(?:''|\"\")"), a.querySelectorAll("[selected]").length || q.push("\\[" + L + "*(?:value|" + K + ")"), a.querySelectorAll("[id~=" + u + "-]").length || q.push("~="), a.querySelectorAll(":checked").length || q.push(":checked"), a.querySelectorAll("a#" + u + "+*").length || q.push(".#.+[+~]")
 				}), ja(function(a) {
 					var b = g.createElement("input");
 					b.setAttribute("type", "hidden"), a.appendChild(b).setAttribute("name", "D"), a.querySelectorAll("[name=d]").length && q.push("name" + L + "*[*^$|!~]?="), a.querySelectorAll(":enabled").length || q.push(":enabled", ":disabled"), a.querySelectorAll("*,:x"), q.push(",.*:")

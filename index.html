@@ -136,15 +136,15 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">博客首页</a></li>
+                            <li><a href="/">首页</a></li>
                         
                             <li><a href="/archives">归档</a></li>
                         
                             <li><a href="/photos">相册</a></li>
                         
-                            <li><a href="/message">留言打卡</a></li>
+                            <li><a href="/message">留言</a></li>
                         
-                            <li><a href="/404.html">公益404</a></li>
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                         
                         </ul>
                     </nav>
@@ -218,15 +218,15 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">博客首页</a></li>
+                    <li><a href="/">首页</a></li>
                 
                     <li><a href="/archives">归档</a></li>
                 
                     <li><a href="/photos">相册</a></li>
                 
-                    <li><a href="/message">留言打卡</a></li>
+                    <li><a href="/message">留言</a></li>
                 
-                    <li><a href="/404.html">公益404</a></li>
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -250,6 +250,111 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Spring中bean的生命周期" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/09/13/Spring中bean的生命周期/" class="article-date">
+      <time datetime="2017-09-13T09:58:54.000Z" itemprop="datePublished">2017-09-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h1 id="Spring中bean的生命周期"><a href="#Spring中bean的生命周期" class="headerlink" title="Spring中bean的生命周期"></a>Spring中bean的生命周期</h1><p>一分钟掌握Spring中bean的生命周期！<br>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.</p>
+<p>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例，而不是每次都产生一个新的对象使用Singleton模式产生单一实例，对单线程的程序说并不会有什么问题，但对于多线程的程序，就必须注意安全(Thread-safe)的议题，防止多个线程同时存取共享资源所引发的数据不同步问题。</p>
+<p>然而在spring中 可以设定每次从BeanFactory或ApplicationContext指定别名并取得Bean时都产生一个新的实例：例如：</p>
+<p>在spring中，singleton属性默认是true，只有设定为false，则每次指定别名取得的Bean时都会产生一个新的实例</p>
+<p>一个Bean从创建到销毁，如果是用BeanFactory来生成,管理Bean的话，会经历几个执行阶段(如图)：</p>
+<p><img src="/2017/09/13/Spring中bean的生命周期/spring-bean-1.png" alt="spring-bean生命周期"></p>
+<ul>
+<li>Bean的建立：</li>
+</ul>
+<p>容器寻找Bean的定义信息并将其实例化。</p>
+<ul>
+<li>属性注入：</li>
+</ul>
+<p>使用依赖注入，Spring按照Bean定义信息配置Bean所有属性</p>
+<ul>
+<li>BeanNameAware的setBeanName()：</li>
+</ul>
+<p>如果Bean类有实现org.springframework.beans.BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。</p>
+<ul>
+<li>BeanFactoryAware的setBeanFactory()：</li>
+</ul>
+<p>如果Bean类有实现org.springframework.beans.factory.BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身。</p>
+<ul>
+<li>BeanPostProcessors的ProcessBeforeInitialization()</li>
+</ul>
+<p>如果有org.springframework.beans.factory.config.BeanPostProcessors和Bean关联，那么其postProcessBeforeInitialization()方法将被将被调用。</p>
+<ul>
+<li>initializingBean的afterPropertiesSet()：</li>
+</ul>
+<p>如果Bean类已实现org.springframework.beans.factory.InitializingBean接口，则执行他的afterProPertiesSet()方法</p>
+<ul>
+<li>Bean定义文件中定义init-method：</li>
+</ul>
+<p>可以在Bean定义文件中使用”init-method”属性设定方法名称例如：</p>
+<p>如果有以上设置的话，则执行到这个阶段，就会执行initBean()方法</p>
+<ul>
+<li>BeanPostProcessors的ProcessaAfterInitialization()</li>
+</ul>
+<p>如果有任何的BeanPostProcessors实例与Bean实例关联，则执行BeanPostProcessors实例的ProcessaAfterInitialization()方法</p>
+<p>此时，Bean已经可以被应用系统使用，并且将保留在BeanFactory中知道它不在被使用。有两种方法可以将其从BeanFactory中删除掉(如图):</p>
+<p><img src="/2017/09/13/Spring中bean的生命周期/spring-bean-2.png" alt="spring-bean生命周期"></p>
+<ul>
+<li>DisposableBean的destroy()</li>
+</ul>
+<p>在容器关闭时，如果Bean类有实现org.springframework.beans.factory.DisposableBean接口，则执行他的destroy()方法</p>
+<ul>
+<li>Bean定义文件中定义destroy-method</li>
+</ul>
+<p>在容器关闭时，可以在Bean定义文件中使用”destroy-method”属性设定方法名称，例如：</p>
+<p>如果有以上设定的话，则进行至这个阶段时，就会执行destroy()方法，如果是使用ApplicationContext来生成并管理Bean的话则稍有不同，使用ApplicationContext来生成及管理Bean实例的话，在执行BeanFactoryAware的setBeanFactory()阶段后，若Bean类上有实现org.springframework.context.ApplicationContextAware接口，则执行其setApplicationContext()方法，接着才执行BeanPostProcessors的ProcessBeforeInitialization()及之后的流程。</p>
+
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -280,7 +385,7 @@
           
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>设计模式简介</strong><br>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 </p>
-<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。<br>
+<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。<br></p>
           
       
       
@@ -351,7 +456,7 @@
               <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
 <h2 id="数据库引擎任务"><a href="#数据库引擎任务" class="headerlink" title="数据库引擎任务"></a>数据库引擎任务</h2><p>在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。</p>
-<p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br>
+<p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br></p>
           
       
       
@@ -421,7 +526,7 @@
           
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>当前越来越多的系统使用多线程来处理任务，但是为每一个任务创建线程并不是合理的方案，原因有2点：一是创建线程的开销很大，一个任务一个线程的方式会有性能上的损失；二是可能导致线程数量的膨胀，不但不易于线程的管理，还可能导致内存被消耗完，导致out of memory（OOM）,从而使系统崩溃。为了解决这个问题，线程池应运而生。线程池有两个作用：一个是限制线程的数量，不会导致线程的膨胀；二是线程复用，线程执行完一个人任务之后，可以接着执行下一个任务，减少了创建线程的开销。 </p>
-<p>java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。<br>
+<p>java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。<br></p>
           
       
       
@@ -494,7 +599,7 @@
 <li>继承java.lang.Thread类  </li>
 <li>实现java.lang.Runnable接口</li>
 </ol>
-<p><strong>区别：</strong>第一种是继承，第二种是实现<br><strong>好处：</strong>  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享<br>
+<p><strong>区别：</strong>第一种是继承，第二种是实现<br><strong>好处：</strong>  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享<br></p>
           
       
       
@@ -516,75 +621,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/08/05/线程的实现方式/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jvm调优" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/jvm调优/" class="article-date">
-      <time datetime="2017-08-05T08:05:44.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/jvm调优/">jvm调优</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/jvm调优/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

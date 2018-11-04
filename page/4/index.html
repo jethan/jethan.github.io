@@ -136,15 +136,15 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">博客首页</a></li>
+                            <li><a href="/">首页</a></li>
                         
                             <li><a href="/archives">归档</a></li>
                         
                             <li><a href="/photos">相册</a></li>
                         
-                            <li><a href="/message">留言打卡</a></li>
+                            <li><a href="/message">留言</a></li>
                         
-                            <li><a href="/404.html">公益404</a></li>
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                         
                         </ul>
                     </nav>
@@ -218,15 +218,15 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">博客首页</a></li>
+                    <li><a href="/">首页</a></li>
                 
                     <li><a href="/archives">归档</a></li>
                 
                     <li><a href="/photos">相册</a></li>
                 
-                    <li><a href="/message">留言打卡</a></li>
+                    <li><a href="/message">留言</a></li>
                 
-                    <li><a href="/404.html">公益404</a></li>
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -250,6 +250,78 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-string比较之‘’equals‘’和‘’==‘’" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/" class="article-date">
+      <time datetime="2017-07-28T03:06:56.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
+<h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
+<p>这里s2属于字符串字面量，下一节会详细介绍</p>
+<p>在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。<br></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/">==</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-Spring单例模式与线程安全" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -279,7 +351,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。<br>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。<br></p>
           
       
       
@@ -348,7 +420,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="singleton作用域"><a href="#singleton作用域" class="headerlink" title="singleton作用域"></a>singleton作用域</h2><p>　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。<br>     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。<br>
+<h2 id="singleton作用域"><a href="#singleton作用域" class="headerlink" title="singleton作用域"></a>singleton作用域</h2><p>　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。<br>     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。<br></p>
           
       
       
@@ -417,7 +489,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="jvm" title="jvm"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br></p>
           
       
       
@@ -511,78 +583,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/17/nginx安装与使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-solr安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/16/solr安装与使用/" class="article-date">
-      <time datetime="2017-07-16T09:11:01.000Z" itemprop="datePublished">2017-07-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/16/solr安装与使用/">solr安装与使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
-<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
-<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
-<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">bigdata</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bigdata/">bigdata</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/搜索引擎/">搜索引擎</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/16/solr安装与使用/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

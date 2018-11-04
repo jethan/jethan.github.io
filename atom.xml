@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2017-08-13T01:45:26.109Z</updated>
+  <updated>2018-11-04T08:04:55.290Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,6 +14,74 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Spring中bean的生命周期</title>
+    <link href="http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>http://jet-han.oschina.io/2017/09/13/Spring中bean的生命周期/</id>
+    <published>2017-09-13T09:58:54.000Z</published>
+    <updated>2018-11-04T08:04:55.290Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Spring中bean的生命周期"><a href="#Spring中bean的生命周期" class="headerlink" title="Spring中bean的生命周期"></a>Spring中bean的生命周期</h1><p>一分钟掌握Spring中bean的生命周期！<br>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.</p>
+<p>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例，而不是每次都产生一个新的对象使用Singleton模式产生单一实例，对单线程的程序说并不会有什么问题，但对于多线程的程序，就必须注意安全(Thread-safe)的议题，防止多个线程同时存取共享资源所引发的数据不同步问题。</p>
+<p>然而在spring中 可以设定每次从BeanFactory或ApplicationContext指定别名并取得Bean时都产生一个新的实例：例如：</p>
+<p>在spring中，singleton属性默认是true，只有设定为false，则每次指定别名取得的Bean时都会产生一个新的实例</p>
+<p>一个Bean从创建到销毁，如果是用BeanFactory来生成,管理Bean的话，会经历几个执行阶段(如图)：</p>
+<p><img src="/2017/09/13/Spring中bean的生命周期/spring-bean-1.png" alt="spring-bean生命周期"></p>
+<ul>
+<li>Bean的建立：</li>
+</ul>
+<p>容器寻找Bean的定义信息并将其实例化。</p>
+<ul>
+<li>属性注入：</li>
+</ul>
+<p>使用依赖注入，Spring按照Bean定义信息配置Bean所有属性</p>
+<ul>
+<li>BeanNameAware的setBeanName()：</li>
+</ul>
+<p>如果Bean类有实现org.springframework.beans.BeanNameAware接口，工厂调用Bean的setBeanName()方法传递Bean的ID。</p>
+<ul>
+<li>BeanFactoryAware的setBeanFactory()：</li>
+</ul>
+<p>如果Bean类有实现org.springframework.beans.factory.BeanFactoryAware接口，工厂调用setBeanFactory()方法传入工厂自身。</p>
+<ul>
+<li>BeanPostProcessors的ProcessBeforeInitialization()</li>
+</ul>
+<p>如果有org.springframework.beans.factory.config.BeanPostProcessors和Bean关联，那么其postProcessBeforeInitialization()方法将被将被调用。</p>
+<ul>
+<li>initializingBean的afterPropertiesSet()：</li>
+</ul>
+<p>如果Bean类已实现org.springframework.beans.factory.InitializingBean接口，则执行他的afterProPertiesSet()方法</p>
+<ul>
+<li>Bean定义文件中定义init-method：</li>
+</ul>
+<p>可以在Bean定义文件中使用”init-method”属性设定方法名称例如：</p>
+<p>如果有以上设置的话，则执行到这个阶段，就会执行initBean()方法</p>
+<ul>
+<li>BeanPostProcessors的ProcessaAfterInitialization()</li>
+</ul>
+<p>如果有任何的BeanPostProcessors实例与Bean实例关联，则执行BeanPostProcessors实例的ProcessaAfterInitialization()方法</p>
+<p>此时，Bean已经可以被应用系统使用，并且将保留在BeanFactory中知道它不在被使用。有两种方法可以将其从BeanFactory中删除掉(如图):</p>
+<p><img src="/2017/09/13/Spring中bean的生命周期/spring-bean-2.png" alt="spring-bean生命周期"></p>
+<ul>
+<li>DisposableBean的destroy()</li>
+</ul>
+<p>在容器关闭时，如果Bean类有实现org.springframework.beans.factory.DisposableBean接口，则执行他的destroy()方法</p>
+<ul>
+<li>Bean定义文件中定义destroy-method</li>
+</ul>
+<p>在容器关闭时，可以在Bean定义文件中使用”destroy-method”属性设定方法名称，例如：</p>
+<p>如果有以上设定的话，则进行至这个阶段时，就会执行destroy()方法，如果是使用ApplicationContext来生成并管理Bean的话则稍有不同，使用ApplicationContext来生成及管理Bean实例的话，在执行BeanFactoryAware的setBeanFactory()阶段后，若Bean类上有实现org.springframework.context.ApplicationContextAware接口，则执行其setApplicationContext()方法，接着才执行BeanPostProcessors的ProcessBeforeInitialization()及之后的流程。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;Spring中bean的生命周期&quot;&gt;&lt;a href=&quot;#Spring中bean的生命周期&quot; class=&quot;headerlink&quot; title=&quot;Spring中bean的生命周期&quot;&gt;&lt;/a&gt;Spring中bean的生命周期&lt;/h1&gt;&lt;p&gt;一分钟掌握Spring中be
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>设计模式</title>
@@ -928,7 +996,7 @@
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;设计模式简介&lt;/strong&gt;&lt;br&gt;设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 &lt;/p&gt;
-&lt;p&gt;设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。&lt;br&gt;
+&lt;p&gt;设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1001,7 +1069,7 @@
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;数据库引擎&quot;&gt;&lt;a href=&quot;#数据库引擎&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎&quot;&gt;&lt;/a&gt;数据库引擎&lt;/h2&gt;&lt;p&gt;　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。&lt;/p&gt;
 &lt;h2 id=&quot;数据库引擎任务&quot;&gt;&lt;a href=&quot;#数据库引擎任务&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎任务&quot;&gt;&lt;/a&gt;数据库引擎任务&lt;/h2&gt;&lt;p&gt;在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。&lt;/p&gt;
-&lt;p&gt;设计并创建数据库以保存系统所需的关系或XML文档&lt;br&gt;实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。&lt;br&gt;为单位或客户部署实现的系统&lt;br&gt;提供日常管理支持以优化数据库的性能&lt;br&gt;
+&lt;p&gt;设计并创建数据库以保存系统所需的关系或XML文档&lt;br&gt;实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。&lt;br&gt;为单位或客户部署实现的系统&lt;br&gt;提供日常管理支持以优化数据库的性能&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1246,7 +1314,7 @@
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;ThreadPoolExecutor&quot;&gt;&lt;a href=&quot;#ThreadPoolExecutor&quot; class=&quot;headerlink&quot; title=&quot;ThreadPoolExecutor&quot;&gt;&lt;/a&gt;ThreadPoolExecutor&lt;/h2&gt;&lt;p&gt;当前越来越多的系统使用多线程来处理任务，但是为每一个任务创建线程并不是合理的方案，原因有2点：一是创建线程的开销很大，一个任务一个线程的方式会有性能上的损失；二是可能导致线程数量的膨胀，不但不易于线程的管理，还可能导致内存被消耗完，导致out of memory（OOM）,从而使系统崩溃。为了解决这个问题，线程池应运而生。线程池有两个作用：一个是限制线程的数量，不会导致线程的膨胀；二是线程复用，线程执行完一个人任务之后，可以接着执行下一个任务，减少了创建线程的开销。 &lt;/p&gt;
-&lt;p&gt;java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。&lt;br&gt;
+&lt;p&gt;java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1287,7 +1355,7 @@
 &lt;li&gt;继承java.lang.Thread类  &lt;/li&gt;
 &lt;li&gt;实现java.lang.Runnable接口&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&lt;strong&gt;区别：&lt;/strong&gt;第一种是继承，第二种是实现&lt;br&gt;&lt;strong&gt;好处：&lt;/strong&gt;  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;区别：&lt;/strong&gt;第一种是继承，第二种是实现&lt;br&gt;&lt;strong&gt;好处：&lt;/strong&gt;  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1355,7 +1423,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;JVM内存模型&quot;&gt;&lt;a href=&quot;#JVM内存模型&quot; class=&quot;headerlink&quot; title=&quot;JVM内存模型&quot;&gt;&lt;/a&gt;JVM内存模型&lt;/h2&gt;&lt;p&gt;1.根据Java虚拟机规范，JVM将内存划分为：&lt;br&gt;&lt;strong&gt;New（年轻代）&lt;br&gt;Tenured（年老代）&lt;br&gt;永久代（Perm）&lt;/strong&gt;&lt;br&gt;
+&lt;h2 id=&quot;JVM内存模型&quot;&gt;&lt;a href=&quot;#JVM内存模型&quot; class=&quot;headerlink&quot; title=&quot;JVM内存模型&quot;&gt;&lt;/a&gt;JVM内存模型&lt;/h2&gt;&lt;p&gt;1.根据Java虚拟机规范，JVM将内存划分为：&lt;br&gt;&lt;strong&gt;New（年轻代）&lt;br&gt;Tenured（年老代）&lt;br&gt;永久代（Perm）&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1384,7 +1452,7 @@
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;web.xml 的加载顺序:&lt;/strong&gt;&lt;br&gt;ServletContext-&amp;gt; context-param -&amp;gt;listener -&amp;gt; filter -&amp;gt; servlet，而同个类型之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用的。ServletContext即Servlet上下文对象，该对象表示当前的web应用环境信息，一个Web应用只会创建一个ServletContext对象。&lt;/p&gt;
-&lt;p&gt;Web容器启动的时候，它会为每个Web应用程序都创建一个对应的ServletContext对象，它代表当前的web应用。&lt;br&gt;[注意]由于一个Web应用中的所有Servlet共享一个ServletContext对象，所以多个Servlet通过ServletContext对象实现数据共享，ServletContext对象通常称为Context域对象。&lt;br&gt;
+&lt;p&gt;Web容器启动的时候，它会为每个Web应用程序都创建一个对应的ServletContext对象，它代表当前的web应用。&lt;br&gt;[注意]由于一个Web应用中的所有Servlet共享一个ServletContext对象，所以多个Servlet通过ServletContext对象实现数据共享，ServletContext对象通常称为Context域对象。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1675,7 +1743,7 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Spring AOP和IOC个人理解&lt;br&gt;&lt;strong&gt;IOC inversion of control 控制反转&lt;/strong&gt;&lt;br&gt;将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：&lt;br&gt;第一种xml方式 需要set方法为被调用的属性赋值，xml中需要&lt;code&gt;ref&lt;/code&gt;注入被调要的对象。&lt;br&gt;第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上&lt;br&gt;&lt;code&gt;@Controller,@Service,@Repository&lt;/code&gt;通过在属性上加上&lt;code&gt;@Resource(name=&amp;quot;&amp;quot;)&lt;/code&gt;来为属性赋值，这一步相当于xml方式的&lt;code&gt;ref&lt;/code&gt;。&lt;br&gt;事务管理器&lt;br&gt;
+&lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;Spring AOP和IOC个人理解&lt;br&gt;&lt;strong&gt;IOC inversion of control 控制反转&lt;/strong&gt;&lt;br&gt;将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：&lt;br&gt;第一种xml方式 需要set方法为被调用的属性赋值，xml中需要&lt;code&gt;ref&lt;/code&gt;注入被调要的对象。&lt;br&gt;第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上&lt;br&gt;&lt;code&gt;@Controller,@Service,@Repository&lt;/code&gt;通过在属性上加上&lt;code&gt;@Resource(name=&amp;quot;&amp;quot;)&lt;/code&gt;来为属性赋值，这一步相当于xml方式的&lt;code&gt;ref&lt;/code&gt;。&lt;br&gt;事务管理器&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1735,7 +1803,7 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;spring事务传播属性&quot;&gt;&lt;a href=&quot;#spring事务传播属性&quot; class=&quot;headerlink&quot; title=&quot;spring事务传播属性&quot;&gt;&lt;/a&gt;spring事务传播属性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Propagation（事务的传播属性） ：&lt;/strong&gt;key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRED&lt;/strong&gt;—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。&lt;br&gt;&lt;strong&gt;PROPAGATION_SUPPORTS&lt;/strong&gt;—支持当前事务，如果当前没有事务，就以非事务方式执行。&lt;br&gt;&lt;strong&gt;PROPAGATION_MANDATORY&lt;/strong&gt;—支持当前事务，如果当前没有事务，就抛出异常。&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRES_NEW&lt;/strong&gt;—新建事务，如果当前存在事务，把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NOT_SUPPORTED&lt;/strong&gt;—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NEVER&lt;/strong&gt;—以非事务方式执行，如果当前存在事务，则抛出异常。&lt;br&gt;
+&lt;h2 id=&quot;spring事务传播属性&quot;&gt;&lt;a href=&quot;#spring事务传播属性&quot; class=&quot;headerlink&quot; title=&quot;spring事务传播属性&quot;&gt;&lt;/a&gt;spring事务传播属性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Propagation（事务的传播属性） ：&lt;/strong&gt;key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRED&lt;/strong&gt;—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。&lt;br&gt;&lt;strong&gt;PROPAGATION_SUPPORTS&lt;/strong&gt;—支持当前事务，如果当前没有事务，就以非事务方式执行。&lt;br&gt;&lt;strong&gt;PROPAGATION_MANDATORY&lt;/strong&gt;—支持当前事务，如果当前没有事务，就抛出异常。&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRES_NEW&lt;/strong&gt;—新建事务，如果当前存在事务，把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NOT_SUPPORTED&lt;/strong&gt;—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NEVER&lt;/strong&gt;—以非事务方式执行，如果当前存在事务，则抛出异常。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1777,7 +1845,7 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;悲观锁&quot;&gt;&lt;a href=&quot;#悲观锁&quot; class=&quot;headerlink&quot; title=&quot;悲观锁&quot;&gt;&lt;/a&gt;悲观锁&lt;/h2&gt;&lt;p&gt;   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。&lt;br&gt;  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:&lt;br&gt;
+&lt;h2 id=&quot;悲观锁&quot;&gt;&lt;a href=&quot;#悲观锁&quot; class=&quot;headerlink&quot; title=&quot;悲观锁&quot;&gt;&lt;/a&gt;悲观锁&lt;/h2&gt;&lt;p&gt;   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。&lt;br&gt;  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1963,7 +2031,7 @@ select * from tx;
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
-&lt;h1 id=&quot;mysql事务隔离级别&quot;&gt;&lt;a href=&quot;#mysql事务隔离级别&quot; class=&quot;headerlink&quot; title=&quot;mysql事务隔离级别&quot;&gt;&lt;/a&gt;mysql事务隔离级别&lt;/h1&gt;&lt;h2 id=&quot;第1级别：Read-Uncommitted-读取未提交内容&quot;&gt;&lt;a href=&quot;#第1级别：Read-Uncommitted-读取未提交内容&quot; class=&quot;headerlink&quot; title=&quot;第1级别：Read Uncommitted(读取未提交内容)&quot;&gt;&lt;/a&gt;第1级别：Read Uncommitted(读取未提交内容)&lt;/h2&gt;&lt;p&gt;1.所有事务都可以看到其他未提交事务的执行结果&lt;br&gt;2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少&lt;br&gt;3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据&lt;br&gt;
+&lt;h1 id=&quot;mysql事务隔离级别&quot;&gt;&lt;a href=&quot;#mysql事务隔离级别&quot; class=&quot;headerlink&quot; title=&quot;mysql事务隔离级别&quot;&gt;&lt;/a&gt;mysql事务隔离级别&lt;/h1&gt;&lt;h2 id=&quot;第1级别：Read-Uncommitted-读取未提交内容&quot;&gt;&lt;a href=&quot;#第1级别：Read-Uncommitted-读取未提交内容&quot; class=&quot;headerlink&quot; title=&quot;第1级别：Read Uncommitted(读取未提交内容)&quot;&gt;&lt;/a&gt;第1级别：Read Uncommitted(读取未提交内容)&lt;/h2&gt;&lt;p&gt;1.所有事务都可以看到其他未提交事务的执行结果&lt;br&gt;2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少&lt;br&gt;3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -1980,13 +2048,24 @@ select * from tx;
     <title>equals、==和hashCode</title>
     <link href="http://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/"/>
     <id>http://jet-han.oschina.io/2017/08/01/equals、-和hashCode/</id>
-    <published>2017-08-01T15:47:35.000Z</published>
-    <updated>2017-08-13T01:45:26.059Z</updated>
+    <published>2017-08-01T15:47:00.000Z</published>
+    <updated>2018-11-04T05:23:40.415Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
 <p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
 <p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>
+<ul>
+<li><p>对于==，比较的是值是否相等</p>
+<p> 如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；</p>
+</li>
+</ul>
+<p>　　如果作用于引用类型的变量，则比较的是所指向的对象的地址</p>
+<ul>
+<li>对于equals方法，注意：equals方法不能作用于基本数据类型的变量，equals继承Object类，比较的是是否是同一个对象</li>
+</ul>
+<p>　　如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；</p>
+<p>　　诸如String、Date等类对equals方法进行了重写的话，比较的是所指向的对象的内容。</p>
 <p>==比较的是对象的地址<br>String重写的equals比较的是字符串的内容值<br>String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。<br>System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样<br><a id="more"></a></p>
 <h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">public class Test &#123;</div><div class="line">  public static void main(String[] args) &#123;</div><div class="line">     String a=new String(&quot;foo&quot;);</div><div class="line">     String b=new String(&quot;foo&quot;);</div><div class="line"></div><div class="line">     String c=&quot;hello&quot;;</div><div class="line">     String d=&quot;hello&quot;;</div><div class="line"></div><div class="line">     System.out.println(&quot;memory address hashcode a:&quot;+System.identityHashCode(a));</div><div class="line">     System.out.println(&quot;memory address hashcode a:&quot;+System.identityHashCode(b));</div><div class="line">     System.out.println(&quot;String hashcode a:        &quot;+a.hashCode());</div><div class="line">     System.out.println(&quot;String hashcode a:        &quot;+b.hashCode());</div><div class="line">     System.out.println(&quot;a==b:                     &quot;+(a==b));</div><div class="line">     System.out.println(&quot;a.equals(b):              &quot;+a.equals(b));</div><div class="line"></div><div class="line">     System.out.println(&quot;&quot;);</div><div class="line"></div><div class="line">     System.out.println(&quot;memory address hashcode c:&quot;+System.identityHashCode(c));</div><div class="line">     System.out.println(&quot;memory address hashcode d:&quot;+System.identityHashCode(d));</div><div class="line">     System.out.println(&quot;String hashcode c:        &quot;+c.hashCode());</div><div class="line">     System.out.println(&quot;String hashcode d:        &quot;+d.hashCode());</div><div class="line">     System.out.println(&quot;c==d:                     &quot;+(c==d));</div><div class="line">     System.out.println(&quot;c.equals(d):              &quot;+c.equals(d));</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p><strong>结果：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">memory address hashcode a:8222510</div><div class="line">memory address hashcode a:18581223</div><div class="line">String hashcode a:        101574</div><div class="line">String hashcode a:        101574</div><div class="line">a==b:                     false</div><div class="line">a.equals(b):              true</div><div class="line">memory address hashcode c:3526198</div><div class="line">memory address hashcode d:3526198</div><div class="line">String hashcode c:        99162322</div><div class="line">String hashcode d:        99162322</div><div class="line">c==d:                     true</div><div class="line">c.equals(d):              true</div></pre></td></tr></table></figure></p>
@@ -2033,7 +2112,18 @@ select * from tx;
 &lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;equals：&lt;/strong&gt;是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;等号(==)：&lt;/strong&gt;对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Hashcode：&lt;/strong&gt;我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。&lt;/p&gt;
-&lt;p&gt;==比较的是对象的地址&lt;br&gt;String重写的equals比较的是字符串的内容值&lt;br&gt;String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。&lt;br&gt;System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样&lt;br&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;对于==，比较的是值是否相等&lt;/p&gt;
+&lt;p&gt; 如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;　　如果作用于引用类型的变量，则比较的是所指向的对象的地址&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对于equals方法，注意：equals方法不能作用于基本数据类型的变量，equals继承Object类，比较的是是否是同一个对象&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;　　如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；&lt;/p&gt;
+&lt;p&gt;　　诸如String、Date等类对equals方法进行了重写的话，比较的是所指向的对象的内容。&lt;/p&gt;
+&lt;p&gt;==比较的是对象的地址&lt;br&gt;String重写的equals比较的是字符串的内容值&lt;br&gt;String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。&lt;br&gt;System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2099,7 +2189,7 @@ select * from tx;
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！&lt;br&gt;
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2507,7 +2597,7 @@ public void setFlag() {
 &lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。&lt;/p&gt;
 &lt;p&gt;volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来了解一下与内存模型相关的概念和知识，然后分析了volatile关键字的实现原理，最后给出了几个使用volatile关键字的场景。&lt;/p&gt;
 &lt;p&gt;在Java中除了long和double类型的基本类型变量的赋值和读取操作外都是原子操作，也就是说，对于变量值的简单读取操作没有必要进行同步。&lt;/p&gt;
-&lt;p&gt;count++不是原子操作，是3个原子操作组合&lt;br&gt;1.读取主存中的count值，赋值给一个局部成员变量tmp&lt;br&gt;2.tmp+1&lt;br&gt;3.将tmp赋值给count&lt;br&gt;
+&lt;p&gt;count++不是原子操作，是3个原子操作组合&lt;br&gt;1.读取主存中的count值，赋值给一个局部成员变量tmp&lt;br&gt;2.tmp+1&lt;br&gt;3.将tmp赋值给count&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2577,7 +2667,7 @@ public void setFlag() {
 &lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;接上一篇文章继续探索string类牵带出的常量池&lt;/p&gt;
 &lt;h2 id=&quot;jvm&quot;&gt;&lt;a href=&quot;#jvm&quot; class=&quot;headerlink&quot; title=&quot;jvm&quot;&gt;&lt;/a&gt;jvm&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;程序计数器：&lt;/strong&gt;&lt;br&gt;1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。&lt;/p&gt;
 &lt;p&gt;2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。&lt;/p&gt;
-&lt;p&gt;我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。&lt;br&gt;
+&lt;p&gt;我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2614,7 +2704,7 @@ public void setFlag() {
 &lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。&lt;/p&gt;
 &lt;h2 id=&quot;equals和”-”&quot;&gt;&lt;a href=&quot;#equals和”-”&quot; class=&quot;headerlink&quot; title=&quot;equals和”==”&quot;&gt;&lt;/a&gt;equals和”==”&lt;/h2&gt;&lt;p&gt;string是一个final class，两种声明方法 :&lt;br&gt;1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆&lt;br&gt;String s1 = new String(“Hello”);&lt;br&gt;2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.&lt;br&gt;String s2 = “Hello”;&lt;/p&gt;
 &lt;p&gt;这里s2属于字符串字面量，下一节会详细介绍&lt;/p&gt;
-&lt;p&gt;在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。&lt;br&gt;
+&lt;p&gt;在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2764,7 +2854,7 @@ public void setFlag() {
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。&lt;br&gt;
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2790,7 +2880,7 @@ public void setFlag() {
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;singleton作用域&quot;&gt;&lt;a href=&quot;#singleton作用域&quot; class=&quot;headerlink&quot; title=&quot;singleton作用域&quot;&gt;&lt;/a&gt;singleton作用域&lt;/h2&gt;&lt;p&gt;　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。&lt;br&gt;     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。&lt;br&gt;
+&lt;h2 id=&quot;singleton作用域&quot;&gt;&lt;a href=&quot;#singleton作用域&quot; class=&quot;headerlink&quot; title=&quot;singleton作用域&quot;&gt;&lt;/a&gt;singleton作用域&lt;/h2&gt;&lt;p&gt;　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。&lt;br&gt;     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2898,7 +2988,7 @@ public void setFlag() {
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;jvm&quot; title=&quot;jvm&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。&lt;br&gt;
+&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
@@ -2972,88 +3062,6 @@ public void setFlag() {
       <category term="linux" scheme="http://jet-han.oschina.io/tags/linux/"/>
     
       <category term="nginx" scheme="http://jet-han.oschina.io/tags/nginx/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>solr安装与使用</title>
-    <link href="http://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/07/16/solr安装与使用/</id>
-    <published>2017-07-16T09:11:01.000Z</published>
-    <updated>2017-09-08T08:07:23.284Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
-<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
-<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
-<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br><a id="more"></a><br>配置<code>solr_home</code>：在磁盘任意位置新建目录，取名<code>solr_home</code>,把<code>.\solr-6.0.0\server\solr</code>下的整个solr文件夹复制到<code>solr_home</code>，编辑<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF</code>下的<code>web.xml</code>文件。<br>将<code>web.xml</code>文件注释去掉，<code>&lt;env-entry-value&gt;</code>中填刚才新建的<code>solr_home</code>路径</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;env-entry&gt;</div><div class="line">   &lt;env-entry-name&gt;solr/home&lt;/env-entry-name&gt;</div><div class="line">   &lt;env-entry-value&gt;/home/jet/workspace/github/bigdata/solr/solr_home&lt;/env-entry-value&gt;</div><div class="line">   &lt;env-entry-type&gt;java.lang.String&lt;/env-entry-type&gt;</div><div class="line">&lt;/env-entry&gt;</div></pre></td></tr></table></figure>
-<p>这个<code>solr_home</code>里面的内容是复制<code>.\solr-6.0.0\server\solr\</code>下的内容，然后在该目录下新建文件夹<code>core0</code>，把 <code>.\solr-6.0.0\server\solr\configsets\basic_configs\</code>下的所有文件复制进来。 </p>
-<p>运行的话，直接双击<code>startup.sh</code></p>
-<p>访问<code>http://localhost:8080/solr/index.html</code>，可以看到<code>solr</code>管理界面，但是我们的sore还是空的，需要手动创建。在管理界面，点击<code>No cores available</code>选项，在弹出的窗口刚才新建的文件夹的名字。<br><code>Add core</code><br>这样，最简单的Solr就搭建完成了。</p>
-<p>【注意事项】<br>solr6以上必须要求jdk1.8以上版本，不然访问会报404,而且tomcat日志不会报任何错误信息<br>且访问路径是<code>localhost:8080/solr/index.html</code></p>
-<h2 id="solrcloud6"><a href="#solrcloud6" class="headerlink" title="solrcloud6"></a>solrcloud6</h2><h3 id="配置hosts"><a href="#配置hosts" class="headerlink" title="配置hosts"></a>配置hosts</h3><p>192.168.40.200 jet.solr.com<br>192.168.40.2 hadoop02.hadoop.com<br>192.168.40.3 hadoop03.hadoop.com</p>
-<h3 id="关闭防火墙-可以只执行第二步：推荐"><a href="#关闭防火墙-可以只执行第二步：推荐" class="headerlink" title="关闭防火墙(可以只执行第二步：推荐)"></a>关闭防火墙(可以只执行第二步：推荐)</h3><p>1) 永久关闭防火墙: <code>vi /etc/selinux/config</code>，将其中的SELinux设置：<code>SELINUX=disabled</code></p>
-<p>2) 关闭防火墙 : <code>systemctl disable firewalld.service</code> #禁用</p>
-<p>3) 关闭packagekit: <code>vi /etc/yum/pluginconf.d/langpacks.conf</code>，将<code>enabled</code>设为 <code>0</code></p>
-<h3 id="配置tomcat（各个solr节点一样）"><a href="#配置tomcat（各个solr节点一样）" class="headerlink" title="配置tomcat（各个solr节点一样）"></a>配置tomcat（各个solr节点一样）</h3><p><strong>启动与关闭</strong></p>
-<p><strong>启动：</strong>到bin目录下<code>./startup.sh</code></p>
-<p><strong>验证：</strong><code>http://192.168.40.200:8080</code></p>
-<p><strong>关闭：</strong>到bin目录下<code>./shutdown.sh</code></p>
-<h3 id="配置zookeeper（各个zookeeper节点上面）"><a href="#配置zookeeper（各个zookeeper节点上面）" class="headerlink" title="配置zookeeper（各个zookeeper节点上面）"></a>配置zookeeper（各个zookeeper节点上面）</h3><p><strong>(1)  解压</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -zxvf zookeeper-3.4.10.tar.gz</div></pre></td></tr></table></figure>
-<p><strong>(2)创建data和logs目录</strong></p>
-<p>创建目录并赋于写权限</p>
-<p>指定<code>zookeeper</code>的数据存放目录<code>/hadoop/zookeeper/data</code>和日志目录<code>/hadoop/zookeeper/logs</code></p>
-<p><strong>(3)拷贝zookeeper</strong><br>配制文件<code>zoo_sample.cfg</code>，文件在<code>conf</code>目录下</p>
-<p>拷贝<code>zookeeper</code>配制文件<code>zoo_sample.cfg</code>并重命名<code>zoo.cfg</code></p>
-<p><strong>(4)  修改zoo.cfg</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">#</div><div class="line">#</div><div class="line"># Licensed to the Apache Software Foundation (ASF) under one</div><div class="line"># or more contributor license agreements.  See the NOTICE file</div><div class="line"># distributed with this work for additional information</div><div class="line"># regarding copyright ownership.  The ASF licenses this file</div><div class="line"># to you under the Apache License, Version 2.0 (the</div><div class="line"># &quot;License&quot;); you may not use this file except in compliance</div><div class="line"># with the License.  You may obtain a copy of the License at</div><div class="line">#</div><div class="line">#   http://www.apache.org/licenses/LICENSE-2.0</div><div class="line">#</div><div class="line"># Unless required by applicable law or agreed to in writing,</div><div class="line"># software distributed under the License is distributed on an</div><div class="line"># &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</div><div class="line"># KIND, either express or implied.  See the License for the</div><div class="line"># specific language governing permissions and limitations</div><div class="line"># under the License.</div><div class="line">#</div><div class="line">#</div><div class="line">#</div><div class="line"></div><div class="line">clientPort=2181</div><div class="line">initLimit=10</div><div class="line">autopurge.purgeInterval=24</div><div class="line">syncLimit=5</div><div class="line">tickTime=3000</div><div class="line">dataDir=/hadoop/zookeeper/data #上面创建的数据目录</div><div class="line">dataLogDir=/hadoop/zookeeper/logs #上面创建的日志目录</div><div class="line">autopurge.snapRetainCount=30</div><div class="line">server.1=hadoop02.hadoop.com:2888:3888</div><div class="line">server.2=hadoop03.hadoop.com:2888:3888</div></pre></td></tr></table></figure>
-<p><strong>(5)进入data</strong><br>文件夹建立对应的myid文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi /hadoop/zookeeper/data/myid</div></pre></td></tr></table></figure>
-<p><strong>(6)拷贝zookeeper</strong></p>
-<p>文件夹到其他机器,进行相同配置</p>
-<h3 id="配置solr（各个solr节点一样）"><a href="#配置solr（各个solr节点一样）" class="headerlink" title="配置solr（各个solr节点一样）"></a>配置solr（各个solr节点一样）</h3><p><a href="#solr-tomcat单节点">和上面单节点一样</a></p>
-<h3 id="配置solr服务"><a href="#配置solr服务" class="headerlink" title="配置solr服务"></a>配置solr服务</h3><p><strong>(1) 在solr下，上传相关信息至zookeeper</strong></p>
-<p>在<code>/home/jet/workspace/github/bigdata/solr/solr-6.0.0/server/scripts/cloud-scripts</code>目录下执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./zkcli.sh -zkhost 192.168.40.2:2181,192.168.40.3:2181 -cmd upconfig -confdir /home/jet/workspace/github/bigdata/solr/solr_home/core0/conf -confname solrconfig.xml</div></pre></td></tr></table></figure>
-<p><strong>(2) 每一台solr和zookeeper关联</strong></p>
-<p>修改每一台solr的tomcat 的 bin目录下catalina.sh文件中加入DzkHost指定zookeeper服务器地址：</p>
-<p>在JAVA_OPTS添加zookeepre地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">JAVA_OPTS=&quot;-DzkHost=192.168.40.2:2181,192.168.40.3:2181&quot;</div></pre></td></tr></table></figure>
-<p><strong>(3) 启动每一台solr服务器</strong><br>进入对应tomcat bin目录启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sh startup.sh</div></pre></td></tr></table></figure>
-<p><strong>(4) 查看tomcat日志</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tail -fn 100 catalina.out</div></pre></td></tr></table></figure>
-<p>如下信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">10035261 INFO  (zkCallback-4-thread-34-processing-n:192.168.40.200:8080_solr-EventThread) [   ] o.a.s.c.c.ConnectionManager Watcher org.apache.solr.common.cloud.ConnectionManager@6edf2d5f name:ZooKeeperConnection Watcher:192.168.40.2:2181,192.168.40.3:2181 got event WatchedEvent state:SyncConnected type:None path:null path:null type:None</div></pre></td></tr></table></figure>
-<p><strong>(5) 修改solr启动端口（各个节点的配置一样）</strong></p>
-<p>在solrhome下，有一个solr.xml文件，修改其中的内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$&#123;host:192.168.40.200&#125;</div><div class="line"></div><div class="line">$&#123;jetty.port:8080&#125;</div></pre></td></tr></table></figure>
-<p>然后访问地址</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.40.200:8080/solr/index.html#/</div></pre></td></tr></table></figure>
-<p>如下<br><img src="http://jet-han.oschina.io/img/ambari/solr.png" alt="solr" title="solr"></p>
-<h2 id="solr全文检索原理"><a href="#solr全文检索原理" class="headerlink" title="solr全文检索原理"></a>solr全文检索原理</h2><p><a href="http://www.cnblogs.com/guochunguang/articles/3641008.html" target="_blank" rel="external">solr全文检索实现原理</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/bigdata.jpg&quot; alt=&quot;bigdata&quot; title=&quot;bigdata&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;solr-tomcat单节点&quot;&gt;&lt;a href=&quot;#solr-tomcat单节点&quot; class=&quot;headerlink&quot; title=&quot;solr+tomcat单节点&quot;&gt;&lt;/a&gt;solr+tomcat单节点&lt;/h2&gt;&lt;p&gt;Solr6部署在Tomcat8环境下&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http://archive.apache.org/dist/lucene/solr/6.0.0/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;solr下载&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   &lt;/p&gt;
-&lt;p&gt;日志处理：将Solr安装包中&lt;code&gt;.\solr-6.0.0\server\lib\ext&lt;/code&gt;内的5个jar包复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib&lt;/code&gt;下。将&lt;code&gt;.\solr-6.0.0\server\resources&lt;/code&gt;下的&lt;code&gt;log4j.properties&lt;/code&gt;文件复制到&lt;code&gt;.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes&lt;/code&gt;中，这里的&lt;code&gt;classes&lt;/code&gt;目录需要自己新建。&lt;code&gt;log4j.properties&lt;/code&gt;文件中有一行&lt;code&gt;log4j.appender.file.File=${solr.log}/solr.log&lt;/code&gt;指定log文件的存放路径，可以指定到特定的目录。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/categories/bigdata/"/>
-    
-    
-      <category term="solr" scheme="http://jet-han.oschina.io/tags/solr/"/>
-    
-      <category term="bigdata" scheme="http://jet-han.oschina.io/tags/bigdata/"/>
-    
-      <category term="搜索引擎" scheme="http://jet-han.oschina.io/tags/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
     
   </entry>
   

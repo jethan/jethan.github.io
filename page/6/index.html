@@ -136,15 +136,15 @@
                     <nav class="header-menu">
                         <ul>
                         
-                            <li><a href="/">博客首页</a></li>
+                            <li><a href="/">首页</a></li>
                         
                             <li><a href="/archives">归档</a></li>
                         
                             <li><a href="/photos">相册</a></li>
                         
-                            <li><a href="/message">留言打卡</a></li>
+                            <li><a href="/message">留言</a></li>
                         
-                            <li><a href="/404.html">公益404</a></li>
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                         
                         </ul>
                     </nav>
@@ -218,15 +218,15 @@
             <nav class="header-menu">
                 <ul>
                 
-                    <li><a href="/">博客首页</a></li>
+                    <li><a href="/">首页</a></li>
                 
                     <li><a href="/archives">归档</a></li>
                 
                     <li><a href="/photos">相册</a></li>
                 
-                    <li><a href="/message">留言打卡</a></li>
+                    <li><a href="/message">留言</a></li>
                 
-                    <li><a href="/404.html">公益404</a></li>
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
                 
                 <div class="clearfix"></div>
                 </ul>
@@ -250,6 +250,77 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-java-IO" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/08/java-IO/" class="article-date">
+      <time datetime="2017-07-08T10:35:17.000Z" itemprop="datePublished">2017-07-08</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/08/java-IO/">java-IO</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h1 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a>Java IO</h1><p>Java IO即Java 输入输出系统。不管我们编写何种应用，都难免和各种输入输出相关的媒介打交道，其实和媒介进行IO的过程是十分复杂的，这要考虑的因素特别多，比如我们要考虑和哪种媒介进行IO（文件、控制台、网络），我们还要考虑具体和它们的通信方式（顺序、随机、二进制、按字符、按字、按行等等）。Java类库的设计者通过设计大量的类来攻克这些难题，这些类就位于java.io包中。</p>
+<p>在JDK1.4之后，为了提高Java IO的效率，Java又提供了一套新的IO，Java New IO简称Java NIO。它在标准java代码中提供了高速的面向块的IO操作。本篇文章重点介绍Java IO，关于Java NIO请参考我的另两篇文章：<br><a href="http://blog.csdn.net/suifeng3051/article/details/48160753" target="_blank" rel="external">Java NIO详解(一)</a><br><a href="http://blog.csdn.net/suifeng3051/article/details/48441629" target="_blank" rel="external">Java NIO详解(二)</a></p>
+<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p>在Java IO中，流是一个核心的概念。流从概念上来说是一个连续的数据流。你既可以从流中读取数据，也可以往流中写数据。流与数据源或者数据流向的媒介相关联。在Java IO中流既可以是字节流(以字节为单位进行读写)，也可以是字符流(以字符为单位进行读写)。<br></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/">IO</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/08/java-IO/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-github搭建个人maven仓库" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -282,7 +353,7 @@
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>三步：</p>
 <p>deploy到本地目录<br>把本地目录提交到gtihub上<br>配置github地址为仓库地址<br>配置local file maven仓库</p>
 <p>deploy到本地</p>
-<p>maven可以通过http, ftp, ssh等deploy到远程服务器，也可以deploy到本地文件系统里。<br>
+<p>maven可以通过http, ftp, ssh等deploy到远程服务器，也可以deploy到本地文件系统里。<br></p>
           
       
       
@@ -353,7 +424,7 @@
               <p><img src="http://jet-han.oschina.io/img/icons/git.jpg" alt="git" title="git"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>集中式vs分布式</strong></p>
 <p>Linus一直痛恨的CVS、VSS及SVN都是集中式的版本控制系统，而Git是分布式版本控制系统，集中式和分布式版本控制系统有什么区别呢？</p>
-<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。<br>
+<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。<br></p>
           
       
       
@@ -422,7 +493,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/linux.jpg" alt="linux" title="linux"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>　◆ <strong>安装和登录命令：</strong>login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；<br>　◆ <strong>文件处理命令：</strong>file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；<br>　◆ <strong>系统管理相关命令：</strong>df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；<br>　◆ <strong>网络操作命令：</strong>ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、nslookup；<br>　◆ <strong>系统安全相关命令：</strong>passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who、which、whois；<br>　◆ <strong>其它命令：</strong>tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。<br>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>　◆ <strong>安装和登录命令：</strong>login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；<br>　◆ <strong>文件处理命令：</strong>file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；<br>　◆ <strong>系统管理相关命令：</strong>df、top、free、quota、at、lp、adduser、groupadd、kill、crontab；<br>　◆ <strong>网络操作命令：</strong>ifconfig、ip、ping、netstat、telnet、ftp、route、rlogin、rcp、finger、mail、nslookup；<br>　◆ <strong>系统安全相关命令：</strong>passwd、su、umask、chgrp、chmod、chown、chattr、sudo ps、who、which、whois；<br>　◆ <strong>其它命令：</strong>tar、unzip、gunzip、unarj、mtools、man、unendcode、uudecode。<br></p>
           
       
       
@@ -491,7 +562,7 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
-<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br>
+<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br></p>
           
       
       
@@ -513,80 +584,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/06/17/redis安装及使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-centos在线源yum安装mysql" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/15/centos在线源yum安装mysql/" class="article-date">
-      <time datetime="2017-06-15T08:17:59.000Z" itemprop="datePublished">2017-06-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="yum配置MySQL源并安装MySQL"><a href="#yum配置MySQL源并安装MySQL" class="headerlink" title="yum配置MySQL源并安装MySQL"></a>yum配置MySQL源并安装MySQL</h2><p>年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4</p>
-<p>运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写，所以不停服务直接迁移思路放弃了。改用第二种直接迁移数据库文件目录，本地测试也行得通，但是遇到有数据库版本不一致遇到很多异常，所以最后保持与原生产服务器数据库版本一致迁移。</p>
-<p>这段时间突然好些服务器磁盘出现问题，包括一台从库，害怕生产主库服务器挂掉，所以决定多做几台从库备份，<br>以及生产环境应用程序环境备份。问题来了，从库已经挂掉了，当时没有停止主从同步，拷贝出来的数据库有问题，不能用，那么只能建空库，再执行同步，但是生产数据不能停止写，所以不能锁表进行同步。最后决定用当天的全量备份导入以后再进行同步，这样会丢失一部分数据，总体来说数据相差不会太大。</p>
-<p>CentOS7默认数据库是mariadb,配置等用着不习惯,因此决定改成mysql,但是CentOS7的yum源中默认好像是没有mysql的。为了解决这个问题，我们要先下载mysql的repo源。</p>
-<p><strong>1.由于CentOS 的yum源中没有mysql，需要到mysql的官网下载yum repo配置文件</strong> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</div></pre></td></tr></table></figure>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/15/centos在线源yum安装mysql/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
