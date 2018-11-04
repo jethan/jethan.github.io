@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-04T08:04:55.290Z</updated>
+  <updated>2018-11-04T09:03:36.534Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,14 +20,16 @@
     <link href="http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://jet-han.oschina.io/2017/09/13/Spring中bean的生命周期/</id>
     <published>2017-09-13T09:58:54.000Z</published>
-    <updated>2018-11-04T08:04:55.290Z</updated>
+    <updated>2018-11-04T09:03:36.534Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Spring中bean的生命周期"><a href="#Spring中bean的生命周期" class="headerlink" title="Spring中bean的生命周期"></a>Spring中bean的生命周期</h1><p>一分钟掌握Spring中bean的生命周期！<br>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.</p>
+    <content type="html"><![CDATA[<h1 id="Spring中bean的生命周期"><a href="#Spring中bean的生命周期" class="headerlink" title="Spring中bean的生命周期"></a>Spring中bean的生命周期</h1><p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+<p>一分钟掌握Spring中bean的生命周期！<br>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.</p>
 <p>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例，而不是每次都产生一个新的对象使用Singleton模式产生单一实例，对单线程的程序说并不会有什么问题，但对于多线程的程序，就必须注意安全(Thread-safe)的议题，防止多个线程同时存取共享资源所引发的数据不同步问题。</p>
 <p>然而在spring中 可以设定每次从BeanFactory或ApplicationContext指定别名并取得Bean时都产生一个新的实例：例如：</p>
 <p>在spring中，singleton属性默认是true，只有设定为false，则每次指定别名取得的Bean时都会产生一个新的实例</p>
 <p>一个Bean从创建到销毁，如果是用BeanFactory来生成,管理Bean的话，会经历几个执行阶段(如图)：</p>
-<p><img src="/2017/09/13/Spring中bean的生命周期/spring-bean-1.png" alt="spring-bean生命周期"></p>
+<a id="more"></a>
+<p><img src="/2017/09/13/Spring中bean的生命周期/07/26/Spring单例模式与线程安全/spring-bean-1.png" alt="spring-bean生命周期"></p>
 <ul>
 <li>Bean的建立：</li>
 </ul>
@@ -76,7 +78,12 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;Spring中bean的生命周期&quot;&gt;&lt;a href=&quot;#Spring中bean的生命周期&quot; class=&quot;headerlink&quot; title=&quot;Spring中bean的生命周期&quot;&gt;&lt;/a&gt;Spring中bean的生命周期&lt;/h1&gt;&lt;p&gt;一分钟掌握Spring中be
+      &lt;h1 id=&quot;Spring中bean的生命周期&quot;&gt;&lt;a href=&quot;#Spring中bean的生命周期&quot; class=&quot;headerlink&quot; title=&quot;Spring中bean的生命周期&quot;&gt;&lt;/a&gt;Spring中bean的生命周期&lt;/h1&gt;&lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
+&lt;p&gt;一分钟掌握Spring中bean的生命周期！&lt;br&gt;在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.&lt;/p&gt;
+&lt;p&gt;在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例，而不是每次都产生一个新的对象使用Singleton模式产生单一实例，对单线程的程序说并不会有什么问题，但对于多线程的程序，就必须注意安全(Thread-safe)的议题，防止多个线程同时存取共享资源所引发的数据不同步问题。&lt;/p&gt;
+&lt;p&gt;然而在spring中 可以设定每次从BeanFactory或ApplicationContext指定别名并取得Bean时都产生一个新的实例：例如：&lt;/p&gt;
+&lt;p&gt;在spring中，singleton属性默认是true，只有设定为false，则每次指定别名取得的Bean时都会产生一个新的实例&lt;/p&gt;
+&lt;p&gt;一个Bean从创建到销毁，如果是用BeanFactory来生成,管理Bean的话，会经历几个执行阶段(如图)：&lt;/p&gt;
     
     </summary>
     
