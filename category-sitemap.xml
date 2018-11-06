@@ -14,14 +14,14 @@
     </url>
 
     <url>
-        <loc>http://jet-han.oschina.io/categories/git/</loc>
+        <loc>http://jet-han.oschina.io/categories/maven/</loc>
         <lastmod>2017-08-13T01:45:26.062Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://jet-han.oschina.io/categories/maven/</loc>
+        <loc>http://jet-han.oschina.io/categories/git/</loc>
         <lastmod>2017-08-13T01:45:26.062Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
