@@ -5,23 +5,24 @@
   
   <title>大数据平台-ambari | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="![bigdata]大数据平台-ambari/bigdata.jpg “bigdata”) 前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop">
+  <meta name="description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
 <meta name="keywords" content="bigdata,ambari">
 <meta property="og:type" content="article">
 <meta property="og:title" content="大数据平台-ambari">
 <meta property="og:url" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:description" content="![bigdata]大数据平台-ambari/bigdata.jpg “bigdata”) 前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop">
+<meta property="og:description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/bigdata.jpg">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/ambari-server.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/install-options.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/host-check.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/host-check-ok.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/dashboard.png">
-<meta property="og:updated_time" content="2018-11-13T08:35:32.014Z">
+<meta property="og:updated_time" content="2018-11-13T09:14:01.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="大数据平台-ambari">
-<meta name="twitter:description" content="![bigdata]大数据平台-ambari/bigdata.jpg “bigdata”) 前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop">
-<meta name="twitter:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/ambari-server.png">
+<meta name="twitter:description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
+<meta name="twitter:image" content="http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/bigdata.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -294,7 +295,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>![bigdata]大数据平台-ambari/bigdata.jpg “bigdata”)</p>
+        <p><img src="/2017/07/15/大数据平台-ambari/bigdata.jpg" alt="bigdata" title="bigdata"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
 <p>目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的<br><a id="more"></a></p>
 <h2 id="安装ambari-server"><a href="#安装ambari-server" class="headerlink" title="安装ambari-server"></a>安装ambari-server</h2><p>执行<code>yum list ambari-server</code>查看是否有ambari源，如果没有则在<code>/etc/yum.repo.d/</code>目录下，创建ambari源文件<code>ambari.repo</code>，并填写以下内容：</p>
@@ -445,7 +446,7 @@
         <p><span>本文标题:</span><a href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年07月15日 - 15时02分</p>
-        <p><span>最后更新:</span>2018年11月13日 - 16时35分</p>
+        <p><span>最后更新:</span>2018年11月13日 - 17时14分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/15/大数据平台-ambari/" title="大数据平台-ambari">http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/15/大数据平台-ambari/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
