@@ -278,7 +278,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+              <p><img src="/2017/08/05/jvm调优/java.jpg" alt="java" title="java"></p>
 <h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br></p>
           
       
@@ -347,7 +347,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+              <p><img src="/2017/08/05/web-xml加载顺序/java.jpg" alt="java" title="java"></p>
 <p><strong>web.xml 的加载顺序:</strong><br>ServletContext-&gt; context-param -&gt;listener -&gt; filter -&gt; servlet，而同个类型之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用的。ServletContext即Servlet上下文对象，该对象表示当前的web应用环境信息，一个Web应用只会创建一个ServletContext对象。</p>
 <p>Web容器启动的时候，它会为每个Web应用程序都创建一个对应的ServletContext对象，它代表当前的web应用。<br>[注意]由于一个Web应用中的所有Servlet共享一个ServletContext对象，所以多个Servlet通过ServletContext对象实现数据共享，ServletContext对象通常称为Context域对象。<br></p>
           
@@ -417,7 +417,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+              <p><img src="/2017/08/05/sping之IOC，AOP/spring.jpg" alt="spring" title="spring"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spring AOP和IOC个人理解<br><strong>IOC inversion of control 控制反转</strong><br>将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：<br>第一种xml方式 需要set方法为被调用的属性赋值，xml中需要<code>ref</code>注入被调要的对象。<br>第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上<br><code>@Controller,@Service,@Repository</code>通过在属性上加上<code>@Resource(name=&quot;&quot;)</code>来为属性赋值，这一步相当于xml方式的<code>ref</code>。<br>事务管理器<br></p>
           
       
