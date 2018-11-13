@@ -156,14 +156,14 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
+    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2017-09-11T13:05:41.541Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
     
     <lastmod>2017-09-11T13:05:41.541Z</lastmod>
     
@@ -261,14 +261,14 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
+    <loc>http://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
     
     <lastmod>2017-08-13T01:45:26.091Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
+    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
     
     <lastmod>2017-08-13T01:45:26.091Z</lastmod>
     
@@ -310,13 +310,6 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/categories/index.html</loc>
-    
-    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jet-han.oschina.io/googlea5a6081fce108907.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
@@ -324,14 +317,21 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/tags/index.html</loc>
+    <loc>http://jet-han.oschina.io/message/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/message/index.html</loc>
+    <loc>http://jet-han.oschina.io/categories/index.html</loc>
+    
+    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jet-han.oschina.io/tags/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
