@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-13T07:29:44.671Z</updated>
+  <updated>2018-11-28T11:07:44.851Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,6 +14,164 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql-SQL语句执行</title>
+    <link href="http://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
+    <id>http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/</id>
+    <published>2017-11-28T10:41:59.000Z</published>
+    <updated>2018-11-28T11:07:44.851Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<p>昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全面地了解SQL语句执行的每个过程，才能更好的进行SQL的设计和优化。<br> 当希望MySQL能够以更高的性能运行查询时，最好的办法就是弄清楚MySQL是如何优化和执行查询的。一旦理解了这一点，很多查询优化工作实际上就是遵循一些原则能够按照预想的合理的方式运行。<br> 如下图所示，当向MySQL发送一个请求的时候，MySQL到底做了什么：</p>
+<ul>
+<li>客户端发送一条查询给服务器。</li>
+<li>服务器先检查查询缓存，如果命中了缓存，则立刻返回存储在缓存中的结果。否则进入下一阶段。</li>
+<li>服务器端进行SQL解析、预处理，再由优化器生成对应的执行计划。</li>
+<li>MySQL根据优化器生成的执行计划，再调用存储引擎的API来执行查询。</li>
+<li>将结果返回给客户端。</li>
+</ul>
+<p><img src="/2017/11/28/Mysql-SQL语句执行/execute1.png" alt="mysql" title="mysql"></p>
+<h1 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h1><p> MySQL查询缓存保存查询返回的完整结构。当查询命中该缓存时，MySQL会立刻返回结果，跳过了解析、优化和执行阶段。<br> 查询缓存系统会跟踪查询中涉及的每个表，如果这些表发生了变化，那么和这个表相关的所有缓存数据都将失效。<br> MySQL将缓存存放在一个引用表中，通过一个哈希值引用，这个哈希值包括了以下因素，即查询本身、当前要查询的数据库、客户端协议的版本等一些其他可能影响返回结果的信息。<br> 当判断缓存是否命中时，MySQL不会进行解析查询语句，而是直接使用SQL语句和客户端发送过来的其他原始信息。所以，任何字符上的不同，例如空格、注解等都会导致缓存的不命中。<br> 当查询语句中有一些不确定的数据时，则不会被缓存。例如包含函数NOW()或者CURRENT_DATE()的查询不会缓存。包含任何用户自定义函数，存储函数，用户变量，临时表，mysql数据库中的系统表或者包含任何列级别权限的表，都不会被缓存。<br> 有一点需要注意，MySQL并不是会因为查询中包含一个不确定的函数而不检查查询缓存，因为检查查询缓存之前，MySQL不会解析查询语句，所以也无法知道语句中是否有不确定的函数。<br> 事实则是，如果查询语句中包含任何的不确定的函数，那么其查询结果不会被缓存，因为查询缓存中也无法找到对应的缓存结果。<br> 有关查询缓存的配置如下所示。  </p>
+<ul>
+<li>query_cache_type:是否打开查询缓存。可以设置为OFF、ON和DEMAND。DEMAND表示只有在查询语句中明确写明SQL_CACHE的语句才会放入查询缓存。</li>
+<li>query_cache_size:查询缓存使用的总内存空间。</li>
+<li>query_cache_min_res_unit:在查询缓存中分配内存块时的最小单元。较小的该值可以减少碎片导致的内存空间浪费，但是会导致更频繁的内存块操作。</li>
+<li>query_cache_limit:MySQL能够查询的最大查询结果。如果查询结果大于这个值，则不会被缓存。因为查询缓存在数据生成的时候就开始尝试缓存数据，所以当结果全部返回后，MySQL才知道查询结果是否超出限制。超出之后，才会将结果从查询缓存中删除。</li>
+</ul>
+<p>对查询缓存的优化是数据库性能优化的重要一环。判断流程大致如下图所示。</p>
+<p><img src="/2017/11/28/Mysql-SQL语句执行/execute2.png" alt="mysql" title="mysql"></p>
+<p>缓存命中率可以通过如下公式计算：Qcache_hits/(Qcache_hits + Com_select)来计算。</p>
+<h1 id="解析和预处理"><a href="#解析和预处理" class="headerlink" title="解析和预处理"></a>解析和预处理</h1><p> 解析器通过关键字将SQL语句进行解析，并生成对应的解析树。MySQL解析器将使用MySQL语法规则验证和解析查询。<br> 预处理器则根据一些MySQL规则进行进一步检查解析书是否合法，例如检查数据表和数据列是否存在，还会解析名字和别名，看看它们是否有歧义。</p>
+<h1 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h1><p> 查询优化器会将解析树转化成执行计划。一条查询可以有多种执行方法，最后都是返回相同结果。优化器的作用就是找到这其中最好的执行计划。<br> 生成执行计划的过程会消耗较多的时间，特别是存在许多可选的执行计划时。如果在一条SQL语句执行的过程中将该语句对应的最终执行计划进行缓存，当相似的语句再次被输入服务器时，就可以直接使用已缓存的执行计划，从而跳过SQL语句生成执行计划的整个过程，进而可以提高语句的执行速度。</p>
+<p><img src="/2017/11/28/Mysql-SQL语句执行/execute3.png" alt="mysql" title="mysql"></p>
+<p> MySQL使用基于成本的查询优化器(Cost-Based Optimizer，CBO)。它会尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最少的一个。<br> 优化器会根据优化规则对关系表达式进行转换，这里的转换是说一个关系表达式经过优化规则后会生成另外一个关系表达式，同时原有表达式也会保留，经过一系列转换后会生成多个执行计划，然后CBO会根据统计信息和代价模型(Cost Model)计算每个执行计划的Cost，从中挑选Cost最小的执行计划。由上可知，CBO中有两个依赖：统计信息和代价模型。统计信息的准确与否、代价模型的合理与否都会影响CBO选择最优计划。<br> 有关优化器的原理十分复杂，这里就不进行详细讲解了，大家可以自行学习。</p>
+<h1 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a>查询执行引擎</h1><p> 在解析和优化阶段，MySQL将生成查询对应的执行计划，MySQL的查询执行引擎根据这个执行计划来完成整个查询。这里执行计划是一个数据结构，而不是和其他的关系型数据库那样生成对应的字节码。</p>
+<h1 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a>返回结果给客户端</h1><p> 如果查询可以被缓存，那么MySQL在这个阶段页会将结果存放到查询缓存中。<br> MySQL将结果集返回给客户端是一个增量、逐步返回的过程。在查询生成第一条结果时，MySQL就可以开始向客户端逐步返回结果集了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+&lt;p&gt;昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql-B-Tree索引</title>
+    <link href="http://jet-han.oschina.io/2017/11/28/sql-B-Tree%E7%B4%A2%E5%BC%95/"/>
+    <id>http://jet-han.oschina.io/2017/11/28/sql-B-Tree索引/</id>
+    <published>2017-11-28T06:13:59.000Z</published>
+    <updated>2018-11-28T10:41:00.296Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<p>MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。</p>
+<p>MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结构，使用原则和特性。</p>
+<p>主要内容如下：</p>
+<ul>
+<li>B-Tree索引的底层结构</li>
+<li>B-Tree索引的使用规则</li>
+<li>聚簇索引</li>
+<li>InnoDB和MyISAM引擎索引的差异</li>
+<li>松散索引</li>
+<li>覆盖索引</li>
+</ul>
+<h1 id="B-Tree索引"><a href="#B-Tree索引" class="headerlink" title="B-Tree索引"></a>B-Tree索引</h1><p>B-Tree索引使用B-Tree来存储数据，当然不同存储引擎的实现方式不同。B-Tree通常意味着所有的值都是按顺序存储的，并且每一个叶子页到根的距离相同，下图展示了B-Tree索引的抽象表示，由此可以看出MySQL的B-Tree索引的大致工作机制。</p>
+<p>B-Tree索引的底层数据结构一般是B+树，其具体数据结构和优势这里就不作详细描述，下图展示了B-树索引的抽象表示，大致反应了MyISAM索引是如何工作的，而InnoDB使用的结构有所不同。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree1.png" alt="mysql" title="mysql"></p>
+<p>MySQL可以在单独一列上添加B-Tree索引，也可以在多列数据上添加B-Tree索引，多列的数据按照添加索引声明的顺序组合起来，存储在B-Tree的页中。假设有如下数据表：</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree2.png" alt="mysql" title="mysql"></p>
+<p>  对于表中的每一行数据，索引中包含了last_name，first_name和birthday列的值，下图展示了该索引是如何组织数据的存储的。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree3.png" alt="mysql" title="mysql">  </p>
+<p>B-Tree索引使用B-Tree作为其存储数据的数据结构，其使用的查询规则也由此决定。一般来说，B-Tree索引适用于全键值、键值范围和键前缀查找，其中键前缀查找只适用于根据最左前缀查找。B-Tree索引支持的查询原则如下所示：</p>
+<ul>
+<li><p>全值匹配：全值匹配指的是和索引中的所有列进行匹配。</p>
+</li>
+<li><p>匹配最左前缀：前边提到的索引可以用于查找所有姓Allen的人，即只使用索引中的第一列。</p>
+</li>
+<li><p>匹配列前缀：也可以只匹配某一列的值的开头部分。例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只用到了索引的第一列。</p>
+</li>
+<li><p>匹配范围值：例如前边提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列。</p>
+</li>
+<li><p>精确匹配某一列并范围匹配另外一列：前边提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头(比如Kim,Karl等)的人。即第一列last_name全匹配，第二列first_name范围匹配。</p>
+</li>
+</ul>
+<p>因为索引树的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的ORDER BY操作(按顺序查找)，如果ORDER BY子句满足前面列出的几种查询类型，则这个索引也可以满足对应的排序需求。</p>
+<p>下面是一些关于B-Tree索引的限制：</p>
+<ul>
+<li><p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法查找名字为Bill的人，也无法查找某个特定生日的日，因为这两列都不是最左数据列。</p>
+</li>
+<li><p>如果查询中有某个列的范围查询，则其右侧所有列都无法使用索引优化查找。</p>
+</li>
+</ul>
+<h1 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h1><p>聚簇索引并不是一种单独的索引类型，而是一种数据存储方式。具体的细节依赖于其实现方式，但是InnoDB的聚簇索引实际上在同一个结构中保存了B-Tree索引和数据行。</p>
+<p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页中，这也就是说数据行和相邻的键值紧凑地存储在一起。</p>
+<p>下图展示了聚簇索引中的记录是如何存放的。注意到，叶子页包含了行的全部数据行，但是节点页只包含了索引列。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree4.png" alt="mysql" title="mysql">  </p>
+<p>聚簇索引可能对性能有帮助，但也可能导致严重的性能问题。聚簇的数据是有一些重要的优点：</p>
+<ul>
+<li>数据访问更快，聚簇索引将索引和数据保存在同一个B-Tree中，因此从聚簇索引中获取数据通常比在非聚簇索引中查找要快。</li>
+<li>使用覆盖索引扫描的查询可以直接使用页节点中的主键值。</li>
+</ul>
+<p>如果在设计表和查询时能充分利用上面的优点，那么就能极大地提升性能。同时，聚簇索引也有一些缺点：</p>
+<ul>
+<li><p>插入顺序严重依赖插入顺序。按照主键的顺序插入是向InnoDB表中插入数据速度最快的方式，需要避免主键键值随机的(不连续且值得分布范围非常大)聚簇索引，比如使用UUID作为主键，而应该使用类似AUTO_INCREMENT的自增列。</p>
+</li>
+<li><p>更新聚簇索引列的代价很高，因为会强制InnoDB将每个被更新的行移动位置到新的位置。</p>
+</li>
+<li><p>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行时，可能面临“页分裂”的问题。当行的主键值要求必须将这行插入到某个已满的页中时，存储引擎会将该页分裂成两个页面来容纳该行，这就是一次页分裂操作。页分裂会导致表占用更多的磁盘空间。</p>
+</li>
+<li><p>二级索引可能比想象的更大，因为在二级索引中的叶节点包含了引用行的主键列。</p>
+</li>
+<li><p>二级索引访问需要两次索引查找，而不是一次。</p>
+</li>
+</ul>
+<h2 id="InnoDB和MyISAM的索引区别"><a href="#InnoDB和MyISAM的索引区别" class="headerlink" title="InnoDB和MyISAM的索引区别"></a>InnoDB和MyISAM的索引区别</h2><p>聚簇索引和非聚簇索引的数据分布有区别，以及对应的主键索引和二级索引的数据分布也有区别，通常会让人感到困惑和意外。下图展示了MyISAM和InnoDB的不同索引和数据存储方式。</p>
+<p>MyISAM的数据分布非常简单，按照数据插入的顺序存储在磁盘上，主键索引和二级索引的叶节点存储着指针，指向对应的数据行。InnoDB中，聚簇索引“就是”表，所以不会像MyISAM那样需要独立的行存储。聚簇索引的每个叶节点都包含了主键值和所有的剩余列(在此例中是col2)。</p>
+<p>InnoDB的二级索引和聚簇索引很不同。InnoDB二级索引的叶节点中存储的不是“行指针”，而是主键值，并以此作为指向行的“指针”。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree5.png" alt="mysql" title="mysql">  </p>
+<h1 id="松散索引扫描"><a href="#松散索引扫描" class="headerlink" title="松散索引扫描"></a>松散索引扫描</h1><p>MySQL并不支持松散索引扫描，也就是无法按照不连续的方式扫描一个索引。通常，MySQL的索引扫描需要先定义一个起点和终点，即使需要的数据只是这段索引中很少数的几个，MySQL仍然需要扫描这段索引中的每个条目。</p>
+<p>下面，我们通过一个示例说明这点，假设我们有如下索引(a,b)，有下面的查询：</p>
+<p>因为索引的前导字段是列a，但是在查询中只指定了字段b，MySQL无法使用这个索引，从而只能通过全表扫描找到匹配的行，如下图所示。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree6.png" alt="mysql" title="mysql">  </p>
+<p>了解索引的物理结构的话，不难发现还可以有一个更快的办法执行上面的查询。索引的物理结构(不是存储引擎的API)是的可以先扫描a列第一个值对应的b列的范围，然后再跳到a列第二个不不同值扫描对应的b列的范围。下图展示了如果由MySQL来实现这个过程会怎样。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree7.png" alt="mysql" title="mysql"> </p>
+<p>注意到，这时就无须再使用WHERE子句过滤，因为松散索引扫描已经跳过了所有不需要的记录。</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree8.png" alt="mysql" title="mysql"> </p>
+<p>MySQL 5.0之后的版本，在某些特殊的场景下是可以使用松散索引扫描的，例如，在一个分组查询中需要找到分组的最大值和最小值：</p>
+<p>在EXPLAIN中的Extra字段显示”Using index for group-by”，表示这里将使用松散索引扫描。</p>
+<h1 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h1><p>索引除了是一种查找数据的高效方式之外，也是一种列数据的直接获取方式。MySQL可以使用索引来直接获取列的数据，这样就不需要读取数据行。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
+<p>覆盖索引是非常有用的工具，能够极大地提高性能。SQL查询只需要扫描索引而无需回表，会带来很多好处：</p>
+<ul>
+<li><p>索引条目数量和大小通常远小于数据行的条目和大小，所以如果只需要读取索引，那么MySQL就会极大地减少数据访问量。</p>
+</li>
+<li><p>因为索引是按照列顺序存储的，所以对于I/O密集型的范围查找会比随机从磁盘读取每一行数据的I/O要少的多。</p>
+</li>
+<li><p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键，索引如果二级主键能够覆盖查询，则避免对主键索引的第二次查询。</p>
+</li>
+</ul>
+<p>当发起一个被覆盖索引的查询(也叫索引覆盖查询)时，在EXPLAIN的Extra列可以看到”Using Index”的信息。例如，表sakila.inventory有一个多列索引(store_id, film_id)。MySQL如果只需要访问这两列，就可以使用这个索引做覆盖索引，如下所示：</p>
+<p><img src="/2017/11/28/sql-B-Tree索引/b-tree9.png" alt="mysql" title="mysql"> </p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>MySQL索引背后的数据结构及算法原理 blog.codinglabs.org</p>
+</li>
+<li><p>《高性能MySQL》</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+&lt;p&gt;MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Spring中bean的生命周期</title>
@@ -2901,178 +3059,6 @@ public void setFlag() {
       <category term="spring" scheme="http://jet-han.oschina.io/tags/spring/"/>
     
       <category term="scope" scheme="http://jet-han.oschina.io/tags/scope/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>jvm内存模型</title>
-    <link href="http://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/"/>
-    <id>http://jet-han.oschina.io/2017/07/20/jvm内存模型/</id>
-    <published>2017-07-20T06:44:40.000Z</published>
-    <updated>2018-11-13T08:34:28.487Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/2017/07/20/jvm内存模型/java.jpg" alt="jvm" title="jvm"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br><a id="more"></a><br><img src="/2017/07/20/jvm内存模型/jvm.png" alt="jvm" title="jvm"></p>
-<h2 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h2><p>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。<br>由于Java 虚拟机的多线程是通过线程轮流切换并分配处理器执行时间的方式来实现的，在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）只会执行一条线程中的指令。因此，为了线程切换后能恢复到正确的执行位置，每条线程都需要有一个独立的程序计数器，各条线程之间的计数器互不影响，独立存储，我们称这类内存区域为“线程私有”的内存。<br>如果线程正在执行的是一个Java 方法，这个计数器记录的是正在执行的虚拟机字节码指令的地址；如果正在执行的是Natvie 方法，这个计数器值则为空（Undefined）。<br>此内存区域是唯一一个在Java 虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
-<h2 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h2><p>线程私有，它的生命周期与线程相同。虚拟机栈描述的是Java 方法执行的内存模型：每个方法被执行的时候都会同时创建一个栈帧（Stack Frame）用于存储局部变量表、操作栈、动态链接、方法出口等信息。<br>动画是由一帧一帧图片连续切换结果的结果而产生的，其实虚拟机的运行和动画也类似，每个在虚拟机中运行的程序也是由许多的帧的切换产生的结果，只是这些帧里面存放的是方法的局部变量，操作数栈，动态链接，方法返回地址和一些额外的附加信息组成。每一个方法被调用直至执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程。</p>
-<p>对于执行引擎来说，活动线程中，只有栈顶的栈帧是有效的，称为当前栈帧，这个栈帧所关联的方法称为当前方法。执行引擎所运行的所有字节码指令都只针对当前栈帧进行操作。<br>局部变量表<br>局部变量表是一组变量值存储空间，用于存放方法参数和方法内部定义的局部变量。在Java程序被编译成Class文件时，就在方法的Code属性的max_locals数据项中确定了该方法所需要分配的最大局部变量表的容量。<br>局部变量表的容量以变量槽（Slot）为最小单位，32位虚拟机中一个Slot可以存放一个32位以内的数据类型（boolean、byte、char、short、int、float、reference和returnAddress八种）。<br>reference类型虚拟机规范没有明确说明它的长度，但一般来说，虚拟机实现至少都应当能从此引用中直接或者间接地查找到对象在Java堆中的起始地址索引和方法区中的对象类型数据。<br>returnAddress类型是为字节码指令jsr、jsr_w和ret服务的，它指向了一条字节码指令的地址。<br>虚拟机是使用局部变量表完成参数值到参数变量列表的传递过程的，如果是实例方法（非static），那么局部变量表的第0位索引的Slot默认是用于传递方法所属对象实例的引用，在方法中通过this访问。<br> Slot是可以重用的，当Slot中的变量超出了作用域，那么下一次分配Slot的时候，将会覆盖原来的数据。Slot对对象的引用会影响GC（要是被引用，将不会被回收）。<br> 系统不会为局部变量赋予初始值（实例变量和类变量都会被赋予初始值）。也就是说不存在类变量那样的准备阶段。</p>
-<h2 id="操作数栈"><a href="#操作数栈" class="headerlink" title="操作数栈"></a>操作数栈</h2><p>和局部变量区一样，操作数栈也是被组织成一个以字长为单位的数组。但是和前者不同的是，它不是通过索引来访问，而是通过标准的栈操作——压栈和出栈—来访问的。比如，如果某个指令把一个值压入到操作数栈中，稍后另一个指令就可以弹出这个值来使用。<br>虚拟机在操作数栈中存储数据的方式和在局部变量区中是一样的：如int、long、float、double、reference和returnType的存储。对于byte、short以及char类型的值在压入到操作数栈之前，也会被转换为int。<br>虚拟机把操作数栈作为它的工作区——大多数指令都要从这里弹出数据，执行运算，然后把结果压回操作数栈。比如，iadd指令就要从操作数栈中弹出两个整数，执行加法运算，其结果又压回到操作数栈中，看看下面的示例，它演示了虚拟机是如何把两个int类型的局部变量相加，再把结果保存到第三个局部变量的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">begin  </div><div class="line">iload_0    // push the int in local variable 0 ontothe stack  </div><div class="line">iload_1    //push the int in local variable 1 onto the stack  </div><div class="line">iadd       // pop two ints, add them, push result  </div><div class="line">istore_2   // pop int, store into local variable 2  </div><div class="line">end</div></pre></td></tr></table></figure></p>
-<p>在这个字节码序列里，前两个指令iload_0和iload_1将存储在局部变量中索引为0和1的整数压入操作数栈中，其后iadd指令从操作数栈中弹出那两个整数相加，再将结果压入操作数栈。第四条指令istore_2则从操作数栈中弹出结果，并把它存储到局部变量区索引为2的位置。下图详细表述了这个过程中局部变量和操作数栈的状态变化，图中没有使用的局部变量区和操作数栈区域以空白表示。</p>
-<p><img src="/2017/07/20/jvm内存模型/stack1.png" alt="stack" title="stack"></p>
-<h2 id="动态连接"><a href="#动态连接" class="headerlink" title="动态连接"></a>动态连接</h2><p>虚拟机运行的时候,运行时常量池会保存大量的符号引用，这些符号引用可以看成是每个方法的间接引用。如果代表栈帧A的方法想调用代表栈帧B的方法，那么这个虚拟机的方法调用指令就会以B方法的符号引用作为参数，但是因为符号引用并不是直接指向代表B方法的内存位置，所以在调用之前还必须要将符号引用转换为直接引用，然后通过直接引用才可以访问到真正的方法。<br>如果符号引用是在类加载阶段或者第一次使用的时候转化为直接应用，那么这种转换成为静态解析，如果是在运行期间转换为直接引用，那么这种转换就成为动态连接。</p>
-<h2 id="返回地址"><a href="#返回地址" class="headerlink" title="返回地址"></a>返回地址</h2><p>方法的返回分为两种情况，一种是正常退出，退出后会根据方法的定义来决定是否要传返回值给上层的调用者，一种是异常导致的方法结束，这种情况是不会传返回值给上层的调用方法。<br>不过无论是那种方式的方法结束，在退出当前方法时都会跳转到当前方法被调用的位置，如果方法是正常退出的，则调用者的PC计数器的值就可以作为返回地址,，果是因为异常退出的，则是需要通过异常处理表来确定。<br>方法的的一次调用就对应着栈帧在虚拟机栈中的一次入栈出栈操作，因此方法退出时可能做的事情包括：恢复上层方法的局部变量表以及操作数栈，如果有返回值的话，就把返回值压入到调用者栈帧的操作数栈中，还会把PC计数器的值调整为方法调用入口的下一条指令。<br><img src="/2017/07/20/jvm内存模型/stack2.png" alt="stack" title="stack"><br>异常<br>在Java 虚拟机规范中，对虚拟机栈规定了两种异常状况：如果线程请求的栈深度大于虚拟机所允许的深度，将抛出StackOverflowError 异常；如果虚拟机栈可以动态扩展（当前大部分的Java 虚拟机都可动态扩展，只不过Java 虚拟机规范中也允许固定长度的虚拟机栈），当扩展时无法申请到足够的内存时会抛出OutOfMemoryError 异常。</p>
-<h2 id="本地方法栈"><a href="#本地方法栈" class="headerlink" title="本地方法栈"></a>本地方法栈</h2><p>本地方法栈（Native MethodStacks）与虚拟机栈所发挥的作用是非常相似的，其区别不过是虚拟机栈为虚拟机执行Java 方法（也就是字节码）服务，而本地方法栈则是为虚拟机使用到的Native 方法服务。虚拟机规范中对本地方法栈中的方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它。甚至有的虚拟机（譬如Sun HotSpot 虚拟机）直接就把本地方法栈和虚拟机栈合二为一。<br>与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。</p>
-<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆是Java 虚拟机所管理的内存中最大的一块。Java 堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配内存。但是随着JIT 编译器的发展与逃逸分析技术的逐渐成熟，栈上分配、标量替换优化技术将会导致一些微妙的变化发生，所有的对象都分配在堆上也渐渐变得不是那么“绝对”了。<br>堆是垃圾收集器管理的主要区域，因此很多时候也被称做“GC 堆”。<br>堆的大小可以通过-Xms(最小值)和-Xmx(最大值)参数设置，-Xms为JVM启动时申请的最小内存，默认为操作系统物理内存的1/64但小于1G，-Xmx为JVM可申请的最大内存，默认为物理内存的1/4但小于1G，默认当空余堆内存小于40%时，JVM会增大Heap到-Xmx指定的大小，可通过-XX:MinHeapFreeRation=来指定这个比列；当空余堆内存大于70%时，JVM会减小heap的大小到-Xms指定的大小，可通过XX:MaxHeapFreeRation=来指定这个比列，对于运行系统，为避免在运行时频繁调整Heap的大小，通常-Xms与-Xmx的值设成一样。</p>
-<p>如果从内存回收的角度看，由于现在收集器基本都是采用的分代收集算法，所以Java 堆中还可以细分为：新生代和老年代；<br>新生代：程序新创建的对象都是从新生代分配内存，新生代由Eden Space和两块相同大小的Survivor Space(通常又称S0和S1或From和To)构成，可通过-Xmn参数来指定新生代的大小，也可以通过-XX:SurvivorRation来调整Eden Space及SurvivorSpace的大小。<br>老年代：用于存放经过多次新生代GC仍然存活的对象，例如缓存对象，新建的对象也有可能直接进入老年代，主要有两种情况：1、大对象，可通过启动参数设置-XX:PretenureSizeThreshold=1024(单位为字节，默认为0)来代表超过多大时就不在新生代分配，而是直接在老年代分配。2、大的数组对象，且数组中无引用外部对象。<br>老年代所占的内存大小为-Xmx对应的值减去-Xmn对应的值。</p>
-<p>如果在堆中没有内存完成实例分配，并且堆也无法再扩展时，将会抛出OutOfMemoryError 异常。</p>
-<h2 id="方法区"><a href="#方法区" class="headerlink" title="方法区"></a>方法区</h2><p>方法区在一个jvm实例的内部，类型信息被存储在一个称为方法区的内存逻辑区中。类型信息是由类加载器在类加载时从类文件中提取出来的。类(静态)变量也存储在方法区中。<br>简单说方法区用来存储类型的元数据信息，一个.class文件是类被java虚拟机使用之前的表现形式，一旦这个类要被使用，java虚拟机就会对其进行装载、连接（验证、准备、解析）和初始化。而装载（后的结果就是由.class文件转变为方法区中的一段特定的数据结构。这个数据结构会存储如下信息：</p>
-<p><strong>类型信息</strong><br>      这个类型的全限定名<br>      这个类型的直接超类的全限定名<br>      这个类型是类类型还是接口类型<br>      这个类型的访问修饰符<br>      任何直接超接口的全限定名的有序列表 </p>
-<p><strong>字段信息</strong><br>      字段名<br>      字段类型<br>      字段的修饰符  </p>
-<p><strong>方法信息</strong><br>      方法名<br>      方法返回类型<br>      方法参数的数量和类型（按照顺序）<br>      方法的修饰符</p>
-<p><strong>其他信息</strong><br>      除了常量以外的所有类（静态）变量<br>      一个指向ClassLoader的指针<br>      一个指向Class对象的指针<br>      常量池（常量数据以及对其他类型的符号引用）  </p>
-<p>JVM为每个已加载的类型都维护一个常量池。常量池就是这个类型用到的常量的一个有序集合，包括实际的常量(string,integer,和floating point常量)和对类型，域和方法的符号引用。池中的数据项象数组项一样，是通过索引访问的。</p>
-<p>每个类的这些元数据，无论是在构建这个类的实例还是调用这个类某个对象的方法，都会访问方法区的这些元数据。<br>构建一个对象时，JVM会在堆中给对象分配空间，这些空间用来存储当前对象实例属性以及其父类的实例属性（而这些属性信息都是从方法区获得），注意，这里并不是仅仅为当前对象的实例属性分配空间，还需要给父类的实例属性分配，到此其实我们就可以回答第一个问题了，即实例化父类的某个子类时，JVM也会同时构建父类的一个对象。从另外一个角度也可以印证这个问题：调用当前类的构造方法时，首先会调用其父类的构造方法直到Object，而构造方法的调用意味着实例的创建，所以子类实例化时，父类肯定也会被实例化。<br>类变量被类的所有实例共享，即使没有类实例时你也可以访问它。这些变量只与类相关，所以在方法区中，它们成为类数据在逻辑上的一部分。在JVM使用一个类之前，它必须在方法区中为每个non-final类变量分配空间。</p>
-<p>方法区主要有以下几个特点：<br>1、方法区是线程安全的。由于所有的线程都共享方法区，所以，方法区里的数据访问必须被设计成线程安全的。例如，假如同时有两个线程都企图访问方法区中的同一个类，而这个类还没有被装入JVM，那么只允许一个线程去装载它，而其它线程必须等待<br>2、方法区的大小不必是固定的，JVM可根据应用需要动态调整。同时，方法区也不一定是连续的，方法区可以在一个堆(甚至是JVM自己的堆)中自由分配。<br>3、方法区也可被垃圾收集，当某个类不在被使用(不可触及)时，JVM将卸载这个类，进行垃圾收集</p>
-<p>可以通过-XX:PermSize 和 -XX:MaxPermSize 参数限制方法区的大小。<br>对于习惯在HotSpot 虚拟机上开发和部署程序的开发者来说，很多人愿意把方法区称为“永久代”（PermanentGeneration），本质上两者并不等价，仅仅是因为HotSpot 虚拟机的设计团队选择把GC 分代收集扩展至方法区，或者说使用永久代来实现方法区而已。对于其他虚拟机（如BEA JRockit、IBM J9 等）来说是不存在永久代的概念的。<br>相对而言，垃圾收集行为在这个区域是比较少出现的，但并非数据进入了方法区就如永久代的名字一样“永久”存在了。这个区域的内存回收目标主要是针对常量池的回收和对类型的卸载。<br>当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>特征</th>
-<th>作用</th>
-<th>配置参数</th>
-<th>异常</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>程序计数器</td>
-<td>占用内存小，线程私有，生命周期与线程相同</td>
-<td>大致为字节码行号指示器</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>虚拟机栈</td>
-<td>线程私有，生命周期与线程相同，使用连续的内存空间</td>
-<td>Java 方法执行的内存模型，存储局部变量表、操作栈、动态链接、方法出口等信息</td>
-<td>-Xss</td>
-<td>StackOverflowError OutOfMemoryError</td>
-</tr>
-<tr>
-<td>java堆</td>
-<td>线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
-<td>保存对象实例，所有对象实例（包括数组）都要在堆上分配</td>
-<td>-Xms<br>-Xsx<br>-Xmn</td>
-<td>OutOfMemoryError</td>
-</tr>
-<tr>
-<td>方法区</td>
-<td>线程共享，生命周期与虚拟机相同，可以不使用连续的内存地址</td>
-<td>存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据</td>
-<td>-XX:PermSize:<br>16M<br>-XX:MaxPermSize<br>64M</td>
-<td>OutOfMemoryError</td>
-</tr>
-<tr>
-<td>运行时常量池</td>
-<td>方法区的一部分，具有动态性</td>
-<td>存放字面量及符号引用</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="直接内存"><a href="#直接内存" class="headerlink" title="直接内存"></a>直接内存</h2><p>直接内存（Direct Memory）并不是虚拟机运行时数据区的一部分，也不是Java虚拟机规范中定义的内存区域，但是这部分内存也被频繁地使用，而且也可能导致OutOfMemoryError 异常出现，所以我们放到这里一起讲解。<br>在JDK 1.4 中新加入了NIO（NewInput/Output）类，引入了一种基于通道（Channel）与缓冲区（Buffer）的I/O 方式，它可以使用Native 函数库直接分配堆外内存，然后通过一个存储在Java 堆里面的DirectByteBuffer 对象作为这块内存的引用进行操作。这样能在一些场景中显著提高性能，因为避免了在Java 堆和Native 堆中来回复制数据。</p>
-<h2 id="堆与栈的对比"><a href="#堆与栈的对比" class="headerlink" title="堆与栈的对比"></a>堆与栈的对比</h2><p>经常有人把Java 内存区分为堆内存（Heap）和栈内存（Stack），这种分法比较粗糙，Java内存区域的划分实际上远比这复杂。这种划分方式的流行只能说明大多数程序员最关注的、与对象内存分配关系最密切的内存区域是这两块。<br>堆很灵活，但是不安全。对于对象，我们要动态地创建、销毁，不能说后创建的对象没有销毁，先前创建的对象就不能销毁，那样的话我们的程序就寸步难行，所以Java中用堆来存储对象。而一旦堆中的对象被销毁，我们继续引用这个对象的话，就会出现著名的 NullPointerException，这就是堆的缺点——<font color="#e07878">错误的引用逻辑只有在运行时才会被发现</font>。<br>栈不灵活，但是很严格，是安全的，易于管理。因为只要上面的引用没有销毁，下面引用就一定还在，在大部分程序中，都是先定义的变量、引用先进栈，后定义的后进栈，同时，区块内部的变量、引用在进入区块时压栈，区块结束时出栈，理解了这种机制，我们就可以很方便地理解各种编程语言的作用域的概念了，同时这也是栈的优点——<font color="#e07878">错误的引用逻辑在编译时就可以被发现</font>。  </p>
-<p><font color="#e07878">栈—主要存放引用和基本数据类型</font>。  </p>
-<p><font color="#e07878">堆—用来存放 new 出来的对象实例</font>。</p>
-<h2 id="内存溢出和内存泄漏"><a href="#内存溢出和内存泄漏" class="headerlink" title="内存溢出和内存泄漏"></a>内存溢出和内存泄漏</h2><p>内存溢出 out of memory，是指程序在申请内存时，没有足够的内存空间供其使用，出现out of memory；比如申请了一个integer，但给它存了long才能存下的数，那就是内存溢出。<br>内存泄露 memory leak，是指程序在申请内存后，无法释放已申请的内存空间，一次内存泄露危害可以忽略，但内存泄露堆积后果很严重，无论多少内存,迟早会被占光。<br>memory leak会最终会导致out ofmemory。</p>
-<p>Java 堆内存的OutOfMemoryError异常是实际应用中最常见的内存溢出异常情况。出现Java 堆内存溢出时，异常堆栈信息“java.lang.OutOfMemoryError”会跟着进一步提示“Java heapspace”。<br>要解决这个区域的异常，一般的手段是首先通过内存映像分析工具（如Eclipse Memory Analyzer）对dump 出来的堆转储快照进行分析，重点是确认内存中的对象是否是必要的，也就是要先分清楚到底是出现了内存泄漏（Memory Leak）还是内存溢出（Memory Overflow）。<br>如果是内存泄漏，可进一步通过工具查看泄漏对象到GC Roots 的引用链。于是就能找到泄漏对象是通过怎样的路径与GC Roots 相关联并导致垃圾收集器无法自动回收它们的。掌握了泄漏对象的类型信息，以及GC Roots 引用链的信息，就可以比较准确地定位出泄漏代码的位置。<br>如果不存在泄漏，换句话说就是内存中的对象确实都还必须存活着，那就应当检查虚拟机的堆参数（-Xmx 与-Xms），与机器物理内存对比看是否还可以调大，从代码上检查是否存在某些对象生命周期过长、持有状态时间过长的情况，尝试减少程序运行期的内存消耗。</p>
-<h2 id="内存分配过程"><a href="#内存分配过程" class="headerlink" title="内存分配过程"></a>内存分配过程</h2><p>1、JVM 会试图为相关Java对象在Eden Space中初始化一块内存区域。<br>2、当Eden空间足够时，内存申请结束；否则到下一步。<br>3、JVM 试图释放在Eden中所有不活跃的对象（这属于1或更高级的垃圾回收）。释放后若Eden空间仍然不足以放入新对象，则试图将部分Eden中活跃对象放入Survivor区。<br>4、Survivor区被用来作为Eden及Old的中间交换区域，当Old区空间足够时，Survivor区的对象会被移到Old区，否则会被保留在Survivor区。<br>5、当Old区空间不够时，JVM 会在Old区进行完全的垃圾收集（0级）。<br>6、完全垃圾收集后，若Survivor及Old区仍然无法存放从Eden复制过来的部分对象，导致JVM无法在Eden区为新对象创建内存区域，则出现“outofmemory”错误。</p>
-<h2 id="对象访问"><a href="#对象访问" class="headerlink" title="对象访问"></a>对象访问</h2><p><img src="/2017/07/20/jvm内存模型/jvm3.gif" alt="jvm" title="jvm"><br>对象访问在Java 语言中无处不在，是最普通的程序行为，但即使是最简单的访问，也会却涉及Java 栈、Java 堆、方法区这三个最重要内存区域之间的关联关系，如下面的这句代码：</p>
-<p>Object obj = newObject();</p>
-<p>假设这句代码出现在方法体中，那“Object obj”这部分的语义将会反映到Java 栈的本地变量表中，作为一个reference 类型数据出现。而“new Object()”这部分的语义将会反映到Java 堆中，形成一块存储了Object 类型所有实例数据值（Instance Data，对象中各个实例字段的数据）的结构化内存，根据具体类型以及虚拟机实现的对象内存布局（Object Memory Layout）的不同，这块内存的长度是不固定的。另外，在Java 堆中还必须包含能查找到此对象类型数据（如对象类型、父类、实现的接口、方法等）的地址信息，这些类型数据则存储在方法区中。<br>由于reference 类型在Java 虚拟机规范里面只规定了一个指向对象的引用，并没有定义这个引用应该通过哪种方式去定位，以及访问到Java 堆中的对象的具体位置，因此不同虚拟机实现的对象访问方式会有所不同，主流的访问方式有两种：使用句柄和直接指针。<br>如果使用句柄访问方式，Java 堆中将会划分出一块内存来作为句柄池，reference中存储的就是对象的句柄地址，而句柄中包含了对象实例数据和类型数据各自的具体地址信息。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2017/07/20/jvm内存模型/java.jpg&quot; alt=&quot;jvm&quot; title=&quot;jvm&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://jet-han.oschina.io/categories/java/"/>
-    
-    
-      <category term="jvm" scheme="http://jet-han.oschina.io/tags/jvm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nginx安装与使用</title>
-    <link href="http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/"/>
-    <id>http://jet-han.oschina.io/2017/07/17/nginx安装与使用/</id>
-    <published>2017-07-17T07:53:11.000Z</published>
-    <updated>2017-09-11T13:05:41.541Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
-<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
-<p>填写如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>保存，则会产生一个<code>/etc/yum.repos.d/nginx.repo</code>文件。</p>
-<p>下面直接执行如下指令即可自动安装好Nginx：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">yum install nginx</div></pre></td></tr></table></figure>
-<p>安装完成，下面直接就可以启动Nginx了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/nginx start</div></pre></td></tr></table></figure>
-<p>我是用：服务启动并设置开机启动</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">service nginx start</div><div class="line">chkconfig nginx on --level 35</div><div class="line"></div><div class="line">#指定配置文件启动</div><div class="line">/usr/sbin/nginx -c /etc/nginx/nginx.conf</div></pre></td></tr></table></figure>
-<p>启动成功如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[op@bogon init.d]$ ps aux | grep nginx</div><div class="line">root     19210  0.0  0.0  46348  1192 ?        Ss   14:57   0:00 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf</div><div class="line">nginx    19211  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19212  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19214  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19215  0.0  0.0  46740  1968 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19216  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">nginx    19217  0.0  0.0  46740  1936 ?        S    14:57   0:00 nginx: worker process                   </div><div class="line">op       19219  0.0  0.0 103328   872 pts/0    S+   14:58   0:00 grep nginx</div></pre></td></tr></table></figure>
-<p>常用命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">sudo nginx #启动nginx</div><div class="line">nginx -s reload|reopen|stop|quit  #重新加载配置|重启|停止|退出 nginx</div><div class="line">nginx -t   #测试配置是否有语法错误</div><div class="line"></div><div class="line">nginx [-?hvVtq] [-s signal] [-c filename] [-p prefix] [-g directives]</div><div class="line"></div><div class="line">-?,-h           : 打开帮助信息</div><div class="line">-v              : 显示版本信息并退出</div><div class="line">-V              : 显示版本和配置选项信息，然后退出</div><div class="line">-t              : 检测配置文件是否有语法错误，然后退出</div><div class="line">-q              : 在检测配置文件期间屏蔽非错误信息</div><div class="line">-s signal       : 给一个 nginx 主进程发送信号：stop（停止）, quit（退出）, reopen（重启）, reload（重新加载配置文件）</div><div class="line">-p prefix       : 设置前缀路径（默认是：/usr/local/Cellar/nginx/1.2.6/）</div><div class="line">-c filename     : 设置配置文件（默认是：/usr/local/etc/nginx/nginx.conf）</div><div class="line">-g directives   : 设置配置文件外的全局指令</div></pre></td></tr></table></figure>
-<h2 id="nginx-配置"><a href="#nginx-配置" class="headerlink" title="nginx 配置"></a>nginx 配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line">user nginx;</div><div class="line">#启动进程,通常设置成和cpu的数量相等</div><div class="line">worker_processes  4;</div><div class="line"></div><div class="line">#全局错误日志及PID文件</div><div class="line">#error_log  /data/nginx/logs/error.log  warn;</div><div class="line">#error_log  /data/nginx/logs/error.log  notice;</div><div class="line">#error_log  /data/nginx/logs/error.log  info;</div><div class="line"></div><div class="line">#pid        /data/nginx/pid/nginx.pid;</div><div class="line"></div><div class="line">#工作模式及连接数上限</div><div class="line">events &#123;</div><div class="line">   #epoll是多路复用IO(I/O Multiplexing)中的一种方式,</div><div class="line">    #仅用于linux2.6以上内核,可以大大提高nginx的性能</div><div class="line">    use  epoll;</div><div class="line"></div><div class="line">    #单个后台worker process进程的最大并发链接数</div><div class="line">    worker_connections  1024;</div><div class="line"></div><div class="line">    # 并发总数是 worker_processes 和 worker_connections 的乘积</div><div class="line">    # 即 max_clients = worker_processes * worker_connections</div><div class="line">    # 在设置了反向代理的情况下，max_clients = worker_processes * worker_connections / 4  为什么</div><div class="line">    # 为什么上面反向代理要除以4，应该说是一个经验值</div><div class="line">    # 根据以上条件，正常情况下的Nginx Server可以应付的最大连接数为：4 * 8000 = 32000</div><div class="line">    # worker_connections 值的设置跟物理内存大小有关</div><div class="line">    # 因为并发受IO约束，max_clients的值须小于系统可以打开的最大文件数</div><div class="line">    # 而系统可以打开的最大文件数和内存大小成正比，一般1GB内存的机器上可以打开的文件数大约是10万左右</div><div class="line">    # 我们来看看360M内存的VPS可以打开的文件句柄数是多少：</div><div class="line">    # $ cat /proc/sys/fs/file-max</div><div class="line">    # 输出 34336</div><div class="line">    # 32000 &lt; 34336，即并发连接总数小于系统可以打开的文件句柄总数，这样就在操作系统可以承受的范围之内</div><div class="line">    # 所以，worker_connections 的值需根据 worker_processes 进程数目和系统可以打开的最大文件总数进行适当地进行设置</div><div class="line">    # 使得并发总数小于操作系统可以打开的最大文件数目</div><div class="line">    # 其实质也就是根据主机的物理CPU和内存进行配置</div><div class="line">    # 当然，理论上的并发总数可能会和实际有所偏差，因为主机还有其他的工作进程需要消耗系统资源。</div><div class="line">    # ulimit -SHn 65535</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line">    #设定mime类型,类型由mime.type文件定义</div><div class="line">    include    mime.types;</div><div class="line">    default_type  application/octet-stream;</div><div class="line">    #设定日志格式</div><div class="line">    log_format  main  &apos;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &apos;</div><div class="line">                      &apos;$status $body_bytes_sent &quot;$http_referer&quot; &apos;</div><div class="line">                      &apos;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&apos;;</div><div class="line">    access_log  logs/access.log  main;</div><div class="line"></div><div class="line">    #sendfile 指令指定 nginx 是否调用 sendfile 函数（zero copy 方式）来输出文件，</div><div class="line">    #对于普通应用，必须设为 on,</div><div class="line">    #如果用来进行下载等应用磁盘IO重负载应用，可设置为 off，</div><div class="line">    #以平衡磁盘与网络I/O处理速度，降低系统的uptime.</div><div class="line">    sendfile    on;</div><div class="line">    #tcp_nopush    on;</div><div class="line"></div><div class="line">    #连接超时时间</div><div class="line">    #keepalive_timeout  0;</div><div class="line">    keepalive_timeout  65;</div><div class="line">    tcp_nodelay    on;</div><div class="line"></div><div class="line">    #开启gzip压缩</div><div class="line">    gzip  on;</div><div class="line">    gzip_disable &quot;MSIE [1-6].&quot;;</div><div class="line"></div><div class="line">    #设定请求缓冲</div><div class="line">    client_header_buffer_size    128k;</div><div class="line">    large_client_header_buffers  4 128k;</div><div class="line"></div><div class="line">    #设定虚拟主机配置</div><div class="line">    server &#123;</div><div class="line">        #侦听80端口</div><div class="line">        listen    80;</div><div class="line">        #定义使用 www.nginx.cn访问</div><div class="line">        server_name  www.nginx.cn;</div><div class="line"></div><div class="line">        #定义服务器的默认网站根目录位置</div><div class="line">        root html;</div><div class="line"></div><div class="line">        #设定本虚拟主机的访问日志</div><div class="line">        access_log  logs/nginx.access.log  main;</div><div class="line"></div><div class="line">        #默认请求</div><div class="line">        location / &#123;</div><div class="line"></div><div class="line">            #定义首页索引文件的名称</div><div class="line">            index index.php index.html index.htm;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        # 定义错误提示页面</div><div class="line">        error_page  500 502 503 504 /50x.html;</div><div class="line">        location = /50x.html &#123;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #静态文件，nginx自己处理</div><div class="line">        location ~ ^/(images|javascript|js|css|flash|media|static)/ &#123;</div><div class="line">            #过期30天，静态文件不怎么更新，过期可以设大一点，</div><div class="line">            #如果频繁更新，则可以设置得小一点。</div><div class="line">            expires 30d;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #PHP 脚本请求全部转发到 FastCGI处理. 使用FastCGI默认配置.</div><div class="line">        location ~ .php$ &#123;</div><div class="line">            fastcgi_pass 127.0.0.1:9000;</div><div class="line">            fastcgi_index index.php;</div><div class="line">            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;</div><div class="line">            include fastcgi_params;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        #禁止访问 .htxxx 文件</div><div class="line">            location ~ /.ht &#123;</div><div class="line">            deny all;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><p>nginx <code>502</code>错误,而通过服务器地址:原始端口号(8080)可以访问<br>查看<code>/var/log/nginx/error.log</code><br>显示为 <code>failed (13: Permission denied)</code><br>命令行临时关闭selinux确认是否由此设置引起的 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ getenforce    #查看selinux状态</div><div class="line">$ setenforce 0</div></pre></td></tr></table></figure>
-<p>然后测试是否可以访问如果可以则证明是<code>selinux</code>的问题，于是先关掉<code>selinux</code></p>
-<p><strong>nginx拒绝或允许指定IP,是使用模块HTTP访问控制模块（HTTP Access）.</strong></p>
-<p>控制规则按照声明的顺序进行检查，首条匹配IP的访问规则将被启用。 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/16;</div><div class="line">  deny    all;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上面的例子中仅允许<code>192.168.1.0/24</code>和<code>10.1.1.0/16</code>网络段访问这个<code>location</code>字段，但<code>192.168.1.1</code>是个例外。<br>注意规则的匹配顺序，如果你使用过apache你可能会认为你可以随意控制规则的顺序并且他们能够正常的工作，但实际上不行。</p>
-<p>下面的这个例子将拒绝掉所有的连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">location / &#123;</div><div class="line">  #这里将永远输出403错误。</div><div class="line">  deny all;</div><div class="line">  #这些指令不会被启用，因为到达的连接在第一条已经被拒绝</div><div class="line">  deny    192.168.1.1;</div><div class="line">  allow   192.168.1.0/24;</div><div class="line">  allow   10.1.1.0/1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><p>nginx负载均衡基于iphash的session黏贴<br>nginx可以根据客户端IP进行负载均衡，在upstream里设置ip_hash，就可以针对同一个C类地址段中的客户端选择同一个后端服务器，除非那个后端服务器宕了才会换一个。<br>nginx的<code>upstream</code>目前支持的5种方式的分配  </p>
-<h3 id="轮询（默认）"><a href="#轮询（默认）" class="headerlink" title="轮询（默认）"></a>轮询（默认）</h3><p>每个请求按时间顺序逐一分配到不同的后端服务器，如果后端服务器<code>down</code>掉，能自动剔除。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream backserver &#123;</div><div class="line">server 192.168.0.14;</div><div class="line">server 192.168.0.15;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="weight"><a href="#weight" class="headerlink" title="weight"></a>weight</h3><p>指定轮询几率，<code>weight</code>和访问比率成正比，用于后端服务器性能不均的情况。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">upstream backserver &#123;</div><div class="line">server 192.168.0.14 weight=10;</div><div class="line">server 192.168.0.15 weight=10;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="ip-hash"><a href="#ip-hash" class="headerlink" title="ip_hash"></a>ip_hash</h3><p>每个请求按访问<code>ip</code>的<code>hash</code>结果分配，这样每个访客固定访问一个后端服务器，可以解决<code>session</code>的问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream backserver &#123;</div><div class="line">ip_hash;</div><div class="line">server 192.168.0.14:88;</div><div class="line">server 192.168.0.15:80;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="fair（第三方）"><a href="#fair（第三方）" class="headerlink" title="fair（第三方）"></a>fair（第三方）</h3><p>按后端服务器的响应时间来分配请求，响应时间短的优先分配。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream backserver &#123;</div><div class="line">server server1;</div><div class="line">server server2;</div><div class="line">fair;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="url-hash（第三方）"><a href="#url-hash（第三方）" class="headerlink" title="url_hash（第三方）"></a>url_hash（第三方）</h3><p>按访问<code>url</code>的<code>hash</code>结果来分配请求，使每个<code>url</code>定向到同一个后端服务器，后端服务器为缓存时比较有效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">upstream backserver &#123;</div><div class="line">server squid1:3128;</div><div class="line">server squid2:3128;</div><div class="line">hash $request_uri;</div><div class="line">hash_method crc32;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在需要使用负载均衡的server中增加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">proxy_pass http://backserver/;</div><div class="line">upstream backserver&#123;</div><div class="line">ip_hash;</div><div class="line">server 127.0.0.1:9090 down; (down 表示单前的server暂时不参与负载)</div><div class="line">server 127.0.0.1:8080 weight=2; (weight 默认为1.weight越大，负载的权重就越大)</div><div class="line">server 127.0.0.1:6060;</div><div class="line">server 127.0.0.1:7070 backup; (其它所有的非backup机器down或者忙的时候，请求backup机器)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>max_fails ：</strong>允许请求失败的次数默认为1.当超过最大次数时，返回proxy_next_upstream 模块定义的错误</p>
-<p><strong>fail_timeout:</strong> max_fails次失败后，暂停的时间</p>
-<p>一般做负载均衡，都需要后端多台web服务器之间实现session共享，否则用户登录可能就有问题了。<br>今天看nginx文档时候，发现nginx可以根据客户端IP进行负载均衡，在upstream里设置ip_hash，就可以针对同一个C类地址段中的客户端选择同一个后端服务器，除非那个后端服务器宕了才会换一个。<br>原文如下：<br><code>The key for the hash is the class-C network address of the client. This method guarantees that the client request will always be forwarded to the same server. But if this server is considered inoperative, then the request of this client will be transferred to another server. This gives a high probability clients will always connect to the same server.</code><br>也就是说我可以在两台服务器上跑两个论坛，但共享一个后台数据库，而不用去关心session共享的问题，前面启用<code>ip_hash</code>，正常情况下，客户端上网获得IP，登录浏览发帖等都会被转到固定的后端服务器上，这样就不会出问题了。应该说来访IP分布越广，负载均衡就越平均。嘿嘿，如果都是同一个C来的用户，那就没用了。<br>虚拟机上搭了个环境测试了一下：<br>装了三个nginx，分别在<code>80</code>，<code>81</code>，<code>82</code>端口上。<br>80端口上的nginx做负载均衡前端，配置到后面两个nginx：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">upstream test&#123;</div><div class="line">            ip_hash;</div><div class="line">            server 127.0.0.1:81 ;</div><div class="line">            server 127.0.0.1:82 ;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在<code>81</code>端口的<code>nginx</code>上写个简单的<code>html</code>，内容为<code>1</code>；在<code>82</code>端口的<code>nginx</code>上写个内容为<code>2</code>的<code>html</code>，两个文件同名。<br>在有<code>ip_hash</code>的时候，刷新页面<code>http://192.168.1.33/index.html</code>，始终显示为<code>1</code>，没有<code>ip_hash</code>的时候，则为轮流的<code>1</code>和<code>2</code></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/nginx.jpg&quot; alt=&quot;nginx&quot; title=&quot;nginx&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;nginx安装&quot;&gt;&lt;a href=&quot;#nginx安装&quot; class=&quot;headerlink&quot; title=&quot;nginx安装&quot;&gt;&lt;/a&gt;nginx安装&lt;/h2&gt;&lt;p&gt;第一步，在&lt;code&gt;/etc/yum.repos.d/&lt;/code&gt;目录下创建一个源配置文件&lt;code&gt;nginx.repo&lt;/code&gt;：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;cd /etc/yum.repos.d/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;vim nginx.repo&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;填写如下内容：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;[nginx]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;name=nginx repo  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;gpgcheck=0  &lt;/div&gt;&lt;div class=&quot;line&quot;&gt;enabled=1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="nginx" scheme="http://jet-han.oschina.io/categories/nginx/"/>
-    
-    
-      <category term="linux" scheme="http://jet-han.oschina.io/tags/linux/"/>
-    
-      <category term="nginx" scheme="http://jet-han.oschina.io/tags/nginx/"/>
     
   </entry>
   
