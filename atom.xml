@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-28T11:07:44.851Z</updated>
+  <updated>2018-11-28T11:09:34.332Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
     <id>http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/</id>
     <published>2017-11-28T10:41:59.000Z</published>
-    <updated>2018-11-28T11:07:44.851Z</updated>
+    <updated>2018-11-28T11:09:34.332Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <p>昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全面地了解SQL语句执行的每个过程，才能更好的进行SQL的设计和优化。<br> 当希望MySQL能够以更高的性能运行查询时，最好的办法就是弄清楚MySQL是如何优化和执行查询的。一旦理解了这一点，很多查询优化工作实际上就是遵循一些原则能够按照预想的合理的方式运行。<br> 如下图所示，当向MySQL发送一个请求的时候，MySQL到底做了什么：</p>
@@ -48,6 +48,11 @@
 <p> MySQL使用基于成本的查询优化器(Cost-Based Optimizer，CBO)。它会尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最少的一个。<br> 优化器会根据优化规则对关系表达式进行转换，这里的转换是说一个关系表达式经过优化规则后会生成另外一个关系表达式，同时原有表达式也会保留，经过一系列转换后会生成多个执行计划，然后CBO会根据统计信息和代价模型(Cost Model)计算每个执行计划的Cost，从中挑选Cost最小的执行计划。由上可知，CBO中有两个依赖：统计信息和代价模型。统计信息的准确与否、代价模型的合理与否都会影响CBO选择最优计划。<br> 有关优化器的原理十分复杂，这里就不进行详细讲解了，大家可以自行学习。</p>
 <h1 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a>查询执行引擎</h1><p> 在解析和优化阶段，MySQL将生成查询对应的执行计划，MySQL的查询执行引擎根据这个执行计划来完成整个查询。这里执行计划是一个数据结构，而不是和其他的关系型数据库那样生成对应的字节码。</p>
 <h1 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a>返回结果给客户端</h1><p> 如果查询可以被缓存，那么MySQL在这个阶段页会将结果存放到查询缓存中。<br> MySQL将结果集返回给客户端是一个增量、逐步返回的过程。在查询生成第一条结果时，MySQL就可以开始向客户端逐步返回结果集了。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>SQL优化器原理——查询优化器综述 <a href="https://zhuanlan.zhihu.com/p/40478975" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/40478975</a></li>
+<li>《高性能MySQL》</li>
+<li>《MySQL技术内幕-InnoDB存储引擎》</li>
+</ul>
 ]]></content>
     
     <summary type="html">
