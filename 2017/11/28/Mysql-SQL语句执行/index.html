@@ -16,7 +16,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/execute1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/execute2.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/execute3.png">
-<meta property="og:updated_time" content="2018-11-28T11:26:37.568Z">
+<meta property="og:updated_time" content="2018-11-29T07:40:23.954Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql-SQL语句执行">
 <meta name="twitter:description" content="昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全面地了解SQL语句执行的每个过程，才能更好的进行SQL的设计和优化。 当希望MySQL能够以更高的性能运行查询时，最好的办法就是弄清楚MySQL是如何优化和执行查询的。一旦理解了这一点，很多查询优化工作实际上就是遵循一些原则能够按照预想的合理的方式运行。 如下图所示，当向MySQL发送一个请求的时候，My">
@@ -300,7 +300,7 @@
 </ul>
 <a id="more"></a>
 <p><img src="/2017/11/28/Mysql-SQL语句执行/execute1.png" alt="mysql" title="mysql"></p>
-<h1 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h1><p> MySQL查询缓存保存查询返回的完整结构。当查询命中该缓存时，MySQL会立刻返回结果，跳过了解析、优化和执行阶段。<br> 查询缓存系统会跟踪查询中涉及的每个表，如果这些表发生了变化，那么和这个表相关的所有缓存数据都将失效。<br> MySQL将缓存存放在一个引用表中，通过一个哈希值引用，这个哈希值包括了以下因素，即查询本身、当前要查询的数据库、客户端协议的版本等一些其他可能影响返回结果的信息。<br> 当判断缓存是否命中时，MySQL不会进行解析查询语句，而是直接使用SQL语句和客户端发送过来的其他原始信息。所以，任何字符上的不同，例如空格、注解等都会导致缓存的不命中。<br> 当查询语句中有一些不确定的数据时，则不会被缓存。例如包含函数NOW()或者CURRENT_DATE()的查询不会缓存。包含任何用户自定义函数，存储函数，用户变量，临时表，mysql数据库中的系统表或者包含任何列级别权限的表，都不会被缓存。<br> 有一点需要注意，MySQL并不是会因为查询中包含一个不确定的函数而不检查查询缓存，因为检查查询缓存之前，MySQL不会解析查询语句，所以也无法知道语句中是否有不确定的函数。<br> 事实则是，如果查询语句中包含任何的不确定的函数，那么其查询结果不会被缓存，因为查询缓存中也无法找到对应的缓存结果。<br> 有关查询缓存的配置如下所示。  </p>
+<h2 id="查询缓存"><a href="#查询缓存" class="headerlink" title="查询缓存"></a>查询缓存</h2><p> MySQL查询缓存保存查询返回的完整结构。当查询命中该缓存时，MySQL会立刻返回结果，跳过了解析、优化和执行阶段。<br> 查询缓存系统会跟踪查询中涉及的每个表，如果这些表发生了变化，那么和这个表相关的所有缓存数据都将失效。<br> MySQL将缓存存放在一个引用表中，通过一个哈希值引用，这个哈希值包括了以下因素，即查询本身、当前要查询的数据库、客户端协议的版本等一些其他可能影响返回结果的信息。<br> 当判断缓存是否命中时，MySQL不会进行解析查询语句，而是直接使用SQL语句和客户端发送过来的其他原始信息。所以，任何字符上的不同，例如空格、注解等都会导致缓存的不命中。<br> 当查询语句中有一些不确定的数据时，则不会被缓存。例如包含函数NOW()或者CURRENT_DATE()的查询不会缓存。包含任何用户自定义函数，存储函数，用户变量，临时表，mysql数据库中的系统表或者包含任何列级别权限的表，都不会被缓存。<br> 有一点需要注意，MySQL并不是会因为查询中包含一个不确定的函数而不检查查询缓存，因为检查查询缓存之前，MySQL不会解析查询语句，所以也无法知道语句中是否有不确定的函数。<br> 事实则是，如果查询语句中包含任何的不确定的函数，那么其查询结果不会被缓存，因为查询缓存中也无法找到对应的缓存结果。<br> 有关查询缓存的配置如下所示。  </p>
 <ul>
 <li>query_cache_type:是否打开查询缓存。可以设置为OFF、ON和DEMAND。DEMAND表示只有在查询语句中明确写明SQL_CACHE的语句才会放入查询缓存。</li>
 <li>query_cache_size:查询缓存使用的总内存空间。</li>
@@ -310,13 +310,13 @@
 <p>对查询缓存的优化是数据库性能优化的重要一环。判断流程大致如下图所示。</p>
 <p><img src="/2017/11/28/Mysql-SQL语句执行/execute2.png" alt="mysql" title="mysql"></p>
 <p>缓存命中率可以通过如下公式计算：Qcache_hits/(Qcache_hits + Com_select)来计算。</p>
-<h1 id="解析和预处理"><a href="#解析和预处理" class="headerlink" title="解析和预处理"></a>解析和预处理</h1><p> 解析器通过关键字将SQL语句进行解析，并生成对应的解析树。MySQL解析器将使用MySQL语法规则验证和解析查询。<br> 预处理器则根据一些MySQL规则进行进一步检查解析书是否合法，例如检查数据表和数据列是否存在，还会解析名字和别名，看看它们是否有歧义。</p>
-<h1 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h1><p> 查询优化器会将解析树转化成执行计划。一条查询可以有多种执行方法，最后都是返回相同结果。优化器的作用就是找到这其中最好的执行计划。<br> 生成执行计划的过程会消耗较多的时间，特别是存在许多可选的执行计划时。如果在一条SQL语句执行的过程中将该语句对应的最终执行计划进行缓存，当相似的语句再次被输入服务器时，就可以直接使用已缓存的执行计划，从而跳过SQL语句生成执行计划的整个过程，进而可以提高语句的执行速度。</p>
+<h2 id="解析和预处理"><a href="#解析和预处理" class="headerlink" title="解析和预处理"></a>解析和预处理</h2><p> 解析器通过关键字将SQL语句进行解析，并生成对应的解析树。MySQL解析器将使用MySQL语法规则验证和解析查询。<br> 预处理器则根据一些MySQL规则进行进一步检查解析书是否合法，例如检查数据表和数据列是否存在，还会解析名字和别名，看看它们是否有歧义。</p>
+<h2 id="查询优化器"><a href="#查询优化器" class="headerlink" title="查询优化器"></a>查询优化器</h2><p> 查询优化器会将解析树转化成执行计划。一条查询可以有多种执行方法，最后都是返回相同结果。优化器的作用就是找到这其中最好的执行计划。<br> 生成执行计划的过程会消耗较多的时间，特别是存在许多可选的执行计划时。如果在一条SQL语句执行的过程中将该语句对应的最终执行计划进行缓存，当相似的语句再次被输入服务器时，就可以直接使用已缓存的执行计划，从而跳过SQL语句生成执行计划的整个过程，进而可以提高语句的执行速度。</p>
 <p><img src="/2017/11/28/Mysql-SQL语句执行/execute3.png" alt="mysql" title="mysql"></p>
 <p> MySQL使用基于成本的查询优化器(Cost-Based Optimizer，CBO)。它会尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最少的一个。<br> 优化器会根据优化规则对关系表达式进行转换，这里的转换是说一个关系表达式经过优化规则后会生成另外一个关系表达式，同时原有表达式也会保留，经过一系列转换后会生成多个执行计划，然后CBO会根据统计信息和代价模型(Cost Model)计算每个执行计划的Cost，从中挑选Cost最小的执行计划。由上可知，CBO中有两个依赖：统计信息和代价模型。统计信息的准确与否、代价模型的合理与否都会影响CBO选择最优计划。<br> 有关优化器的原理十分复杂，这里就不进行详细讲解了，大家可以自行学习。</p>
-<h1 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a>查询执行引擎</h1><p> 在解析和优化阶段，MySQL将生成查询对应的执行计划，MySQL的查询执行引擎根据这个执行计划来完成整个查询。这里执行计划是一个数据结构，而不是和其他的关系型数据库那样生成对应的字节码。</p>
-<h1 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a>返回结果给客户端</h1><p> 如果查询可以被缓存，那么MySQL在这个阶段页会将结果存放到查询缓存中。<br> MySQL将结果集返回给客户端是一个增量、逐步返回的过程。在查询生成第一条结果时，MySQL就可以开始向客户端逐步返回结果集了。</p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<h2 id="查询执行引擎"><a href="#查询执行引擎" class="headerlink" title="查询执行引擎"></a>查询执行引擎</h2><p> 在解析和优化阶段，MySQL将生成查询对应的执行计划，MySQL的查询执行引擎根据这个执行计划来完成整个查询。这里执行计划是一个数据结构，而不是和其他的关系型数据库那样生成对应的字节码。</p>
+<h2 id="返回结果给客户端"><a href="#返回结果给客户端" class="headerlink" title="返回结果给客户端"></a>返回结果给客户端</h2><p> 如果查询可以被缓存，那么MySQL在这个阶段页会将结果存放到查询缓存中。<br> MySQL将结果集返回给客户端是一个增量、逐步返回的过程。在查询生成第一条结果时，MySQL就可以开始向客户端逐步返回结果集了。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li>SQL优化器原理——查询优化器综述 <a href="https://zhuanlan.zhihu.com/p/40478975" target="_blank" rel="external">https://zhuanlan.zhihu.com/p/40478975</a></li>
 <li>《高性能MySQL》</li>
 <li>《MySQL技术内幕-InnoDB存储引擎》</li>
@@ -392,7 +392,7 @@
         <p><span>本文标题:</span><a href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年11月28日 - 18时41分</p>
-        <p><span>最后更新:</span>2018年11月28日 - 19时26分</p>
+        <p><span>最后更新:</span>2018年11月29日 - 15时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/11/28/Mysql-SQL语句执行/" title="Mysql-SQL语句执行">http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -424,7 +424,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#查询缓存"><span class="toc-number">1.</span> <span class="toc-text">查询缓存</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解析和预处理"><span class="toc-number">2.</span> <span class="toc-text">解析和预处理</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查询优化器"><span class="toc-number">3.</span> <span class="toc-text">查询优化器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查询执行引擎"><span class="toc-number">4.</span> <span class="toc-text">查询执行引擎</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#返回结果给客户端"><span class="toc-number">5.</span> <span class="toc-text">返回结果给客户端</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#查询缓存"><span class="toc-number">1.</span> <span class="toc-text">查询缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解析和预处理"><span class="toc-number">2.</span> <span class="toc-text">解析和预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询优化器"><span class="toc-number">3.</span> <span class="toc-text">查询优化器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查询执行引擎"><span class="toc-number">4.</span> <span class="toc-text">查询执行引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回结果给客户端"><span class="toc-number">5.</span> <span class="toc-text">返回结果给客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 

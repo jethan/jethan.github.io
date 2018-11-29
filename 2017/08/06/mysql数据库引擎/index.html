@@ -14,11 +14,27 @@
 <meta property="og:description" content="数据库引擎　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。 数据库引擎任务在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/mysql_engines.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb1.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb2.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb3.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb4.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb5.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb6.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb7.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb8.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb9.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb10.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb11.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb12.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb13.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb14.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb15.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/innodb16.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/MyIasm1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/MyIasm2.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/Innodb1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/Innodb2.png">
-<meta property="og:updated_time" content="2018-11-13T07:58:43.353Z">
+<meta property="og:updated_time" content="2018-11-29T10:41:33.150Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql数据库引擎">
 <meta name="twitter:description" content="数据库引擎　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。 数据库引擎任务在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎">
@@ -313,8 +329,268 @@
 <h4 id="更改方式3：建表后更改"><a href="#更改方式3：建表后更改" class="headerlink" title="更改方式3：建表后更改"></a>更改方式3：建表后更改</h4><p>　　<code>alter table mytbl2 type = InnoDB;</code></p>
 <h3 id="查看修改结果"><a href="#查看修改结果" class="headerlink" title="查看修改结果"></a>查看修改结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#方式1：</div><div class="line">show table status from mytest; </div><div class="line">#方式2：</div><div class="line">show create table table_name</div></pre></td></tr></table></figure>
 <h2 id="MyIASM-和-Innodb引擎详解"><a href="#MyIASM-和-Innodb引擎详解" class="headerlink" title="MyIASM 和 Innodb引擎详解"></a>MyIASM 和 Innodb引擎详解</h2><h3 id="Innodb引擎"><a href="#Innodb引擎" class="headerlink" title="Innodb引擎"></a>Innodb引擎</h3><p>　　Innodb引擎提供了对数据库<strong>ACID事务的支持</strong>，并且实现了SQL标准的四种隔离级别，关于数据库事务与其隔离级别的内容请见<a href="http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">数据库事务与其隔离级别</a>。该引擎还提供了<strong>行级锁和外键约束</strong>，它的设计目标是处理大容量数据库系统，它本身其实就是基于MySQL后台的完整数据库系统，MySQL运行时Innodb会在内存中建立缓冲池，用于缓冲数据和索引。但是该引擎不支持<code>FULLTEXT</code>类型的索引，而且它没有保存表的行数，当<code>SELECT COUNT(*) FROM TABLE</code>时需要扫描全表。当需要使用数据库事务时，该引擎当然是首选。由于锁的粒度更小，写操作不会锁定全表，所以在并发较高时，使用<code>Innodb</code>引擎会提升效率。但是使用行级锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表。</p>
+<h4 id="内存结构和特性"><a href="#内存结构和特性" class="headerlink" title="内存结构和特性"></a>内存结构和特性</h4><p>　　MySQL区别于其他数据库的最为重要的特点就是其插件式的表存储引擎。而在众多存储引擎中，InnoDB是最为常用的存储引擎。从MySQL5.5.8版本开始，InnoDB存储引擎是默认的存储引擎。<br>　　InnoDB存储引擎支持事务，其设计目标主要面向在线事务处理(OLTP)的应用。其特点是行锁设计、支持外键，并支持非锁定读，即默认读操作不会产生锁。<br>　　InnoDB通过使用多版本并发控制(MVCC)来获取高并发性，并且实现了SQL标准的4中隔离级别，默认为REPEATABLE级别。同时，使用一种被称为next-key-locking的策略来避免幻读现象的产生。除此之外，InnoDB存储引擎还提供了插入缓冲(insert buffer)、二次写(double write)、自适应哈希索引(adaptive hash index)、预读(read ahead)等高性能和高可用的功能。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb1.png" alt="mysql" title="mysql"></p>
+<p>上图详细显示了InnoDB存储引擎的体系架构，从图中可见，InnoDB存储引擎由内存池，后台线程和磁盘文件三大部分组成。接下来我们就来简单了解一下内存相关的概念和原理。</p>
+<p><strong>缓冲池</strong>  </p>
+<p> InnoDB存储引擎是基于磁盘存储的，并将其中的记录按照页的方式进行管理。但是由于CPU速度和磁盘速度之间的鸿沟，基于磁盘的数据库系统通常使用缓冲池记录来提高数据库的的整体性能。<br> 在数据库中进行读取操作，首先将从磁盘中读到的页放在缓冲池中，下次再读相同的页中时，首先判断该页是否在缓冲池中。若在缓冲池中，称该页在缓冲池中被命中，直接读取该页。否则，读取磁盘上的页。<br> 对于数据库中页的修改操作，则首先修改在缓冲池中的页，然后再以一定的频率刷新到磁盘上。页从缓冲池刷新回磁盘的操作并不是在每次页发生更新时触发，而是通过一种称为CheckPoint的机制刷新回磁盘。<br> 所以，缓冲池的大小直接影响着数据库的整体性能，可以通过配置参数innodb_buffer_pool_size来设置。<br> 具体来看，缓冲池中缓存的数据页类型有：索引页、数据页、undo页、插入缓冲(insert buffer)、自适应哈希索引(adaptive hash index)、InnoDB存储的锁信息(lock info)和数据字典信息(data dictionary)。<br> 在架构图上可以看到，InnoDB存储引擎的内存区域除了有缓冲池之外，还有重做日志缓冲和额外内存池。InnoDB存储引擎首先将重做日志信息先放到这个缓冲区中，然后按照一定频率将其刷新到重做日志文件中。重做日志缓冲一般不需要设置的很大，该值可由配置参数innodb_log_buffer_size控制。   </p>
+<p><strong>数据页和索引页</strong>  </p>
+<p> Page是Innodb存储的最基本结构，也是Innodb磁盘管理的最小单位，与数据库相关的所有内容都存储在Page结构里。Page分为几种类型，数据页和索引页就是其中最为重要的两种类型。</p>
+<p><strong>插入缓冲(Insert Buffer)</strong>  </p>
+<p> 我们都知道，在InnoDB引擎上进行插入操作时，一般需要按照主键顺序进行插入，这样才能获得较高的插入性能。当一张表中存在非聚簇的且不唯一的索引时，在插入时，数据页的存放还是按照主键进行顺序存放，但是对于非聚簇索引叶节点的插入不再是顺序的了，这时就需要离散的访问非聚簇索引页，由于随机读取的存在导致插入操作性能下降。<br> InnoDB为此设计了Insert Buffer来进行插入优化。对于非聚簇索引的插入或者更新操作，不是每一次都直接插入到索引页中，而是先判断插入的非聚集索引是否在缓冲池中，若在，则直接插入；若不在，则先放入到一个Insert Buffer中。看似数据库这个非聚集的索引已经查到叶节点，而实际没有，这时存放在另外一个位置。然后再以一定的频率和情况进行Insert Buffer和非聚簇索引页子节点的合并操作。这时通常能够将多个插入合并到一个操作中，这样就大大提高了对于非聚簇索引的插入性能。  </p>
+<p><strong>两次写(Double Write)</strong>  </p>
+<p> 如果说Insert Buffer给InnoDB存储引擎带来了性能上的提升，那么Double Write带给InnoDB存储引擎的是数据页的可靠性。</p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb2.png" alt="mysql" title="mysql"></p>
+<p> 如上图所示，Double Write由两部分组成，一部分是内存中的double write buffer，大小为2MB，另一部分是物理磁盘上共享表空间连续的128个页，大小也为2MB。在对缓冲池的脏页进行刷新时，并不直接写磁盘，而是通过memcpy函数将脏页先复制到内存中的该区域，之后通过doublewrite buffer再分两次，每次1MB顺序地写入共享表空间的物理磁盘上，然后马上调用fsync函数，同步磁盘，避免操作系统缓冲写带来的问题。在完成doublewrite页的写入后，再讲doublewirite buffer中的页写入各个表空间文件中。<br> 如果操作系统在将页写入磁盘的过程中发生了崩溃，在恢复过程中，InnoDB存储引擎可以从共享表空间中的doublewrite中找到该页的一个副本，将其复制到表空间文件中，再应用重做日志。 </p>
+<p><strong>重做日志(Redo Log Buffer)</strong>  </p>
+<p> 当缓冲池中的页的版本比磁盘要新时，数据库需要将新版本的页从缓冲池刷新到磁盘。但是如果每次一个页发送变化，就进行刷新，那么性能开发是非常大的，于是InnoDB采用了Write Ahead Log策略，即当事务提交时，先写重做日志，然后再择时将脏页写入磁盘。如果发生宕机导致数据丢失，就通过重做日志进行数据恢复。  </p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb3.png" alt="mysql" title="mysql"></p>
+<p> InnoDB存储引擎会首先将重做日志信息先放入重做日志缓冲中，然后再按照一定频率将其刷新到重做日志文件。重做日志缓冲一般不需要设置得很大，因为一般情况每一秒钟都会讲重做日志缓冲刷新到日志文件中。可通过配置参数innodb_log_buffer_size控制，默认为8MB。<br> 除了每秒刷新机制之外，每次事务提交时重做日志缓冲也会刷新到日志中。InnoDB是事务的存储引擎，其通过Force Log at Commit机制实现事务的持久性，即当事务提交时，必须先将该事务的所有日志写入到重做日志文件进行持久化，然后事务的提交操作完成才算完成。InnoDB的写入机制大致入下图所示。<br> 为了确保每次日志都写入到重做日志文件，在每次讲重做日志缓冲写入重做日志后，必须调用一次fsync操作，将缓冲文件从文件系统缓存中真正写入磁盘。<br> 可以通过innodb_flush_log_at_trx_commit来控制重做日志刷新到磁盘的策略。该参数默认值为1，表示事务提交必须进行一次fsync操作，还可以设置为0和2。0表示事务提交时不进行写入重做日志操作，该操作只在主线程中完成，2表示提交时写入重做日志，但是只写入文件系统缓存，不进行fsync操作。由此可见，设置为0时，性能最高，但是丧失了事务的一致性。 </p>
+<p><strong>自适应哈希索引(Adaptive Hash Index)</strong>  </p>
+<p> InnoDB会根据访问的频率和模式，为热点页建立哈希索引，来提高查询效率。InnoDB存储引擎会监控对表上各个索引页的查询，如果观察到建立哈希索引可以带来速度上的提升，则建立哈希索引，所以叫做自适应哈希索引。</p>
+<p> 自适应哈希索引是通过缓冲池的B+树页构建而来，因此建立速度很快，而且不需要对整张数据表建立哈希索引。其有一个要求，即对这个页的连续访问模式必须是一样的，也就是说其查询的条件(WHERE)必须完全一样，而且必须是连续的。  </p>
+<p><strong>锁信息(lock info)</strong></p>
+<p> 我们都知道，InnoDB存储引擎会在行级别上对表数据进行上锁。不过InnoDB也会在数据库内部其他很多地方使用锁，从而允许对多种不同资源提供并发访问。数据库系统使用锁是为了支持对共享资源进行并发访问，提供数据的完整性和一致性。关于锁的具体知识我们之后再进行详细学习。 </p>
+<p><strong>数据字典信息(Data Dictionary)</strong></p>
+<p> InnoDB有自己的表缓存，可以称为表定义缓存或者数据字典。当InnoDB打开一张表，就增加一个对应的对象到数据字典。<br> 数据字典是对数据库中的数据、库对象、表对象等的元信息的集合。在MySQL中，数据字典信息内容就包括表结构、数据库名或表名、字段的数据类型、视图、索引、表字段信息、存储过程、触发器等内容。MySQL INFORMATION_SCHEMA库提供了对数据局元数据、统计信息、以及有关MySQL server的访问信息（例如：数据库名或表名，字段的数据类型和访问权限等）。该库中保存的信息也可以称为MySQL的数据字典。   </p>
+<h4 id="磁盘文件及落盘机制"><a href="#磁盘文件及落盘机制" class="headerlink" title="磁盘文件及落盘机制"></a>磁盘文件及落盘机制</h4><p>任何一个技术都有其底层的关键基础技术，这些关键技术很有可能也是其他技术的关键技术，学习这些底层技术，就可以一通百通，让你很快的掌握其他技术。如何在磁盘上存储数据，如何使用日志文件保证数据不丢失以及如何落盘，不仅是MySQL等数据库的关键技术，也是MQ消息队列或者其他中间件的关键技术之一。</p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb4.png" alt="mysql" title="mysql"></p>
+<p> 上图详细显示了InnoDB存储引擎的体系架构，从图中可见，InnoDB存储引擎由内存池，后台线程和磁盘文件三大部分组成。接下来我们就来简单了解一下磁盘文件相关的概念和原理。<br>    InnoDB的主要的磁盘文件主要分为三大块：一是系统表空间，二是用户表空间，三是redo日志文件和归档文件。二进制文件(binlog)等文件是MySQL Server层维护的文件，所以未列入InnoDB的磁盘文件中。  </p>
+<p><strong>系统表空间和用户表空间</strong>  </p>
+<p> InnoDB系统表空间包含InnoDB数据字典(元数据以及相关对象)并且doublewrite buffer,change buffer,undo logs的存储区域。系统表空间也默认包含任何用户在系统表空间创建的表数据和索引数据。系统表空间是一个共享的表空间因为它是被多个表共享的<br> 系统表空间是由一个或者多个数据文件组成。默认情况下,1个初始大小为10MB，名为ibdata1的系统数据文件在MySQL的data目录下被创建。用户可以使用innodb_data_file_path对数据文件的大小和数量进行配置。<br> innodb_data_file_path的格式如下：</p>
+<pre><code>  innodb_data_file_path=datafile1[,datafile2]...
+</code></pre><p> 用户可以通过多个文件组成一个表空间，同时制定文件的属性：</p>
+<pre><code>  innodb_data_file_path = /db/ibdata1:1000M;/dr2/db/ibdata2:1000M:autoextend
+</code></pre><p> 这里讲/db/ibdata1和/dr2/db/ibdata2两个文件组成系统表空间。如果这两个文件位于不同的磁盘上，磁盘的负载可能被平均，因此可以提高数据库的整体性能。两个文件的文件名之后都跟了属性，表示文件ibdata1的大小为1000MB，文件ibdata2的大小为1000MB，而且用完空间之后可以自动增长(autoextend)。</p>
+<p> 设置innodb_data_file_path参数之后，所以基于InnoDB存储引擎的表的数据都会记录到该系统表空间中，如果设置了参数innodb_file_per_table，则用户可以将每个基于InnoDB存储引擎的表产生一个独立的用户表空间。用户表空间的命名规则为：表名.ibd。<br> 通过这种方式，用户不用将所有数据都存放于默认的系统表空间中，但是用户表空只存储该表的数据、索引和插入缓冲BITMAP等信息，其余信息还是存放在默认的表空间中。</p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb5.png" alt="mysql" title="mysql"></p>
+<p> 上图显示InnoDB存储引擎对于文件的存储方式，其中frm文件是表结构定义文件，记录每个表的表结构定义。  </p>
+<p><strong>重做日志文件和归档文件</strong>  </p>
+<p> 默认情况下，在InnoDB存储引擎的数据目录下会有两个名为ib_logfile0和ib_logfile1的文件，这就是InnoDB的重做日志文件(redo log fiel)，它记录了对于InnoDB存储引擎的事务日志。<br> 当InnoDB的数据存储文件发生错误时，重做日志文件就能派上用场。InnoDB存储引擎可以使用重做日志文件将数据恢复为正确状态，以此来保证数据的正确性和完整性。</p>
+<p> 每个InnoDB存储引擎至少有1个重做日志文件组(group)，每个文件组下至少有2个重做日志文件，如默认的ib_logfile0和ib_logfile1。<br> 为了得到更高的可靠性，用户可以设置多个镜像日志组，将不同的文件组放在不同的磁盘上，以此来提高重做日志的高可用性。</p>
+<p> 在日志组中每个重做日志文件的大小一致，并以循环写入的方式运行。InnoDB存储引擎先写入重做日志文件1，当文件被写满时，会切换到重做日志文件2，再当重做日志文件2也被写满时，再切换到重做日志文件1。</p>
+<p> 用户可以使用innodb_log_file_size来设置重做日志文件的大小，这对InnoDB存储引擎的性能有着非常大的影响。</p>
+<p> 如果重做日志文件设置的太大，数据丢失时，恢复时可能需要很长的时间；另一方面，如果设置的太小，重做日志文件太小会导致依据checkpoint的检查需要频繁刷新脏页到磁盘中，导致性能的抖动。<br> 重做日志相关和Checkpoint的机制可以阅读我之前文章的相应章节。MySQL探秘(三):InnoDB的内存结构和特性</p>
+<p><strong>重做日志的落盘机制</strong>  </p>
+<p> InnoDB对于数据文件和日志文件的刷盘遵守WAL(Write ahead redo log) 和Force-log-at-commit两种规则，二者保证了事务的持久性。WAL要求数据的变更写入到磁盘前，首先必须将内存中的日志写入到磁盘；Force-log-at-commit要求当一个事务提交时，所有产生的日志都必须刷新到磁盘上，如果日志刷新成功后，缓冲池中的数据刷新到磁盘前数据库发生了宕机，那么重启时，数据库可以从日志中恢复数据。</p>
+<p>  <img src="/2017/08/06/mysql数据库引擎/innodb6.png" alt="mysql" title="mysql"></p>
+<p>如上图所示，InnoDB在缓冲池中变更数据时，会首先将相关变更写入重做日志缓冲中，然后再按时或者当事务提交时写入磁盘，这符合Force-log-at-commit原则；当重做日志写入磁盘后，缓冲池中的变更数据才会依据checkpoint机制择时写入到磁盘中，这符合WAL原则。<br> 在checkpoint择时机制中，就有重做日志文件写满的判断，所以，如前文所述，如果重做日志文件太小，经常被写满，就会频繁导致checkpoint将更改的数据写入磁盘，导致性能抖动。</p>
+<p> 操作系统的文件系统是带有缓存的，当InnoDB向磁盘写入数据时，有可能只是写入到了文件系统的缓存中，没有真正的“落袋为安”。<br> InnoDB的innodb_flush_log_at_trx_commit属性可以控制每次事务提交时InnoDB的行为。当属性值为0时，事务提交时，不会对重做日志进行写入操作，而是等待主线程按时写入；当属性值为1时，事务提交时，会将重做日志写入文件系统缓存，并且调用文件系统的fsync，将文件系统缓冲中的数据真正写入磁盘存储，确保不会出现数据丢失；当属性值为2时，事务提交时，也会将日志文件写入文件系统缓存，但是不会调用fsync，而是让文件系统自己去判断何时将缓存写入磁盘。日志的刷盘机制如下图所示。</p>
+<p>   <img src="/2017/08/06/mysql数据库引擎/innodb7.png" alt="mysql" title="mysql"></p>
+<p> innodb_flush_log_at_commit是InnoDB性能调优的一个基础参数，涉及InnoDB的写入效率和数据安全。当参数值为0时，写入效率最高，但是数据安全最低；参数值为1时，写入效率最低，但是数据安全最高；参数值为2时，二者都是中等水平。一般建议将该属性值设置为1，以获得较高的数据安全性，而且也只有设置为1，才能保证事务的持久性。  </p>
+<h4 id="锁的类型和状态查询"><a href="#锁的类型和状态查询" class="headerlink" title="锁的类型和状态查询"></a>锁的类型和状态查询</h4><p>锁是数据库系统区分于文件系统的一个关键特性。数据库使用锁来支持对共享资源进行并发访问，提供数据的完整性和一致性。此外，数据库事务的隔离性也是通过锁实现的。InnoDB在此方面一直优于其他数据库引擎。InnoDB会在行级别上对表数据上锁，而MyISAM只能在表级别上锁，二者性能差异可想而知。</p>
+<p>InnoDB存储引擎中的锁<br> InnoDB存储引擎实现了如下两种标准的行级锁：</p>
+<p>共享锁(S Lock)，允许事务读取一行</p>
+<p>排他锁(X Lock)，允许事务删除或更新一行数据</p>
+<p>  如果一个事务T1已经获取了行r的共享锁，那么另外一个事务T2可以立刻获得行r的共享锁，因为读取并不会改变数据，可以进行并发的读取操作；但若其他的事务T3想要获取行r的排他锁，则必须等待事务T1和T2释放行r上的共享锁之后才能继续，因为获取排他锁一般是为了改变数据，所以不能同时进行读取或则其他写入操作。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">X</th>
+<th style="text-align:center">S</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">不兼容</td>
+<td style="text-align:center">不兼容</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">不兼容</td>
+<td style="text-align:center">兼容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> InnoDB存储引擎支持多粒度锁定，这种锁定允许事务在行级上的锁和表级上的锁同时存在。为了支持在不同粒度上进行加锁操作，InnoDB存储引擎支持一种称为意向锁的锁方式。意向锁是将锁定的对象分为多个层次，意向锁意味着事务希望在更细粒度上进行加锁。</p>
+<p> InnoDB存储引擎的意向锁即为表级别的锁。设计目的主要是为了在一个事务中揭示下一行将被请求的锁类型。其支持两种意向锁：</p>
+<ul>
+<li><p>意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</p>
+</li>
+<li><p>意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</p>
+</li>
+</ul>
+<p>需要注意的是意向锁是表级别的锁，它不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。故表级别的意向锁和表级别的锁的兼容性如下表所示。  </p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">IS</th>
+<th style="text-align:center">IX</th>
+<th style="text-align:center">S</th>
+<th>X</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">IS</td>
+<td style="text-align:center">兼容</td>
+<td style="text-align:center">兼容</td>
+<td style="text-align:center">兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td style="text-align:center">IX</td>
+<td style="text-align:center">兼容</td>
+<td style="text-align:center">兼容</td>
+<td style="text-align:center">不兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td style="text-align:center">S</td>
+<td style="text-align:center">兼容</td>
+<td style="text-align:center">不兼容</td>
+<td style="text-align:center">兼容</td>
+<td>不兼容</td>
+</tr>
+<tr>
+<td style="text-align:center">X</td>
+<td style="text-align:center">不兼容</td>
+<td style="text-align:center">不兼容</td>
+<td style="text-align:center">不兼容</td>
+<td>不兼容</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p> 向一个表添加表级X锁的时候(执行ALTER TABLE, DROP TABLE, LOCK TABLES等操作)，如果没有意向锁的话，则需要遍历所有整个表判断是否有行锁的存在，以免发生冲突。如果有了意向锁，只需要判断该意向锁与即将添加的表级锁是否兼容即可。因为意向锁的存在代表了，有行级锁的存在或者即将有行级锁的存在，因而无需遍历整个表，即可获取结果。</p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb8.png" alt="mysql" title="mysql"></p>
+<p> 如果将上锁的对象看成一棵树，那么对最下层的对象上锁，也就是对最细粒度的对象进行上锁，那么首先需要对粗粒度的对象上锁。如上图所示，如果需要对表1的记录m行上X锁，那么需要先对表1加意向IX锁，然后对记录m上X锁。如果其中任何一个部分导致等待，那么该操作需要等待粗粒度锁的完成。</p>
+<p>InnoDB锁相关状态查询<br> 用户可以使用INFOMATION_SCHEMA库下的INNODB_TRX、INNODB_LOCKS和INNODB_LOCK_WAITS表来监控当前事务并分析可能出现的锁问题。INNODB_TRX的定义如下表所示，其由8个字段组成。</p>
+<ul>
+<li><p>trx_id：InnoDB存储引擎内部唯一的事务ID</p>
+</li>
+<li><p>trx_state：当前事务的状态</p>
+</li>
+<li><p>trx_started：事务的开始时间</p>
+</li>
+<li><p>trx_request_lock_id：等待事务的锁ID。如果trx_state的状态为LOCK WAIT,那么该字段代表当前事务等待之前事务占用的锁资源ID</p>
+</li>
+<li><p>trx_wait_started：事务等待的时间</p>
+</li>
+<li><p>trx_weight：事务的权重，反映了一个事务修改和锁住的行数，当发生死锁需要回滚时，会选择该数值最小的进行回滚</p>
+</li>
+<li><p>trx_mysql_thread_id：线程ID，SHOW PROCESSLIST 显示的结果</p>
+</li>
+<li><p>trx_query：事务运行的SQL语句</p>
+</li>
+</ul>
+<pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_TRX\G;    
+************** 1.row ***********************     
+trx_id:  7311F4  
+trx_state: LOCK WAIT  
+trx_started: 2010-01-04 10:49:33  
+trx_requested_lock_id: 7311F4:96:3:2  
+trx_wait_started: 2010-01-04 10:49:33  
+trx_weight: 2  
+trx_mysql_thread_id: 471719  
+trx_query: select * from parent lock in share mode    
+</code></pre><p> INNODB_TRX表只能显示当前运行的InnoDB事务，并不能直接判断锁的一些情况。如果需要查看锁，则还需要访问表INNODB_LOCKS，该表的字段组成如下表所示。</p>
+<ul>
+<li><p>lock_id：锁的ID</p>
+</li>
+<li><p>lock_trx_id：事务的ID</p>
+</li>
+<li><p>lock_mode：锁的模式</p>
+</li>
+<li><p>lock_type：锁的类型，表锁还是行锁</p>
+</li>
+<li><p>lock_table：要加锁的表</p>
+</li>
+<li><p>lock_index：锁住的索引</p>
+</li>
+<li><p>lock_space：锁住的space id</p>
+</li>
+<li><p>lock_page：事务锁定页的数量，若是表锁，则该值为NULL</p>
+</li>
+<li><p>lock_rec：事务锁定行的数量，如果是表锁，则该值为NULL</p>
+</li>
+<li><p>lock_data：</p>
+<pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_LOCKS\G;
+***************** 1.row ***********************
+lock_id: 7311F4:96:3:2
+lock_trx_id: 7311F4
+lock_mode: S
+lock_type: RECORD
+lock_type: &#39;mytest&#39;.&#39;parent&#39;
+lock_index: &#39;PRIMARY&#39;
+lock_space: 96
+lock_page: 3
+lock_rec: 2
+lock_data: 1
+</code></pre></li>
+</ul>
+<p> 通过表INNODB_LOCKS查看每张表上锁的情况后，用户就可以来判断由此引发的等待情况。当时当事务量非常大，其中锁和等待也时常发生，这个时候就不那么容易判断。但是通过表INNODB_LOCK_WAITS，可以很直观的反应当前事务的等待。表INNODB_LOCK_WAITS由四个字段组成，如下表所示。</p>
+<ul>
+<li><p>requesting_trx_id：申请锁资源的事务ID</p>
+</li>
+<li><p>requesting_lock_id：申请的锁的ID</p>
+</li>
+<li><p>blocking_trx_id：阻塞的事务ID</p>
+</li>
+<li><p>blocking_lock_id：阻塞的锁的ID</p>
+<pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_LOCK_WAITS\G;
+******************1.row**************************
+requesting_trx_id: 7311F4
+requesting_lock_id: 7311F4:96:3:2
+blocking_trx_id: 730FEE
+blocking_lock_id: 730FEE:96:3:2
+</code></pre><p>  通过上述的SQL语句，用户可以清楚直观地看到哪个事务阻塞了另一个事务，然后使用上述的事务ID和锁ID，去INNODB_TRX和INNDOB_LOCKS表中查看更加详细的信息。</p>
+</li>
+</ul>
+<h4 id="一致性非锁定读"><a href="#一致性非锁定读" class="headerlink" title="一致性非锁定读"></a>一致性非锁定读</h4><p>一致性非锁定读(consistent nonlocking read)是指InnoDB存储引擎通过多版本控制(MVVC)读取当前数据库中行数据的方式。如果读取的行正在执行DELETE或UPDATE操作，这时读取操作不会因此去等待行上锁的释放。相反地，InnoDB会去读取行的一个快照。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb9.png" alt="mysql" title="mysql"></p>
+<p>上图直观地展现了InnoDB一致性非锁定读的机制。之所以称其为非锁定读，是因为不需要等待行上排他锁的释放。快照数据是指该行的之前版本的数据，每行记录可能有多个版本，一般称这种技术为行多版本技术。</p>
+<pre><code>由此带来的并发控制，称之为多版本并发控制(Multi Version Concurrency Control, MVVC)。InnoDB是通过undo log来实现MVVC。undo log本身用来在事务中回滚数据，因此快照数据本身是没有额外开销。此外，读取快照数据是不需要上锁的，因为没有事务需要对历史的数据进行修改操作。
+</code></pre><p> 一致性非锁定读是InnoDB默认的读取方式，即读取不会占用和等待行上的锁。但是并不是在每个事务隔离级别下都是采用此种方式。此外，即使都是使用一致性非锁定读，但是对于快照数据的定义也各不相同。</p>
+<p> 在事务隔离级别READ COMMITTED和REPEATABLE READ下，InnoDB使用一致性非锁定读。然而，对于快照数据的定义却不同。在READ COMMITTED事务隔离级别下，一致性非锁定读总是读取被锁定行的最新一份快照数据。而在REPEATABLE READ事务隔离级别下，则读取事务开始时的行数据版本。</p>
+<p> 我们下面举个例子来详细说明一下上述的情况。</p>
+<h1 id="session-A"><a href="#session-A" class="headerlink" title="session A"></a>session A</h1><pre><code>mysql&gt; BEGIN;
+mysql&gt; SELECT * FROM test WHERE id = 1;
+</code></pre><p> 我们首先在会话A中显示地开启一个事务，然后读取test表中的id为1的数据，但是事务并没有结束。于此同时，用户在开启另一个会话B，这样可以模拟并发的操作，然后对会话B做出如下的操作：</p>
+<h1 id="session-B"><a href="#session-B" class="headerlink" title="session B"></a>session B</h1><pre><code>mysql&gt; BEGIN;
+mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
+</code></pre><p> 在会话B的事务中，将test表中id为1的记录修改为id=3，但是事务同样也没有提交，这样id=1的行其实加了一个排他锁。由于InnoDB在READ COMMITTED和REPEATABLE READ事务隔离级别下使用一致性非锁定读，这时如果会话A再次读取id为1的记录，仍然能够读取到相同的数据。此时，READ COMMITTED和REPEATABLE READ事务隔离级别没有任何区别。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb10.png" alt="mysql" title="mysql"></p>
+<p> 如上图所示，当会话B提交事务后，会话A再次运行SELECT * FROM test WHERE id = 1的SQL语句时，两个事务隔离级别下得到的结果就不一样了。<br> 对于READ COMMITTED的事务隔离级别，它总是读取行的最新版本，如果行被锁定了，则读取该行版本的最新一个快照。因为会话B的事务已经提交，所以在该隔离级别下上述SQL语句的结果集是空的。<br> 对于REPEATABLE READ的事务隔离级别，总是读取事务开始时的行数据，因此，在该隔离级别下，上述SQL语句仍然会获得相同的数据。</p>
+<p><strong>MVVC</strong></p>
+<p> 我们首先来看一下wiki上对MVVC的定义：</p>
+<pre><code>  Multiversion concurrency control (MCC or MVCC), is a concurrency control
+  method commonly used by database management systems to provide
+  concurrent access to the database and in programming languages to
+  implement transactional memory.
+</code></pre><p> 由定义可知，MVVC是用于数据库提供并发访问控制的并发控制技术。<br>数据库的并发控制机制有很多，最为常见的就是锁机制。锁机制一般会给竞争资源加锁，阻塞读或者写操作来解决事务之间的竞争条件，最终保证事务的可串行化。</p>
+<pre><code>而MVVC则引入了另外一种并发控制，它让读写操作互不阻塞，每一个写操作都会创建一个新版本的数据，读操作会从有限多个版本的数据中挑选一个最合适的结果直接返回，由此解决了事务的竞争条件。
+</code></pre><p> 考虑一个现实场景。管理者要查询所有用户的存款总额，假设除了用户A和用户B之外，其他用户的存款总额都为0，A、B用户各有存款1000，所以所有用户的存款总额为2000。但是在查询过程中，用户A会向用户B进行转账操作。转账操作和查询总额操作的时序图如下图所示。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb11.png" alt="mysql" title="mysql"></p>
+<p> 如果没有任何的并发控制机制，查询总额事务先读取了用户A的账户存款，然后转账事务改变了用户A和用户B的账户存款，最后查询总额事务继续读取了转账后的用户B的账号存款，导致最终统计的存款总额多了100元，发生错误。</p>
+<p> 使用锁机制可以解决上述的问题。查询总额事务会对读取的行加锁，等到操作结束后再释放所有行上的锁。因为用户A的存款被锁，导致转账操作被阻塞，直到查询总额事务提交并将所有锁都释放。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb12.png" alt="mysql" title="mysql"></p>
+<p> 但是这时可能会引入新的问题，当转账操作是从用户B向用户A进行转账时会导致死锁。转账事务会先锁住用户B的数据，等待用户A数据上的锁，但是查询总额的事务却先锁住了用户A数据，等待用户B的数据上的锁。<br>    使用MVVC机制也可以解决这个问题。查询总额事务先读取了用户A的账户存款，然后转账事务会修改用户A和用户B账户存款，查询总额事务读取用户B存款时不会读取转账事务修改后的数据，而是读取本事务开始时的数据副本(在REPEATABLE READ隔离等级下)。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb13.png" alt="mysql" title="mysql"></p>
+<p> MVCC使得数据库读不会对数据加锁，普通的SELECT请求不会加锁，提高了数据库的并发处理能力。借助MVCC，数据库可以实现READ COMMITTED，REPEATABLE READ等隔离级别，用户可以查看当前数据的前一个或者前几个历史版本，保证了ACID中的I特性（隔离性)</p>
+<p><strong>InnoDB的MVVC实现</strong></p>
+<p> 多版本并发控制仅仅是一种技术概念，并没有统一的实现标准， 其的核心理念就是数据快照，不同的事务访问不同版本的数据快照，从而实现不同的事务隔离级别。虽然字面上是说具有多个版本的数据快照，但这并不意味着数据库必须拷贝数据，保存多份数据文件，这样会浪费大量的存储空间。InnoDB通过事务的undo日志巧妙地实现了多版本的数据快照。<br> 数据库的事务有时需要进行回滚操作，这时就需要对之前的操作进行undo。因此，在对数据进行修改时，InnoDB会产生undo log。当事务需要进行回滚时，InnoDB可以利用这些undo log将数据回滚到修改之前的样子。<br> 根据行为的不同 undo log 分为两种 insert undo log和update undo log。<br> insert undo log 是在 insert 操作中产生的 undo log。因为 insert 操作的记录只对事务本身可见，对于其它事务此记录是不可见的，所以 insert undo log 可以在事务提交后直接删除而不需要进行 purge 操作。<br> update undo log 是 update 或 delete 操作中产生的 undo log，因为会对已经存在的记录产生影响，为了提供 MVCC机制，因此 update undo log 不能在事务提交时就进行删除，而是将事务提交时放到入 history list 上，等待 purge 线程进行最后的删除操作。<br> 为了保证事务并发操作时，在写各自的undo log时不产生冲突，InnoDB采用回滚段的方式来维护undo log的并发写入和持久化。回滚段实际上是一种 Undo 文件组织方式。<br> InnoDB行记录有三个隐藏字段：分别对应该行的rowid、事务号db_trx_id和回滚指针db_roll_ptr，其中db_trx_id表示最近修改的事务的id，db_roll_ptr指向回滚段中的undo log。如下图所示。</p>
+<p> <img src="/2017/08/06/mysql数据库引擎/innodb14.png" alt="mysql" title="mysql"></p>
+<p> 当事务2使用UPDATE语句修改该行数据时，会首先使用排他锁锁定改行，将该行当前的值复制到undo log中，然后再真正地修改当前行的值，最后填写事务ID，使用回滚指针指向undo log中修改前的行。如下图所示。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb15.png" alt="mysql" title="mysql"></p>
+<p> 当事务3进行修改与事务2的处理过程类似，如下图所示。</p>
+<p><img src="/2017/08/06/mysql数据库引擎/innodb16.png" alt="mysql" title="mysql"></p>
+<p> REPEATABLE READ隔离级别下事务开始后使用MVVC机制进行读取时，会将当时活动的事务id记录下来，记录到Read View中。READ COMMITTED隔离级别下则是每次读取时都创建一个新的Read View。<br> Read View是InnoDB中用于判断记录可见性的数据结构，记录了一些用于判断可见性的属性。</p>
+<p>low_limit_id：某行记录的db_trx_id &lt; 该值，则该行对于当前Read View是一定可见的</p>
+<p>up_limit_id：某行记录的db_trx_id &gt;= 该值，则该行对于当前read view是一定不可见的</p>
+<p>low_limit_no：用于purge操作的判断</p>
+<p>rw_trx_ids：读写事务数组</p>
+<p> Read View创建后，事务再次进行读操作时比较记录的db_trx_id和Read View中的low_limit_id，up_limit_id和读写事务数组来判断可见性。</p>
+<p> 如果该行中的db_trx_id等于当前事务id，说明是事务内部发生的更改，直接返回该行数据。否则的话，如果db_trx_id小于up_limit_id，说明是事务开始前的修改，则该记录对当前Read View是可见的，直接返回该行数据。</p>
+<p> 如果db_trx_id大于或者等于low_limit_id，则该记录对于该Read View一定是不可见的。如果db_trx_id位于[up_limit_id, low_limit_id)范围内，需要在活跃读写事务数组(rw_trx_ids)中查找db_trx_id是否存在，如果存在，记录对于当前Read View是不可见的。<br> 如果记录对于Read View不可见，需要通过记录的DB_ROLL_PTR指针遍历undo log，构造对当前Read View可见版本数据。<br> 简单来说，Read View记录读开始时及其之后，所有的活动事务，这些事务所做的修改对于Read View是不可见的。除此之外，所有其他的小于创建Read View的事务号的所有记录均可见。</p>
 <p><strong>ACID</strong></p>
-<p><strong>A  事务的原子性(Atomicity)：</strong>指一个事务要么全部执行,要么不执行.也就是说一个事务不可能只执行了一半就停止了.比如你从取款机取钱,这个事务可以分成两个步骤:1划卡,2出钱.不可能划了卡,而钱却没出来.这两步必须同时完成.要么就不完成.<br><strong>C 事务的一致性(Consistency)：</strong>指事务的运行并不改变数据库中数据的一致性.例如,完整性约束了a+b=10,一个事务改变了a,那么b也应该随之改变.<br><strong>I 独立性(Isolation）:</strong>事务的独立性也有称作隔离性,是指两个以上的事务不会出现交错执行的状态.因为这样可能会导致数据不一致.<br><strong>D 持久性(Durability）:</strong>事务的持久性是指事务执行成功以后,该事务所对数据库所作的更改便是持久的保存在数据库之中，不会无缘无故的回滚.  </p>
+<p><strong>A  事务的原子性(Atomicity)：</strong>指一个事务要么全部执行,要么不执行.也就是说一个事务不可能只执行了一半就停止了.比如你从取款机取钱,这个事务可以分成两个步骤:1划卡,2出钱.不可能划了卡,而钱却没出来.这两步必须同时完成.要么就不完成.<br><strong>C 事务的一致性(Consistency)：</strong>指事务的运行并不改变数据库中数据的一致性.例如,完整性约束了a+b=10,一个事务改变了a,那么b也应该随之改变.<br><strong>I 独立性(Isolation）:</strong>事务的独立性也有称作隔离性,是指两个以上的事务不会出现交错执行的状态.因为这样可能会导致数据不一致.<br><strong>D 持久性(Durability）:</strong>事务的持久性是指事务执行成功以后,该事务所对数据库所作的更改便是持久的保存在数据库之中，不会无缘无故的回滚.</p>
 <h3 id="MyIASM引擎"><a href="#MyIASM引擎" class="headerlink" title="MyIASM引擎"></a>MyIASM引擎</h3><p>　　MyIASM是MySQL默认的引擎，但是它<font color="#e07878">没有提供对数据库事务的支持，也不支持行级锁和外键</font>，因此当<code>INSERT</code>(插入)或<code>UPDATE</code>(更新)数据时即写操作需要锁定整个表，效率便会低一些。不过和Innodb不同，MyIASM中存储了表的行数，于是<code>SELECT COUNT(*) FROM TABLE</code>时只需要直接读取已经保存好的值而不需要进行全表扫描。如果表的读操作远远多于写操作且不需要数据库事务的支持，那么MyIASM也是很好的选择。</p>
 <h3 id="两种引擎的选择"><a href="#两种引擎的选择" class="headerlink" title="两种引擎的选择"></a>两种引擎的选择</h3><p>　　大尺寸的数据集趋向于选择InnoDB引擎，因为它<font color="#e07878">支持事务处理和故障恢复,支持行级锁和外键</font>。数据库的大小决定了故障恢复的时间长短，InnoDB可以利用事务日志进行数据恢复，这会比较快。主键查询在InnoDB引擎下也会相当快，不过需要注意的是如果主键太长也会导致性能问题，关于这个问题我会在下文中讲到。大批的<code>INSERT</code>语句(在每个<code>INSERT</code>语句中写入多行，批量插入)在MyISAM下会快一些，但是<code>UPDATE</code>语句在InnoDB下则会更快一些，尤其是在并发量大的时候。</p>
 <h3 id="Index——索引"><a href="#Index——索引" class="headerlink" title="Index——索引"></a>Index——索引</h3><p>　　索引（Index）是帮助MySQL高效获取数据的数据结构。MyIASM和Innodb都使用了树这种数据结构做为索引。下面我接着讲这两种引擎使用的索引结构，讲到这里，首先应该谈一下B-Tree和B+Tree。</p>
@@ -332,7 +608,10 @@
 <p><img src="/2017/08/06/mysql数据库引擎/Innodb2.png" alt="mysql" title="mysql"></p>
 <p>　　这里以英文字符的<code>ASCII</code>码作为比较准则。聚集索引这种实现方式使得按主键的搜索十分高效，但是辅助索引搜索需要检索两遍索引：首先检索辅助索引获得主键，然后用主键到主索引中检索获得记录。</p>
 <p>　　了解不同存储引擎的索引实现方式对于正确使用和优化索引都非常有帮助，例如知道了InnoDB的索引实现后，就很容易明白为什么不建议使用过长的字段作为主键，因为所有辅助索引都引用主索引，过长的主索引会令辅助索引变得过大。再例如，用非单调(可能是指“非递增”的意思)的字段作为主键在InnoDB中不是个好主意，因为InnoDB数据文件本身是一颗<code>B+Tree</code>，非单调(可能是指“非递增”的意思)的主键会造成在插入新记录时数据文件为了维持<code>B+Tree</code>的特性而频繁的分裂调整，十分低效，而使用自增字段作为主键则是一个很好的选择。</p>
-<p><strong>MyISAM适合：</strong><br>(1)做很多count 的计算；<br>(2)读多写少，插入不频繁，查询非常频繁；<br>(3)没有事务。<br><strong>InnoDB适合：</strong><br>(1)可靠性要求比较高，或者要求事务；<br>(2)表更新和查询都相当的频繁，并且表锁定的机会比较大的情况指定数据引擎的创建；<br>(3)支持行级锁，外键。</p>
+<p><strong>MyISAM适合：</strong></p>
+<p>(1)做很多count 的计算；<br>(2)读多写少，插入不频繁，查询非常频繁；<br>(3)没有事务。 </p>
+<p><strong>InnoDB适合：</strong> </p>
+<p>(1)可靠性要求比较高，或者要求事务；<br>(2)表更新和查询都相当的频繁，并且表锁定的机会比较大的情况指定数据引擎的创建；<br>(3)支持行级锁，外键。</p>
 
       
       
@@ -404,7 +683,7 @@
         <p><span>本文标题:</span><a href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月06日 - 14时16分</p>
-        <p><span>最后更新:</span>2018年11月13日 - 15时58分</p>
+        <p><span>最后更新:</span>2018年11月29日 - 18时41分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/06/mysql数据库引擎/" title="mysql数据库引擎">http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -445,7 +724,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库引擎"><span class="toc-number">1.</span> <span class="toc-text">数据库引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库引擎任务"><span class="toc-number">2.</span> <span class="toc-text">数据库引擎任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL数据库引擎类别"><span class="toc-number">3.</span> <span class="toc-text">MySQL数据库引擎类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ISAM"><span class="toc-number">3.1.</span> <span class="toc-text">ISAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MYISAM"><span class="toc-number">3.2.</span> <span class="toc-text">MYISAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEAP"><span class="toc-number">3.3.</span> <span class="toc-text">HEAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#INNODB和BERKLEYDB"><span class="toc-number">3.4.</span> <span class="toc-text">INNODB和BERKLEYDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql数据引擎更换方式"><span class="toc-number">4.</span> <span class="toc-text">mysql数据引擎更换方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看当前数据库支持的引擎和默认的数据库引擎"><span class="toc-number">4.1.</span> <span class="toc-text">查看当前数据库支持的引擎和默认的数据库引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改数据库引擎"><span class="toc-number">4.2.</span> <span class="toc-text">更改数据库引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式1：修改配置文件my-ini"><span class="toc-number">4.2.1.</span> <span class="toc-text">更改方式1：修改配置文件my.ini</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式2-在建表的时候指定"><span class="toc-number">4.2.2.</span> <span class="toc-text">更改方式2:在建表的时候指定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式3：建表后更改"><span class="toc-number">4.2.3.</span> <span class="toc-text">更改方式3：建表后更改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看修改结果"><span class="toc-number">4.3.</span> <span class="toc-text">查看修改结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyIASM-和-Innodb引擎详解"><span class="toc-number">5.</span> <span class="toc-text">MyIASM 和 Innodb引擎详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Innodb引擎"><span class="toc-number">5.1.</span> <span class="toc-text">Innodb引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MyIASM引擎"><span class="toc-number">5.2.</span> <span class="toc-text">MyIASM引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种引擎的选择"><span class="toc-number">5.3.</span> <span class="toc-text">两种引擎的选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Index——索引"><span class="toc-number">5.4.</span> <span class="toc-text">Index——索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MyIASM引擎的索引结构"><span class="toc-number">5.4.1.</span> <span class="toc-text">MyIASM引擎的索引结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Innodb引擎的索引结构"><span class="toc-number">5.4.2.</span> <span class="toc-text">Innodb引擎的索引结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两者区别："><span class="toc-number">5.5.</span> <span class="toc-text">两者区别：</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库引擎"><span class="toc-number">1.</span> <span class="toc-text">数据库引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库引擎任务"><span class="toc-number">2.</span> <span class="toc-text">数据库引擎任务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MySQL数据库引擎类别"><span class="toc-number">3.</span> <span class="toc-text">MySQL数据库引擎类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ISAM"><span class="toc-number">3.1.</span> <span class="toc-text">ISAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MYISAM"><span class="toc-number">3.2.</span> <span class="toc-text">MYISAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEAP"><span class="toc-number">3.3.</span> <span class="toc-text">HEAP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#INNODB和BERKLEYDB"><span class="toc-number">3.4.</span> <span class="toc-text">INNODB和BERKLEYDB</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql数据引擎更换方式"><span class="toc-number">4.</span> <span class="toc-text">mysql数据引擎更换方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看当前数据库支持的引擎和默认的数据库引擎"><span class="toc-number">4.1.</span> <span class="toc-text">查看当前数据库支持的引擎和默认的数据库引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#更改数据库引擎"><span class="toc-number">4.2.</span> <span class="toc-text">更改数据库引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式1：修改配置文件my-ini"><span class="toc-number">4.2.1.</span> <span class="toc-text">更改方式1：修改配置文件my.ini</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式2-在建表的时候指定"><span class="toc-number">4.2.2.</span> <span class="toc-text">更改方式2:在建表的时候指定</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#更改方式3：建表后更改"><span class="toc-number">4.2.3.</span> <span class="toc-text">更改方式3：建表后更改</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看修改结果"><span class="toc-number">4.3.</span> <span class="toc-text">查看修改结果</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyIASM-和-Innodb引擎详解"><span class="toc-number">5.</span> <span class="toc-text">MyIASM 和 Innodb引擎详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Innodb引擎"><span class="toc-number">5.1.</span> <span class="toc-text">Innodb引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内存结构和特性"><span class="toc-number">5.1.1.</span> <span class="toc-text">内存结构和特性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#磁盘文件及落盘机制"><span class="toc-number">5.1.2.</span> <span class="toc-text">磁盘文件及落盘机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#锁的类型和状态查询"><span class="toc-number">5.1.3.</span> <span class="toc-text">锁的类型和状态查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一致性非锁定读"><span class="toc-number">5.1.4.</span> <span class="toc-text">一致性非锁定读</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#session-A"><span class="toc-number"></span> <span class="toc-text">session A</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#session-B"><span class="toc-number"></span> <span class="toc-text">session B</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MyIASM引擎"><span class="toc-number">0.1.</span> <span class="toc-text">MyIASM引擎</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两种引擎的选择"><span class="toc-number">0.2.</span> <span class="toc-text">两种引擎的选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Index——索引"><span class="toc-number">0.3.</span> <span class="toc-text">Index——索引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#MyIASM引擎的索引结构"><span class="toc-number">0.3.1.</span> <span class="toc-text">MyIASM引擎的索引结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Innodb引擎的索引结构"><span class="toc-number">0.3.2.</span> <span class="toc-text">Innodb引擎的索引结构</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#两者区别："><span class="toc-number">0.4.</span> <span class="toc-text">两者区别：</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
