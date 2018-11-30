@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-30T09:36:27.973Z</updated>
+  <updated>2018-11-30T09:41:06.849Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
     <id>http://jet-han.oschina.io/2017/11/30/Mybatis相关/</id>
     <published>2017-11-30T06:30:37.000Z</published>
-    <updated>2018-11-30T09:36:27.973Z</updated>
+    <updated>2018-11-30T09:41:06.849Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
 <p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
@@ -110,12 +110,10 @@ mappers: cn.remcarpediem.mappers.BaseDao
 </table>
 </div>
 <ul>
-<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””,</p>
-<p>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
+<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””<br>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
 <p> <code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
 </li>
-<li><p>${}</p>
-<p>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
+<li><p>${}<br>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
 <p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
 </li>
 </ul>
@@ -1342,7 +1340,7 @@ mappers: cn.remcarpediem.mappers.BaseDao
     <link href="http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
     <id>http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</id>
     <published>2017-08-06T06:16:24.000Z</published>
-    <updated>2018-11-30T05:55:14.562Z</updated>
+    <updated>2018-11-30T09:42:01.577Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
@@ -1442,10 +1440,8 @@ mappers: cn.remcarpediem.mappers.BaseDao
 <p> InnoDB存储引擎支持多粒度锁定，这种锁定允许事务在行级上的锁和表级上的锁同时存在。为了支持在不同粒度上进行加锁操作，InnoDB存储引擎支持一种称为意向锁的锁方式。意向锁是将锁定的对象分为多个层次，意向锁意味着事务希望在更细粒度上进行加锁。</p>
 <p> InnoDB存储引擎的意向锁即为表级别的锁。设计目的主要是为了在一个事务中揭示下一行将被请求的锁类型。其支持两种意向锁：</p>
 <ul>
-<li><p>意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</p>
-</li>
-<li><p>意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</p>
-</li>
+<li>意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</li>
+<li>意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</li>
 </ul>
 <p>需要注意的是意向锁是表级别的锁，它不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。故表级别的意向锁和表级别的锁的兼容性如下表所示。  </p>
 <div class="table-container">

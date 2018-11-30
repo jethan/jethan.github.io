@@ -34,7 +34,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/MyIasm2.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/Innodb1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/Innodb2.png">
-<meta property="og:updated_time" content="2018-11-30T05:55:14.562Z">
+<meta property="og:updated_time" content="2018-11-30T09:42:01.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql数据库引擎">
 <meta name="twitter:description" content="数据库引擎　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。 数据库引擎任务在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎">
@@ -409,10 +409,8 @@
 <p> InnoDB存储引擎支持多粒度锁定，这种锁定允许事务在行级上的锁和表级上的锁同时存在。为了支持在不同粒度上进行加锁操作，InnoDB存储引擎支持一种称为意向锁的锁方式。意向锁是将锁定的对象分为多个层次，意向锁意味着事务希望在更细粒度上进行加锁。</p>
 <p> InnoDB存储引擎的意向锁即为表级别的锁。设计目的主要是为了在一个事务中揭示下一行将被请求的锁类型。其支持两种意向锁：</p>
 <ul>
-<li><p>意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</p>
-</li>
-<li><p>意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</p>
-</li>
+<li>意向共享锁(IS Lock)，事务想要获得一张表中某几行的共享锁</li>
+<li>意向排他锁(IX Lock)，事务想要获得一张表中某几行的排他锁</li>
 </ul>
 <p>需要注意的是意向锁是表级别的锁，它不会和行级的X，S锁发生冲突。只会和表级的X，S发生冲突。故表级别的意向锁和表级别的锁的兼容性如下表所示。  </p>
 <div class="table-container">
@@ -662,7 +660,7 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
         <p><span>本文标题:</span><a href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年08月06日 - 14时16分</p>
-        <p><span>最后更新:</span>2018年11月30日 - 13时55分</p>
+        <p><span>最后更新:</span>2018年11月30日 - 17时42分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/08/06/mysql数据库引擎/" title="mysql数据库引擎">http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>

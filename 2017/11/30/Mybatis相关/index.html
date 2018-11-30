@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mybatis.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/30/Mybatis相关/mybatis1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/30/Mybatis相关/mybatis2.png">
-<meta property="og:updated_time" content="2018-11-30T09:36:27.973Z">
+<meta property="og:updated_time" content="2018-11-30T09:41:06.849Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis相关">
 <meta name="twitter:description" content="每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自">
@@ -376,12 +376,10 @@ mappers: cn.remcarpediem.mappers.BaseDao
 </table>
 </div>
 <ul>
-<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””,</p>
-<p>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
+<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””<br>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
 <p> <code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
 </li>
-<li><p>${}</p>
-<p>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
+<li><p>${}<br>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
 <p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
 </li>
 </ul>
@@ -456,7 +454,7 @@ mappers: cn.remcarpediem.mappers.BaseDao
         <p><span>本文标题:</span><a href="/2017/11/30/Mybatis相关/">Mybatis相关</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年11月30日 - 14时30分</p>
-        <p><span>最后更新:</span>2018年11月30日 - 17时36分</p>
+        <p><span>最后更新:</span>2018年11月30日 - 17时41分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/11/30/Mybatis相关/" title="Mybatis相关">http://jet-han.oschina.io/2017/11/30/Mybatis相关/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/11/30/Mybatis相关/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
