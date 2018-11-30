@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-30T09:41:06.849Z</updated>
+  <updated>2018-11-30T10:24:05.158Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
     <id>http://jet-han.oschina.io/2017/11/30/Mybatis相关/</id>
     <published>2017-11-30T06:30:37.000Z</published>
-    <updated>2018-11-30T09:41:06.849Z</updated>
+    <updated>2018-11-30T10:24:05.158Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
 <p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
@@ -61,8 +61,8 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 }
 </code></pre><p> yml配置文件如下所示。</p>
 <pre><code>tk:
-basePackage: cn.remcarpediem.mybatis.dao
-mappers: cn.remcarpediem.mappers.BaseDao
+  basePackage: cn.remcarpediem.mybatis.dao
+  mappers: cn.remcarpediem.mappers.BaseDao
 </code></pre><p> 代码乍看起来一定问题都没有，但是运行时，在初始化MapperScannerConfigurer实例时，TkProperties实例的属性死活就是没有初始化成功。</p>
 <p> <img src="/2017/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
 <p> 一定有很多见多识广的读者已经知道这个现象背后的原因。“凶手”就是 <code>MapperScannerConfigurer</code>实现的接口 <code>BeanDefinitionRegistryPostProcessor</code>。具体原因我们还需要慢慢来解释，因为它涉及了Spring Boot的很多原理。</p>

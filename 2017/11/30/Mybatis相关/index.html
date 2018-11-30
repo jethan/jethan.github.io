@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mybatis.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/30/Mybatis相关/mybatis1.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/11/30/Mybatis相关/mybatis2.png">
-<meta property="og:updated_time" content="2018-11-30T09:41:06.849Z">
+<meta property="og:updated_time" content="2018-11-30T10:24:05.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mybatis相关">
 <meta name="twitter:description" content="每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自">
@@ -327,8 +327,8 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 }
 </code></pre><p> yml配置文件如下所示。</p>
 <pre><code>tk:
-basePackage: cn.remcarpediem.mybatis.dao
-mappers: cn.remcarpediem.mappers.BaseDao
+  basePackage: cn.remcarpediem.mybatis.dao
+  mappers: cn.remcarpediem.mappers.BaseDao
 </code></pre><p> 代码乍看起来一定问题都没有，但是运行时，在初始化MapperScannerConfigurer实例时，TkProperties实例的属性死活就是没有初始化成功。</p>
 <p> <img src="/2017/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
 <p> 一定有很多见多识广的读者已经知道这个现象背后的原因。“凶手”就是 <code>MapperScannerConfigurer</code>实现的接口 <code>BeanDefinitionRegistryPostProcessor</code>。具体原因我们还需要慢慢来解释，因为它涉及了Spring Boot的很多原理。</p>
@@ -454,7 +454,7 @@ mappers: cn.remcarpediem.mappers.BaseDao
         <p><span>本文标题:</span><a href="/2017/11/30/Mybatis相关/">Mybatis相关</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年11月30日 - 14时30分</p>
-        <p><span>最后更新:</span>2018年11月30日 - 17时41分</p>
+        <p><span>最后更新:</span>2018年11月30日 - 18时24分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/11/30/Mybatis相关/" title="Mybatis相关">http://jet-han.oschina.io/2017/11/30/Mybatis相关/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/11/30/Mybatis相关/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
