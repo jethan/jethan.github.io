@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-30T10:24:05.158Z</updated>
+  <updated>2018-11-30T10:41:03.872Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
     <id>http://jet-han.oschina.io/2017/11/30/Mybatis相关/</id>
     <published>2017-11-30T06:30:37.000Z</published>
-    <updated>2018-11-30T10:24:05.158Z</updated>
+    <updated>2018-11-30T10:41:03.872Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
 <p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
@@ -110,13 +110,15 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 </table>
 </div>
 <ul>
-<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””<br>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
-<p> <code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
-</li>
-<li><p>${}<br>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
-<p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
-</li>
+<li>使用#{参数}传入会加上单引号，sql语句解析是会加上””    </li>
 </ul>
+<p>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
+<p><code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
+<ul>
+<li>${}   </li>
+</ul>
+<p>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
+<p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
 ]]></content>
     
     <summary type="html">
