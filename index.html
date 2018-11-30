@@ -251,6 +251,68 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Mybatis相关" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/11/30/Mybatis相关/" class="article-date">
+      <time datetime="2018-11-30T06:30:37.000Z" itemprop="datePublished">2018-11-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/30/Mybatis相关/">Mybatis相关</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
+<p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
+<p> 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 <code>MapperScannerConfigurer</code>的自定义配置实现。他首先定义了自定义配置类 <code>BkStarterAutoConfiguration</code>，使用 <code>@EnableConfigurationProperties</code>注解将 <code>TkProperties</code>声明为配置属性类。</p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+        <p class="article-more-link">
+          <a  href="/2018/11/30/Mybatis相关/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-Mysql-SQL语句执行" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -518,77 +580,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/08/08/设计模式/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mysql数据库引擎" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/06/mysql数据库引擎/" class="article-date">
-      <time datetime="2017-08-06T06:16:24.000Z" itemprop="datePublished">2017-08-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
-<h2 id="数据库引擎任务"><a href="#数据库引擎任务" class="headerlink" title="数据库引擎任务"></a>数据库引擎任务</h2><p>在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。</p>
-<p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br></p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/mysql/">mysql</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql-MyIsam-Innodb/">mysql,MyIsam,Innodb</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/06/mysql数据库引擎/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

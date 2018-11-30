@@ -251,6 +251,75 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-sping之IOC，AOP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/08/05/sping之IOC，AOP/" class="article-date">
+      <time datetime="2017-08-05T06:34:04.000Z" itemprop="datePublished">2017-08-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="/2017/08/05/sping之IOC，AOP/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spring AOP和IOC个人理解<br><strong>IOC inversion of control 控制反转</strong><br>将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：<br>第一种xml方式 需要set方法为被调用的属性赋值，xml中需要<code>ref</code>注入被调要的对象。<br>第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上<br><code>@Controller,@Service,@Repository</code>通过在属性上加上<code>@Resource(name=&quot;&quot;)</code>来为属性赋值，这一步相当于xml方式的<code>ref</code>。<br>事务管理器<br></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/spring/">spring</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOP/">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOC/">IOC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/08/05/sping之IOC，AOP/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-spring事务的传播属性和隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -522,75 +591,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/08/01/equals、-和hashCode/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-HashMap工作原理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/28/HashMap工作原理/" class="article-date">
-      <time datetime="2017-07-28T08:05:02.000Z" itemprop="datePublished">2017-07-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="/2017/07/28/HashMap工作原理/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br></p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashmap/">hashmap</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/28/HashMap工作原理/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

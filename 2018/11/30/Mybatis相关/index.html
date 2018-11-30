@@ -3,24 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>java-IO | 学海无涯</title>
+  <title>Mybatis相关 | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Java IOJava IO即Java 输入输出系统。不管我们编写何种应用，都难免和各种输入输出相关的媒介打交道，其实和媒介进行IO的过程是十分复杂的，这要考虑的因素特别多，比如我们要考虑和哪种媒介进行IO（文件、控制台、网络），我们还要考虑具体和它们的通信方式（顺序、随机、二进制、按字符、按字、按行等等）。Java类库的设计者通过设计大量的类来攻克这些难题，这些类就位于java.io包中。 在">
-<meta name="keywords" content="IO">
+  <meta name="description" content="每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java-IO">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/07/08/java-IO/index.html">
+<meta property="og:title" content="Mybatis相关">
+<meta property="og:url" content="http://jet-han.oschina.io/2018/11/30/Mybatis相关/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:description" content="Java IOJava IO即Java 输入输出系统。不管我们编写何种应用，都难免和各种输入输出相关的媒介打交道，其实和媒介进行IO的过程是十分复杂的，这要考虑的因素特别多，比如我们要考虑和哪种媒介进行IO（文件、控制台、网络），我们还要考虑具体和它们的通信方式（顺序、随机、二进制、按字符、按字、按行等等）。Java类库的设计者通过设计大量的类来攻克这些难题，这些类就位于java.io包中。 在">
-<meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/07/08/java-IO/io1.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/07/08/java-IO/io2.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/07/08/java-IO/io3.jpg">
-<meta property="og:updated_time" content="2018-11-28T03:17:52.686Z">
+<meta property="og:description" content="每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/mybatis.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2018/11/30/Mybatis相关/mybatis1.png">
+<meta property="og:image" content="http://jet-han.oschina.io/2018/11/30/Mybatis相关/mybatis2.png">
+<meta property="og:updated_time" content="2018-11-30T09:32:01.442Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java-IO">
-<meta name="twitter:description" content="Java IOJava IO即Java 输入输出系统。不管我们编写何种应用，都难免和各种输入输出相关的媒介打交道，其实和媒介进行IO的过程是十分复杂的，这要考虑的因素特别多，比如我们要考虑和哪种媒介进行IO（文件、控制台、网络），我们还要考虑具体和它们的通信方式（顺序、随机、二进制、按字符、按字、按行等等）。Java类库的设计者通过设计大量的类来攻克这些难题，这些类就位于java.io包中。 在">
-<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+<meta name="twitter:title" content="Mybatis相关">
+<meta name="twitter:description" content="每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mybatis.png">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -251,11 +249,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-java-IO" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Mybatis相关" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/08/java-IO/" class="article-date">
-      <time datetime="2017-07-08T10:35:17.000Z" itemprop="datePublished">2017-07-08</time>
+      <a href="/2018/11/30/Mybatis相关/" class="article-date">
+      <time datetime="2018-11-30T06:30:37.000Z" itemprop="datePublished">2018-11-30</time>
 </a>
     </div>
   
@@ -268,7 +266,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      java-IO
+      Mybatis相关
     </h1>
   
 
@@ -276,16 +274,8 @@
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
 
         
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IO/">IO</a></li></ul>
-    </div>
-
         <div class="clearfix"></div>
       </div>
       
@@ -293,93 +283,103 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h1 id="Java-IO"><a href="#Java-IO" class="headerlink" title="Java IO"></a>Java IO</h1><p>Java IO即Java 输入输出系统。不管我们编写何种应用，都难免和各种输入输出相关的媒介打交道，其实和媒介进行IO的过程是十分复杂的，这要考虑的因素特别多，比如我们要考虑和哪种媒介进行IO（文件、控制台、网络），我们还要考虑具体和它们的通信方式（顺序、随机、二进制、按字符、按字、按行等等）。Java类库的设计者通过设计大量的类来攻克这些难题，这些类就位于java.io包中。</p>
-<p>在JDK1.4之后，为了提高Java IO的效率，Java又提供了一套新的IO，Java New IO简称Java NIO。它在标准java代码中提供了高速的面向块的IO操作。本篇文章重点介绍Java IO，关于Java NIO请参考我的另两篇文章：<br><a href="http://blog.csdn.net/suifeng3051/article/details/48160753" target="_blank" rel="external">Java NIO详解(一)</a><br><a href="http://blog.csdn.net/suifeng3051/article/details/48441629" target="_blank" rel="external">Java NIO详解(二)</a></p>
-<h2 id="流"><a href="#流" class="headerlink" title="流"></a>流</h2><p>在Java IO中，流是一个核心的概念。流从概念上来说是一个连续的数据流。你既可以从流中读取数据，也可以往流中写数据。流与数据源或者数据流向的媒介相关联。在Java IO中流既可以是字节流(以字节为单位进行读写)，也可以是字符流(以字符为单位进行读写)。<br><a id="more"></a></p>
-<h2 id="IO相关的媒介"><a href="#IO相关的媒介" class="headerlink" title="IO相关的媒介"></a>IO相关的媒介</h2><p>Java的IO包主要关注的是从原始数据源的读取以及输出原始数据到目标媒介。以下是最典型的数据源和目标媒介：</p>
-<p>文件<br>管道<br>网络连接<br>内存缓存<br>System.in, System.out, System.error(注：Java标准输入、输出、错误输出)</p>
-<h2 id="Java-IO类库的框架"><a href="#Java-IO类库的框架" class="headerlink" title="Java IO类库的框架"></a>Java IO类库的框架</h2><h3 id="Java-IO的类型"><a href="#Java-IO的类型" class="headerlink" title="Java IO的类型"></a>Java IO的类型</h3><p>虽然java IO类库庞大，但总体来说其框架还是很清楚的。从是读媒介还是写媒介的维度看，Java IO可以分为：</p>
-<p>输入流：InputStream和Reader<br>输出流：OutputStream和Writer<br>而从其处理流的类型的维度上看，Java IO又可以分为：</p>
-<p>字节流：InputStream和OutputStream<br>字符流：Reader和Writer<br>下面这幅图就清晰的描述了JavaIO的分类：</p>
+        <p><img src="/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
+<p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
+<p> 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 <code>MapperScannerConfigurer</code>的自定义配置实现。他首先定义了自定义配置类 <code>BkStarterAutoConfiguration</code>，使用 <code>@EnableConfigurationProperties</code>注解将 <code>TkProperties</code>声明为配置属性类。</p>
+ <a id="more"></a>
+<h2 id="MapperScannerConfigurer"><a href="#MapperScannerConfigurer" class="headerlink" title="MapperScannerConfigurer"></a>MapperScannerConfigurer</h2><pre><code>@Configuration
+@EnableConfigurationProperties({TkProperties.class})
+@AutoConfigureBefore(MybatisAutoConfiguration.class)`
+public  class  BkStarterAutoConfiguration  {
+    @Bean
+    @ConditionalOnMissingBean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public  TkProperties tkProperties()  {
+    return  new  TkProperties();`
+    }
+}
+</code></pre><p> 下面是 <code>TkProperties</code>的定义，使用 <code>@ConfigurationProperties</code>注解声明了该属性配置的前缀，两个属性名称为 <code>basePackage</code>和 <code>mappers</code>。</p>
+<pre><code>        @Data
+        @ConfigurationProperties(prefix =  &quot;tk&quot;)
+        public  class  TkProperties  {
+            private  String basePackage;
+            private  String mappers;
+        }
+</code></pre><p>  <code>MapperConfig</code>是声明并配置 <code>MapperScannerConfigurer</code>实例的配置类，使用被 <code>@Bean</code>注解修饰的 <code>mapperScannerConfigurer</code>方法来初始化，其方法参数为 <code>TkProperties</code>。</p>
+<pre><code>@Configuration
+public  class  MapperConfig  {
+@Bean
+public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkProperties)  {
+    MapperScannerConfigurer mapperScannerConfigurer =  new  MapperScannerConfigurer();
+    mapperScannerConfigurer.setSqlSessionFactoryBeanName(&quot;sqlSessionFactory&quot;);
+    //使用TkProperties的成员变量来配置mapperScannerConfigurer
+    mapperScannerConfigurer.setBasePackage(tkProperties.getBasePackage());
+    Properties properties =  new  Properties();
+     properties.setProperty(&quot;mappers&quot;, tkProperties.getMappers());
+     mapperScannerConfigurer.setProperties(properties);
+     return mapperScannerConfigurer;
+     }
+}
+</code></pre><p> yml配置文件如下所示。</p>
+<pre><code>tk:
+basePackage: cn.remcarpediem.mybatis.dao
+mappers: cn.remcarpediem.mappers.BaseDao
+</code></pre><p> 代码乍看起来一定问题都没有，但是运行时，在初始化MapperScannerConfigurer实例时，TkProperties实例的属性死活就是没有初始化成功。</p>
+<p> <img src="/2018/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
+<p> 一定有很多见多识广的读者已经知道这个现象背后的原因。“凶手”就是 <code>MapperScannerConfigurer</code>实现的接口 <code>BeanDefinitionRegistryPostProcessor</code>。具体原因我们还需要慢慢来解释，因为它涉及了Spring Boot的很多原理。</p>
+<p> 首先， <code>BeanDefinitionRegistryPostProcessor</code>接口继承了 <code>BeanFactoryPostProcessor</code>接口，大家一般都对 <code>BeanFactoryPostProcessor</code>较为熟悉，它是实例工厂(BeanFactory)的后处理器(PostProcessor)，与之类似的还有实例的后处理器(BeanPostProcessor)。 <code>BeanFactoryPostProcessor</code>中只定义了一个方法，其将会在 <code>ApplicationContext</code>内部的 <code>BeanFactory</code>加载完 <code>BeanDefinition</code>后，但是在Bean实例化之前进行。所以通常我们可以通过实现该接口来对实例化之前的 <code>BeanDefinition</code>进行修改。比如说 <code>PropertySourcesPlaceholderConfigurer</code>就实现 <code>BeanFactoryPostProcessor</code>接口，用于处理实例中被 <code>@Value</code>注解修饰的变量，修改其数值。</p>
+<pre><code>  public  interface  BeanFactoryPostProcessor  {
+   void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)  throws  BeansException;
+ }
+</code></pre><p> 而 <code>BeanDefinitionRegistryPostProcessor</code>接口扩展自 <code>BeanFactoryPostProcessor</code>，它是 <code>BeanDefinitionRegistry</code>的后处理器，它可以在 <code>BeanFactoryPostProcessor</code>检测之前注册一些特殊的 <code>BeanDefinition</code>，比如说可以注册用来定义 <code>BeanFactoryPostProcessor</code>的 <code>BeanDefintion</code>，比如说我们之前提到的 <code>MapperScannerConfigurer</code>和 <code>ConfigurationClassPostProcessor</code>。</p>
+<pre><code> public  interface  BeanDefinitionRegistryPostProcessor  extends  BeanFactoryPostProcessor  {
+   void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)  throws  BeansException;
+ }
+</code></pre><p>  <code>MapperScannerConfigurer</code>的 <code>postProcessBeanDefinitionRegistry</code>主要用来 <code>ClassPathMapperScanner</code>来扫描 <code>Mybatis</code>的 <code>Mapper</code>。 <code>ClassPathMapperScanner</code>继承了 <code>ClassPathBeanDefinitionScanner</code>，在 <code>doScan</code>方法中获取了 <code>basePackage</code>指定的包路径下的所有 <code>Mapper</code>的 <code>BeanDefinition</code>，然后进行注册。</p>
+<p> 而 <code>BeanPostProcessor</code>就是Bean实例的后处理器。每个Bean实例在进行初始化前会调用其 <code>postProcessBeforeInitialization</code>方法和初始化之后调用其 <code>postProcessAfterInitialization</code>方法。 <code>ConfigurationPropertiesBindingPostProcessor</code>实现了 <code>BeanPostProcessor</code>接口，用于处理被 <code>@ConfigurationProperties</code>修饰的实例。</p>
+<pre><code>  public  interface  BeanPostProcessor  {
+   Object postProcessBeforeInitialization(Object bean,  String beanName)  throws  BeansException;
+   Object postProcessAfterInitialization(Object bean,  String beanName)  throws  BeansException;
+  }
+</code></pre><p> 我们可以总结一下 <code>BeanDefinitionRegistryPostProcessor</code>， <code>BeanFactoryPostProcessor</code>和 <code>BeanPostProcessor</code>三个后处理器发挥作用的次序和时机。</p>
+<p>  <img src="/2018/11/30/Mybatis相关/mybatis2.png" alt="mybatis" title="mybatis"></p>
+<p> <strong>由此，我们也能够理解为什么 <code>MapperScannerConfigurer</code>初始化时， <code>TkProperties</code>还没有初始化，那是因为 <code>ConfigurationPropertiesBindingPostProcessor</code>还没有初始化，并且也没有对 <code>TkProperties</code>进行处理</strong>。</p>
+<p> 遇到问题和bug，不要百度一下解决方案处理就结束了，而是要深入了解一下背后的机制和原理，希望大家都能够多多探索更加深入的原理，获得更多的知识。</p>
+<h2 id="和-的区别"><a href="#和-的区别" class="headerlink" title="$和#的区别"></a>$和#的区别</h2><p><code>#</code>相当于对数据 加上 双引号，<code>$</code>相当于直接显示数据</p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th>-</th>
-<th>字节流</th>
-<th>字符流</th>
+<th style="text-align:center">#</th>
+<th style="text-align:center">$</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>输入流</td>
-<td>InputStream</td>
-<td>Reader</td>
+<td style="text-align:center">相当于对数据加上双引号</td>
+<td style="text-align:center">相当于直接显示数据</td>
 </tr>
 <tr>
-<td>输出流</td>
-<td>OutputStream</td>
-<td>Writer</td>
+<td style="text-align:center">很大程度上防止SQL注入</td>
+<td style="text-align:center">无法防止SQL注入</td>
+</tr>
+<tr>
+<td style="text-align:center">#{xxx},使用的是PreparedStatement,会有类型转换，比较安全</td>
+<td style="text-align:center">${xxx}，使用字符串拼接，容易SQL注入</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>我们的程序需要通过InputStream或Reader从数据源读取数据，然后用OutputStream或者Writer将数据写入到目标媒介中。其中，InputStream和Reader与数据源相关联，OutputStream和writer与目标媒介相关联。 以下的图说明了这一点：</p>
-<p><img src="/2017/07/08/java-IO/io1.jpg" alt="java" title="java"></p>
-<h3 id="IO-类库"><a href="#IO-类库" class="headerlink" title="IO 类库"></a>IO 类库</h3><p>上面我们介绍了Java IO中的四各类：InputStream、OutputStream、Reader、Writer，其实在我们的实际应用中，我们用到的一般是它们的子类，之所以设计这么多子类，目的就是让每一个类都负责不同的功能，以方便我们开发各种应用。各类用途汇总如下：</p>
-<p>文件访问<br>网络访问<br>内存缓存访问<br>线程内部通信(管道)<br>缓冲<br>过滤<br>解析<br>读写文本 (Readers / Writers)<br>读写基本类型数据 (long, int etc.)<br>读写对象<br>下面我们就通过两张图来大体了解一下这些类的继承关系及其作用</p>
-<p>图1：java io 类的集成关系</p>
-<p><img src="/2017/07/08/java-IO/io2.jpg" alt="java" title="java"></p>
-<p>图2：java io中各个类所负责的媒介</p>
-<p><img src="/2017/07/08/java-IO/io3.jpg" alt="java" title="java"></p>
-<h2 id="Java-IO的基本用法"><a href="#Java-IO的基本用法" class="headerlink" title="Java IO的基本用法"></a>Java IO的基本用法</h2><h3 id="字节流"><a href="#字节流" class="headerlink" title="字节流"></a>字节流</h3><p>通过上面的介绍我们已经知道，字节流对应的类应该是InputStream和OutputStream，而在我们实际开发中，我们应该根据不同的媒介类型选用相应的子类来处理。下面我们就用字节流来操作文件媒介：</p>
-<p><strong>例1，用字节流写文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public static void writeByteToFile() throws IOException&#123;</div><div class="line">      String hello= new String( &quot;hello word!&quot;);</div><div class="line">       byte[] byteArray= hello.getBytes();</div><div class="line">      File file= new File( &quot;d:/test.txt&quot;);</div><div class="line">       //因为是用字节流来写媒介，所以对应的是OutputStream </div><div class="line">       //又因为媒介对象是文件，所以用到子类是FileOutputStream</div><div class="line">      OutputStream os= new FileOutputStream( file);</div><div class="line">       os.write( byteArray);</div><div class="line">       os.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>例2，用字节流读文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public static void readByteFromFile() throws IOException&#123;</div><div class="line">        File file= new File( &quot;d:/test.txt&quot;);</div><div class="line">         byte[] byteArray= new byte[( int) file.length()];</div><div class="line">         //因为是用字节流来读媒介，所以对应的是InputStream</div><div class="line">         //又因为媒介对象是文件，所以用到子类是FileInputStream</div><div class="line">        InputStream is= new FileInputStream( file);</div><div class="line">         int size= is.read( byteArray);</div><div class="line">        System. out.println( &quot;大小:&quot;+size +&quot;;内容:&quot; +new String(byteArray));</div><div class="line">         is.close();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<h3 id="字符流"><a href="#字符流" class="headerlink" title="字符流"></a>字符流</h3><p>同样，字符流对应的类应该是Reader和Writer。下面我们就用字符流来操作文件媒介:</p>
-<p><strong>例3，用字符流读文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">public static void writeCharToFile() throws IOException&#123;</div><div class="line">        String hello= new String( &quot;hello word!&quot;);</div><div class="line">        File file= new File( &quot;d:/test.txt&quot;);</div><div class="line">         //因为是用字符流来读媒介，所以对应的是Writer，又因为媒介对象是文件，所以用到子类是FileWriter</div><div class="line">        Writer os= new FileWriter( file);</div><div class="line">         os.write( hello);</div><div class="line">         os.close();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p><strong>例4，用字符流写文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public static void readCharFromFile() throws IOException&#123;</div><div class="line">      File file= new File( &quot;d:/test.txt&quot;);</div><div class="line">       //因为是用字符流来读媒介，所以对应的是Reader</div><div class="line">       //又因为媒介对象是文件，所以用到子类是FileReader</div><div class="line">      Reader reader= new FileReader( file);</div><div class="line">       char [] byteArray= new char[( int) file.length()];</div><div class="line">       int size= reader.read( byteArray);</div><div class="line">      System. out.println( &quot;大小:&quot;+size +&quot;;内容:&quot; +new String(byteArray));</div><div class="line">       reader.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>字节流转换为字符流</strong></p>
-<p>字节流可以转换成字符流，java.io包中提供的InputStreamReader类就可以实现，当然从其命名上就可以看出它的作用。其实这涉及到另一个概念，IO流的组合，后面我们详细介绍。下面看一个简单的例子：</p>
-<p><strong>例5 ，字节流转换为字符流</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">public static void convertByteToChar() throws IOException&#123;</div><div class="line">        File file= new File( &quot;d:/test.txt&quot;);</div><div class="line">         //获得一个字节流</div><div class="line">        InputStream is= new FileInputStream( file);</div><div class="line">         //把字节流转换为字符流，其实就是把字符流和字节流组合的结果。</div><div class="line">        Reader reader= new InputStreamReader( is);</div><div class="line">         char [] byteArray= new char[( int) file.length()];</div><div class="line">         int size= reader.read( byteArray);</div><div class="line">        System. out.println( &quot;大小:&quot;+size +&quot;;内容:&quot; +new String(byteArray));</div><div class="line">         is.close();</div><div class="line">         reader.close();</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<h3 id="IO类的组合"><a href="#IO类的组合" class="headerlink" title="IO类的组合"></a>IO类的组合</h3><p>从上面字节流转换成字符流的例子中我们知道了IO流之间可以组合（或称嵌套），其实组合的目的很简单，就是把多种类的特性融合在一起以实现更多的功能。组合使用的方式很简单，通过把一个流放入另一个流的构造器中即可实现，两个流之间可以组合，三个或者更多流之间也可组合到一起。当然，并不是任意流之间都可以组合。关于组合就不过多介绍了，后面的例子中有很多都用到了组合，大家好好体会即可。</p>
-<h4 id="文件媒介操作"><a href="#文件媒介操作" class="headerlink" title="文件媒介操作"></a>文件媒介操作</h4><p>File是Java IO中最常用的读写媒介，那么我们在这里就对文件再做进一步介绍。</p>
-<h5 id="File媒介"><a href="#File媒介" class="headerlink" title="File媒介"></a>File媒介</h5><p><strong>例6 ，File操作</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">public class FileDemo &#123;</div><div class="line">  public static void main(String[] args) &#123;</div><div class="line">         //检查文件是否存在</div><div class="line">        File file = new File( &quot;d:/test.txt&quot;);</div><div class="line">         boolean fileExists = file.exists();</div><div class="line">        System. out.println( fileExists);</div><div class="line">         //创建文件目录,若父目录不存在则返回false</div><div class="line">        File file2 = new File( &quot;d:/fatherDir/subDir&quot;);</div><div class="line">         boolean dirCreated = file2.mkdir();</div><div class="line">        System. out.println( dirCreated);</div><div class="line">         //创建文件目录,若父目录不存则连同父目录一起创建</div><div class="line">        File file3 = new File( &quot;d:/fatherDir/subDir2&quot;);</div><div class="line">         boolean dirCreated2 = file3.mkdirs();</div><div class="line">        System. out.println( dirCreated2);</div><div class="line">        File file4= new File( &quot;d:/test.txt&quot;);</div><div class="line">         //判断长度</div><div class="line">         long length = file4.length();</div><div class="line">         //重命名文件</div><div class="line">         boolean isRenamed = file4.renameTo( new File(&quot;d:/test2.txt&quot;));</div><div class="line">         //删除文件</div><div class="line">         boolean isDeleted = file4.delete();</div><div class="line">        File file5= new File( &quot;d:/fatherDir/subDir&quot;);</div><div class="line">         //是否是目录</div><div class="line">         boolean isDirectory = file5.isDirectory();</div><div class="line">         //列出文件名</div><div class="line">        String[] fileNames = file5.list();</div><div class="line">         //列出目录</div><div class="line">        File[]   files = file4.listFiles();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="随机读取File文件"><a href="#随机读取File文件" class="headerlink" title="随机读取File文件"></a>随机读取File文件</h5><p>通过上面的例子我们已经知道，我们可以用FileInputStream（文件字符流）或FileReader（文件字节流）来读文件，这两个类可以让我们分别以字符和字节的方式来读取文件内容，但是它们都有一个不足之处，就是只能从文件头开始读，然后读到文件结束。</p>
-<p>但是有时候我们只希望读取文件的一部分，或者是说随机的读取文件，那么我们就可以利用RandomAccessFile。RandomAccessFile提供了seek()方法，用来定位将要读写文件的指针位置，我们也可以通过调用getFilePointer()方法来获取当前指针的位置，具体看下面的例子:</p>
-<p><strong>例7，随机读取文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">public static void randomAccessFileRead() throws IOException &#123;</div><div class="line">       // 创建一个RandomAccessFile对象</div><div class="line">      RandomAccessFile file = new RandomAccessFile( &quot;d:/test.txt&quot;, &quot;rw&quot;);</div><div class="line">       // 通过seek方法来移动读写位置的指针</div><div class="line">       file.seek(10);</div><div class="line">       // 获取当前指针</div><div class="line">       long pointerBegin = file.getFilePointer();</div><div class="line">       // 从当前指针开始读</div><div class="line">       byte[] contents = new byte[1024];</div><div class="line">       file.read( contents);</div><div class="line">       long pointerEnd = file.getFilePointer();</div><div class="line">      System. out.println( &quot;pointerBegin:&quot; + pointerBegin + &quot;\n&quot; + &quot;pointerEnd:&quot; + pointerEnd + &quot;\n&quot; + new String(contents));</div><div class="line">       file.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>例8，随机写入文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static void randomAccessFileWrite() throws IOException &#123;</div><div class="line">       // 创建一个RandomAccessFile对象</div><div class="line">      RandomAccessFile file = new RandomAccessFile( &quot;d:/test.txt&quot;, &quot;rw&quot;);</div><div class="line">       // 通过seek方法来移动读写位置的指针</div><div class="line">       file.seek(10);</div><div class="line">       // 获取当前指针</div><div class="line">       long pointerBegin = file.getFilePointer();</div><div class="line">       // 从当前指针位置开始写</div><div class="line">       file.write( &quot;HELLO WORD&quot;.getBytes());</div><div class="line">       long pointerEnd = file.getFilePointer();</div><div class="line">      System. out.println( &quot;pointerBegin:&quot; + pointerBegin + &quot;\n&quot; + &quot;pointerEnd:&quot; + pointerEnd + &quot;\n&quot; );</div><div class="line">       file.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="管道媒介"><a href="#管道媒介" class="headerlink" title="管道媒介"></a>管道媒介</h5><p>管道主要用来实现同一个虚拟机中的两个线程进行交流。因此，一个管道既可以作为数据源媒介也可作为目标媒介。</p>
-<p>需要注意的是java中的管道和Unix/Linux中的管道含义并不一样，在Unix/Linux中管道可以作为两个位于不同空间进程通信的媒介，而在java中，管道只能为同一个JVM进程中的不同线程进行通信。和管道相关的IO类为：PipedInputStream和PipedOutputStream，下面我们来看一个例子：</p>
-<p><strong>例9，读写管道</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class PipeExample &#123;</div><div class="line">   public static void main(String[] args) throws IOException &#123;</div><div class="line">          final PipedOutputStream output = new PipedOutputStream();</div><div class="line">          final PipedInputStream  input  = new PipedInputStream(output);</div><div class="line">          Thread thread1 = new Thread( new Runnable() &#123;</div><div class="line">              @Override</div><div class="line">              public void run() &#123;</div><div class="line">                  try &#123;</div><div class="line">                      output.write( &quot;Hello world, pipe!&quot;.getBytes());</div><div class="line">                  &#125; catch (IOException e) &#123;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;);</div><div class="line">          Thread thread2 = new Thread( new Runnable() &#123;</div><div class="line">              @Override</div><div class="line">              public void run() &#123;</div><div class="line">                  try &#123;</div><div class="line">                      int data = input.read();</div><div class="line">                      while( data != -1)&#123;</div><div class="line">                          System. out.print(( char) data);</div><div class="line">                          data = input.read();</div><div class="line">                      &#125;</div><div class="line">                  &#125; catch (IOException e) &#123;</div><div class="line">                  &#125; finally&#123;</div><div class="line">                     try &#123;</div><div class="line">                                       input.close();</div><div class="line">                                &#125; catch (IOException e) &#123;</div><div class="line">                                       e.printStackTrace();</div><div class="line">                                &#125;</div><div class="line">                  &#125;</div><div class="line">              &#125;</div><div class="line">          &#125;);</div><div class="line">          thread1.start();</div><div class="line">          thread2.start();</div><div class="line">      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h5 id="网络媒介"><a href="#网络媒介" class="headerlink" title="网络媒介"></a>网络媒介</h5><p>关于Java IO面向网络媒介的操作即Java 网络编程，其核心是Socket，同磁盘操作一样，java网络编程对应着两套API，即Java IO和Java NIO，关于这部分我会准备专门的文章进行介绍。</p>
-<h5 id="BufferedInputStream和BufferedOutputStream"><a href="#BufferedInputStream和BufferedOutputStream" class="headerlink" title="BufferedInputStream和BufferedOutputStream"></a>BufferedInputStream和BufferedOutputStream</h5><p>BufferedInputStream顾名思义，就是在对流进行写入时提供一个buffer来提高IO效率。在进行磁盘或网络IO时，原始的InputStream对数据读取的过程都是一个字节一个字节操作的，而BufferedInputStream在其内部提供了一个buffer，在读数据时，会一次读取一大块数据到buffer中，这样比单字节的操作效率要高的多，特别是进程磁盘IO和对大量数据进行读写的时候。</p>
-<p>使用BufferedInputStream十分简单，只要把普通的输入流和BufferedInputStream组合到一起即可。我们把上面的例2改造成用BufferedInputStream进行读文件，请看下面例子：</p>
-<p><strong>例10 ，用缓冲流读文件</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static void readByBufferedInputStream() throws IOException &#123;</div><div class="line">      File file = new File( &quot;d:/test.txt&quot;);</div><div class="line">       byte[] byteArray = new byte[( int) file.length()];</div><div class="line">       //可以在构造参数中传入buffer大小</div><div class="line">      InputStream is = new BufferedInputStream( new FileInputStream(file),2*1024);</div><div class="line">       int size = is.read( byteArray);</div><div class="line">      System. out.println( &quot;大小:&quot; + size + &quot;;内容:&quot; + new String(byteArray));</div><div class="line">       is.close();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>关于如何设置buffer的大小，我们应根据我们的硬件状况来确定。对于磁盘IO来说，如果硬盘每次读取4KB大小的文件块，那么我们最好设置成这个大小的整数倍。因为磁盘对于顺序读的效率是特别高的，所以如果buffer再设置的大写可能会带来更好的效率，比如设置成4<em>4KB或8</em>4KB。</p>
-<p>还需要注意一点的就是磁盘本身就会有缓存，在这种情况下，BufferedInputStream会一次读取磁盘缓存大小的数据，而不是分多次的去读。所以要想得到一个最优的buffer值，我们必须得知道磁盘每次读的块大小和其缓存大小，然后根据多次试验的结果来得到最佳的buffer大小。</p>
-<p>BufferedOutputStream的情况和BufferedInputStream一致，在这里就不多做描述了。</p>
-<h5 id="BufferedReader和BufferedWriter"><a href="#BufferedReader和BufferedWriter" class="headerlink" title="BufferedReader和BufferedWriter"></a>BufferedReader和BufferedWriter</h5><p>BufferedReader、BufferedWriter 的作用基本和BufferedInputStream、BufferedOutputStream一致，具体用法和原理都差不多 ，只不过一个是面向字符流一个是面向字节流。同样，我们将改造字符流中的例4，给其加上buffer功能，看例子：</p>
-<pre><code> public static void readByBufferedReader() throws IOException {
-        File file = new File( &quot;d:/test.txt&quot;);
-         // 在字符流基础上用buffer流包装，也可以指定buffer的大小
-        Reader reader = new BufferedReader( new FileReader(file),2*1024);
-         char[] byteArray = new char[( int) file.length()];
-         int size = reader.read( byteArray);
-        System. out.println( &quot;大小:&quot; + size + &quot;;内容:&quot; + new String(byteArray));
-         reader.close();
-  }
-</code></pre><p> <a href="http://blog.csdn.net/suifeng3051/article/details/48344587" target="_blank" rel="external">参考链接</a></p>
+<ul>
+<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””,</p>
+<p>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
+<p> <code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
+</li>
+<li><p>${}</p>
+<p>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
+<p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
+</li>
+</ul>
 
       
       
@@ -448,13 +448,13 @@
 </div>
 
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/07/08/java-IO/">java-IO</a></p>
+        <p><span>本文标题:</span><a href="/2018/11/30/Mybatis相关/">Mybatis相关</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
-        <p><span>发布时间:</span>2017年07月08日 - 18时35分</p>
-        <p><span>最后更新:</span>2018年11月28日 - 11时17分</p>
+        <p><span>发布时间:</span>2018年11月30日 - 14时30分</p>
+        <p><span>最后更新:</span>2018年11月30日 - 17时32分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/08/java-IO/" title="java-IO">http://jet-han.oschina.io/2017/07/08/java-IO/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/08/java-IO/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2018/11/30/Mybatis相关/" title="Mybatis相关">http://jet-han.oschina.io/2018/11/30/Mybatis相关/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2018/11/30/Mybatis相关/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -467,18 +467,9 @@
 
 <nav id="article-nav">
   
-    <a href="/2017/07/09/google-cloud搭建vpn/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption"><</strong>
-      <div class="article-nav-title">
-        
-          google-cloud搭建vpn
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/07/02/github搭建个人maven仓库/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">github搭建个人maven仓库</div>
+    <a href="/2017/11/28/Mysql-SQL语句执行/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mysql-SQL语句执行</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -492,7 +483,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java-IO"><span class="toc-number">1.</span> <span class="toc-text">Java IO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#流"><span class="toc-number">1.1.</span> <span class="toc-text">流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IO相关的媒介"><span class="toc-number">1.2.</span> <span class="toc-text">IO相关的媒介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-IO类库的框架"><span class="toc-number">1.3.</span> <span class="toc-text">Java IO类库的框架</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-IO的类型"><span class="toc-number">1.3.1.</span> <span class="toc-text">Java IO的类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO-类库"><span class="toc-number">1.3.2.</span> <span class="toc-text">IO 类库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java-IO的基本用法"><span class="toc-number">1.4.</span> <span class="toc-text">Java IO的基本用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字节流"><span class="toc-number">1.4.1.</span> <span class="toc-text">字节流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符流"><span class="toc-number">1.4.2.</span> <span class="toc-text">字符流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IO类的组合"><span class="toc-number">1.4.3.</span> <span class="toc-text">IO类的组合</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#文件媒介操作"><span class="toc-number">1.4.3.1.</span> <span class="toc-text">文件媒介操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#File媒介"><span class="toc-number">1.4.3.1.1.</span> <span class="toc-text">File媒介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#随机读取File文件"><span class="toc-number">1.4.3.1.2.</span> <span class="toc-text">随机读取File文件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#管道媒介"><span class="toc-number">1.4.3.1.3.</span> <span class="toc-text">管道媒介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#网络媒介"><span class="toc-number">1.4.3.1.4.</span> <span class="toc-text">网络媒介</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BufferedInputStream和BufferedOutputStream"><span class="toc-number">1.4.3.1.5.</span> <span class="toc-text">BufferedInputStream和BufferedOutputStream</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#BufferedReader和BufferedWriter"><span class="toc-number">1.4.3.1.6.</span> <span class="toc-text">BufferedReader和BufferedWriter</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#MapperScannerConfigurer"><span class="toc-number">1.</span> <span class="toc-text">MapperScannerConfigurer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#和-的区别"><span class="toc-number">2.</span> <span class="toc-text">$和#的区别</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -563,13 +554,11 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/07/09/google-cloud搭建vpn/" title="上一篇: google-cloud搭建vpn">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/07/02/github搭建个人maven仓库/" title="下一篇: github搭建个人maven仓库">
+            <a href="/2017/11/28/Mysql-SQL语句执行/" title="下一篇: Mysql-SQL语句执行">
                 <i class="fa fa-angle-right"></i>
             </a>
         

@@ -251,6 +251,76 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-大数据平台-ambari" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/15/大数据平台-ambari/" class="article-date">
+      <time datetime="2017-07-15T07:02:20.000Z" itemprop="datePublished">2017-07-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="/2017/07/15/大数据平台-ambari/bigdata.jpg" alt="bigdata" title="bigdata"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
+<p>目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的<br></p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">bigdata</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ambari/">ambari</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bigdata/">bigdata</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/15/大数据平台-ambari/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-数据库之mysql-一" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -521,77 +591,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/02/github搭建个人maven仓库/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-git" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/24/git/" class="article-date">
-      <time datetime="2017-06-24T08:51:27.000Z" itemprop="datePublished">2017-06-24</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/24/git/">git</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="/2017/06/24/git/git.jpg" alt="git" title="git"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>集中式vs分布式</strong></p>
-<p>Linus一直痛恨的CVS、VSS及SVN都是集中式的版本控制系统，而Git是分布式版本控制系统，集中式和分布式版本控制系统有什么区别呢？</p>
-<p>先说集中式版本控制系统，版本库是集中存放在中央服务器的，而干活的时候，用的都是自己的电脑，所以要先从中央服务器取得最新的版本，然后开始干活，干完活了，再把自己的活推送给中央服务器。中央服务器就好比是一个图书馆，你要改一本书，必须先从图书馆借出来，然后回到家自己改，改完了，再放回图书馆。<br></p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/git/">git</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/git/">git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/版本控制/">版本控制</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/24/git/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

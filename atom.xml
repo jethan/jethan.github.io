@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-29T07:40:23.954Z</updated>
+  <updated>2018-11-30T09:32:01.442Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,6 +14,123 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mybatis相关</title>
+    <link href="http://jet-han.oschina.io/2018/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
+    <id>http://jet-han.oschina.io/2018/11/30/Mybatis相关/</id>
+    <published>2018-11-30T06:30:37.000Z</published>
+    <updated>2018-11-30T09:32:01.442Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
+<p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
+<p> 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 <code>MapperScannerConfigurer</code>的自定义配置实现。他首先定义了自定义配置类 <code>BkStarterAutoConfiguration</code>，使用 <code>@EnableConfigurationProperties</code>注解将 <code>TkProperties</code>声明为配置属性类。</p>
+ <a id="more"></a>
+<h2 id="MapperScannerConfigurer"><a href="#MapperScannerConfigurer" class="headerlink" title="MapperScannerConfigurer"></a>MapperScannerConfigurer</h2><pre><code>@Configuration
+@EnableConfigurationProperties({TkProperties.class})
+@AutoConfigureBefore(MybatisAutoConfiguration.class)`
+public  class  BkStarterAutoConfiguration  {
+    @Bean
+    @ConditionalOnMissingBean
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    public  TkProperties tkProperties()  {
+    return  new  TkProperties();`
+    }
+}
+</code></pre><p> 下面是 <code>TkProperties</code>的定义，使用 <code>@ConfigurationProperties</code>注解声明了该属性配置的前缀，两个属性名称为 <code>basePackage</code>和 <code>mappers</code>。</p>
+<pre><code>        @Data
+        @ConfigurationProperties(prefix =  &quot;tk&quot;)
+        public  class  TkProperties  {
+            private  String basePackage;
+            private  String mappers;
+        }
+</code></pre><p>  <code>MapperConfig</code>是声明并配置 <code>MapperScannerConfigurer</code>实例的配置类，使用被 <code>@Bean</code>注解修饰的 <code>mapperScannerConfigurer</code>方法来初始化，其方法参数为 <code>TkProperties</code>。</p>
+<pre><code>@Configuration
+public  class  MapperConfig  {
+@Bean
+public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkProperties)  {
+    MapperScannerConfigurer mapperScannerConfigurer =  new  MapperScannerConfigurer();
+    mapperScannerConfigurer.setSqlSessionFactoryBeanName(&quot;sqlSessionFactory&quot;);
+    //使用TkProperties的成员变量来配置mapperScannerConfigurer
+    mapperScannerConfigurer.setBasePackage(tkProperties.getBasePackage());
+    Properties properties =  new  Properties();
+     properties.setProperty(&quot;mappers&quot;, tkProperties.getMappers());
+     mapperScannerConfigurer.setProperties(properties);
+     return mapperScannerConfigurer;
+     }
+}
+</code></pre><p> yml配置文件如下所示。</p>
+<pre><code>tk:
+basePackage: cn.remcarpediem.mybatis.dao
+mappers: cn.remcarpediem.mappers.BaseDao
+</code></pre><p> 代码乍看起来一定问题都没有，但是运行时，在初始化MapperScannerConfigurer实例时，TkProperties实例的属性死活就是没有初始化成功。</p>
+<p> <img src="/2018/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
+<p> 一定有很多见多识广的读者已经知道这个现象背后的原因。“凶手”就是 <code>MapperScannerConfigurer</code>实现的接口 <code>BeanDefinitionRegistryPostProcessor</code>。具体原因我们还需要慢慢来解释，因为它涉及了Spring Boot的很多原理。</p>
+<p> 首先， <code>BeanDefinitionRegistryPostProcessor</code>接口继承了 <code>BeanFactoryPostProcessor</code>接口，大家一般都对 <code>BeanFactoryPostProcessor</code>较为熟悉，它是实例工厂(BeanFactory)的后处理器(PostProcessor)，与之类似的还有实例的后处理器(BeanPostProcessor)。 <code>BeanFactoryPostProcessor</code>中只定义了一个方法，其将会在 <code>ApplicationContext</code>内部的 <code>BeanFactory</code>加载完 <code>BeanDefinition</code>后，但是在Bean实例化之前进行。所以通常我们可以通过实现该接口来对实例化之前的 <code>BeanDefinition</code>进行修改。比如说 <code>PropertySourcesPlaceholderConfigurer</code>就实现 <code>BeanFactoryPostProcessor</code>接口，用于处理实例中被 <code>@Value</code>注解修饰的变量，修改其数值。</p>
+<pre><code>  public  interface  BeanFactoryPostProcessor  {
+   void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory)  throws  BeansException;
+ }
+</code></pre><p> 而 <code>BeanDefinitionRegistryPostProcessor</code>接口扩展自 <code>BeanFactoryPostProcessor</code>，它是 <code>BeanDefinitionRegistry</code>的后处理器，它可以在 <code>BeanFactoryPostProcessor</code>检测之前注册一些特殊的 <code>BeanDefinition</code>，比如说可以注册用来定义 <code>BeanFactoryPostProcessor</code>的 <code>BeanDefintion</code>，比如说我们之前提到的 <code>MapperScannerConfigurer</code>和 <code>ConfigurationClassPostProcessor</code>。</p>
+<pre><code> public  interface  BeanDefinitionRegistryPostProcessor  extends  BeanFactoryPostProcessor  {
+   void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry)  throws  BeansException;
+ }
+</code></pre><p>  <code>MapperScannerConfigurer</code>的 <code>postProcessBeanDefinitionRegistry</code>主要用来 <code>ClassPathMapperScanner</code>来扫描 <code>Mybatis</code>的 <code>Mapper</code>。 <code>ClassPathMapperScanner</code>继承了 <code>ClassPathBeanDefinitionScanner</code>，在 <code>doScan</code>方法中获取了 <code>basePackage</code>指定的包路径下的所有 <code>Mapper</code>的 <code>BeanDefinition</code>，然后进行注册。</p>
+<p> 而 <code>BeanPostProcessor</code>就是Bean实例的后处理器。每个Bean实例在进行初始化前会调用其 <code>postProcessBeforeInitialization</code>方法和初始化之后调用其 <code>postProcessAfterInitialization</code>方法。 <code>ConfigurationPropertiesBindingPostProcessor</code>实现了 <code>BeanPostProcessor</code>接口，用于处理被 <code>@ConfigurationProperties</code>修饰的实例。</p>
+<pre><code>  public  interface  BeanPostProcessor  {
+   Object postProcessBeforeInitialization(Object bean,  String beanName)  throws  BeansException;
+   Object postProcessAfterInitialization(Object bean,  String beanName)  throws  BeansException;
+  }
+</code></pre><p> 我们可以总结一下 <code>BeanDefinitionRegistryPostProcessor</code>， <code>BeanFactoryPostProcessor</code>和 <code>BeanPostProcessor</code>三个后处理器发挥作用的次序和时机。</p>
+<p>  <img src="/2018/11/30/Mybatis相关/mybatis2.png" alt="mybatis" title="mybatis"></p>
+<p> <strong>由此，我们也能够理解为什么 <code>MapperScannerConfigurer</code>初始化时， <code>TkProperties</code>还没有初始化，那是因为 <code>ConfigurationPropertiesBindingPostProcessor</code>还没有初始化，并且也没有对 <code>TkProperties</code>进行处理</strong>。</p>
+<p> 遇到问题和bug，不要百度一下解决方案处理就结束了，而是要深入了解一下背后的机制和原理，希望大家都能够多多探索更加深入的原理，获得更多的知识。</p>
+<h2 id="和-的区别"><a href="#和-的区别" class="headerlink" title="$和#的区别"></a>$和#的区别</h2><p><code>#</code>相当于对数据 加上 双引号，<code>$</code>相当于直接显示数据</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">#</th>
+<th style="text-align:center">$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">相当于对数据加上双引号</td>
+<td style="text-align:center">相当于直接显示数据</td>
+</tr>
+<tr>
+<td style="text-align:center">很大程度上防止SQL注入</td>
+<td style="text-align:center">无法防止SQL注入</td>
+</tr>
+<tr>
+<td style="text-align:center">#{xxx},使用的是PreparedStatement,会有类型转换，比较安全</td>
+<td style="text-align:center">${xxx}，使用字符串拼接，容易SQL注入</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><p>使用#{参数}传入会加上单引号，sql语句解析是会加上””,</p>
+<p>比如  <code>select * from table where name = #{name}</code> ,传入的name为小李，那么最后打印出来的就是</p>
+<p> <code>select * from table where name = ‘小李’</code>，就是会当成字符串来解析，这样相比于$的好处是比较明显对的吧，#{}传参能防止sql注入，如果你传入的参数为 单引号’，那么如果使用${},这种方式 那么是会报错的，</p>
+</li>
+<li><p>${}</p>
+<p>另外一种场景是，如果你要做动态的排序，比如  <code>order by   column</code>，这个时候务必要用${},</p>
+<p>因为如果你使用了#{},那么打印出来的将会是  <code>select * from table order by  &#39;name&#39;</code>  ,这样是没用。</p>
+</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png&quot; alt=&quot;mybatis&quot; title=&quot;mybatis&quot;&gt;&lt;/p&gt;
+&lt;p&gt; 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 &lt;code&gt;StarterAutoConfiguration&lt;/code&gt;和自定义属性类 &lt;code&gt;TkProperties&lt;/code&gt;，并在初始化 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;时使用 &lt;code&gt;TkProperties&lt;/code&gt;中的属性。但是，事与愿违，在初始化 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;时， &lt;code&gt;TkProperties&lt;/code&gt;实例中的属性死活都是未初始化状态。&lt;/p&gt;
+&lt;p&gt; 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;的自定义配置实现。他首先定义了自定义配置类 &lt;code&gt;BkStarterAutoConfiguration&lt;/code&gt;，使用 &lt;code&gt;@EnableConfigurationProperties&lt;/code&gt;注解将 &lt;code&gt;TkProperties&lt;/code&gt;声明为配置属性类。&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>Mysql-SQL语句执行</title>
@@ -3303,34 +3420,6 @@ public void setFlag() {
     
     
       <category term="spring" scheme="http://jet-han.oschina.io/tags/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>spring scope prototype与singleton</title>
-    <link href="http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/"/>
-    <id>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype与singleton区别/</id>
-    <published>2017-07-26T10:06:11.000Z</published>
-    <updated>2017-08-13T01:45:26.091Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="singleton作用域"><a href="#singleton作用域" class="headerlink" title="singleton作用域"></a>singleton作用域</h2><p>　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。<br>     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。<br> <a id="more"></a></p>
-<h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>　　prototype作用域部署的bean，每一次请求（将其注入到另一个bean中，或者以程序的方式调用容器的getBean()方法）都会产生一个新的bean实例，相当与一个new的操作，对于prototype作用域的bean，有一点非常重要，那就是Spring不能对一个prototype bean的整个生命周期负责，容器在初始化、配置、装饰或者是装配完一个prototype实例后，将它交给客户端，随后就对该prototype实例不闻不问了。<br>      不管何种作用域，容器都会调用所有对象的初始化生命周期回调方法，而对prototype而言，任何配置好的析构生命周期回调方法都将不会被调用。清除prototype作用域的对象并释放任何prototype bean所持有的昂贵资源，都是客户端代码的职责。（让Spring容器释放被singleton作用域bean占用资源的一种可行方式是，通过使用bean的后置处理器，该处理器持有要被清除的bean的引用。）<br>    scope=”prototype”没写的问题,项目中对一个表的增删该操作是用一个action，这个actionadd,update,delete,save这些方法， 添加和修改是共用一个页面，当页面得到id时代表进行的修改操作，反之是添加操作。因为在配置spring的bean是忘了写scope=”prototype” 所以每次添加时都显示最后一次访问过的记录,scope=”prototype” 会在该类型的对象被请求 时创建一个新的action对象。如果没有配置scope=prototype则添加的时候不会新建一个action，他任然会保留上次访问的过记录的信息 webwork的Action不是线程安全的，要求在多线程环境下必须是一个线程对应一个独立的实例，不能使用singleton。所以，我们在Spring配置Webwork Action Bean时，需要加上属性scope=”prototype”或singleton=”false”。<br>     singleton模式指的是对某个对象的完全共享，包括代码空间和数据空间，说白了，如果一个类是singleton的，假如这个类有成员变量，那么这个成员变量的值是各个线程共享的（有点类似于static的样子了），当线程A往给变量赋了一个值以后，线程B就能读出这个值。<br>      因此，对于前台Action，肯定不能使用singleton的模式，必须是一个线程请求对应一个独立的实例。推而广之，只要是带数据成员变量的类，为了防止多个线程混用数据，就不能使用singleton。对于我们用到的Service、Dao，之所以用了singleton，就是因为他们没有用到数据成员变量，如果谁的Service需要数据成员变量，请设置singleton=false。 有状态的bean都使用Prototype作用域，而对无状态的bean则应该使用singleton作用域。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;singleton作用域&quot;&gt;&lt;a href=&quot;#singleton作用域&quot; class=&quot;headerlink&quot; title=&quot;singleton作用域&quot;&gt;&lt;/a&gt;singleton作用域&lt;/h2&gt;&lt;p&gt;　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。&lt;br&gt;     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://jet-han.oschina.io/categories/java/"/>
-    
-    
-      <category term="spring" scheme="http://jet-han.oschina.io/tags/spring/"/>
-    
-      <category term="scope" scheme="http://jet-han.oschina.io/tags/scope/"/>
     
   </entry>
   
