@@ -1221,7 +1221,7 @@
     <link href="http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
     <id>http://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</id>
     <published>2017-08-06T06:16:24.000Z</published>
-    <updated>2018-11-29T10:41:33.150Z</updated>
+    <updated>2018-11-30T05:55:14.562Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
@@ -1375,22 +1375,14 @@
 <p> 如果将上锁的对象看成一棵树，那么对最下层的对象上锁，也就是对最细粒度的对象进行上锁，那么首先需要对粗粒度的对象上锁。如上图所示，如果需要对表1的记录m行上X锁，那么需要先对表1加意向IX锁，然后对记录m上X锁。如果其中任何一个部分导致等待，那么该操作需要等待粗粒度锁的完成。</p>
 <p>InnoDB锁相关状态查询<br> 用户可以使用INFOMATION_SCHEMA库下的INNODB_TRX、INNODB_LOCKS和INNODB_LOCK_WAITS表来监控当前事务并分析可能出现的锁问题。INNODB_TRX的定义如下表所示，其由8个字段组成。</p>
 <ul>
-<li><p>trx_id：InnoDB存储引擎内部唯一的事务ID</p>
-</li>
-<li><p>trx_state：当前事务的状态</p>
-</li>
-<li><p>trx_started：事务的开始时间</p>
-</li>
-<li><p>trx_request_lock_id：等待事务的锁ID。如果trx_state的状态为LOCK WAIT,那么该字段代表当前事务等待之前事务占用的锁资源ID</p>
-</li>
-<li><p>trx_wait_started：事务等待的时间</p>
-</li>
-<li><p>trx_weight：事务的权重，反映了一个事务修改和锁住的行数，当发生死锁需要回滚时，会选择该数值最小的进行回滚</p>
-</li>
-<li><p>trx_mysql_thread_id：线程ID，SHOW PROCESSLIST 显示的结果</p>
-</li>
-<li><p>trx_query：事务运行的SQL语句</p>
-</li>
+<li>trx_id：InnoDB存储引擎内部唯一的事务ID</li>
+<li>trx_state：当前事务的状态</li>
+<li>trx_started：事务的开始时间</li>
+<li>trx_request_lock_id：等待事务的锁ID。如果trx_state的状态为LOCK WAIT,那么该字段代表当前事务等待之前事务占用的锁资源ID</li>
+<li>trx_wait_started：事务等待的时间</li>
+<li>trx_weight：事务的权重，反映了一个事务修改和锁住的行数，当发生死锁需要回滚时，会选择该数值最小的进行回滚</li>
+<li>trx_mysql_thread_id：线程ID，SHOW PROCESSLIST 显示的结果</li>
+<li>trx_query：事务运行的SQL语句</li>
 </ul>
 <pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_TRX\G;    
 ************** 1.row ***********************     
@@ -1404,58 +1396,45 @@ trx_mysql_thread_id: 471719
 trx_query: select * from parent lock in share mode    
 </code></pre><p> INNODB_TRX表只能显示当前运行的InnoDB事务，并不能直接判断锁的一些情况。如果需要查看锁，则还需要访问表INNODB_LOCKS，该表的字段组成如下表所示。</p>
 <ul>
-<li><p>lock_id：锁的ID</p>
-</li>
-<li><p>lock_trx_id：事务的ID</p>
-</li>
-<li><p>lock_mode：锁的模式</p>
-</li>
-<li><p>lock_type：锁的类型，表锁还是行锁</p>
-</li>
-<li><p>lock_table：要加锁的表</p>
-</li>
-<li><p>lock_index：锁住的索引</p>
-</li>
-<li><p>lock_space：锁住的space id</p>
-</li>
-<li><p>lock_page：事务锁定页的数量，若是表锁，则该值为NULL</p>
-</li>
-<li><p>lock_rec：事务锁定行的数量，如果是表锁，则该值为NULL</p>
-</li>
-<li><p>lock_data：</p>
-<pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_LOCKS\G;
-***************** 1.row ***********************
-lock_id: 7311F4:96:3:2
-lock_trx_id: 7311F4
-lock_mode: S
-lock_type: RECORD
-lock_type: &#39;mytest&#39;.&#39;parent&#39;
-lock_index: &#39;PRIMARY&#39;
-lock_space: 96
-lock_page: 3
-lock_rec: 2
-lock_data: 1
-</code></pre></li>
+<li>lock_id：锁的ID</li>
+<li>lock_trx_id：事务的ID</li>
+<li>lock_mode：锁的模式</li>
+<li>lock_type：锁的类型，表锁还是行锁</li>
+<li>lock_table：要加锁的表</li>
+<li>lock_index：锁住的索引</li>
+<li>lock_space：锁住的space id</li>
+<li>lock_page：事务锁定页的数量，若是表锁，则该值为NULL</li>
+<li>lock_rec：事务锁定行的数量，如果是表锁，则该值为NULL</li>
+<li>lock_data：</li>
 </ul>
-<p> 通过表INNODB_LOCKS查看每张表上锁的情况后，用户就可以来判断由此引发的等待情况。当时当事务量非常大，其中锁和等待也时常发生，这个时候就不那么容易判断。但是通过表INNODB_LOCK_WAITS，可以很直观的反应当前事务的等待。表INNODB_LOCK_WAITS由四个字段组成，如下表所示。</p>
+<pre><code>  mysql&gt; SELECT * FROM information_schema.INNODB_LOCKS\G;
+  ***************** 1.row ***********************
+  lock_id: 7311F4:96:3:2
+  lock_trx_id: 7311F4
+  lock_mode: S
+  lock_type: RECORD
+  lock_type: &#39;mytest&#39;.&#39;parent&#39;
+  lock_index: &#39;PRIMARY&#39;
+  lock_space: 96
+  lock_page: 3
+  lock_rec: 2
+  lock_data: 1
+</code></pre><p> 通过表INNODB_LOCKS查看每张表上锁的情况后，用户就可以来判断由此引发的等待情况。当时当事务量非常大，其中锁和等待也时常发生，这个时候就不那么容易判断。但是通过表INNODB_LOCK_WAITS，可以很直观的反应当前事务的等待。表INNODB_LOCK_WAITS由四个字段组成，如下表所示。</p>
 <ul>
-<li><p>requesting_trx_id：申请锁资源的事务ID</p>
-</li>
-<li><p>requesting_lock_id：申请的锁的ID</p>
-</li>
-<li><p>blocking_trx_id：阻塞的事务ID</p>
-</li>
-<li><p>blocking_lock_id：阻塞的锁的ID</p>
-<pre><code>mysql&gt; SELECT * FROM information_schema.INNODB_LOCK_WAITS\G;
-******************1.row**************************
-requesting_trx_id: 7311F4
-requesting_lock_id: 7311F4:96:3:2
-blocking_trx_id: 730FEE
-blocking_lock_id: 730FEE:96:3:2
-</code></pre><p>  通过上述的SQL语句，用户可以清楚直观地看到哪个事务阻塞了另一个事务，然后使用上述的事务ID和锁ID，去INNODB_TRX和INNDOB_LOCKS表中查看更加详细的信息。</p>
-</li>
+<li>requesting_trx_id：申请锁资源的事务ID</li>
+<li>requesting_lock_id：申请的锁的ID</li>
+<li>blocking_trx_id：阻塞的事务ID</li>
+<li>blocking_lock_id：阻塞的锁的ID</li>
 </ul>
-<h4 id="一致性非锁定读"><a href="#一致性非锁定读" class="headerlink" title="一致性非锁定读"></a>一致性非锁定读</h4><p>一致性非锁定读(consistent nonlocking read)是指InnoDB存储引擎通过多版本控制(MVVC)读取当前数据库中行数据的方式。如果读取的行正在执行DELETE或UPDATE操作，这时读取操作不会因此去等待行上锁的释放。相反地，InnoDB会去读取行的一个快照。</p>
+<pre><code>  mysql&gt; SELECT * FROM information_schema.INNODB_LOCK_WAITS\G;
+  ******************1.row**************************
+  requesting_trx_id: 7311F4
+  requesting_lock_id: 7311F4:96:3:2
+  blocking_trx_id: 730FEE
+  blocking_lock_id: 730FEE:96:3:2
+
+通过上述的SQL语句，用户可以清楚直观地看到哪个事务阻塞了另一个事务，然后使用上述的事务ID和锁ID，去INNODB_TRX和INNDOB_LOCKS表中查看更加详细的信息。
+</code></pre><h4 id="一致性非锁定读"><a href="#一致性非锁定读" class="headerlink" title="一致性非锁定读"></a>一致性非锁定读</h4><p>一致性非锁定读(consistent nonlocking read)是指InnoDB存储引擎通过多版本控制(MVVC)读取当前数据库中行数据的方式。如果读取的行正在执行DELETE或UPDATE操作，这时读取操作不会因此去等待行上锁的释放。相反地，InnoDB会去读取行的一个快照。</p>
 <p><img src="/2017/08/06/mysql数据库引擎/innodb9.png" alt="mysql" title="mysql"></p>
 <p>上图直观地展现了InnoDB一致性非锁定读的机制。之所以称其为非锁定读，是因为不需要等待行上排他锁的释放。快照数据是指该行的之前版本的数据，每行记录可能有多个版本，一般称这种技术为行多版本技术。</p>
 <pre><code>由此带来的并发控制，称之为多版本并发控制(Multi Version Concurrency Control, MVVC)。InnoDB是通过undo log来实现MVVC。undo log本身用来在事务中回滚数据，因此快照数据本身是没有额外开销。此外，读取快照数据是不需要上锁的，因为没有事务需要对历史的数据进行修改操作。
