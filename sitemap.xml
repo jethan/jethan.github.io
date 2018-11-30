@@ -2,9 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://jet-han.oschina.io/2018/11/30/Mybatis%E7%9B%B8%E5%85%B3/</loc>
+    <loc>http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/</loc>
     
-    <lastmod>2018-11-30T09:32:01.442Z</lastmod>
+    <lastmod>2018-11-30T09:36:27.973Z</lastmod>
     
   </url>
   
@@ -282,13 +282,6 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
-    
-    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
     
     <lastmod>2017-08-13T01:45:26.091Z</lastmod>
@@ -296,14 +289,21 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
+    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
+    
+    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/09/google-cloud%E6%90%AD%E5%BB%BAvpn/</loc>
     
     <lastmod>2017-08-13T01:45:26.062Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/09/google-cloud%E6%90%AD%E5%BB%BAvpn/</loc>
+    <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
     
     <lastmod>2017-08-13T01:45:26.062Z</lastmod>
     
@@ -331,13 +331,6 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/categories/index.html</loc>
-    
-    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jet-han.oschina.io/googlea5a6081fce108907.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
@@ -345,14 +338,21 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/tags/index.html</loc>
+    <loc>http://jet-han.oschina.io/message/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/message/index.html</loc>
+    <loc>http://jet-han.oschina.io/categories/index.html</loc>
+    
+    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jet-han.oschina.io/tags/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     

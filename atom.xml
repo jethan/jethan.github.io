@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-11-30T09:32:01.442Z</updated>
+  <updated>2018-11-30T09:36:27.973Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -17,12 +17,12 @@
   
   <entry>
     <title>Mybatis相关</title>
-    <link href="http://jet-han.oschina.io/2018/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
-    <id>http://jet-han.oschina.io/2018/11/30/Mybatis相关/</id>
-    <published>2018-11-30T06:30:37.000Z</published>
-    <updated>2018-11-30T09:32:01.442Z</updated>
+    <link href="http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/"/>
+    <id>http://jet-han.oschina.io/2017/11/30/Mybatis相关/</id>
+    <published>2017-11-30T06:30:37.000Z</published>
+    <updated>2018-11-30T09:36:27.973Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
+    <content type="html"><![CDATA[<p><img src="/2017/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
 <p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
 <p> 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 <code>MapperScannerConfigurer</code>的自定义配置实现。他首先定义了自定义配置类 <code>BkStarterAutoConfiguration</code>，使用 <code>@EnableConfigurationProperties</code>注解将 <code>TkProperties</code>声明为配置属性类。</p>
  <a id="more"></a>
@@ -64,7 +64,7 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 basePackage: cn.remcarpediem.mybatis.dao
 mappers: cn.remcarpediem.mappers.BaseDao
 </code></pre><p> 代码乍看起来一定问题都没有，但是运行时，在初始化MapperScannerConfigurer实例时，TkProperties实例的属性死活就是没有初始化成功。</p>
-<p> <img src="/2018/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
+<p> <img src="/2017/11/30/Mybatis相关/mybatis1.png" alt="mybatis" title="mybatis"></p>
 <p> 一定有很多见多识广的读者已经知道这个现象背后的原因。“凶手”就是 <code>MapperScannerConfigurer</code>实现的接口 <code>BeanDefinitionRegistryPostProcessor</code>。具体原因我们还需要慢慢来解释，因为它涉及了Spring Boot的很多原理。</p>
 <p> 首先， <code>BeanDefinitionRegistryPostProcessor</code>接口继承了 <code>BeanFactoryPostProcessor</code>接口，大家一般都对 <code>BeanFactoryPostProcessor</code>较为熟悉，它是实例工厂(BeanFactory)的后处理器(PostProcessor)，与之类似的还有实例的后处理器(BeanPostProcessor)。 <code>BeanFactoryPostProcessor</code>中只定义了一个方法，其将会在 <code>ApplicationContext</code>内部的 <code>BeanFactory</code>加载完 <code>BeanDefinition</code>后，但是在Bean实例化之前进行。所以通常我们可以通过实现该接口来对实例化之前的 <code>BeanDefinition</code>进行修改。比如说 <code>PropertySourcesPlaceholderConfigurer</code>就实现 <code>BeanFactoryPostProcessor</code>接口，用于处理实例中被 <code>@Value</code>注解修饰的变量，修改其数值。</p>
 <pre><code>  public  interface  BeanFactoryPostProcessor  {
@@ -81,7 +81,7 @@ mappers: cn.remcarpediem.mappers.BaseDao
    Object postProcessAfterInitialization(Object bean,  String beanName)  throws  BeansException;
   }
 </code></pre><p> 我们可以总结一下 <code>BeanDefinitionRegistryPostProcessor</code>， <code>BeanFactoryPostProcessor</code>和 <code>BeanPostProcessor</code>三个后处理器发挥作用的次序和时机。</p>
-<p>  <img src="/2018/11/30/Mybatis相关/mybatis2.png" alt="mybatis" title="mybatis"></p>
+<p>  <img src="/2017/11/30/Mybatis相关/mybatis2.png" alt="mybatis" title="mybatis"></p>
 <p> <strong>由此，我们也能够理解为什么 <code>MapperScannerConfigurer</code>初始化时， <code>TkProperties</code>还没有初始化，那是因为 <code>ConfigurationPropertiesBindingPostProcessor</code>还没有初始化，并且也没有对 <code>TkProperties</code>进行处理</strong>。</p>
 <p> 遇到问题和bug，不要百度一下解决方案处理就结束了，而是要深入了解一下背后的机制和原理，希望大家都能够多多探索更加深入的原理，获得更多的知识。</p>
 <h2 id="和-的区别"><a href="#和-的区别" class="headerlink" title="$和#的区别"></a>$和#的区别</h2><p><code>#</code>相当于对数据 加上 双引号，<code>$</code>相当于直接显示数据</p>
@@ -123,12 +123,16 @@ mappers: cn.remcarpediem.mappers.BaseDao
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2018/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png&quot; alt=&quot;mybatis&quot; title=&quot;mybatis&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/11/30/Mybatis相关/../../../../../../img/icons/mybatis.png&quot; alt=&quot;mybatis&quot; title=&quot;mybatis&quot;&gt;&lt;/p&gt;
 &lt;p&gt; 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 &lt;code&gt;StarterAutoConfiguration&lt;/code&gt;和自定义属性类 &lt;code&gt;TkProperties&lt;/code&gt;，并在初始化 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;时使用 &lt;code&gt;TkProperties&lt;/code&gt;中的属性。但是，事与愿违，在初始化 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;时， &lt;code&gt;TkProperties&lt;/code&gt;实例中的属性死活都是未初始化状态。&lt;/p&gt;
 &lt;p&gt; 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 &lt;code&gt;MapperScannerConfigurer&lt;/code&gt;的自定义配置实现。他首先定义了自定义配置类 &lt;code&gt;BkStarterAutoConfiguration&lt;/code&gt;，使用 &lt;code&gt;@EnableConfigurationProperties&lt;/code&gt;注解将 &lt;code&gt;TkProperties&lt;/code&gt;声明为配置属性类。&lt;/p&gt;
     
     </summary>
     
+    
+      <category term="mybatis" scheme="http://jet-han.oschina.io/tags/mybatis/"/>
+    
+      <category term="sql" scheme="http://jet-han.oschina.io/tags/sql/"/>
     
   </entry>
   
