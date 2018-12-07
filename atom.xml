@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-12-05T10:42:34.426Z</updated>
+  <updated>2018-12-06T09:13:14.568Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,10 +20,10 @@
     <link href="http://jet-han.oschina.io/2017/12/05/Cron/"/>
     <id>http://jet-han.oschina.io/2017/12/05/Cron/</id>
     <published>2017-12-05T08:11:06.000Z</published>
-    <updated>2018-12-05T10:42:34.426Z</updated>
+    <updated>2018-12-06T09:13:14.568Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/cron.png" alt="cron" title="cron"></p>
-<h2 id="cron表达式格式："><a href="#cron表达式格式：" class="headerlink" title="cron表达式格式："></a>cron表达式格式：</h2><ul>
+<h2 id="cron表达式格式"><a href="#cron表达式格式" class="headerlink" title="cron表达式格式"></a>cron表达式格式</h2><ul>
 <li>{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}</li>
 </ul>
 <p>先了解每个位置代表的含义，再了解每个位置允许的范围，以及一些特殊写法，还有常用的案例，足够你掌握<code>cron</code>表达式</p>
@@ -32,8 +32,8 @@
 <thead>
 <tr>
 <th style="text-align:center">字段</th>
-<th style="text-align:center">允许值</th>
 <th style="text-align:center">描述</th>
+<th style="text-align:center">允许值</th>
 <th style="text-align:center">允许的特殊字符</th>
 </tr>
 </thead>
@@ -136,8 +136,8 @@
 <h5 id="-3"><a href="#-3" class="headerlink" title=","></a>,</h5><p><code>,</code> 字符被用来指定另外的值。如：“MON,WED,FRI”在星期域里表示”星期一、星期三、星期五”。</p>
 <h5 id="-4"><a href="#-4" class="headerlink" title="/"></a>/</h5><p><code>/</code> 字符用于指定增量。如：“0/15”在秒域意思是每分钟的0，15，30和45秒。“5/15”在分钟域表示每小时的5，20，35和50。符号“<em>”在“/”前面（如：</em>/10）等价于0在“/”前面（如：0/10）。记住一条本质：表达式的每个数值域都是一个有最大值和最小值的集合，如：秒域和分钟域的集合是0-59，日期域是1-31，月份域是1-12。字符“/”可以帮助你在每个字符域中取相应的数值。如：“7/6”在月份域的时候只有当7月的时候才会触发，并不是表示每个6月。</p>
 <h5 id="L"><a href="#L" class="headerlink" title="L"></a>L</h5><p><code>L</code> 是‘last’的省略写法可以表示day-of-month和day-of-week域，但在两个字段中的意思不同，例如day-of-month域中表示一个月的最后一天。如果在day-of-week域表示‘7’或者‘SAT’，如果在day-of-week域中前面加上数字，它表示一个月的最后几天，例如‘6L’就表示一个月的最后一个星期五。</p>
-<h5 id="W"><a href="#W" class="headerlink" title="W"></a>W</h5><p>‘W’ 字符“W”只允许日期域出现。这个字符用于指定日期的最近工作日。例如：如果你在日期域中写 “15W”，表示：这个月15号最近的工作日。所以，如果15号是周六，则任务会在14号触发。如果15好是周日，则任务会在周一也就是16号触发。如果是在日期域填写“1W”即使1号是周六，那么任务也只会在下周一，也就是3号触发，“W”字符指定的最近工作日是不能够跨月份的。字符“W”只能配合一个单独的数值使用，不能够是一个数字段，如：1-15W是错误的。</p>
-<p>“L”和“W”可以在日期域中联合使用，LW表示这个月最后一周的工作日。</p>
+<h5 id="W"><a href="#W" class="headerlink" title="W"></a>W</h5><p><code>W</code> 字符“W”只允许日期域出现。这个字符用于指定日期的最近工作日。例如：如果你在日期域中写 “15W”，表示：这个月15号最近的工作日。所以，如果15号是周六，则任务会在14号触发。如果15好是周日，则任务会在周一也就是16号触发。如果是在日期域填写“1W”即使1号是周六，那么任务也只会在下周一，也就是3号触发，“W”字符指定的最近工作日是不能够跨月份的。字符“W”只能配合一个单独的数值使用，不能够是一个数字段，如：1-15W是错误的。</p>
+<p><code>L</code>和<code>W</code>可以在日期域中联合使用，LW表示这个月最后一周的工作日。</p>
 <h5 id="-5"><a href="#-5" class="headerlink" title="\"></a>\</h5><p><code>#</code> 字符“#”只允许在星期域中出现。这个字符用于指定本月的某某天。例如：“6#3”表示本月第三周的星期五（6表示星期五，3表示第三周）。“2#1”表示本月第一周的星期一。“4#5”表示第五周的星期三。</p>
 <h5 id="C"><a href="#C" class="headerlink" title="C"></a>C</h5><p><code>C</code> 字符“C”允许在日期域和星期域出现。这个字符依靠一个指定的“日历”。也就是说这个表达式的值依赖于相关的“日历”的计算结果，如果没有“日历”关联，则等价于所有包含的“日历”。如：日期域是“5C”表示关联“日历”中第一天，或者这个月开始的第一天的后5天。星期域是“1C”表示关联“日历”中第一天，或者星期的第一天的后1天，也就是周日的后一天（周一）。</p>
 <h4 id="一些cron表达式案例"><a href="#一些cron表达式案例" class="headerlink" title="一些cron表达式案例"></a>一些cron表达式案例</h4><ul>
@@ -185,7 +185,7 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/cron.png&quot; alt=&quot;cron&quot; title=&quot;cron&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;cron表达式格式：&quot;&gt;&lt;a href=&quot;#cron表达式格式：&quot; class=&quot;headerlink&quot; title=&quot;cron表达式格式：&quot;&gt;&lt;/a&gt;cron表达式格式：&lt;/h2&gt;&lt;ul&gt;
+&lt;h2 id=&quot;cron表达式格式&quot;&gt;&lt;a href=&quot;#cron表达式格式&quot; class=&quot;headerlink&quot; title=&quot;cron表达式格式&quot;&gt;&lt;/a&gt;cron表达式格式&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;先了解每个位置代表的含义，再了解每个位置允许的范围，以及一些特殊写法，还有常用的案例，足够你掌握&lt;code&gt;cron&lt;/code&gt;表达式&lt;/p&gt;
@@ -194,8 +194,8 @@
 &lt;thead&gt;
 &lt;tr&gt;
 &lt;th style=&quot;text-align:center&quot;&gt;字段&lt;/th&gt;
-&lt;th style=&quot;text-align:center&quot;&gt;允许值&lt;/th&gt;
 &lt;th style=&quot;text-align:center&quot;&gt;描述&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;允许值&lt;/th&gt;
 &lt;th style=&quot;text-align:center&quot;&gt;允许的特殊字符&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
@@ -2939,7 +2939,7 @@ select * from tx;
     <link href="http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
     <id>http://jet-han.oschina.io/2017/07/28/HashMap工作原理/</id>
     <published>2017-07-28T08:05:02.000Z</published>
-    <updated>2018-11-13T08:28:25.004Z</updated>
+    <updated>2018-12-07T02:54:44.220Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/07/28/HashMap工作原理/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br><a id="more"></a></p>
@@ -2948,7 +2948,7 @@ select * from tx;
 <p><strong>“你知道HashMap的工作原理吗？” “你知道HashMap的get()方法的工作原理吗？”</strong><br>你也许会回答“我没有详查标准的Java API，你可以看看Java源代码或者Open JDK。”“我可以用Google找到答案。”</p>
 <p>但一些面试者可能可以给出答案，“HashMap是基于hashing的原理，我们使用put(key, value)存储对象到HashMap中，使用<code>get(key)</code>从HashMap中获取对象。当我们给<code>put()</code>方法传递键和值时，我们先对键调用hashCode()方法，返回的hashCode用于找到bucket位置来储存Entry对象。”这里关键点在于指出，HashMap是在bucket中储存键对象和值对象，作为Map.Entry。这一点有助于理解获取对象的逻辑。如果你没有意识到这一点，或者错误的认为仅仅只在bucket中存储值的话，你将不会回答如何从HashMap中获取对象的逻辑。这个答案相当的正确，也显示出面试者确实知道hashing以及HashMap的工作原理。但是这仅仅是故事的开始，当面试官加入一些Java程序员每天要碰到的实际场景的时候，错误的答案频现。下个问题可能是关于HashMap中的碰撞探测(collision detection)以及碰撞的解决方法：</p>
 <p>“当两个对象的hashcode相同会发生什么？” 从这里开始，真正的困惑开始了，一些面试者会回答因为hashcode相同，所以两个对象是相等的，HashMap将会抛出异常，或者不会存储它们。然后面试官可能会提醒他们有equals()和hashCode()两个方法，并告诉他们两个对象就算hashcode相同，但是它们可能并不相等。一些面试者可能就此放弃，而另外一些还能继续挺进，他们回答“因为hashcode相同，所以它们的bucket位置相同，‘碰撞’会发生。因为HashMap使用链表存储对象，这个Entry(包含有键值对的Map.Entry对象)会存储在链表中。”这个答案非常的合理，虽然有很多种处理碰撞的方法，这种方法是最简单的，也正是HashMap的处理方法。但故事还没有完结，面试官会继续问：</p>
-<p>“如果两个键的hashcode相同，你如何获取值对象？” 面试者会回答：当我们调用get()方法，HashMap会使用键对象的hashcode找到bucket位置，然后获取值对象。面试官提醒他如果有两个值对象储存在同一个bucket，他给出答案:将会遍历链表直到找到值对象。面试官会问因为你并没有值对象去比较，你是如何确定确定找到值对象的？除非面试者直到HashMap在链表中存储的是键值对，否则他们不可能回答出这一题。</p>
+<p>“如果两个键的hashcode相同，你如何获取值对象？” 面试者会回答：当我们调用get()方法，HashMap会使用键对象的hashcode找到bucket位置，然后获取值对象。面试官提醒他如果有两个值对象储存在同一个bucket，他给出答案:将会遍历链表直到找到值对象。面试官会问因为你并没有值对象去比较，你是如何确定确定找到值对象的？除非面试者知道HashMap在链表中存储的是键值对，否则他们不可能回答出这一题。</p>
 <p>其中一些记得这个重要知识点的面试者会说，找到bucket位置之后，会调用keys.equals()方法去找到链表中正确的节点，最终找到要找的值对象。完美的答案！</p>
 <p>许多情况下，面试者会在这个环节中出错，因为他们混淆了<code>hashCode()</code>和<code>equals()</code>方法。因为在此之前hashCode()屡屡出现，而equals()方法仅仅在获取值对象的时候才出现。一些优秀的开发者会指出使用不可变的、声明作final的对象，并且采用合适的<code>equals()</code>和<code>hashCode()</code>方法的话，将会减少碰撞的发生，提高效率。不可变性使得能够缓存不同键的hashcode，这将提高整个获取对象的速度，使用String，Interger这样的wrapper类作为键是非常好的选择。</p>
 <p>如果你认为到这里已经完结了，那么听到下面这个问题的时候，你会大吃一惊。“如果HashMap的大小超过了负载因子(load factor)定义的容量，怎么办？”除非你真正知道HashMap的工作原理，否则你将回答不出这道题。默认的负载因子大小为0.75，也就是说，当一个map填满了75%的bucket时候，和其它集合类(如ArrayList等)一样，将会创建原来HashMap大小的两倍的bucket数组，来重新调整map的大小，并将原来的对象放入新的bucket数组中。这个过程叫作rehashing，因为它调用hash方法找到新的bucket位置。</p>
@@ -2956,7 +2956,8 @@ select * from tx;
 <p>当重新调整HashMap大小的时候，确实存在条件竞争，因为如果两个线程都发现HashMap需要重新调整大小了，它们会同时试着调整大小。在调整大小的过程中，存储在链表中的元素的次序会反过来，因为移动到新的bucket位置的时候，HashMap并不会将元素放在链表的尾部，而是放在头部，这是为了避免尾部遍历(tail traversing)。如果条件竞争发生了，那么就死循环了。这个时候，你可以质问面试官，为什么这么奇怪，要在多线程的环境下使用HashMap呢？：）</p>
 <p>为什么<code>String</code>, <code>Interger</code>这样的<code>wrapper</code>类适合作为键？ String, Interger这样的wrapper类作为HashMap的键是再适合不过了，而且<code>String</code>最为常用。因为String是不可变的，也是final的，而且已经重写了<code>equals()</code>和<code>hashCode()</code>方法了。其他的wrapper类也有这个特点。不可变性是必要的，因为为了要计算<code>hashCode()</code>，就要防止键值改变，如果键值在放入时和获取时返回不同的hashcode的话，那么就不能从HashMap中找到你想要的对象。不可变性还有其他的优点如线程安全。如果你可以仅仅通过将某个field声明成final就能保证hashCode是不变的，那么请这么做吧。因为获取对象的时候要用到equals()和hashCode()方法，那么键对象正确的重写这两个方法是非常重要的。如果两个不相等的对象返回不同的hashcode的话，那么碰撞的几率就会小些，这样就能提高HashMap的性能。<br>我们可以使用自定义的对象作为键吗？ 这是前一个问题的延伸。当然你可能使用任何对象作为键，只要它遵守了equals()和hashCode()方法的定义规则，并且当对象插入到Map中之后将不会再改变了。如果这个自定义对象时不可变的，那么它已经满足了作为键的条件，因为当它创建之后就已经不能改变了。<br>我们可以使用CocurrentHashMap来代替Hashtable吗？这是另外一个很热门的面试题，因为ConcurrentHashMap越来越多人用了。我们知道Hashtable是synchronized的，但是ConcurrentHashMap同步性能更好，因为它仅仅根据同步级别对map的一部分进行上锁。ConcurrentHashMap当然可以代替HashTable，但是HashTable提供更强的线程安全性。看看这篇博客查看Hashtable和ConcurrentHashMap的区别。<br>我个人很喜欢这个问题，因为这个问题的深度和广度，也不直接的涉及到不同的概念。让我们再来看看这些问题设计哪些知识点：</p>
 <p>hashing的概念<br>HashMap中解决碰撞的方法<br><code>equals()</code>和<code>hashCode()</code>的应用，以及它们在HashMap中的重要性<br>不可变对象的好处<br>HashMap多线程的条件竞争<br>重新调整HashMap的大小</p>
-<h3 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h3><p>HashMap基于hashing原理，我们通过<code>put()</code>和<code>get()</code>方法储存和获取对象。当我们将键值对传递给<code>put()</code>方法时，它调用键对象的<code>hashCode()</code>方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的<code>equals()</code>方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
+<h3 id="HashMap的工作原理"><a href="#HashMap的工作原理" class="headerlink" title="HashMap的工作原理"></a>HashMap的工作原理</h3><p><code>HashMap</code> 里面是一个数组，然后数组中每个元素是一个单向链表,存储的是<code>Entry</code>对象，包含四个属性：key, value, hash 值和用于单向链表的 next。<br><code>capacity</code>：当前数组容量，始终保持 <code>2^n</code>，可以扩容，扩容后数组大小为当前的 2 倍。<br><code>loadFactor</code>：负载因子，默认为 0.75。<br><code>threshold</code>：扩容的阈值，等于 capacity * loadFactor</p>
+<p>HashMap基于hashing原理，我们通过<code>put()</code>和<code>get()</code>方法储存和获取对象。当我们将键值对传递给<code>put()</code>方法时，它调用键对象的<code>hashCode()</code>方法来计算hashcode，让后找到bucket位置来储存值对象。当获取对象时，通过键对象的<code>equals()</code>方法找到正确的键值对，然后返回值对象。HashMap使用链表来解决碰撞问题，当发生碰撞了，对象将会储存在链表的下一个节点中。 HashMap在每个链表节点中储存键值对对象。</p>
 <p>当两个不同的键对象的<code>hashcode</code>相同时会发生什么？ 它们会储存在同一个<code>bucket位置的链表中。键对象的</code>equals()<code>方法用来找到键值对</code>。</p>
 <p>因为HashMap的好处非常多，我曾经在电子商务的应用中使用HashMap作为缓存。因为金融领域非常多的运用Java，也出于性能的考虑，我们会经常用到<code>HashMap</code>和<code>ConcurrentHashMap</code>。</p>
 <p>简单归纳，hashmap的深入理解：</p>
@@ -2964,6 +2965,590 @@ select * from tx;
 <p>hashMap的结构类似这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据]<br>  元素1—&gt;[hashCode=1, key.value=y1的数据]<br>  。。。。。。<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]  </p>
 <p>假设没有hashCode=1的元素加入，但是有两个hashCode=0的数据，它的结构就变成这样<br>  元素0—&gt;[hashCode=0, key.value=x1的数据].next—&gt;[hashCode=0, key.value=x2的数据]<br>  元素1—&gt;[null]<br>  ……<br>  元素n—&gt;[hashCode=n, key.value=z1的数据]  </p>
 <p><code>put</code>和<code>get</code>都首先会调用<code>hashcode</code>方法，去查找相关的<code>key</code>，当有冲突时，再调用<code>equals</code>（这也是为什么刚开始就重温<code>hashcode</code>和<code>equals</code>的原因）！</p>
+<h4 id="put过程"><a href="#put过程" class="headerlink" title="put过程"></a>put过程</h4><pre><code>public V put(K key, V value) {
+    // 当插入第一个元素的时候，需要先初始化数组大小
+    if (table == EMPTY_TABLE) {
+        inflateTable(threshold);
+    }
+    // 如果 key 为 null，感兴趣的可以往里看，最终会将这个 entry 放到 table[0] 中
+    if (key == null)
+        return putForNullKey(value);
+    // 1. 求 key 的 hash 值
+    int hash = hash(key);
+    // 2. 找到对应的数组下标
+    int i = indexFor(hash, table.length);
+    // 3. 遍历一下对应下标处的链表，看是否有重复的 key 已经存在，
+    //    如果有，直接覆盖，put 方法返回旧值就结束了
+    for (Entry&lt;K,V&gt; e = table[i]; e != null; e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp; ((k = e.key) == key || key.equals(k))) {
+            V oldValue = e.value;
+            e.value = value;
+            e.recordAccess(this);
+            return oldValue;
+        }
+    }
+    modCount++;
+    // 4. 不存在重复的 key，将此 entry 添加到链表中，细节后面说
+    addEntry(hash, key, value, i);
+    return null;
+}
+</code></pre><h4 id="数组初始化"><a href="#数组初始化" class="headerlink" title="数组初始化"></a>数组初始化</h4><p>在第一个元素插入 HashMap 的时候做一次数组的初始化，就是先确定初始的数组大小，并计算数组扩容的阈值。</p>
+<pre><code>private void inflateTable(int toSize) {
+    // 保证数组大小一定是 2 的 n 次方。
+    // 比如这样初始化：new HashMap(20)，那么处理成初始数组大小是 32
+    int capacity = roundUpToPowerOf2(toSize);
+    // 计算扩容阈值：capacity * loadFactor
+    threshold = (int) Math.min(capacity * loadFactor, MAXIMUM_CAPACITY + 1);
+    // 算是初始化数组吧
+    table = new Entry[capacity];
+    initHashSeedAsNeeded(capacity); //ignore
+}
+</code></pre><p>这里有一个将数组大小保持为 2 的 n 次方的做法，Java7 和 Java8 的 HashMap 和 ConcurrentHashMap 都有相应的要求，只不过实现的代码稍微有些不同，后面再看到的时候就知道了。</p>
+<h4 id="计算具体数组位置"><a href="#计算具体数组位置" class="headerlink" title="计算具体数组位置"></a>计算具体数组位置</h4><p>这个简单，我们自己也能 YY 一个：使用 key 的 hash 值对数组长度进行取模就可以了。</p>
+<pre><code>static int indexFor(int hash, int length) {
+    // assert Integer.bitCount(length) == 1 : &quot;length must be a non-zero power of 2&quot;;
+    return hash &amp; (length-1);
+}
+</code></pre><p>这个方法很简单，简单说就是取 hash 值的低 n 位。如在数组长度为 32 的时候，其实取的就是 key 的 hash 值的低 5 位，作为它在数组中的下标位置。</p>
+<h4 id="添加节点到链表中"><a href="#添加节点到链表中" class="headerlink" title="添加节点到链表中"></a>添加节点到链表中</h4><p>找到数组下标后，会先进行 key 判重，如果没有重复，就准备将新值放入到链表的表头。</p>
+<pre><code>void addEntry(int hash, K key, V value, int bucketIndex) {
+    // 如果当前 HashMap 大小已经达到了阈值，并且新值要插入的数组位置已经有元素了，那么要扩容
+    if ((size &gt;= threshold) &amp;&amp; (null != table[bucketIndex])) {
+        // 扩容，后面会介绍一下
+        resize(2 * table.length);
+        // 扩容以后，重新计算 hash 值
+        hash = (null != key) ? hash(key) : 0;
+        // 重新计算扩容后的新的下标
+        bucketIndex = indexFor(hash, table.length);
+    }
+    // 往下看
+    createEntry(hash, key, value, bucketIndex);
+}
+// 这个很简单，其实就是将新值放到链表的表头，然后 size++
+void createEntry(int hash, K key, V value, int bucketIndex) {
+    Entry&lt;K,V&gt; e = table[bucketIndex];
+    table[bucketIndex] = new Entry&lt;&gt;(hash, key, value, e);
+    size++;
+}
+</code></pre><p>这个方法的主要逻辑就是先判断是否需要扩容，需要的话先扩容，然后再将这个新的数据插入到扩容后的数组的相应位置处的链表的表头。</p>
+<h4 id="数组扩容"><a href="#数组扩容" class="headerlink" title="数组扩容"></a>数组扩容</h4><p>前面我们看到，在插入新值的时候，如果当前的 size 已经达到了阈值，并且要插入的数组位置上已经有元素，那么就会触发扩容，扩容后，数组大小为原来的 2 倍。</p>
+<p>当hashmap中的元素越来越多的时候，碰撞的几率也就越来越高（因为数组的长度是固定的），所以为了提高查询的效率，就要对hashmap的数组进行扩容，数组扩容这个操作也会出现在ArrayList中，所以这是一个通用的操作，很多人对它的性能表示过怀疑，不过想想我们的“均摊”原理，就释然了，而在hashmap数组扩容之后，最消耗性能的点就出现了：原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize。   </p>
+<p>那么<code>hashmap</code>什么时候进行扩容呢？当<code>hashmap</code>中的元素个数超过数组大小 * loadFactor时，就会进行数组扩容，<code>loadFactor</code>的默认值为0.75，也就是说，默认情况下，数组大小为16，那么当<code>hashmap</code>中元素个数超过16 * 0.75=12的时候，就把数组的大小扩展为2 * 16=32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以如果我们已经预知hashmap中元素的个数，那么预设元素的个数能够有效的提高hashmap的性能。比如说，我们有1000个元素new HashMap(1000), 但是理论上来讲new HashMap(1024)更合适，即使是1000，hashmap也自动会将其设置为1024。 但是new HashMap(1024)还不是更合适的，因为0.75 *  1000 &lt; 1000, 也就是说为了让0.75 * size &gt; 1000, 我们必须这样new HashMap(2048)才最合适，既考虑了&amp;的问题，也避免了resize的问题。</p>
+<pre><code>void resize(int newCapacity) {
+    Entry[] oldTable = table;
+    int oldCapacity = oldTable.length;
+    if (oldCapacity == MAXIMUM_CAPACITY) {
+        threshold = Integer.MAX_VALUE;
+        return;
+    }
+    // 新的数组
+    Entry[] newTable = new Entry[newCapacity];
+    // 将原来数组中的值迁移到新的更大的数组中
+    transfer(newTable, initHashSeedAsNeeded(newCapacity));
+    table = newTable;
+    threshold = (int)Math.min(newCapacity * loadFactor, MAXIMUM_CAPACITY + 1);
+}
+</code></pre><p>扩容就是用一个新的大数组替换原来的小数组，并将原来数组中的值迁移到新的数组中。</p>
+<p>由于是双倍扩容，迁移过程中，会将原来 table[i] 中的链表的所有节点，分拆到新的数组的 newTable[i] 和 newTable[i + oldLength] 位置上。如原来数组长度是 16，那么扩容后，原来 table[0] 处的链表中的所有元素会被分配到新数组中 newTable[0] 和 newTable[16] 这两个位置。代码比较简单，这里就不展开了。</p>
+<h4 id="get过程"><a href="#get过程" class="headerlink" title="get过程"></a>get过程</h4><p>相对于 put 过程，get 过程是非常简单的。<br>根据 key 计算 hash 值。<br>找到相应的数组下标：hash &amp; (length – 1)。<br>遍历该数组位置处的链表，直到找到相等(==或equals)的 key。</p>
+<pre><code>public V get(Object key) {
+    // 之前说过，key 为 null 的话，会被放到 table[0]，所以只要遍历下 table[0] 处的链表就可以了
+    if (key == null)
+        return getForNullKey();
+    Entry&lt;K,V&gt; entry = getEntry(key);
+    return null == entry ? null : entry.getValue();
+}
+getEntry(key):
+final Entry&lt;K,V&gt; getEntry(Object key) {
+        return null;
+    }
+    int hash = (key == null) ? 0 : hash(key);
+    // 确定数组下标，然后从头开始遍历链表，直到找到为止
+    for (Entry&lt;K,V&gt; e = table[indexFor(hash, table.length)];
+         e != null;
+         e = e.next) {
+        Object k;
+        if (e.hash == hash &amp;&amp;
+            ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))
+            return e;
+    }
+    return null;
+}
+</code></pre><h3 id="Java7-ConcurrentHashMap"><a href="#Java7-ConcurrentHashMap" class="headerlink" title="Java7 ConcurrentHashMap"></a>Java7 ConcurrentHashMap</h3><p><code>ConcurrentHashMap</code> 和 <code>HashMap</code> 思路是差不多的，但是因为它支持并发操作，所以要复杂一些。</p>
+<p>整个 <code>ConcurrentHashMap</code> 由一个个 <code>Segment</code> 组成，<code>Segment</code> 代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。注意，行文中，我很多地方用了“槽”来代表一个 <code>segmen</code>t。</p>
+<p>简单理解就是，ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。</p>
+<p><img src="/2017/07/28/HashMap工作原理/concurrentHashMap.png" alt="ConcurrentHashMap" title="ConcurrentHashMap"></p>
+<p>concurrencyLevel：并行级别、并发数、Segment 数，怎么翻译不重要，理解它。默认是 16，也就是说 ConcurrentHashMap 有 16 个 Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上。这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。</p>
+<p>再具体到每个 Segment 内部，其实每个 Segment 很像之前介绍的 HashMap，不过它要保证线程安全，所以处理起来要麻烦些。</p>
+<h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><p><code>initialCapacity</code>：初始容量，这个值指的是整个 <code>ConcurrentHashMap</code> 的初始容量，实际操作的时候需要平均分给每个 <code>Segment</code>。</p>
+<p><code>loadFactor</code>：负载因子，之前我们说了，<code>Segment</code> 数组不可以扩容，所以这个负载因子是给每个 <code>Segment</code> 内部使用的。</p>
+<pre><code>public ConcurrentHashMap(int initialCapacity,
+                         float loadFactor, int concurrencyLevel) {
+
+    if (!(loadFactor &gt; 0) || initialCapacity &lt; 0 || concurrencyLevel &lt;= 0)
+        throw new IllegalArgumentException();
+    if (concurrencyLevel &gt; MAX_SEGMENTS)
+        concurrencyLevel = MAX_SEGMENTS;
+    // Find power-of-two sizes best matching arguments
+    int sshift = 0;
+    int ssize = 1;
+    // 计算并行级别 ssize，因为要保持并行级别是 2 的 n 次方
+    while (ssize &lt; concurrencyLevel) {
+        ++sshift;
+        ssize &lt;&lt;= 1;
+    }
+    // 我们这里先不要那么烧脑，用默认值，concurrencyLevel 为 16，sshift 为 4
+    // 那么计算出 segmentShift 为 28，segmentMask 为 15，后面会用到这两个值
+    this.segmentShift = 32 - sshift;
+    this.segmentMask = ssize - 1;
+    if (initialCapacity &gt; MAXIMUM_CAPACITY)
+        initialCapacity = MAXIMUM_CAPACITY;
+    // initialCapacity 是设置整个 map 初始的大小，
+    // 这里根据 initialCapacity 计算 Segment 数组中每个位置可以分到的大小
+    // 如 initialCapacity 为 64，那么每个 Segment 或称之为&quot;槽&quot;可以分到 4 个
+    int c = initialCapacity / ssize;
+    if (c * ssize &lt; initialCapacity)
+        ++c;
+    // 默认 MIN_SEGMENT_TABLE_CAPACITY 是 2，这个值也是有讲究的，因为这样的话，对于具体的槽上，
+    // 插入一个元素不至于扩容，插入第二个的时候才会扩容
+    int cap = MIN_SEGMENT_TABLE_CAPACITY; 
+    while (cap &lt; c)
+        cap &lt;&lt;= 1;
+    // 创建 Segment 数组，
+    // 并创建数组的第一个元素 segment[0]
+    Segment&lt;K,V&gt; s0 =
+        new Segment&lt;K,V&gt;(loadFactor, (int)(cap * loadFactor),
+                         (HashEntry&lt;K,V&gt;[])new HashEntry[cap]);
+    Segment&lt;K,V&gt;[] ss = (Segment&lt;K,V&gt;[])new Segment[ssize];
+    // 往数组写入 segment[0]
+    UNSAFE.putOrderedObject(ss, SBASE, s0); // ordered write of segments[0]
+    this.segments = ss;
+}
+</code></pre><p>初始化完成，我们得到了一个 <code>Segment</code> 数组。</p>
+<p>我们就当是用 <code>new ConcurrentHashMap()</code> 无参构造函数进行初始化的，那么初始化完成后：</p>
+<ul>
+<li><code>Segment</code> 数组长度为 16，不可以扩容</li>
+<li><code>Segment[i]</code> 的默认大小为 2，负载因子是 0.75，得出初始阈值为 1.5，也就是以后插入第一个元素不会触发扩容，插入第二个会进行第一次扩容</li>
+<li>这里初始化了 <code>segment[0]</code>，其他位置还是 <code>null</code>，至于为什么要初始化 segment[0]，后面的代码会介绍</li>
+<li>当前 <code>segmentShift</code> 的值为 32 – 4 = 28，<code>segmentMask</code> 为 16 – 1 = 15，姑且把它们简单翻译为移位数和掩码，这两个值马上就会用到</li>
+</ul>
+<h4 id="put-过程分析"><a href="#put-过程分析" class="headerlink" title="put 过程分析"></a>put 过程分析</h4><p>我们先看 put 的主流程，对于其中的一些关键细节操作，后面会进行详细介绍。</p>
+<pre><code>  public V put(K key, V value) {
+
+      Segment&lt;K,V&gt; s;
+
+      if (value == null)
+
+          throw new NullPointerException();
+
+      // 1. 计算 key 的 hash 值
+
+      int hash = hash(key);
+
+      // 2. 根据 hash 值找到 Segment 数组中的位置 j
+
+      //    hash 是 32 位，无符号右移 segmentShift(28) 位，剩下低 4 位，
+
+      //    然后和 segmentMask(15) 做一次与操作，也就是说 j 是 hash 值的最后 4 位，也就是槽的数组下标
+
+      int j = (hash &gt;&gt;&gt; segmentShift) &amp; segmentMask;
+
+      // 刚刚说了，初始化的时候初始化了 segment[0]，但是其他位置还是 null，
+
+      // ensureSegment(j) 对 segment[j] 进行初始化
+
+      if ((s = (Segment&lt;K,V&gt;)UNSAFE.getObject          // nonvolatile; recheck
+
+           (segments, (j &lt;&lt; SSHIFT) + SBASE)) == null) //  in ensureSegment
+
+          s = ensureSegment(j);
+
+      // 3. 插入新值到 槽 s 中
+
+      return s.put(key, hash, value, false);
+
+  }
+</code></pre><p>第一层皮很简单，根据 hash 值很快就能找到相应的 Segment，之后就是 Segment 内部的 put 操作了。<br>Segment 内部是由 数组+链表 组成的。</p>
+<pre><code>final V put(K key, int hash, V value, boolean onlyIfAbsent) {
+    // 在往该 segment 写入前，需要先获取该 segment 的独占锁
+    //    先看主流程，后面还会具体介绍这部分内容
+    HashEntry&lt;K,V&gt; node = tryLock() ? null :
+        scanAndLockForPut(key, hash, value);
+    V oldValue;
+    try {
+        // 这个是 segment 内部的数组
+        HashEntry&lt;K,V&gt;[] tab = table;
+        // 再利用 hash 值，求应该放置的数组下标
+        int index = (tab.length - 1) &amp; hash;
+        // first 是数组该位置处的链表的表头
+        HashEntry&lt;K,V&gt; first = entryAt(tab, index);
+        // 下面这串 for 循环虽然很长，不过也很好理解，想想该位置没有任何元素和已经存在一个链表这两种情况
+        for (HashEntry&lt;K,V&gt; e = first;;) {
+            if (e != null) {
+                K k;
+                if ((k = e.key) == key ||
+                    (e.hash == hash &amp;&amp; key.equals(k))) {
+                    oldValue = e.value;
+                    if (!onlyIfAbsent) {
+                        // 覆盖旧值
+                        e.value = value;
+                        ++modCount;
+                    }
+                    break;
+                }
+                // 继续顺着链表走
+                e = e.next;
+            }
+            else {
+                // node 到底是不是 null，这个要看获取锁的过程，不过和这里都没有关系。
+                // 如果不为 null，那就直接将它设置为链表表头；如果是null，初始化并设置为链表表头。
+                if (node != null)
+                    node.setNext(first);
+                else
+                    node = new HashEntry&lt;K,V&gt;(hash, key, value, first);
+                int c = count + 1;
+                // 如果超过了该 segment 的阈值，这个 segment 需要扩容
+                if (c &gt; threshold &amp;&amp; tab.length &lt; MAXIMUM_CAPACITY)
+                    rehash(node); // 扩容后面也会具体分析
+                else
+                    // 没有达到阈值，将 node 放到数组 tab 的 index 位置，
+                    // 其实就是将新的节点设置成原链表的表头
+                    setEntryAt(tab, index, node);
+                ++modCount;
+                count = c;
+                oldValue = null;
+                break;
+            }
+        }
+    } finally {
+        // 解锁
+        unlock();
+    }
+    return oldValue;
+}
+</code></pre><p>整体流程还是比较简单的，由于有独占锁的保护，所以 <code>segment</code> 内部的操作并不复杂。至于这里面的并发问题，我们稍后再进行介绍。</p>
+<p>到这里 <code>put</code> 操作就结束了，接下来，我们说一说其中几步关键的操作。</p>
+<p>初始化槽: <code>ensureSegment</code></p>
+<p><code>ConcurrentHashMap</code> 初始化的时候会初始化第一个槽 <code>segment[0]</code>，对于其他槽来说，在插入第一个值的时候进行初始化。</p>
+<p>这里需要考虑并发，因为很可能会有多个线程同时进来初始化同一个槽 <code>segment[k]</code>，不过只要有一个成功了就可以。</p>
+<pre><code>private Segment&lt;K,V&gt; ensureSegment(int k) {
+
+    final Segment&lt;K,V&gt;[] ss = this.segments;
+
+    long u = (k &lt;&lt; SSHIFT) + SBASE; // raw offset
+
+    Segment&lt;K,V&gt; seg;
+
+    if ((seg = (Segment&lt;K,V&gt;)UNSAFE.getObjectVolatile(ss, u)) == null) {
+
+        // 这里看到为什么之前要初始化 segment[0] 了，
+
+        // 使用当前 segment[0] 处的数组长度和负载因子来初始化 segment[k]
+
+        // 为什么要用“当前”，因为 segment[0] 可能早就扩容过了
+
+        Segment&lt;K,V&gt; proto = ss[0];
+
+        int cap = proto.table.length;
+
+        float lf = proto.loadFactor;
+
+        int threshold = (int)(cap * lf);
+
+
+
+        // 初始化 segment[k] 内部的数组
+
+        HashEntry&lt;K,V&gt;[] tab = (HashEntry&lt;K,V&gt;[])new HashEntry[cap];
+
+        if ((seg = (Segment&lt;K,V&gt;)UNSAFE.getObjectVolatile(ss, u))
+
+            == null) { // 再次检查一遍该槽是否被其他线程初始化了。
+
+
+
+            Segment&lt;K,V&gt; s = new Segment&lt;K,V&gt;(lf, threshold, tab);
+
+            // 使用 while 循环，内部用 CAS，当前线程成功设值或其他线程成功设值后，退出
+
+            while ((seg = (Segment&lt;K,V&gt;)UNSAFE.getObjectVolatile(ss, u))
+
+                   == null) {
+
+                if (UNSAFE.compareAndSwapObject(ss, u, null, seg = s))
+
+                    break;
+
+            }
+
+        }
+
+    }
+
+    return seg;
+
+}
+</code></pre><p>总的来说，<code>ensureSegment(int k)</code> 比较简单，对于并发操作使用 <code>CAS</code> 进行控制。</p>
+<p>我没搞懂这里为什么要搞一个 while 循环，CAS 失败不就代表有其他线程成功了吗，为什么要再进行判断？</p>
+<p>获取写入锁: <code>scanAndLockForPut</code></p>
+<p>前面我们看到，在往某个 segment 中 put 的时候，首先会调用 node = tryLock() ? null : scanAndLockForPut(key, hash, value)，也就是说先进行一次 tryLock() 快速获取该 segment 的独占锁，如果失败，那么进入到 scanAndLockForPut 这个方法来获取锁。</p>
+<p>下面我们来具体分析这个方法中是怎么控制加锁的。</p>
+<pre><code>private HashEntry&lt;K,V&gt; scanAndLockForPut(K key, int hash, V value) {
+
+    HashEntry&lt;K,V&gt; first = entryForHash(this, hash);
+
+    HashEntry&lt;K,V&gt; e = first;
+
+    HashEntry&lt;K,V&gt; node = null;
+
+    int retries = -1; // negative while locating node
+
+
+
+    // 循环获取锁
+
+    while (!tryLock()) {
+
+        HashEntry&lt;K,V&gt; f; // to recheck first below
+
+        if (retries &lt; 0) {
+
+            if (e == null) {
+
+                if (node == null) // speculatively create node
+
+                    // 进到这里说明数组该位置的链表是空的，没有任何元素
+
+                    // 当然，进到这里的另一个原因是 tryLock() 失败，所以该槽存在并发，不一定是该位置
+
+                    node = new HashEntry&lt;K,V&gt;(hash, key, value, null);
+
+                retries = 0;
+
+            }
+
+            else if (key.equals(e.key))
+
+                retries = 0;
+
+            else
+
+                // 顺着链表往下走
+
+                e = e.next;
+
+        }
+
+        // 重试次数如果超过 MAX_SCAN_RETRIES（单核1多核64），那么不抢了，进入到阻塞队列等待锁
+
+        //    lock() 是阻塞方法，直到获取锁后返回
+
+        else if (++retries &gt; MAX_SCAN_RETRIES) {
+
+            lock();
+
+            break;
+
+        }
+
+        else if ((retries &amp; 1) == 0 &amp;&amp;
+
+                 // 这个时候是有大问题了，那就是有新的元素进到了链表，成为了新的表头
+
+                 //     所以这边的策略是，相当于重新走一遍这个 scanAndLockForPut 方法
+
+                 (f = entryForHash(this, hash)) != first) {
+
+            e = first = f; // re-traverse if entry changed
+
+            retries = -1;
+
+        }
+
+    }
+
+    return node;
+
+}
+</code></pre><p>这个方法有两个出口，一个是 tryLock() 成功了，循环终止，另一个就是重试次数超过了 MAX_SCAN_RETRIES，进到 lock() 方法，此方法会阻塞等待，直到成功拿到独占锁。</p>
+<p>这个方法就是看似复杂，但是其实就是做了一件事，那就是获取该 segment 的独占锁，如果需要的话顺便实例化了一下 node。</p>
+<h4 id="扩容-rehash"><a href="#扩容-rehash" class="headerlink" title="扩容: rehash"></a>扩容: rehash</h4><p>重复一下，<code>segment</code> 数组不能扩容，扩容是 <code>segment</code> 数组某个位置内部的数组 <code>HashEntry\[]</code> 进行扩容，扩容后，容量为原来的 2 倍。</p>
+<p>首先，我们要回顾一下触发扩容的地方，put 的时候，如果判断该值的插入会导致该 segment 的元素个数超过阈值，那么先进行扩容，再插值，读者这个时候可以回去 put 方法看一眼。</p>
+<p>该方法不需要考虑并发，因为到这里的时候，是持有该 segment 的独占锁的。<br>// 方法参数上的 node 是这次扩容后，需要添加到新的数组中的数据。</p>
+<pre><code>private void rehash(HashEntry&lt;K,V&gt; node) {
+
+    HashEntry&lt;K,V&gt;[] oldTable = table;
+
+    int oldCapacity = oldTable.length;
+
+    // 2 倍
+
+    int newCapacity = oldCapacity &lt;&lt; 1;
+
+    threshold = (int)(newCapacity * loadFactor);
+
+    // 创建新数组
+
+    HashEntry&lt;K,V&gt;[] newTable =
+
+        (HashEntry&lt;K,V&gt;[]) new HashEntry[newCapacity];
+
+    // 新的掩码，如从 16 扩容到 32，那么 sizeMask 为 31，对应二进制 ‘000...00011111’
+
+    int sizeMask = newCapacity - 1;
+
+
+
+    // 遍历原数组，老套路，将原数组位置 i 处的链表拆分到 新数组位置 i 和 i+oldCap 两个位置
+
+    for (int i = 0; i &lt; oldCapacity ; i++) {
+
+        // e 是链表的第一个元素
+
+        HashEntry&lt;K,V&gt; e = oldTable[i];
+
+        if (e != null) {
+
+            HashEntry&lt;K,V&gt; next = e.next;
+
+            // 计算应该放置在新数组中的位置，
+
+            // 假设原数组长度为 16，e 在 oldTable[3] 处，那么 idx 只可能是 3 或者是 3 + 16 = 19
+
+            int idx = e.hash &amp; sizeMask;
+
+            if (next == null)   // 该位置处只有一个元素，那比较好办
+
+                newTable[idx] = e;
+
+            else { // Reuse consecutive sequence at same slot
+
+                // e 是链表表头
+
+                HashEntry&lt;K,V&gt; lastRun = e;
+
+                // idx 是当前链表的头结点 e 的新位置
+
+                int lastIdx = idx;
+
+
+
+                // 下面这个 for 循环会找到一个 lastRun 节点，这个节点之后的所有元素是将要放到一起的
+
+                for (HashEntry&lt;K,V&gt; last = next;
+
+                     last != null;
+
+                     last = last.next) {
+
+                    int k = last.hash &amp; sizeMask;
+
+                    if (k != lastIdx) {
+
+                        lastIdx = k;
+
+                        lastRun = last;
+
+                    }
+
+                }
+
+                // 将 lastRun 及其之后的所有节点组成的这个链表放到 lastIdx 这个位置
+
+                newTable[lastIdx] = lastRun;
+
+                // 下面的操作是处理 lastRun 之前的节点，
+
+                //    这些节点可能分配在另一个链表中，也可能分配到上面的那个链表中
+
+                for (HashEntry&lt;K,V&gt; p = e; p != lastRun; p = p.next) {
+
+                    V v = p.value;
+
+                    int h = p.hash;
+
+                    int k = h &amp; sizeMask;
+
+                    HashEntry&lt;K,V&gt; n = newTable[k];
+
+                    newTable[k] = new HashEntry&lt;K,V&gt;(h, p.key, v, n);
+
+                }
+
+            }
+
+        }
+
+    }
+
+    // 将新来的 node 放到新数组中刚刚的 两个链表之一 的 头部
+
+    int nodeIndex = node.hash &amp; sizeMask; // add the new node
+
+    node.setNext(newTable[nodeIndex]);
+
+    newTable[nodeIndex] = node;
+
+    table = newTable;
+
+}
+</code></pre><p>这里的扩容比之前的 <code>HashMap</code> 要复杂一些，代码难懂一点。上面有两个挨着的 <code>for</code> 循环，第一个 <code>for</code> 有什么用呢？</p>
+<p>仔细一看发现，如果没有第一个 for 循环，也是可以工作的，但是，这个 for 循环下来，如果 <code>lastRun</code> 的后面还有比较多的节点，那么这次就是值得的。因为我们只需要克隆 <code>lastRun</code> 前面的节点，后面的一串节点跟着 lastRun 走就是了，不需要做任何操作。</p>
+<p>我觉得 Doug Lea 的这个想法也是挺有意思的，不过比较坏的情况就是每次 lastRun 都是链表的最后一个元素或者很靠后的元素，那么这次遍历就有点浪费了。不过 Doug Lea 也说了，根据统计，如果使用默认的阈值，大约只有 1/6 的节点需要克隆。</p>
+<h4 id="get-过程分析"><a href="#get-过程分析" class="headerlink" title="get 过程分析"></a>get 过程分析</h4><p>相对于 <code>put</code> 来说，<code>get</code> 真的不要太简单。<br>计算 <code>hash</code> 值，找到 <code>segment</code> 数组中的具体位置，或我们前面用的“槽”<br>槽中也是一个数组，根据 <code>hash</code> 找到数组中具体的位置<br>到这里是链表了，顺着链表进行查找即可</p>
+<pre><code>public V get(Object key) {
+
+    Segment&lt;K,V&gt; s; // manually integrate access methods to reduce overhead
+
+    HashEntry&lt;K,V&gt;[] tab;
+
+    // 1. hash 值
+
+    int h = hash(key);
+
+    long u = (((h &gt;&gt;&gt; segmentShift) &amp; segmentMask) &lt;&lt; SSHIFT) + SBASE;
+
+    // 2. 根据 hash 找到对应的 segment
+
+    if ((s = (Segment&lt;K,V&gt;)UNSAFE.getObjectVolatile(segments, u)) != null &amp;&amp;
+
+        (tab = s.table) != null) {
+
+        // 3. 找到segment 内部数组相应位置的链表，遍历
+
+        for (HashEntry&lt;K,V&gt; e = (HashEntry&lt;K,V&gt;) UNSAFE.getObjectVolatile
+
+                 (tab, ((long)(((tab.length - 1) &amp; h)) &lt;&lt; TSHIFT) + TBASE);
+
+             e != null; e = e.next) {
+
+            K k;
+
+            if ((k = e.key) == key || (e.hash == h &amp;&amp; key.equals(k)))
+
+                return e.value;
+
+        }
+
+    }
+
+    return null;
+
+}
+</code></pre><h4 id="并发问题分析"><a href="#并发问题分析" class="headerlink" title="并发问题分析"></a>并发问题分析</h4><p>现在我们已经说完了 put 过程和 get 过程，我们可以看到 get 过程中是没有加锁的，那自然我们就需要去考虑并发问题。</p>
+<p>添加节点的操作 put 和删除节点的操作 remove 都是要加 segment 上的独占锁的，所以它们之间自然不会有问题，我们需要考虑的问题就是 get 的时候在同一个 segment 中发生了 put 或 remove 操作。</p>
+<h4 id="put-操作的线程安全性"><a href="#put-操作的线程安全性" class="headerlink" title="put 操作的线程安全性"></a>put 操作的线程安全性</h4><ul>
+<li>初始化槽，这个我们之前就说过了，使用了 CAS 来初始化 Segment 中的数组。</li>
+<li>添加节点到链表的操作是插入到表头的，所以，如果这个时候 get 操作在链表遍历的过程已经到了中间，是不会影响的。当然，另一个并发问题就是 get 操作在 put 之后，需要保证刚刚插入表头的节点被读取，这个依赖于 setEntryAt 方法中使用的 UNSAFE.putOrderedObject。</li>
+<li>扩容。扩容是新创建了数组，然后进行迁移数据，最后面将 newTable 设置给属性 table。所以，如果 get 操作此时也在进行，那么也没关系，如果 get 先行，那么就是在旧的 table 上做查询操作；而 put 先行，那么 put 操作的可见性保证就是 table 使用了 volatile 关键字。</li>
+</ul>
+<h4 id="remove-操作的线程安全性"><a href="#remove-操作的线程安全性" class="headerlink" title="remove 操作的线程安全性"></a>remove 操作的线程安全性</h4><p><code>remove</code> 操作我们没有分析源码，所以这里说的读者感兴趣的话还是需要到源码中去求实一下的。</p>
+<ul>
+<li><code>get</code> 操作需要遍历链表，但是 <code>remove</code> 操作会”破坏”链表。</li>
+<li>如果 <code>remove</code> 破坏的节点 <code>get</code> 操作已经过去了，那么这里不存在任何问题。</li>
+<li>如果 <code>remove</code> 先破坏了一个节点，分两种情况考虑。<br>1、如果此节点是头结点，那么需要将头结点的 <code>next</code> 设置为数组该位置的元素，<code>table</code> 虽然使用了 <code>volatile</code> 修饰，但是 <code>volatile</code> 并不能提供数组内部操作的可见性保证，所以源码中使用了 <code>UNSAFE</code> 来操作数组，请看方法 <code>setEntryAt</code>。<br>2、如果要删除的节点不是头结点，它会将要删除节点的后继节点接到前驱节点中，这里的并发保证就是 <code>next</code> 属性是 <code>volatile</code> 的。</li>
+</ul>
 <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>要知道hashmap是什么，首先要搞清楚它的数据结构，在java编程语言中，最基本的结构就是两种，一个是数组，另外一个是模拟指针（引用），所有的数据结构都可以用这两个基本结构来构造的，hashmap也不例外。Hashmap实际上是一个数组和链表的结合体（在数据结构中，一般称之为“链表散列“），请看下图（横排表示数组，纵排表示数组元素【实际上是一个链表】）。 </p>
 <p><img src="/2017/07/28/HashMap工作原理/hashmap1.jpg" alt="java" title="java"></p>
 <p>从图中我们可以看到一个hashmap就是一个数组结构，当新建一个hashmap的时候，就会初始化一个数组。我们来看看java代码： </p>
@@ -2971,16 +3556,18 @@ select * from tx;
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">static class Entry&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;  </div><div class="line">final K key;  </div><div class="line">V value;  </div><div class="line">final int hash;  </div><div class="line">Entry&lt;K,V&gt; next;  </div><div class="line">..........  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面的Entry就是数组中的元素，它持有一个指向下一个元素的引用，这就构成了链表。<br>当我们往hashmap中put元素的时候，先根据key的hash值得到这个元素在数组中的位置（即下标），然后就可以把这个元素放到对应的位置中了。如果这个元素所在的位子上已经存放有其他元素了，那么在同一个位子上的元素将以链表的形式存放，新加入的放在链头，最先加入的放在链尾。<br>从hashmap中get元素时，首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。从这里我们可以想象得到，如果每个位置上的链表只有一个元素，那么hashmap的get效率将是最高的，但是理想总是美好的，现实总是有困难需要我们去克服  </p>
 <h3 id="hash算法"><a href="#hash算法" class="headerlink" title="hash算法"></a>hash算法</h3><p>我们可以看到在hashmap中要找到某个元素，需要根据key的hash值来求得对应数组中的位置。如何计算这个位置就是hash算法。前面说过hashmap的数据结构是数组和链表的结合，所以我们当然希望这个hashmap里面的元素位置尽量的分布均匀些，尽量使得每个位置上的元素数量只有一个，那么当我们用hash算法求得这个位置的时候，马上就可以知道对应位置的元素就是我们要的，而不用再去遍历链表。   </p>
-<p>所以我们首先想到的就是把hashcode对数组长度取模运算，这样一来，元素的分布相对来说是比较均匀的。但是，“模”运算的消耗还是比较大的，能不能找一种更快速，消耗更小的方式那？java中时这样做的， </p>
+<p>所以我们首先想到的就是把hashcode对数组长度取模运算，这样一来，元素的分布相对来说是比较均匀的。但是，“模”运算的消耗还是比较大的，能不能找一种更快速，消耗更小的方式那？java中是这样做的， </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">static int indexFor(int h, int length) &#123;  </div><div class="line">       return h &amp; (length-1);  </div><div class="line">   &#125;</div></pre></td></tr></table></figure>
 <p>首先算得key得hashcode值，然后跟数组的长度-1做一次“与”运算（<code>&amp;</code>）。看上去很简单，其实比较有玄机。比如数组的长度是2的4次方，那么hashcode就会和2的4次方-1做“与”运算。很多人都有这个疑问，为什么hashmap的数组初始化大小都是2的次方大小时，hashmap的效率最高，我以2的4次方举例，来解释一下为什么数组大小为2的幂时hashmap访问的性能最高。 </p>
 <p>看下图，左边两组是数组长度为16（2的4次方），右边两组是数组长度为15。两组的hashcode均为8和9，但是很明显，当它们和1110“与”的时候，产生了相同的结果，也就是说它们会定位到数组中的同一个位置上去，这就产生了碰撞，8和9会被放到同一个链表上，那么查询的时候就需要遍历这个链表，得到8或者9，这样就降低了查询的效率。同时，我们也可以发现，当数组长度为15的时候，hashcode的值会与14（1110）进行“与”，那么最后一位永远是0，而0001，0011，0101，1001，1011，0111，1101这几个位置永远都不能存放元素了，空间浪费相当大，更糟的是这种情况中，数组可以使用的位置比数组长度小了很多，这意味着进一步增加了碰撞的几率，减慢了查询的效率！ </p>
 <p><img src="/2017/07/28/HashMap工作原理/hashmap2.jpg" alt="java" title="java"></p>
 <p>所以说，当数组长度为2的n次幂的时候，不同的key算得得index相同的几率较小，那么数据在数组上分布就比较均匀，也就是说碰撞的几率小，相对的，查询的时候就不用遍历某个位置上的链表，这样查询效率也就较高了。<br>说到这里，我们再回头看一下hashmap中默认的数组大小是多少，查看源代码可以得知是16，为什么是16，而不是15，也不是20呢，看到上面annegu的解释之后我们就清楚了吧，显然是因为16是2的整数次幂的原因，在小数据量的情况下16比15和20更能减少key之间的碰撞，而加快查询的效率。   </p>
-<p>所以，在存储大容量数据的时候，最好预先指定hashmap的size为2的整数次幂次方。就算不指定的话，也会以大于且最接近指定值大小的2次幂来初始化的，代码如下(HashMap的构造方法中)：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// Find a power of 2 &gt;= initialCapacity  </div><div class="line">int capacity = 1;  </div><div class="line">while (capacity &lt; initialCapacity)   </div><div class="line">capacity &lt;&lt;= 1;</div></pre></td></tr></table></figure></p>
-<h3 id="hashmap的resize"><a href="#hashmap的resize" class="headerlink" title="hashmap的resize"></a>hashmap的resize</h3><p>当hashmap中的元素越来越多的时候，碰撞的几率也就越来越高（因为数组的长度是固定的），所以为了提高查询的效率，就要对hashmap的数组进行扩容，数组扩容这个操作也会出现在ArrayList中，所以这是一个通用的操作，很多人对它的性能表示过怀疑，不过想想我们的“均摊”原理，就释然了，而在hashmap数组扩容之后，最消耗性能的点就出现了：原数组中的数据必须重新计算其在新数组中的位置，并放进去，这就是resize。   </p>
-<p>那么hashmap什么时候进行扩容呢？当hashmap中的元素个数超过数组大小<em>loadFactor时，就会进行数组扩容，loadFactor的默认值为0.75，也就是说，默认情况下，数组大小为16，那么当hashmap中元素个数超过16</em>0.75=12的时候，就把数组的大小扩展为2<em>16=32，即扩大一倍，然后重新计算每个元素在数组中的位置，而这是一个非常消耗性能的操作，所以如果我们已经预知hashmap中元素的个数，那么预设元素的个数能够有效的提高hashmap的性能。比如说，我们有1000个元素new HashMap(1000), 但是理论上来讲new HashMap(1024)更合适，不过上面annegu已经说过，即使是1000，hashmap也自动会将其设置为1024。 但是new HashMap(1024)还不是更合适的，因为0.75</em>1000 &lt; 1000, 也就是说为了让0.75 * size &gt; 1000, 我们必须这样new HashMap(2048)才最合适，既考虑了&amp;的问题，也避免了resize的问题。   </p>
-<h3 id="key的hashcode与equals方法改写"><a href="#key的hashcode与equals方法改写" class="headerlink" title="key的hashcode与equals方法改写"></a>key的hashcode与equals方法改写</h3><p>在第一部分hashmap的数据结构中，annegu就写了get方法的过程：首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。所以，hashcode与equals方法对于找到对应元素是两个关键方法。     </p>
+<p>所以，在存储大容量数据的时候，最好预先指定hashmap的size为2的整数次幂次方。就算不指定的话，也会以大于且最接近指定值大小的2次幂来初始化的，代码如下(HashMap的构造方法中)： </p>
+<pre><code>// Find a power of 2 &gt;= initialCapacity  
+int capacity = 1;  
+while (capacity &lt; initialCapacity)   
+capacity &lt;&lt;= 1;
+</code></pre><h3 id="key的hashcode与equals方法改写"><a href="#key的hashcode与equals方法改写" class="headerlink" title="key的hashcode与equals方法改写"></a>key的hashcode与equals方法改写</h3><p>在第一部分hashmap的数据结构中，annegu就写了get方法的过程：首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。所以，hashcode与equals方法对于找到对应元素是两个关键方法。     </p>
 <p>Hashmap的key可以是任何类型的对象，例如User这种对象，为了保证两个具有相同属性的user的hashcode相同，我们就需要改写hashcode方法，比方把hashcode值的计算与User对象的id关联起来，那么只要user对象拥有相同id，那么他们的hashcode也能保持一致了，这样就可以找到在hashmap数组中的位置了。如果这个位置上有多个元素，还需要用key的equals方法在对应位置的链表中找到需要的元素，所以只改写了hashcode方法是不够的，equals方法也是需要改写滴~当然啦，按正常思维逻辑，equals方法一般都会根据实际的业务内容来定义，例如根据user对象的id来判断两个user是否相等。<br>在改写equals方法的时候，需要满足以下三点：<br>(1)    自反性：就是说a.equals(a)必须为true。<br>(2)    对称性：就是说a.equals(b)=true的话，b.equals(a)也必须为true。<br>(3)    传递性：就是说a.equals(b)=true，并且b.equals(c)=true的话，a.equals(c)也必须为true。<br>通过改写key对象的equals和hashcode方法，我们可以将任意的业务对象作为map的key(前提是你确实有这样的需要)。   </p>
 <p>本文主要描述了HashMap的结构，和hashmap中hash函数的实现，以及该实现的特性，同时描述了hashmap中resize带来性能消耗的根本原因，以及将普通的域模型对象作为key的基本要求。尤其是hash函数的实现，可以说是整个HashMap的精髓所在，只有真正理解了这个hash函数，才可以说对HashMap有了一定的理解。</p>
 <p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
