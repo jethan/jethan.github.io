@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-12-06T09:13:14.568Z</updated>
+  <updated>2018-12-07T05:14:07.083Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -20,9 +20,9 @@
     <link href="http://jet-han.oschina.io/2017/12/05/Cron/"/>
     <id>http://jet-han.oschina.io/2017/12/05/Cron/</id>
     <published>2017-12-05T08:11:06.000Z</published>
-    <updated>2018-12-06T09:13:14.568Z</updated>
+    <updated>2018-12-07T05:14:07.083Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/cron.png" alt="cron" title="cron"></p>
+    <content type="html"><![CDATA[<p><img src="/2017/12/05/Cron/../../../../../../../../../img/icons/cron.png" alt="cron" title="cron"></p>
 <h2 id="cron表达式格式"><a href="#cron表达式格式" class="headerlink" title="cron表达式格式"></a>cron表达式格式</h2><ul>
 <li>{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}</li>
 </ul>
@@ -184,7 +184,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/cron.png&quot; alt=&quot;cron&quot; title=&quot;cron&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/12/05/Cron/../../../../../../../../../img/icons/cron.png&quot; alt=&quot;cron&quot; title=&quot;cron&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;cron表达式格式&quot;&gt;&lt;a href=&quot;#cron表达式格式&quot; class=&quot;headerlink&quot; title=&quot;cron表达式格式&quot;&gt;&lt;/a&gt;cron表达式格式&lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}&lt;/li&gt;
 &lt;/ul&gt;
@@ -443,7 +443,7 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     <link href="http://jet-han.oschina.io/2017/11/28/Msql-B-Tree%E7%B4%A2%E5%BC%95/"/>
     <id>http://jet-han.oschina.io/2017/11/28/Msql-B-Tree索引/</id>
     <published>2017-11-28T06:13:59.000Z</published>
-    <updated>2018-11-29T07:41:39.739Z</updated>
+    <updated>2018-12-11T09:02:02.254Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <p>MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。</p>
@@ -467,24 +467,17 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 <p><img src="/2017/11/28/Msql-B-Tree索引/b-tree3.png" alt="mysql" title="mysql">  </p>
 <p>B-Tree索引使用B-Tree作为其存储数据的数据结构，其使用的查询规则也由此决定。一般来说，B-Tree索引适用于全键值、键值范围和键前缀查找，其中键前缀查找只适用于根据最左前缀查找。B-Tree索引支持的查询原则如下所示：</p>
 <ul>
-<li><p>全值匹配：全值匹配指的是和索引中的所有列进行匹配。</p>
-</li>
-<li><p>匹配最左前缀：前边提到的索引可以用于查找所有姓Allen的人，即只使用索引中的第一列。</p>
-</li>
-<li><p>匹配列前缀：也可以只匹配某一列的值的开头部分。例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只用到了索引的第一列。</p>
-</li>
-<li><p>匹配范围值：例如前边提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列。</p>
-</li>
-<li><p>精确匹配某一列并范围匹配另外一列：前边提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头(比如Kim,Karl等)的人。即第一列last_name全匹配，第二列first_name范围匹配。</p>
-</li>
+<li>全值匹配：全值匹配指的是和索引中的所有列进行匹配。</li>
+<li>匹配最左前缀：前边提到的索引可以用于查找所有姓Allen的人，即只使用索引中的第一列。</li>
+<li>匹配列前缀：也可以只匹配某一列的值的开头部分。例如前面提到的索引可用于查找所有以J开头的姓的人。这里也只用到了索引的第一列。</li>
+<li>匹配范围值：例如前边提到的索引可用于查找姓在Allen和Barrymore之间的人。这里也只使用了索引的第一列。</li>
+<li>精确匹配某一列并范围匹配另外一列：前边提到的索引也可用于查找所有姓为Allen，并且名字是字母K开头(比如Kim,Karl等)的人。即第一列last_name全匹配，第二列first_name范围匹配。</li>
 </ul>
 <p>因为索引树的节点是有序的，所以除了按值查找之外，索引还可以用于查询中的ORDER BY操作(按顺序查找)，如果ORDER BY子句满足前面列出的几种查询类型，则这个索引也可以满足对应的排序需求。</p>
 <p>下面是一些关于B-Tree索引的限制：</p>
 <ul>
-<li><p>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法查找名字为Bill的人，也无法查找某个特定生日的日，因为这两列都不是最左数据列。</p>
-</li>
-<li><p>如果查询中有某个列的范围查询，则其右侧所有列都无法使用索引优化查找。</p>
-</li>
+<li>如果不是按照索引的最左列开始查找，则无法使用索引。例如上面例子中的索引无法查找名字为Bill的人，也无法查找某个特定生日的日，因为这两列都不是最左数据列。</li>
+<li>如果查询中有某个列的范围查询，则其右侧所有列都无法使用索引优化查找。</li>
 </ul>
 <h2 id="聚簇索引"><a href="#聚簇索引" class="headerlink" title="聚簇索引"></a>聚簇索引</h2><p>聚簇索引并不是一种单独的索引类型，而是一种数据存储方式。具体的细节依赖于其实现方式，但是InnoDB的聚簇索引实际上在同一个结构中保存了B-Tree索引和数据行。</p>
 <p>当表有聚簇索引时，它的数据行实际上存放在索引的叶子页中，这也就是说数据行和相邻的键值紧凑地存储在一起。</p>
@@ -497,16 +490,11 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 </ul>
 <p>如果在设计表和查询时能充分利用上面的优点，那么就能极大地提升性能。同时，聚簇索引也有一些缺点：</p>
 <ul>
-<li><p>插入顺序严重依赖插入顺序。按照主键的顺序插入是向InnoDB表中插入数据速度最快的方式，需要避免主键键值随机的(不连续且值得分布范围非常大)聚簇索引，比如使用UUID作为主键，而应该使用类似AUTO_INCREMENT的自增列。</p>
-</li>
-<li><p>更新聚簇索引列的代价很高，因为会强制InnoDB将每个被更新的行移动位置到新的位置。</p>
-</li>
-<li><p>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行时，可能面临“页分裂”的问题。当行的主键值要求必须将这行插入到某个已满的页中时，存储引擎会将该页分裂成两个页面来容纳该行，这就是一次页分裂操作。页分裂会导致表占用更多的磁盘空间。</p>
-</li>
-<li><p>二级索引可能比想象的更大，因为在二级索引中的叶节点包含了引用行的主键列。</p>
-</li>
-<li><p>二级索引访问需要两次索引查找，而不是一次。</p>
-</li>
+<li>插入顺序严重依赖插入顺序。按照主键的顺序插入是向InnoDB表中插入数据速度最快的方式，需要避免主键键值随机的(不连续且值得分布范围非常大)聚簇索引，比如使用UUID作为主键，而应该使用类似AUTO_INCREMENT的自增列。</li>
+<li>更新聚簇索引列的代价很高，因为会强制InnoDB将每个被更新的行移动位置到新的位置。</li>
+<li>基于聚簇索引的表在插入新行，或者主键被更新导致需要移动行时，可能面临“页分裂”的问题。当行的主键值要求必须将这行插入到某个已满的页中时，存储引擎会将该页分裂成两个页面来容纳该行，这就是一次页分裂操作。页分裂会导致表占用更多的磁盘空间。</li>
+<li>二级索引可能比想象的更大，因为在二级索引中的叶节点包含了引用行的主键列。</li>
+<li>二级索引访问需要两次索引查找，而不是一次。</li>
 </ul>
 <h3 id="InnoDB和MyISAM的索引区别"><a href="#InnoDB和MyISAM的索引区别" class="headerlink" title="InnoDB和MyISAM的索引区别"></a>InnoDB和MyISAM的索引区别</h3><p>聚簇索引和非聚簇索引的数据分布有区别，以及对应的主键索引和二级索引的数据分布也有区别，通常会让人感到困惑和意外。下图展示了MyISAM和InnoDB的不同索引和数据存储方式。</p>
 <p>MyISAM的数据分布非常简单，按照数据插入的顺序存储在磁盘上，主键索引和二级索引的叶节点存储着指针，指向对应的数据行。InnoDB中，聚簇索引“就是”表，所以不会像MyISAM那样需要独立的行存储。聚簇索引的每个叶节点都包含了主键值和所有的剩余列(在此例中是col2)。</p>
@@ -525,12 +513,9 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
 <h2 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h2><p>索引除了是一种查找数据的高效方式之外，也是一种列数据的直接获取方式。MySQL可以使用索引来直接获取列的数据，这样就不需要读取数据行。如果一个索引包含所有需要查询的字段的值，我们就称之为“覆盖索引”。</p>
 <p>覆盖索引是非常有用的工具，能够极大地提高性能。SQL查询只需要扫描索引而无需回表，会带来很多好处：</p>
 <ul>
-<li><p>索引条目数量和大小通常远小于数据行的条目和大小，所以如果只需要读取索引，那么MySQL就会极大地减少数据访问量。</p>
-</li>
-<li><p>因为索引是按照列顺序存储的，所以对于I/O密集型的范围查找会比随机从磁盘读取每一行数据的I/O要少的多。</p>
-</li>
-<li><p>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键，索引如果二级主键能够覆盖查询，则避免对主键索引的第二次查询。</p>
-</li>
+<li>索引条目数量和大小通常远小于数据行的条目和大小，所以如果只需要读取索引，那么MySQL就会极大地减少数据访问量。</li>
+<li>因为索引是按照列顺序存储的，所以对于I/O密集型的范围查找会比随机从磁盘读取每一行数据的I/O要少的多。</li>
+<li>由于InnoDB的聚簇索引，覆盖索引对InnoDB表特别有用。InnoDB的二级索引在叶子节点中保存了行的主键，索引如果二级主键能够覆盖查询，则避免对主键索引的第二次查询。</li>
 </ul>
 <p>当发起一个被覆盖索引的查询(也叫索引覆盖查询)时，在EXPLAIN的Extra列可以看到”Using Index”的信息。例如，表sakila.inventory有一个多列索引(store_id, film_id)。MySQL如果只需要访问这两列，就可以使用这个索引做覆盖索引，如下所示：</p>
 <p><img src="/2017/11/28/Msql-B-Tree索引/b-tree9.png" alt="mysql" title="mysql"> </p>
@@ -2665,7 +2650,7 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     <link href="http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     <id>http://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/</id>
     <published>2017-08-04T03:58:09.000Z</published>
-    <updated>2018-11-13T08:26:46.821Z</updated>
+    <updated>2018-12-11T09:00:58.661Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/08/04/mysql事务隔离级别/mysql.jpg" alt="mysql" title="mysql"></p>
 <h1 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h1><h2 id="第1级别：Read-Uncommitted-读取未提交内容"><a href="#第1级别：Read-Uncommitted-读取未提交内容" class="headerlink" title="第1级别：Read Uncommitted(读取未提交内容)"></a>第1级别：Read Uncommitted(读取未提交内容)</h2><p>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br><a id="more"></a></p>
@@ -2825,7 +2810,7 @@ select * from tx;
     ERROR 1205 (HY000): Lock wait timeout exceeded;   
     try restarting transactionupdate tx set num=10 where id=1;ERROR 1205 (HY000): Lock wait timeout exceeded;   
     try restarting transaction  
-</code></pre><p><img src="http://jet-han.oschina.io/img/mysql事务隔离级别/transaction.jpg" alt="transaction" title="transaction"></p>
+</code></pre><p><img src="/2017/08/04/mysql事务隔离级别/transaction.jpg" alt="transaction" title="transaction"></p>
 ]]></content>
     
     <summary type="html">
