@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-12-07T05:14:07.083Z</updated>
+  <updated>2018-12-17T10:39:25.111Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -14,6 +14,459 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>并发之synchronized与加锁机制</title>
+    <link href="http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/"/>
+    <id>http://jet-han.oschina.io/2017/12/17/并发之synchronized与加锁机制/</id>
+    <published>2017-12-17T10:00:26.000Z</published>
+    <updated>2018-12-17T10:39:25.111Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2017/12/17/并发之synchronized与加锁机制/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<h1 id="synchronized-与-Lock"><a href="#synchronized-与-Lock" class="headerlink" title="synchronized 与 Lock"></a>synchronized 与 Lock</h1><p>目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 </p>
+<p>数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">synchronized</th>
+<th style="text-align:center">volatile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">原子性</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">可见性</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">是否阻塞线程</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">使用级别</td>
+<td style="text-align:center">变量、方法、类</td>
+<td style="text-align:center">变量</td>
+</tr>
+<tr>
+<td style="text-align:center">用途</td>
+<td style="text-align:center">锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住</td>
+<td style="text-align:center">告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取</td>
+</tr>
+<tr>
+<td style="text-align:center">使用范围</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">a、对变量的写操作不依赖于当前值。b、该变量没有包含在具有其他变量的不变式中。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">synchronized</th>
+<th style="text-align:center">ReentrantLock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否需要手动释放</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">等待中的线程是否可以中断等待</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">是否可以主动获得锁</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true（投票等方式）</td>
+</tr>
+<tr>
+<td style="text-align:center">是否支持定时</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">其他</td>
+<td style="text-align:center">synchronized是在JVM层面上实现的(语言级别)JVM会自动释放锁定</td>
+<td style="text-align:center">lock是通过代码实现的，要保证锁定一定会被释放，就必须将unLock()放到finally{}中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<a id="more"></a>
+<p>如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：  </p>
+<p>　　1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；<br>　　2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+<p>  那么如果这个获取锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，其他线程便只能干巴巴地等待，试想一下，这多么影响程序执行效率。</p>
+<p>因此就需要有一种机制可以不让等待的线程一直无期限地等待下去（比如只等待一定的时间或者能够响应中断），通过Lock就可以办到。</p>
+<p>再举个例子：当有多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作会发生冲突现象，但是读操作和读操作不会发生冲突现象。</p>
+<p>但是采用synchronized关键字来实现同步的话，就会导致一个问题：</p>
+<p>如果多个线程都只是进行读操作，所以当一个线程在进行读操作时，其他线程只能等待无法进行读操作。</p>
+<p>因此就需要一种机制来使得多个线程都只是进行读操作时，线程之间不会发生冲突，通过Lock就可以办到。</p>
+<p>另外，通过Lock可以知道线程有没有成功获取到锁。这个是synchronized无法办到的。</p>
+<p>总结一下，也就是说Lock提供了比synchronized更多的功能。但是要注意以下几点：</p>
+<p>　　1）Lock不是Java语言内置的，synchronized是Java语言的关键字，因此是内置特性。Lock是一个类，通过这个类可以实现同步访问；<br>　　2）Lock和synchronized有一点非常大的不同，采用synchronized不需要用户去手动释放锁，当synchronized方法或者synchronized代码块执行完之后，系统会自动让线程释放对锁的占用；而Lock则必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象。</p>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p>  本文所指说的JVM是指Hotspot的6u23版本<br> <code>synrhronized</code>关键字简洁、清晰、语义明确，因此即使有了<code>Lock</code>接口，使用的还是非常广泛。其应用层的语义是可以把任何一个非<code>null</code>对象作为”锁”，当synchronized作用在方法上时，锁住的便是<code>对象实例（this）</code>；当作用在<code>静态方法</code>时锁住的便是<code>对象对应的Class实例</code>，因为Class数据存在于永久代，因此<code>静态方法锁相当于该类的一个全局锁</code>；当synchronized作用于某一个对象实例时，锁住的便是对应的代码块。在HotSpot JVM实现中，锁有个专门的名字：<code>对象监视器</code>。</p>
+<ul>
+<li>在同步代码块中，同步锁就是这个代码块所属的那个对象 </li>
+<li>在同步方法中（非静态），同步锁就是调用这个方法的那个对象 </li>
+<li>在同步方法中（静态），同步锁就是这个方法所属的这个类的字节码文件，即 类名.class;</li>
+</ul>
+<h3 id="线程状态及状态转换"><a href="#线程状态及状态转换" class="headerlink" title="线程状态及状态转换"></a>线程状态及状态转换</h3><p> 当多个线程同时请求某个对象监视器时，对象监视器会设置几种状态用来区分请求的线程：</p>
+<ul>
+<li>Contention List：所有请求锁的线程将被首先放置到该竞争队列</li>
+<li>Entry List：Contention List中那些有资格成为候选人的线程被移到Entry - List</li>
+<li>Wait Set：那些调用wait方法被阻塞的线程被放置到Wait Set</li>
+<li>OnDeck：任何时刻最多只能有一个线程正在竞争锁，该线程称为OnDeck</li>
+<li>Owner：获得锁的线程称为Owner</li>
+<li>!Owner：释放锁的线程</li>
+</ul>
+<p>下图反映了个状态转换关系：</p>
+<p><img src="/2017/12/17/并发之synchronized与加锁机制/synchronized1.jpg" alt="synchronized" title="synchronized"></p>
+<p>新请求锁的线程将首先被加入到ConetentionList中，当某个拥有锁的线程（Owner状态）调用unlock之后，如果发现EntryList为空则从ContentionList中移动线程到EntryList，下面说明下ContentionList和EntryList的实现方式：</p>
+<h4 id="ContentionList虚拟队列"><a href="#ContentionList虚拟队列" class="headerlink" title="ContentionList虚拟队列"></a>ContentionList虚拟队列</h4><p><code>ContentionList</code>并不是一个真正的<code>Queue</code>，而只是一个虚拟队列，原因在于<code>ContentionList</code>是由<code>Node</code>及其<code>next</code>指针逻辑构成，并不存在一个Queue的数据结构。<code>ContentionList</code>是一个后进先出（LIFO）的队列，每次新加入Node时都会在队头进行，通过CAS改变第一个节点的的指针为新增节点，同时设置新增节点的<code>next</code>指向后续节点，而取得操作则发生在队尾。显然，该结构其实是个<code>Lock-Free</code>的队列。</p>
+<p>因为只有<code>Owner线程</code>才能从队尾取元素，也即线程出列操作无争用，当然也就避免了<code>CAS</code>的<code>ABA</code>问题。</p>
+<p><img src="/2017/12/17/并发之synchronized与加锁机制/synchronized2.jpg" alt="synchronized" title="synchronized"></p>
+<h4 id="EntryList"><a href="#EntryList" class="headerlink" title="EntryList"></a>EntryList</h4><p><code>EntryList</code>与<code>ContentionList</code>逻辑上同属等待队列，<code>ContentionList</code>会被线程并发访问，为了降低对<code>ContentionList</code>队尾的争用，而建立<code>EntryList</code>。<code>Owner</code>线程在<code>unlock</code>时会从<code>ContentionList</code>中迁移线程到<code>EntryList</code>，并会指定<code>EntryList</code>中的某个线程（一般为<code>Head</code>）为<code>Ready（OnDeck）</code>线程。<code>Owner</code>线程并不是把锁传递给<code>OnDeck</code>线程，只是把竞争锁的权利交给<code>OnDeck</code>，OnDeck线程需要重新竞争锁。这样做虽然牺牲了一定的公平性，但极大的提高了整体吞吐量，在Hotspot中把<code>OnDeck</code>的选择行为称之为“竞争切换”。</p>
+<p><code>OnDeck</code>线程获得锁后即变为owner线程，无法获得锁则会依然留在<code>EntryList</code>中，考虑到公平性，在<code>EntryList</code>中的位置不发生变化（依然在队头）。如果Owner线程被<code>wait</code>方法阻塞，则转移到<code>WaitSet</code>队列；如果在某个时刻被<code>notify/notifyAll</code>唤醒，则再次转移到<code>EntryList</code>。</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>那些处于ContetionList、EntryList、WaitSet中的线程均处于阻塞状态，阻塞操作由操作系统完成（在Linxu下通过pthread_mutex_lock函数）。线程被阻塞后便进入内核（Linux）调度状态，这个会导致系统在用户态与内核态之间来回切换，严重影响锁的性能。  </p>
+<p>缓解上述问题的办法便是自旋，其原理是：当发生争用时，若Owner线程能在很短的时间内释放锁，则那些正在争用线程可以稍微等一等（自旋），在Owner线程释放锁后，争用线程可能会立即得到锁，从而避免了系统阻塞。但Owner运行的时间可能会超出了临界值，争用线程自旋一段时间后还是无法获得锁，这时争用线程则会停止自旋进入阻塞状态（后退）。基本思路就是自旋，不成功再阻塞，尽量降低阻塞的可能性，这对那些执行时间很短的代码块来说有非常重要的性能提高。自旋锁有个更贴切的名字：自旋-指数后退锁，也即复合锁。很显然，自旋在多处理器上才有意义。  </p>
+<p>还有个问题是，线程自旋时做些啥？其实啥都不做，可以执行几次for循环，可以执行几条空的汇编指令，目的是占着CPU不放，等待获取锁的机会。所以说，自旋是把双刃剑，如果旋的时间过长会影响整体性能，时间过短又达不到延迟阻塞的目的。显然，自旋的周期选择显得非常重要，但这与操作系统、硬件体系、系统的负载等诸多场景相关，很难选择，如果选择不当，不但性能得不到提高，可能还会下降，因此大家普遍认为自旋锁不具有扩展性。  </p>
+<p>对自旋锁周期的选择上，HotSpot认为最佳时间应是一个线程上下文切换的时间，但目前并没有做到。经过调查，目前只是通过汇编暂停了几个CPU周期，除了自旋周期选择，HotSpot还进行许多其他的自旋优化策略，具体如下：</p>
+<ul>
+<li>如果平均负载小于CPUs则一直自旋  </li>
+<li>如果有超过(CPUs/2)个线程正在自旋，则后来线程直接阻塞  </li>
+<li>如果正在自旋的线程发现Owner发生了变化则延迟自旋时间（自旋计数）或进入阻塞  </li>
+<li>如果CPU处于节电模式则停止自旋  </li>
+<li>自旋时间的最坏情况是CPU的存储延迟（CPU A存储了一个数据，到CPU B得知这个数据直接的时间差）  </li>
+<li>自旋时会适当放弃线程优先级之间的差异  </li>
+</ul>
+<p>那<code>synchronized</code>实现何时使用了自旋锁？答案是在线程进入<code>ContentionList</code>时，也即第一步操作前。线程在进入等待队列时首先进行自旋尝试获得锁，如果不成功再进入等待队列。这对那些已经在等待队列中的线程来说，稍微显得不公平。还有一个不公平的地方是自旋线程可能会抢占了<code>Ready</code>线程的锁。自旋锁由每个监视对象维护，每个监视对象一个。</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>在JVM1.6中引入了偏向锁，偏向锁主要解决无竞争下的锁性能问题，首先我们看下无竞争下锁存在什么问题： </p>
+<p>现在几乎所有的锁都是可重入的，也即已经获得锁的线程可以多次锁住/解锁监视对象，按照之前的HotSpot设计，每次加锁/解锁都会涉及到一些CAS操作（比如对等待队列的CAS操作），CAS操作会延迟本地调用，因此偏向锁的想法是一旦线程第一次获得了监视对象，之后让监视对象“偏向”这个线程，之后的多次调用则可以避免CAS操作，说白了就是置个变量，如果发现为true则无需再走各种加锁/解锁流程。但还有很多概念需要解释、很多引入的问题需要解决：</p>
+<h4 id="CAS及SMP架构"><a href="#CAS及SMP架构" class="headerlink" title="CAS及SMP架构"></a>CAS及SMP架构</h4><p>CAS为什么会引入本地延迟？这要从SMP（对称多处理器）架构说起，下图大概表明了SMP的结构：  </p>
+<p> <img src="/2017/12/17/并发之synchronized与加锁机制/synchronized3.jpg" alt="synchronized" title="synchronized"></p>
+<p>其意思是所有的CPU会共享一条系统总线（BUS），靠此总线连接主存。每个核都有自己的一级缓存，各核相对于BUS对称分布，因此这种结构称为“对称多处理器”。  </p>
+<p>而CAS的全称为Compare-And-Swap，是一条CPU的原子指令，其作用是让CPU比较后原子地更新某个位置的值，经过调查发现，其实现方式是基于硬件平台的汇编指令，就是说CAS是靠硬件实现的，JVM只是封装了汇编调用，那些AtomicInteger类便是使用了这些封装后的接口。  </p>
+<p>Core1和Core2可能会同时把主存中某个位置的值Load到自己的L1 Cache中，当Core1在自己的L1 Cache中修改这个位置的值时，会通过总线，使Core2中L1 Cache对应的值“失效”，而Core2一旦发现自己L1 Cache中的值失效（称为Cache命中缺失）则会通过总线从内存中加载该地址最新的值，大家通过总线的来回通信称为“Cache一致性流量”，因为总线被设计为固定的“通信能力”，如果Cache一致性流量过大，总线将成为瓶颈。而当Core1和Core2中的值再次一致时，称为“Cache一致性”，从这个层面来说，锁设计的终极目标便是减少Cache一致性流量。  </p>
+<p>而CAS恰好会导致Cache一致性流量，如果有很多线程都共享同一个对象，当某个Core CAS成功时必然会引起总线风暴，这就是所谓的本地延迟，本质上偏向锁就是为了消除CAS，降低Cache一致性流量。  </p>
+<p><strong>Cache一致性：</strong><br>上面提到Cache一致性，其实是有协议支持的，现在通用的协议是MESI（最早由Intel开始支持），具体参考：  <a href="http://en.wikipedia.org/wiki/MESI_protocol，以后会仔细讲解这部分。" target="_blank" rel="external">http://en.wikipedia.org/wiki/MESI_protocol，以后会仔细讲解这部分。</a><br><strong>Cache一致性流量的例外情况：</strong><br>其实也不是所有的CAS都会导致总线风暴，这跟Cache一致性协议有关，具体参考：<a href="http://blogs.oracle.com/dave/entry/biased_locking_in_hotspot" target="_blank" rel="external">http://blogs.oracle.com/dave/entry/biased_locking_in_hotspot</a><br><strong>NUMA(Non Uniform Memory Access Achitecture）架构：</strong><br>与SMP对应还有非对称多处理器架构，现在主要应用在一些高端处理器上，主要特点是没有总线，没有公用主存，每个Core有自己的内存，针对这种结构此处不做讨论。  </p>
+<h4 id="偏向解除"><a href="#偏向解除" class="headerlink" title="偏向解除"></a>偏向解除</h4><p>偏向锁引入的一个重要问题是，在多争用的场景下，如果另外一个线程争用偏向对象，拥有者需要释放偏向锁，而释放的过程会带来一些性能开销，但总体说来偏向锁带来的好处还是大于CAS代价的。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>关于锁，JVM中还引入了一些其他技术比如锁膨胀等，这些与自旋锁、偏向锁相比影响不是很大，这里就不做介绍。<br>通过上面的介绍可以看出，synchronized的底层实现主要依靠<code>Lock-Free</code>的队列，基本思路是自旋后阻塞，竞争切换后继续竞争锁，稍微牺牲了公平性，但获得了高吞吐量。</p>
+<h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2><p>前文分析了<code>JVM</code>中的<code>synchronized</code>实现，本文继续分析<code>JVM</code>中的另一种锁<code>Lock</code>的实现。与<code>synchronized</code>不同的是，<code>Lock</code>完全用<code>Java</code>写成，在java这个层面是无关<code>JVM</code>实现的。</p>
+<p>在<code>java.util.concurrent.locks</code>包中有很多<code>Lock</code>的实现类，常用的有<code>ReentrantLock、ReadWriteLock（实现类ReentrantReadWriteLock）</code>，其实现都依赖<code>java.util.concurrent.AbstractQueuedSynchronizer</code>类，实现思路都大同小异，因此我们以<code>ReentrantLock</code>作为讲解切入点。</p>
+<h3 id="ReentrantLock的调用过程"><a href="#ReentrantLock的调用过程" class="headerlink" title="ReentrantLock的调用过程"></a>ReentrantLock的调用过程</h3><p>经过观察ReentrantLock把所有Lock接口的操作都委派到一个Sync类上，该类继承了<code>AbstractQueuedSynchronizer</code>：</p>
+<pre><code>       static abstract class Sync extends AbstractQueuedSynchronizer
+</code></pre><p><code>Sync</code>又有两个子类：</p>
+<pre><code>    final static class NonfairSync extends Sync
+    final static class FairSync extends Sync
+</code></pre><p>显然是为了支持公平锁和非公平锁而定义，默认情况下为非公平锁。</p>
+<p>先理一下<code>Reentrant.lock()</code>方法的调用过程（默认非公平锁）：</p>
+<p> <img src="/2017/12/17/并发之synchronized与加锁机制/ReentrantLock1.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p>这些讨厌的Template模式导致很难直观的看到整个调用过程，其实通过上面调用过程及<code>AbstractQueuedSynchronizer</code>的注释可以发现，<code>AbstractQueuedSynchronizer</code>中抽象了绝大多数<code>Lock</code>的功能，而只把<code>tryAcquire</code>方法延迟到子类中实现。<code>tryAcquire</code>方法的语义在于用具体子类判断请求线程是否可以获得锁，无论成功与否<code>AbstractQueuedSynchronizer</code>都将处理后面的流程。</p>
+<h3 id="锁实现（加锁）"><a href="#锁实现（加锁）" class="headerlink" title="锁实现（加锁）"></a>锁实现（加锁）</h3><p>简单说来，<code>AbstractQueuedSynchronizer</code>会把所有的请求线程构成一个CLH队列，当一个线程执行完毕（<code>lock.unlock()</code>）时会激活自己的后继节点，但正在执行的线程并不在队列中，而那些等待执行的线程全部处于阻塞状态，经过调查线程的显式阻塞是通过调用<code>LockSupport.park()</code>完成，而<code>LockSupport.park()</code>则调用<code>sun.misc.Unsafe.park()</code>本地方法，再进一步，HotSpot在Linux中中通过调用<code>pthread_mutex_lock</code>函数把线程交给系统内核进行阻塞。</p>
+<p>该队列如图：</p>
+<p> <img src="/2017/12/17/并发之synchronized与加锁机制/ReentrantLock2.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p>与synchronized相同的是，这也是一个虚拟队列，不存在队列实例，仅存在节点之间的前后关系。令人疑惑的是为什么采用CLH队列呢？原生的CLH队列是用于自旋锁，但Doug Lea把其改造为阻塞锁。</p>
+<p>当有线程竞争锁时，该线程会首先尝试获得锁，这对于那些已经在队列中排队的线程来说显得不公平，这也是非公平锁的由来，与synchronized实现类似，这样会极大提高吞吐量。</p>
+<p>如果已经存在Running线程，则新的竞争线程会被追加到队尾，具体是采用基于CAS的Lock-Free算法，因为线程并发对Tail调用CAS可能会导致其他线程CAS失败，解决办法是循环CAS直至成功。AbstractQueuedSynchronizer的实现非常精巧，令人叹为观止，不入细节难以完全领会其精髓，下面详细说明实现过程：</p>
+<h4 id="Sync-nonfairTryAcquire"><a href="#Sync-nonfairTryAcquire" class="headerlink" title="Sync.nonfairTryAcquire"></a>Sync.nonfairTryAcquire</h4><p><code>nonfairTryAcquire</code>方法将是lock方法间接调用的第一个方法，每次请求锁时都会首先调用该方法。</p>
+<pre><code>    final boolean nonfairTryAcquire(int acquires) {
+        final Thread current = Thread.currentThread();
+        int c = getState();
+        if (c == 0) {
+            if (compareAndSetState(0, acquires)) {
+                setExclusiveOwnerThread(current);
+                return true;
+            }
+        }
+        else if (current == getExclusiveOwnerThread()) {
+            int nextc = c + acquires;
+            if (nextc &lt; 0) // overflow
+                throw new Error(&quot;Maximum lock count exceeded&quot;);
+            setState(nextc);
+            return true;
+        }
+        return false;
+    }
+</code></pre><p>该方法会首先判断当前状态，如果<code>c==0</code>说明没有线程正在竞争该锁，如果不<code>c !=0</code> 说明有线程正拥有了该锁。</p>
+<p>如果发现<code>c==0</code>，则通过CAS设置该状态值为<code>acquires,acquires</code>的初始调用值为1，每次线程重入该锁都会+1，每次unlock都会-1，但为0时释放锁。如果CAS设置成功，则可以预计其他任何线程调用CAS都不会再成功，也就认为当前线程得到了该锁，也作为Running线程，很显然这个<code>Running</code>线程并未进入等待队列。</p>
+<p>如果<code>c !=0</code>但发现自己已经拥有锁，只是简单地<code>++acquires</code>，并修改status值，但因为没有竞争，所以通过setStatus修改，而非CAS，也就是说这段代码实现了偏向锁的功能，并且实现的非常漂亮。</p>
+<h4 id="AbstractQueuedSynchronizer-addWaiter"><a href="#AbstractQueuedSynchronizer-addWaiter" class="headerlink" title="AbstractQueuedSynchronizer.addWaiter"></a>AbstractQueuedSynchronizer.addWaiter</h4><p><code>addWaiter</code>方法负责把当前无法获得锁的线程包装为一个Node添加到队尾：</p>
+<pre><code>private Node addWaiter(Node mode) {
+    Node node = new Node(Thread.currentThread(), mode);
+    // Try the fast path of enq; backup to full enq on failure
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    enq(node);
+    return node;
+}
+</code></pre><p>其中参数mode是独占锁还是共享锁，默认为<code>null</code>，独占锁。追加到队尾的动作分两步：</p>
+<p>如果当前队尾已经存在(<code>tail!=null</code>)，则使用CAS把当前线程更新为Tail<br>如果当前Tail为null或则线程调用CAS设置队尾失败，则通过enq方法继续设置Tail<br>下面是enq方法：</p>
+<pre><code>private Node enq(final Node node) {
+    for (;;) {
+        Node t = tail;
+        if (t == null) { // Must initialize
+            Node h = new Node(); // Dummy header
+            h.next = node;
+            node.prev = h;
+            if (compareAndSetHead(h)) {
+                tail = node;
+                return h;
+            }
+        }
+        else {
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}
+</code></pre><p>该方法就是循环调用CAS，即使有高并发的场景，无限循环将会最终成功把当前线程追加到队尾（或设置队头）。总而言之，addWaiter的目的就是通过CAS把当前现在追加到队尾，并返回包装后的Node实例。</p>
+<p>把线程要包装为Node对象的主要原因，除了用Node构造供虚拟队列外，还用Node包装了各种线程状态，这些状态被精心设计为一些数字值：</p>
+<ul>
+<li>SIGNAL(-1) ：线程的后继线程正/已被阻塞，当该线程release或cancel时要重新这个后继线程(unpark)</li>
+<li>CANCELLED(1)：因为超时或中断，该线程已经被取消</li>
+<li>CONDITION(-2)：表明该线程被处于条件队列，就是因为调用了Condition.await而被阻塞</li>
+<li>PROPAGATE(-3)：传播共享锁</li>
+<li>0：0代表无状态</li>
+</ul>
+<h4 id="AbstractQueuedSynchronizer-acquireQueued"><a href="#AbstractQueuedSynchronizer-acquireQueued" class="headerlink" title="AbstractQueuedSynchronizer.acquireQueued"></a>AbstractQueuedSynchronizer.acquireQueued</h4><p><code>acquireQueued</code>的主要作用是把已经追加到队列的线程节点（addWaiter方法返回值）进行阻塞，但阻塞前又通过tryAccquire重试是否能获得锁，如果重试成功能则无需阻塞，直接返回</p>
+<pre><code>final boolean acquireQueued(final Node node, int arg) {
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                return interrupted;
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } catch (RuntimeException ex) {
+        cancelAcquire(node);
+        throw ex;
+    }
+}
+</code></pre><p>仔细看看这个方法是个无限循环，感觉如果<code>p == head &amp;&amp; tryAcquire(arg)</code>条件不满足循环将永远无法结束，当然不会出现死循环，奥秘在于第12行的<code>parkAndCheckInterrupt</code>会把当前线程挂起，从而阻塞住线程的调用栈。</p>
+<pre><code>private final boolean parkAndCheckInterrupt() {
+    LockSupport.park(this);
+    return Thread.interrupted();
+}
+</code></pre><p>如前面所述，LockSupport.park最终把线程交给系统（Linux）内核进行阻塞。当然也不是马上把请求不到锁的线程进行阻塞，还要检查该线程的状态，比如如果该线程处于Cancel状态则没有必要，具体的检查在<code>shouldParkAfterFailedAcquire</code>中：</p>
+<pre><code>private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+    int ws = pred.waitStatus;
+    if (ws == Node.SIGNAL)
+        /*
+         * This node has already set status asking a release
+         * to signal it, so it can safely park
+         */
+        return true;
+    if (ws &gt; 0) {
+        /*
+         * Predecessor was cancelled. Skip over predecessors and
+         * indicate retry.
+         */
+    do {
+    node.prev = pred = pred.prev;
+    } while (pred.waitStatus &gt; 0);
+    pred.next = node;
+    } else {
+        /*
+         * waitStatus must be 0 or PROPAGATE. Indicate that we
+         * need a signal, but don&#39;t park yet. Caller will need to
+         * retry to make sure it cannot acquire before parking. 
+         */
+        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    } 
+    return false;
+}
+</code></pre><p>检查原则在于：</p>
+<ul>
+<li>规则1：如果前继的节点状态为SIGNAL，表明当前节点需要unpark，则返回成功，此时acquireQueued方法的第12行（parkAndCheckInterrupt）将导致线程阻塞</li>
+<li>规则2：如果前继节点状态为CANCELLED(ws&gt;0)，说明前置节点已经被放弃，则回溯到一个非取消的前继节点，返回false，acquireQueued方法的无限循环将递归调用该方法，直至规则1返回true，导致线程阻塞</li>
+<li>规则3：如果前继节点状态为非SIGNAL、非CANCELLED，则设置前继的状态为SIGNAL，返回false后进入acquireQueued的无限循环，与规则2同<br>总体看来，<code>shouldParkAfterFailedAcquire</code>就是靠前继节点判断当前线程是否应该被阻塞，如果前继节点处于CANCELLED状态，则顺便删除这些节点重新构造队列。</li>
+</ul>
+<p>至此，锁住线程的逻辑已经完成，下面讨论解锁的过程。</p>
+<h3 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h3><p>请求锁不成功的线程会被挂起在acquireQueued方法的第12行，12行以后的代码必须等线程被解锁锁才能执行，假如被阻塞的线程得到解锁，则执行第13行，即设置interrupted = true，之后又进入无限循环。</p>
+<p>从无限循环的代码可以看出，并不是得到解锁的线程一定能获得锁，必须在第6行中调用tryAccquire重新竞争，因为锁是非公平的，有可能被新加入的线程获得，从而导致刚被唤醒的线程再次被阻塞，这个细节充分体现了“非公平”的精髓。通过之后将要介绍的解锁机制会看到，第一个被解锁的线程就是Head，因此p == head的判断基本都会成功。</p>
+<p>至此可以看到，把tryAcquire方法延迟到子类中实现的做法非常精妙并具有极强的可扩展性，令人叹为观止！当然精妙的不是这个Templae设计模式，而是Doug Lea对锁结构的精心布局。</p>
+<p>解锁代码相对简单，主要体现在<code>AbstractQueuedSynchronizer.release</code>和<code>Sync.tryRelease</code>方法中：</p>
+<pre><code>      class AbstractQueuedSynchronizer
+        public final boolean release(int arg) {
+            if (tryRelease(arg)) {
+                Node h = head;
+                if (h != null &amp;&amp; h.waitStatus != 0)
+                    unparkSuccessor(h);
+                return true;
+            }
+            return false;
+        }
+</code></pre><p><strong>class Sync</strong></p>
+<pre><code>    protected final boolean tryRelease(int releases) {
+        int c = getState() - releases;
+        if (Thread.currentThread() != getExclusiveOwnerThread())
+            throw new IllegalMonitorStateException();
+        boolean free = false;
+        if (c == 0) {
+            free = true;
+            setExclusiveOwnerThread(null);
+        }
+        setState(c);
+        return free;
+    }
+</code></pre><p><code>tryRelease</code>与<code>tryAcquire</code>语义相同，把如何释放的逻辑延迟到子类中。<code>tryRelease</code>语义很明确：如果线程多次锁定，则进行多次释放，直至status==0则真正释放锁，所谓释放锁即设置status为0，因为无竞争所以没有使用CAS。</p>
+<p>release的语义在于：如果可以释放锁，则唤醒队列第一个线程（Head），具体唤醒代码如下：</p>
+<pre><code>private void unparkSuccessor(Node node) {
+    /*
+     * If status is negative (i.e., possibly needing signal) try
+     * to clear in anticipation of signalling. It is OK if this
+     * fails or if status is changed by waiting thread.
+     */
+    int ws = node.waitStatus;
+    if (ws &lt; 0)
+        compareAndSetWaitStatus(node, ws, 0); 
+
+    /*
+     * Thread to unpark is held in successor, which is normally
+     * just the next node.  But if cancelled or apparently null,
+     * traverse backwards from tail to find the actual
+     * non-cancelled successor.
+     */
+    Node s = node.next;
+    if (s == null || s.waitStatus &gt; 0) {
+        s = null;
+        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)
+            if (t.waitStatus &lt;= 0)
+                s = t;
+    }
+    if (s != null)
+        LockSupport.unpark(s.thread);
+}
+</code></pre><p>这段代码的意思在于找出第一个可以unpark的线程，一般说来head.next == head，Head就是第一个线程，但Head.next可能被取消或被置为null，因此比较稳妥的办法是从后往前找第一个可用线程。貌似回溯会导致性能降低，其实这个发生的几率很小，所以不会有性能影响。之后便是通知系统内核继续该线程，在Linux下是通过pthread_mutex_unlock完成。之后，被解锁的线程进入上面所说的重新竞争状态。</p>
+<h3 id="Lock-amp-Synchronized"><a href="#Lock-amp-Synchronized" class="headerlink" title="Lock &amp; Synchronized"></a>Lock &amp; Synchronized</h3><p><code>AbstractQueuedSynchronizer</code>通过构造一个基于阻塞的CLH队列容纳所有的阻塞线程，而对该队列的操作均通过<code>Lock-Free（CAS）</code>操作，但对已经获得锁的线程而言，<code>ReentrantLock</code>实现了偏向锁的功能。</p>
+<p><code>synchronized</code>的底层也是一个基于CAS操作的等待队列，但JVM实现的更精细，把等待队列分为<code>ContentionList</code>和<code>EntryList</code>，目的是为了降低线程的出列速度；当然也实现了偏向锁，从数据结构来说二者设计没有本质区别。但synchronized还实现了自旋锁，并针对不同的系统和硬件体系进行了优化，而Lock则完全依靠系统阻塞挂起等待线程。</p>
+<p>当然<code>Lock</code>比<code>synchronized</code>更适合在应用层扩展，可以继承AbstractQueuedSynchronizer定义各种实现，比如实现读写锁（<code>ReadWriteLock</code>），公平或不公平锁；同时，Lock对应的Condition调用<code>await()</code>、<code>signal()</code>、<code>signAll()</code>这几个方法比<code>notify()</code>、<code>wait()</code>、<code>notifyAll()</code>要方便的多、灵活的多。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2017/12/17/并发之synchronized与加锁机制/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
+&lt;h1 id=&quot;synchronized-与-Lock&quot;&gt;&lt;a href=&quot;#synchronized-与-Lock&quot; class=&quot;headerlink&quot; title=&quot;synchronized 与 Lock&quot;&gt;&lt;/a&gt;synchronized 与 Lock&lt;/h1&gt;&lt;p&gt;目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 &lt;/p&gt;
+&lt;p&gt;数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。&lt;/p&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;特性&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;synchronized&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;volatile&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;原子性&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;可见性&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否阻塞线程&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;使用级别&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;变量、方法、类&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;变量&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;用途&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;使用范围&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;a、对变量的写操作不依赖于当前值。b、该变量没有包含在具有其他变量的不变式中。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;table-container&quot;&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;特性&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;synchronized&lt;/th&gt;
+&lt;th style=&quot;text-align:center&quot;&gt;ReentrantLock&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否需要手动释放&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;等待中的线程是否可以中断等待&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否可以主动获得锁&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true（投票等方式）&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;是否支持定时&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;false&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;true&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;其他&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;synchronized是在JVM层面上实现的(语言级别)JVM会自动释放锁定&lt;/td&gt;
+&lt;td style=&quot;text-align:center&quot;&gt;lock是通过代码实现的，要保证锁定一定会被释放，就必须将unLock()放到finally{}中&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+    
+    </summary>
+    
+    
+      <category term="synchronized" scheme="http://jet-han.oschina.io/tags/synchronized/"/>
+    
+      <category term="ReentrantLock" scheme="http://jet-han.oschina.io/tags/ReentrantLock/"/>
+    
+  </entry>
   
   <entry>
     <title>Cron</title>
@@ -2924,7 +3377,7 @@ select * from tx;
     <link href="http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
     <id>http://jet-han.oschina.io/2017/07/28/HashMap工作原理/</id>
     <published>2017-07-28T08:05:02.000Z</published>
-    <updated>2018-12-07T02:54:44.220Z</updated>
+    <updated>2018-12-17T08:09:26.326Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/07/28/HashMap工作原理/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br><a id="more"></a></p>
@@ -3061,8 +3514,30 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
     return null;
 }
 </code></pre><h3 id="Java7-ConcurrentHashMap"><a href="#Java7-ConcurrentHashMap" class="headerlink" title="Java7 ConcurrentHashMap"></a>Java7 ConcurrentHashMap</h3><p><code>ConcurrentHashMap</code> 和 <code>HashMap</code> 思路是差不多的，但是因为它支持并发操作，所以要复杂一些。</p>
-<p>整个 <code>ConcurrentHashMap</code> 由一个个 <code>Segment</code> 组成，<code>Segment</code> 代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。注意，行文中，我很多地方用了“槽”来代表一个 <code>segmen</code>t。</p>
+<p>整个 <code>ConcurrentHashMap</code> 由一个个 <code>Segment</code> 组成，<code>Segment</code> 代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。注意，行文中，我很多地方用了“槽”来代表一个 <code>segment</code>。</p>
 <p>简单理解就是，ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。</p>
+<p><img src="/2017/07/28/HashMap工作原理/concurrentHashMap-class.png" alt="ConcurrentHashMap" title="ConcurrentHashMap"></p>
+<p>首先如何从ConcurrentHashMap定位到HashEntry。在HashMap的原理分析部分说过，对于一个Hash的数据结构来说，为了减少浪费的空间和快速定位数据，那么就需要数据在Hash上的分布比较均匀。对于一次Map的查找来说，首先就需要定位到Segment，然后从过Segment定位到HashEntry链表，最后才是通过遍历链表得到需要的元素。</p>
+<p>在不讨论并发的前提下先来讨论如何定位到<code>HashEntry</code>的。在<code>ConcurrentHashMap</code>中是通过<code>hash(key.hashCode())</code>和<code>segmentFor(hash)</code>来得到Segment的。其中hash(int)是将key的<code>hashCode</code>进行二次编码，使之能够在<code>segmentMask+1</code>个Segment上均匀分布（默认是16个）。可以看到的是这里和HashMap还是有点不同的，这里采用的算法叫Wang/Jenkins hash，有兴趣的可以自行查阅。总之它的目的就是使元素能够均匀的分布在不同的Segment上，这样才能够支持最多<code>segmentMask+1</code>个并发，这里<code>segmentMask+1</code>是segments的大小。</p>
+<p>定位<code>Segment</code></p>
+<pre><code>private static int hash(int h) {
+    // Spread bits to regularize both segment and index locations,
+    // using variant of single-word Wang/Jenkins hash.
+    h += (h &lt;&lt;  15) ^ 0xffffcd7d;
+    h ^= (h &gt;&gt;&gt; 10);
+    h += (h &lt;&lt;   3);
+    h ^= (h &gt;&gt;&gt;  6);
+    h += (h &lt;&lt;   2) + (h &lt;&lt; 14);
+    return h ^ (h &gt;&gt;&gt; 16);
+}
+final Segment&lt;K,V&gt; segmentFor(int hash) {
+    return segments[(hash &gt;&gt;&gt; segmentShift) &amp; segmentMask];
+}
+</code></pre><p>显然在不能够对Segment扩容的情况下，segments的大小就应该是固定的。所以在ConcurrentHashMap中segments/segmentMask/segmentShift都是常量，一旦初始化后就不能被再次修改，其中segmentShift是查找Segment的一个常量偏移量。</p>
+<p>有了Segment以后再定位HashEntry就和HashMap中定位HashEntry一样了，先将hash值与Segment中HashEntry的大小减1进行与操作定位到HashEntry链表，然后遍历链表就可以完成相应的操作了。</p>
+<p>能够定位元素以后<code>ConcurrentHashMap</code>就已经具有了<code>HashMap</code>的功能了，现在要解决的就是如何并发的问题。要解决并发问题，加锁是必不可免的。再回头看<code>Segment</code>的类图，可以看到<code>Segment</code>除了有一个<code>volatile</code>类型的元素大小<code>count</code>外，<code>Segment</code>还是集成自<code>ReentrantLock</code>的。另外在前面的原子操作和锁机制中介绍过，要想最大限度的支持并发，那么能够利用的思路就是尽量读操作不加锁，写操作不加锁。如果是读操作不加锁，写操作加锁，对于竞争资源来说就需要定义为<code>volatile</code>类型的。volatile类型能够保证<code>happens-before</code>法则，所以volatile能够近似保证正确性的情况下最大程度的降低加锁带来的影响，同时还与写操作的锁不产生冲突。</p>
+<p>同时为了防止在遍历HashEntry的时候被破坏，那么对于HashEntry的数据结构来说，除了value之外其他属性就应该是常量，否则不可避免的会得到<code>ConcurrentModificationException</code>。这就是为什么HashEntry数据结构中<code>key,hash,next</code>是常量的原因(final类型）。</p>
+<p>有了上面的分析和条件后再来看<code>Segment</code>的<code>get/put/remove</code>就容易多了。</p>
 <p><img src="/2017/07/28/HashMap工作原理/concurrentHashMap.png" alt="ConcurrentHashMap" title="ConcurrentHashMap"></p>
 <p>concurrencyLevel：并行级别、并发数、Segment 数，怎么翻译不重要，理解它。默认是 16，也就是说 ConcurrentHashMap 有 16 个 Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上。这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。</p>
 <p>再具体到每个 Segment 内部，其实每个 Segment 很像之前介绍的 HashMap，不过它要保证线程安全，所以处理起来要麻烦些。</p>
@@ -3154,7 +3629,7 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
       return s.put(key, hash, value, false);
 
   }
-</code></pre><p>第一层皮很简单，根据 hash 值很快就能找到相应的 Segment，之后就是 Segment 内部的 put 操作了。<br>Segment 内部是由 数组+链表 组成的。</p>
+</code></pre><p>第一层皮很简单，根据 hash 值很快就能找到相应的 Segment，之后就是 Segment 内部的 put 操作了。<br>Segment 内部是由 数组+链表 组成的，key不能为空</p>
 <pre><code>final V put(K key, int hash, V value, boolean onlyIfAbsent) {
     // 在往该 segment 写入前，需要先获取该 segment 的独占锁
     //    先看主流程，后面还会具体介绍这部分内容
@@ -3555,7 +4030,120 @@ capacity &lt;&lt;= 1;
 </code></pre><h3 id="key的hashcode与equals方法改写"><a href="#key的hashcode与equals方法改写" class="headerlink" title="key的hashcode与equals方法改写"></a>key的hashcode与equals方法改写</h3><p>在第一部分hashmap的数据结构中，annegu就写了get方法的过程：首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。所以，hashcode与equals方法对于找到对应元素是两个关键方法。     </p>
 <p>Hashmap的key可以是任何类型的对象，例如User这种对象，为了保证两个具有相同属性的user的hashcode相同，我们就需要改写hashcode方法，比方把hashcode值的计算与User对象的id关联起来，那么只要user对象拥有相同id，那么他们的hashcode也能保持一致了，这样就可以找到在hashmap数组中的位置了。如果这个位置上有多个元素，还需要用key的equals方法在对应位置的链表中找到需要的元素，所以只改写了hashcode方法是不够的，equals方法也是需要改写滴~当然啦，按正常思维逻辑，equals方法一般都会根据实际的业务内容来定义，例如根据user对象的id来判断两个user是否相等。<br>在改写equals方法的时候，需要满足以下三点：<br>(1)    自反性：就是说a.equals(a)必须为true。<br>(2)    对称性：就是说a.equals(b)=true的话，b.equals(a)也必须为true。<br>(3)    传递性：就是说a.equals(b)=true，并且b.equals(c)=true的话，a.equals(c)也必须为true。<br>通过改写key对象的equals和hashcode方法，我们可以将任意的业务对象作为map的key(前提是你确实有这样的需要)。   </p>
 <p>本文主要描述了HashMap的结构，和hashmap中hash函数的实现，以及该实现的特性，同时描述了hashmap中resize带来性能消耗的根本原因，以及将普通的域模型对象作为key的基本要求。尤其是hash函数的实现，可以说是整个HashMap的精髓所在，只有真正理解了这个hash函数，才可以说对HashMap有了一定的理解。</p>
-<p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
+<h3 id="Hashtable和ConcurrentHashMap"><a href="#Hashtable和ConcurrentHashMap" class="headerlink" title="Hashtable和ConcurrentHashMap"></a>Hashtable和ConcurrentHashMap</h3><ul>
+<li><code>Hashtable</code>对<code>get,put,remove</code>都使用了同步操作，它的同步级别是正对<code>Hashtable</code>来进行同步的，也就是说如果有线程正在遍历集合，其他的线程就暂时不能使用该集合了，这样无疑就很容易对性能和吞吐量造成影响，从而形成单点。而<code>ConcurrentHashMap</code>则不同，它只对<code>put,remove</code>操作使用了同步操作，<code>get</code>操作并不影响。<code>public V get(Object key)</code>不涉及到锁，也就是说获得对象时没有使用锁；<code>put、remove</code>方法要使用锁，但并不一定有锁争用，原因在于<code>ConcurrentHashMap</code>将缓存的变量分到多个<code>Segment</code>，每个<code>Segment</code>上有一个锁，只要多个线程访问的不是一个<code>Segment</code>就没有锁争用，就没有堵塞，各线程用各自的锁，<code>ConcurrentHashMap</code>缺省情况下生成16个<code>Segment</code>，也就是允许16个线程并发的更新而尽量没有锁争用；当前<code>ConcurrentHashMap</code>这样的做法对一些线程要求很严格的程序来说，还是有所欠缺的，对应这样的程序来说，如果不考虑性能和吞吐量问题的话，个人觉得使用<code>Hashtable</code>还是比较合适的；  </li>
+<li><code>Hashtable</code>在使用<code>iterator</code>遍历的时候，如果其他线程，包括本线程对<code>Hashtable</code>进行了<code>put，remove</code>等更新操作的话，就会抛出<code>ConcurrentModificationException</code>异常，但如果使用<code>ConcurrentHashMap</code>的话，就不用考虑这方面的问题了，<code>Iterator</code>对象的使用，不一定是和其它更新线程同步，获得的对象可能是更新前的对象，<code>ConcurrentHashMap</code>允许一边更新、一边遍历，也就是说在<code>Iterator</code>对象遍历的时候，<code>ConcurrentHashMap</code>也可以进行<code>remove,put</code>操作，且遍历的数据会随着<code>remove,put</code>操作产出变化，所以希望遍历到当前全部数据的话，要么以<code>ConcurrentHashMap</code>变量为锁进行同步(<code>synchronized</code>该变量)，要么使用<code>CopiedIterator</code>包装<code>iterator</code>，使其拷贝当前集合的全部数据，但是这样生成的<code>iterator</code>不可以进行<code>remove</code>操作。</li>
+</ul>
+<p>1.<code>HashMap</code>或者<code>ArrayList</code>边遍历边删除数据会报<code>java.util.ConcurrentModificationException</code>异常</p>
+<pre><code>Map&lt;Long, String&gt; mReqPacket = new HashMap&lt;Long, String&gt;();
+        for (long i = 0; i &lt; 15; i++) {
+            mReqPacket.put(i, i + &quot;&quot;);
+        }
+
+        for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+            long key = entry.getKey();
+            String value = entry.getValue();
+            if (key &lt; 10) {
+                mReqPacket.remove(key);
+            }
+        }
+
+        for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+            System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+        }
+</code></pre><p>所以要用迭代器删除元素：</p>
+<pre><code>    Map&lt;Long, String&gt; mReqPacket = new HashMap&lt;Long, String&gt;();
+    for (long i = 0; i &lt; 15; i++) {
+        mReqPacket.put(i, i + &quot;&quot;);
+    }
+
+    for (Iterator&lt;Entry&lt;Long, String&gt;&gt; iterator = mReqPacket.entrySet().iterator(); iterator.hasNext();) {
+        Entry&lt;Long, String&gt; entry = iterator.next();
+        long key = entry.getKey();
+        if (key &lt; 10) {
+            iterator.remove();
+        }
+    }
+
+    for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+        System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+    }
+</code></pre><p>2.对<code>ConcurrentHashMap</code>边遍历边删除或者增加操作不会产生异常(可以不用迭代方式删除元素)，因为其内部已经做了维护，遍历的时候都能获得最新的值。即便是多个线程一起删除、添加元素也没问题。</p>
+<pre><code>      Map&lt;Long, String&gt; conMap = new ConcurrentHashMap&lt;Long, String&gt;();
+      for (long i = 0; i &lt; 15; i++) {
+          conMap.put(i, i + &quot;&quot;);
+      }
+
+      for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+          long key = entry.getKey();
+          if (key &lt; 10) {
+              conMap.remove(key);
+          }
+      }
+
+      for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+          System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+      }
+</code></pre><p>3.一个线程对ConcurrentHashMap增加数据，另外一个线程在遍历时就能获得。</p>
+<pre><code>static Map&lt;Long, String&gt; conMap = new ConcurrentHashMap&lt;Long, String&gt;();
+
+public static void main(String[] args) throws InterruptedException {
+    for (long i = 0; i &lt; 5; i++) {
+        conMap.put(i, i + &quot;&quot;);
+    }
+
+    Thread thread = new Thread(new Runnable() {
+        public void run() {
+            conMap.put(100l, &quot;100&quot;);
+            System.out.println(&quot;ADD:&quot; + 100);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    });
+    Thread thread2 = new Thread(new Runnable() {
+        public void run() {
+            for (Iterator&lt;Entry&lt;Long, String&gt;&gt; iterator = conMap.entrySet().iterator(); iterator.hasNext();) {
+                Entry&lt;Long, String&gt; entry = iterator.next();
+                System.out.println(entry.getKey() + &quot; - &quot; + entry.getValue());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+    thread.start();
+    thread2.start();
+
+    Thread.sleep(3000);
+    System.out.println(&quot;--------&quot;);
+    for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+        System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+    }
+
+}
+
+输出：
+ADD:100
+0 - 0
+100 - 100
+2 - 2
+1 - 1
+3 - 3
+4 - 4
+--------
+0 0
+100 100
+2 2
+1 1
+3 3
+4 4
+</code></pre><p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
 ]]></content>
     
     <summary type="html">
@@ -4047,47 +4635,6 @@ public void setFlag() {
     
     
       <category term="常量池" scheme="http://jet-han.oschina.io/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>string比较之‘’equals‘’和‘’==‘’</title>
-    <link href="http://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/"/>
-    <id>http://jet-han.oschina.io/2017/07/28/string比较之‘’equals‘’和‘’==‘’/</id>
-    <published>2017-07-28T03:06:56.000Z</published>
-    <updated>2017-08-13T01:45:26.093Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
-<h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
-<p>这里s2属于字符串字面量，下一节会详细介绍</p>
-<p>在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。<br><a id="more"></a><br>下面来看具体例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">String s1 = new String(&quot;Hello&quot;);</div><div class="line">String s2 = new String(&quot;Hello&quot;);</div><div class="line">System.out.println(s1 == s2);// false</div><div class="line">System.out.println(s1.equals(s2)); //true</div><div class="line"></div><div class="line">String s3 = new String(&quot;Hello&quot;);</div><div class="line">String s4 = s3;</div><div class="line">System.out.println(s3 == s4);// true</div><div class="line">System.out.println(s3.equals(s4));// true</div><div class="line"></div><div class="line">String s5 = &quot;Hello&quot;;</div><div class="line">String s6 = &quot;Hello&quot;;</div><div class="line">System.out.println(s5 == s6);// true</div><div class="line">System.out.println(s5.equals(s6));// true</div><div class="line"></div><div class="line">String s7 = &quot;Hello&quot;;</div><div class="line">String s8 = new String(&quot;Hello&quot;);</div><div class="line">System.out.println(s7 == s8);// false，</div><div class="line">System.out.println(s7.equals(s8));// true</div><div class="line"></div><div class="line">String s9 = s3.intern();</div><div class="line">System.out.println(s7 == s9);// true，</div><div class="line">System.out.println(s7.equals(s9));// true</div></pre></td></tr></table></figure></p>
-<p>intern方法会尝试将Hello字符串添加到常量池中，并返回其在常量池中的地址，因为常量池中已经有了Hello字符串，所以intern方法直接返回地址；而s7在编译期就已经指向常量池了，因此s7和s9指向同一地址，相等。</p>
-<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>假设有一个类，它有一个记录消息的方法，这个方法记录用户传来的消息(假设消息内容可能较大，并且重复率较高)，并且把消息按接收顺序记录在一个列表中。我想有些朋友会这样设计：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class Messages &#123;</div><div class="line"></div><div class="line">ArrayList messages = new ArrayList();</div><div class="line"></div><div class="line">public void record(String msg) &#123;</div><div class="line">messages.add(msg);</div><div class="line">&#125;</div><div class="line"></div><div class="line">public List getMessages() &#123;</div><div class="line">return messages;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这种设计方案好吗？假设我们重复的发送给record()方法同一个消息(消息来自不同的用户，所以可以视每个消息为一个new String(“…”))，并且消息内容较大，那么这个设计将会大大浪费内存空间，因为消息列表中记录的都是新创建的、独立的String对象，虽然它们的内容都相同。那么怎么样可以对其进行优化呢，其实很简单，请看如下优化后的示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import java.util.*;</div><div class="line"></div><div class="line">public class Messages &#123;</div><div class="line"></div><div class="line">ArrayList messages = new ArrayList();</div><div class="line"></div><div class="line">public void record(String msg) &#123;</div><div class="line">messages.add(msg.intern());</div><div class="line">&#125;</div><div class="line"></div><div class="line">public List getMessages() &#123;</div><div class="line">return messages;</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>正如你所看到的，原先record()方法中的messages.add(msg);代码段变成了messages.add(msg.intern());，仅仅对msg参数调用了intern()方法，这样将对重复的消息进行共享机制，从而降低了内存消耗，提高了性能。</p>
-<p>自己写一个类MyString，里边有一个char[ ]  value，实现里边的equalsString方法，要求可以比较两个MyString类的对象。相等返回0，大于返回1，小于返回-1，若比较的不是MyString类型的对象，则返回-100。</p>
-<p>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div></pre></td><td class="code"><pre><div class="line">package cn.ywq.test;  </div><div class="line">  </div><div class="line">class MyString &#123;  </div><div class="line">      </div><div class="line">    char[] value;  </div><div class="line">    public MyString(char[] value) &#123;  </div><div class="line">        this.value=value;  //通过构造方法将字符传入  </div><div class="line">    &#125;  </div><div class="line">      </div><div class="line">      </div><div class="line">    public int equalsString(Object obj) &#123;  </div><div class="line">        if(this==obj)&#123;  </div><div class="line">            return 0;  </div><div class="line">        &#125;  </div><div class="line">          </div><div class="line">        //若该对象是MyString类型的  </div><div class="line">        if(obj instanceof MyString)&#123;  </div><div class="line">            MyString string =(MyString) obj;  </div><div class="line">            int n=this.value.length;  </div><div class="line">            if (n&gt;string.value.length) &#123;  //先判断长度的关系  </div><div class="line">                return 1;  </div><div class="line">            &#125;else if(n&lt;string.value.length)&#123;  </div><div class="line">                return -1;  </div><div class="line">            &#125;else&#123;   //若长度相等  </div><div class="line">                 char v1[] = this.value;  </div><div class="line">                 char v2[] = string.value;  </div><div class="line">                    int i = 0;  </div><div class="line">                    while (n-- != 0) &#123;  //按照数组的每一位进行比较  </div><div class="line">                        if (v1[i] &gt; v2[i])&#123;  </div><div class="line">                            return 1;  </div><div class="line">                        &#125;else if(v1[i] &lt; v2[i])&#123;  </div><div class="line">                            return -1;  </div><div class="line">                        &#125;  </div><div class="line">                                  </div><div class="line">                        i++;  </div><div class="line">                    &#125;  </div><div class="line">                    return 0;  //若while循环正常结束，则说明相等，返回0  </div><div class="line">  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        return -100;  //若传入的不是MyString类型的对象  </div><div class="line">          </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;  </div><div class="line">#测试代码：</div><div class="line">package cn.ywq.test;  </div><div class="line">  </div><div class="line">public class Test &#123;  </div><div class="line">  public static void main(String[] args) &#123;  </div><div class="line">       char[] value=&#123;&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;&#125;;  </div><div class="line">       char[] value2=&#123;&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;,&apos;e&apos;&#125;;  </div><div class="line">       char[] value3=&#123;&apos;c&apos;,&apos;b&apos;,&apos;c&apos;,&apos;d&apos;&#125;;  </div><div class="line">       char[] value4=&#123;&apos;a&apos;,&apos;b&apos;,&apos;c&apos;,&#125;;  </div><div class="line">          </div><div class="line">       MyString myString = new MyString(value);  </div><div class="line">       MyString s=new MyString(value4);  </div><div class="line">       int i = myString.equalsString(s);   </div><div class="line">       System.out.println(i);  </div><div class="line">   &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。&lt;/p&gt;
-&lt;h2 id=&quot;equals和”-”&quot;&gt;&lt;a href=&quot;#equals和”-”&quot; class=&quot;headerlink&quot; title=&quot;equals和”==”&quot;&gt;&lt;/a&gt;equals和”==”&lt;/h2&gt;&lt;p&gt;string是一个final class，两种声明方法 :&lt;br&gt;1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆&lt;br&gt;String s1 = new String(“Hello”);&lt;br&gt;2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.&lt;br&gt;String s2 = “Hello”;&lt;/p&gt;
-&lt;p&gt;这里s2属于字符串字面量，下一节会详细介绍&lt;/p&gt;
-&lt;p&gt;在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://jet-han.oschina.io/categories/java/"/>
-    
-    
-      <category term="string" scheme="http://jet-han.oschina.io/tags/string/"/>
-    
-      <category term="==" scheme="http://jet-han.oschina.io/tags//"/>
-    
-      <category term="equals" scheme="http://jet-han.oschina.io/tags/equals/"/>
     
   </entry>
   

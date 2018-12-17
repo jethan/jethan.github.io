@@ -13,10 +13,11 @@
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/HashMap工作原理/java.jpg">
+<meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/HashMap工作原理/concurrentHashMap-class.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/HashMap工作原理/concurrentHashMap.png">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/HashMap工作原理/hashmap1.jpg">
 <meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/HashMap工作原理/hashmap2.jpg">
-<meta property="og:updated_time" content="2018-12-07T02:54:44.220Z">
+<meta property="og:updated_time" content="2018-12-17T08:09:26.326Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HashMap工作原理">
 <meta name="twitter:description" content="引言HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合">
@@ -170,7 +171,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/bigdata/" style="font-size: 13.33px;">bigdata</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/cron/" style="font-size: 10px;">cron</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/interview/" style="font-size: 10px;">interview</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/life-cycle/" style="font-size: 10px;">life cycle</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysql-MyIsam-Innodb/" style="font-size: 10px;">mysql,MyIsam,Innodb</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/thread-pool/" style="font-size: 10px;">thread pool</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/定时/" style="font-size: 10px;">定时</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/搜索引擎/" style="font-size: 10px;">搜索引擎</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
+                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/bigdata/" style="font-size: 13.33px;">bigdata</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/cron/" style="font-size: 10px;">cron</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/interview/" style="font-size: 10px;">interview</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 13.33px;">jvm</a> <a href="/tags/life-cycle/" style="font-size: 10px;">life cycle</a> <a href="/tags/linux/" style="font-size: 13.33px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysql-MyIsam-Innodb/" style="font-size: 10px;">mysql,MyIsam,Innodb</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/thread-pool/" style="font-size: 10px;">thread pool</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/定时/" style="font-size: 10px;">定时</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/搜索引擎/" style="font-size: 10px;">搜索引擎</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
                     </div>
                 </section>
                 
@@ -428,8 +429,30 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
     return null;
 }
 </code></pre><h3 id="Java7-ConcurrentHashMap"><a href="#Java7-ConcurrentHashMap" class="headerlink" title="Java7 ConcurrentHashMap"></a>Java7 ConcurrentHashMap</h3><p><code>ConcurrentHashMap</code> 和 <code>HashMap</code> 思路是差不多的，但是因为它支持并发操作，所以要复杂一些。</p>
-<p>整个 <code>ConcurrentHashMap</code> 由一个个 <code>Segment</code> 组成，<code>Segment</code> 代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。注意，行文中，我很多地方用了“槽”来代表一个 <code>segmen</code>t。</p>
+<p>整个 <code>ConcurrentHashMap</code> 由一个个 <code>Segment</code> 组成，<code>Segment</code> 代表”部分“或”一段“的意思，所以很多地方都会将其描述为分段锁。注意，行文中，我很多地方用了“槽”来代表一个 <code>segment</code>。</p>
 <p>简单理解就是，ConcurrentHashMap 是一个 Segment 数组，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。</p>
+<p><img src="/2017/07/28/HashMap工作原理/concurrentHashMap-class.png" alt="ConcurrentHashMap" title="ConcurrentHashMap"></p>
+<p>首先如何从ConcurrentHashMap定位到HashEntry。在HashMap的原理分析部分说过，对于一个Hash的数据结构来说，为了减少浪费的空间和快速定位数据，那么就需要数据在Hash上的分布比较均匀。对于一次Map的查找来说，首先就需要定位到Segment，然后从过Segment定位到HashEntry链表，最后才是通过遍历链表得到需要的元素。</p>
+<p>在不讨论并发的前提下先来讨论如何定位到<code>HashEntry</code>的。在<code>ConcurrentHashMap</code>中是通过<code>hash(key.hashCode())</code>和<code>segmentFor(hash)</code>来得到Segment的。其中hash(int)是将key的<code>hashCode</code>进行二次编码，使之能够在<code>segmentMask+1</code>个Segment上均匀分布（默认是16个）。可以看到的是这里和HashMap还是有点不同的，这里采用的算法叫Wang/Jenkins hash，有兴趣的可以自行查阅。总之它的目的就是使元素能够均匀的分布在不同的Segment上，这样才能够支持最多<code>segmentMask+1</code>个并发，这里<code>segmentMask+1</code>是segments的大小。</p>
+<p>定位<code>Segment</code></p>
+<pre><code>private static int hash(int h) {
+    // Spread bits to regularize both segment and index locations,
+    // using variant of single-word Wang/Jenkins hash.
+    h += (h &lt;&lt;  15) ^ 0xffffcd7d;
+    h ^= (h &gt;&gt;&gt; 10);
+    h += (h &lt;&lt;   3);
+    h ^= (h &gt;&gt;&gt;  6);
+    h += (h &lt;&lt;   2) + (h &lt;&lt; 14);
+    return h ^ (h &gt;&gt;&gt; 16);
+}
+final Segment&lt;K,V&gt; segmentFor(int hash) {
+    return segments[(hash &gt;&gt;&gt; segmentShift) &amp; segmentMask];
+}
+</code></pre><p>显然在不能够对Segment扩容的情况下，segments的大小就应该是固定的。所以在ConcurrentHashMap中segments/segmentMask/segmentShift都是常量，一旦初始化后就不能被再次修改，其中segmentShift是查找Segment的一个常量偏移量。</p>
+<p>有了Segment以后再定位HashEntry就和HashMap中定位HashEntry一样了，先将hash值与Segment中HashEntry的大小减1进行与操作定位到HashEntry链表，然后遍历链表就可以完成相应的操作了。</p>
+<p>能够定位元素以后<code>ConcurrentHashMap</code>就已经具有了<code>HashMap</code>的功能了，现在要解决的就是如何并发的问题。要解决并发问题，加锁是必不可免的。再回头看<code>Segment</code>的类图，可以看到<code>Segment</code>除了有一个<code>volatile</code>类型的元素大小<code>count</code>外，<code>Segment</code>还是集成自<code>ReentrantLock</code>的。另外在前面的原子操作和锁机制中介绍过，要想最大限度的支持并发，那么能够利用的思路就是尽量读操作不加锁，写操作不加锁。如果是读操作不加锁，写操作加锁，对于竞争资源来说就需要定义为<code>volatile</code>类型的。volatile类型能够保证<code>happens-before</code>法则，所以volatile能够近似保证正确性的情况下最大程度的降低加锁带来的影响，同时还与写操作的锁不产生冲突。</p>
+<p>同时为了防止在遍历HashEntry的时候被破坏，那么对于HashEntry的数据结构来说，除了value之外其他属性就应该是常量，否则不可避免的会得到<code>ConcurrentModificationException</code>。这就是为什么HashEntry数据结构中<code>key,hash,next</code>是常量的原因(final类型）。</p>
+<p>有了上面的分析和条件后再来看<code>Segment</code>的<code>get/put/remove</code>就容易多了。</p>
 <p><img src="/2017/07/28/HashMap工作原理/concurrentHashMap.png" alt="ConcurrentHashMap" title="ConcurrentHashMap"></p>
 <p>concurrencyLevel：并行级别、并发数、Segment 数，怎么翻译不重要，理解它。默认是 16，也就是说 ConcurrentHashMap 有 16 个 Segments，所以理论上，这个时候，最多可以同时支持 16 个线程并发写，只要它们的操作分别分布在不同的 Segment 上。这个值可以在初始化的时候设置为其他值，但是一旦初始化以后，它是不可以扩容的。</p>
 <p>再具体到每个 Segment 内部，其实每个 Segment 很像之前介绍的 HashMap，不过它要保证线程安全，所以处理起来要麻烦些。</p>
@@ -521,7 +544,7 @@ final Entry&lt;K,V&gt; getEntry(Object key) {
       return s.put(key, hash, value, false);
 
   }
-</code></pre><p>第一层皮很简单，根据 hash 值很快就能找到相应的 Segment，之后就是 Segment 内部的 put 操作了。<br>Segment 内部是由 数组+链表 组成的。</p>
+</code></pre><p>第一层皮很简单，根据 hash 值很快就能找到相应的 Segment，之后就是 Segment 内部的 put 操作了。<br>Segment 内部是由 数组+链表 组成的，key不能为空</p>
 <pre><code>final V put(K key, int hash, V value, boolean onlyIfAbsent) {
     // 在往该 segment 写入前，需要先获取该 segment 的独占锁
     //    先看主流程，后面还会具体介绍这部分内容
@@ -922,7 +945,120 @@ capacity &lt;&lt;= 1;
 </code></pre><h3 id="key的hashcode与equals方法改写"><a href="#key的hashcode与equals方法改写" class="headerlink" title="key的hashcode与equals方法改写"></a>key的hashcode与equals方法改写</h3><p>在第一部分hashmap的数据结构中，annegu就写了get方法的过程：首先计算key的hashcode，找到数组中对应位置的某一元素，然后通过key的equals方法在对应位置的链表中找到需要的元素。所以，hashcode与equals方法对于找到对应元素是两个关键方法。     </p>
 <p>Hashmap的key可以是任何类型的对象，例如User这种对象，为了保证两个具有相同属性的user的hashcode相同，我们就需要改写hashcode方法，比方把hashcode值的计算与User对象的id关联起来，那么只要user对象拥有相同id，那么他们的hashcode也能保持一致了，这样就可以找到在hashmap数组中的位置了。如果这个位置上有多个元素，还需要用key的equals方法在对应位置的链表中找到需要的元素，所以只改写了hashcode方法是不够的，equals方法也是需要改写滴~当然啦，按正常思维逻辑，equals方法一般都会根据实际的业务内容来定义，例如根据user对象的id来判断两个user是否相等。<br>在改写equals方法的时候，需要满足以下三点：<br>(1)    自反性：就是说a.equals(a)必须为true。<br>(2)    对称性：就是说a.equals(b)=true的话，b.equals(a)也必须为true。<br>(3)    传递性：就是说a.equals(b)=true，并且b.equals(c)=true的话，a.equals(c)也必须为true。<br>通过改写key对象的equals和hashcode方法，我们可以将任意的业务对象作为map的key(前提是你确实有这样的需要)。   </p>
 <p>本文主要描述了HashMap的结构，和hashmap中hash函数的实现，以及该实现的特性，同时描述了hashmap中resize带来性能消耗的根本原因，以及将普通的域模型对象作为key的基本要求。尤其是hash函数的实现，可以说是整个HashMap的精髓所在，只有真正理解了这个hash函数，才可以说对HashMap有了一定的理解。</p>
-<p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
+<h3 id="Hashtable和ConcurrentHashMap"><a href="#Hashtable和ConcurrentHashMap" class="headerlink" title="Hashtable和ConcurrentHashMap"></a>Hashtable和ConcurrentHashMap</h3><ul>
+<li><code>Hashtable</code>对<code>get,put,remove</code>都使用了同步操作，它的同步级别是正对<code>Hashtable</code>来进行同步的，也就是说如果有线程正在遍历集合，其他的线程就暂时不能使用该集合了，这样无疑就很容易对性能和吞吐量造成影响，从而形成单点。而<code>ConcurrentHashMap</code>则不同，它只对<code>put,remove</code>操作使用了同步操作，<code>get</code>操作并不影响。<code>public V get(Object key)</code>不涉及到锁，也就是说获得对象时没有使用锁；<code>put、remove</code>方法要使用锁，但并不一定有锁争用，原因在于<code>ConcurrentHashMap</code>将缓存的变量分到多个<code>Segment</code>，每个<code>Segment</code>上有一个锁，只要多个线程访问的不是一个<code>Segment</code>就没有锁争用，就没有堵塞，各线程用各自的锁，<code>ConcurrentHashMap</code>缺省情况下生成16个<code>Segment</code>，也就是允许16个线程并发的更新而尽量没有锁争用；当前<code>ConcurrentHashMap</code>这样的做法对一些线程要求很严格的程序来说，还是有所欠缺的，对应这样的程序来说，如果不考虑性能和吞吐量问题的话，个人觉得使用<code>Hashtable</code>还是比较合适的；  </li>
+<li><code>Hashtable</code>在使用<code>iterator</code>遍历的时候，如果其他线程，包括本线程对<code>Hashtable</code>进行了<code>put，remove</code>等更新操作的话，就会抛出<code>ConcurrentModificationException</code>异常，但如果使用<code>ConcurrentHashMap</code>的话，就不用考虑这方面的问题了，<code>Iterator</code>对象的使用，不一定是和其它更新线程同步，获得的对象可能是更新前的对象，<code>ConcurrentHashMap</code>允许一边更新、一边遍历，也就是说在<code>Iterator</code>对象遍历的时候，<code>ConcurrentHashMap</code>也可以进行<code>remove,put</code>操作，且遍历的数据会随着<code>remove,put</code>操作产出变化，所以希望遍历到当前全部数据的话，要么以<code>ConcurrentHashMap</code>变量为锁进行同步(<code>synchronized</code>该变量)，要么使用<code>CopiedIterator</code>包装<code>iterator</code>，使其拷贝当前集合的全部数据，但是这样生成的<code>iterator</code>不可以进行<code>remove</code>操作。</li>
+</ul>
+<p>1.<code>HashMap</code>或者<code>ArrayList</code>边遍历边删除数据会报<code>java.util.ConcurrentModificationException</code>异常</p>
+<pre><code>Map&lt;Long, String&gt; mReqPacket = new HashMap&lt;Long, String&gt;();
+        for (long i = 0; i &lt; 15; i++) {
+            mReqPacket.put(i, i + &quot;&quot;);
+        }
+
+        for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+            long key = entry.getKey();
+            String value = entry.getValue();
+            if (key &lt; 10) {
+                mReqPacket.remove(key);
+            }
+        }
+
+        for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+            System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+        }
+</code></pre><p>所以要用迭代器删除元素：</p>
+<pre><code>    Map&lt;Long, String&gt; mReqPacket = new HashMap&lt;Long, String&gt;();
+    for (long i = 0; i &lt; 15; i++) {
+        mReqPacket.put(i, i + &quot;&quot;);
+    }
+
+    for (Iterator&lt;Entry&lt;Long, String&gt;&gt; iterator = mReqPacket.entrySet().iterator(); iterator.hasNext();) {
+        Entry&lt;Long, String&gt; entry = iterator.next();
+        long key = entry.getKey();
+        if (key &lt; 10) {
+            iterator.remove();
+        }
+    }
+
+    for (Entry&lt;Long, String&gt; entry : mReqPacket.entrySet()) {
+        System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+    }
+</code></pre><p>2.对<code>ConcurrentHashMap</code>边遍历边删除或者增加操作不会产生异常(可以不用迭代方式删除元素)，因为其内部已经做了维护，遍历的时候都能获得最新的值。即便是多个线程一起删除、添加元素也没问题。</p>
+<pre><code>      Map&lt;Long, String&gt; conMap = new ConcurrentHashMap&lt;Long, String&gt;();
+      for (long i = 0; i &lt; 15; i++) {
+          conMap.put(i, i + &quot;&quot;);
+      }
+
+      for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+          long key = entry.getKey();
+          if (key &lt; 10) {
+              conMap.remove(key);
+          }
+      }
+
+      for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+          System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+      }
+</code></pre><p>3.一个线程对ConcurrentHashMap增加数据，另外一个线程在遍历时就能获得。</p>
+<pre><code>static Map&lt;Long, String&gt; conMap = new ConcurrentHashMap&lt;Long, String&gt;();
+
+public static void main(String[] args) throws InterruptedException {
+    for (long i = 0; i &lt; 5; i++) {
+        conMap.put(i, i + &quot;&quot;);
+    }
+
+    Thread thread = new Thread(new Runnable() {
+        public void run() {
+            conMap.put(100l, &quot;100&quot;);
+            System.out.println(&quot;ADD:&quot; + 100);
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+    });
+    Thread thread2 = new Thread(new Runnable() {
+        public void run() {
+            for (Iterator&lt;Entry&lt;Long, String&gt;&gt; iterator = conMap.entrySet().iterator(); iterator.hasNext();) {
+                Entry&lt;Long, String&gt; entry = iterator.next();
+                System.out.println(entry.getKey() + &quot; - &quot; + entry.getValue());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    });
+    thread.start();
+    thread2.start();
+
+    Thread.sleep(3000);
+    System.out.println(&quot;--------&quot;);
+    for (Entry&lt;Long, String&gt; entry : conMap.entrySet()) {
+        System.out.println(entry.getKey() + &quot; &quot; + entry.getValue());
+    }
+
+}
+
+输出：
+ADD:100
+0 - 0
+100 - 100
+2 - 2
+1 - 1
+3 - 3
+4 - 4
+--------
+0 0
+100 100
+2 2
+1 1
+3 3
+4 4
+</code></pre><p><a href="http://www.iteye.com/topic/754887" target="_blank" rel="external">参考链接</a></p>
 
       
       
@@ -994,7 +1130,7 @@ capacity &lt;&lt;= 1;
         <p><span>本文标题:</span><a href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年07月28日 - 16时05分</p>
-        <p><span>最后更新:</span>2018年12月07日 - 10时54分</p>
+        <p><span>最后更新:</span>2018年12月17日 - 16时09分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/07/28/HashMap工作原理/" title="HashMap工作原理">http://jet-han.oschina.io/2017/07/28/HashMap工作原理/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/28/HashMap工作原理/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -1035,7 +1171,7 @@ capacity &lt;&lt;= 1;
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap"><span class="toc-number">2.</span> <span class="toc-text">HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap的工作原理"><span class="toc-number">2.1.</span> <span class="toc-text">HashMap的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#put过程"><span class="toc-number">2.1.1.</span> <span class="toc-text">put过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组初始化"><span class="toc-number">2.1.2.</span> <span class="toc-text">数组初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#计算具体数组位置"><span class="toc-number">2.1.3.</span> <span class="toc-text">计算具体数组位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加节点到链表中"><span class="toc-number">2.1.4.</span> <span class="toc-text">添加节点到链表中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组扩容"><span class="toc-number">2.1.5.</span> <span class="toc-text">数组扩容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get过程"><span class="toc-number">2.1.6.</span> <span class="toc-text">get过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java7-ConcurrentHashMap"><span class="toc-number">2.2.</span> <span class="toc-text">Java7 ConcurrentHashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化"><span class="toc-number">2.2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#put-过程分析"><span class="toc-number">2.2.2.</span> <span class="toc-text">put 过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#扩容-rehash"><span class="toc-number">2.2.3.</span> <span class="toc-text">扩容: rehash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-过程分析"><span class="toc-number">2.2.4.</span> <span class="toc-text">get 过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发问题分析"><span class="toc-number">2.2.5.</span> <span class="toc-text">并发问题分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#put-操作的线程安全性"><span class="toc-number">2.2.6.</span> <span class="toc-text">put 操作的线程安全性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove-操作的线程安全性"><span class="toc-number">2.2.7.</span> <span class="toc-text">remove 操作的线程安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-number">2.3.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash算法"><span class="toc-number">2.4.</span> <span class="toc-text">hash算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key的hashcode与equals方法改写"><span class="toc-number">2.5.</span> <span class="toc-text">key的hashcode与equals方法改写</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap"><span class="toc-number">2.</span> <span class="toc-text">HashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap的工作原理"><span class="toc-number">2.1.</span> <span class="toc-text">HashMap的工作原理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#put过程"><span class="toc-number">2.1.1.</span> <span class="toc-text">put过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组初始化"><span class="toc-number">2.1.2.</span> <span class="toc-text">数组初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#计算具体数组位置"><span class="toc-number">2.1.3.</span> <span class="toc-text">计算具体数组位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#添加节点到链表中"><span class="toc-number">2.1.4.</span> <span class="toc-text">添加节点到链表中</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数组扩容"><span class="toc-number">2.1.5.</span> <span class="toc-text">数组扩容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get过程"><span class="toc-number">2.1.6.</span> <span class="toc-text">get过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java7-ConcurrentHashMap"><span class="toc-number">2.2.</span> <span class="toc-text">Java7 ConcurrentHashMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化"><span class="toc-number">2.2.1.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#put-过程分析"><span class="toc-number">2.2.2.</span> <span class="toc-text">put 过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#扩容-rehash"><span class="toc-number">2.2.3.</span> <span class="toc-text">扩容: rehash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#get-过程分析"><span class="toc-number">2.2.4.</span> <span class="toc-text">get 过程分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#并发问题分析"><span class="toc-number">2.2.5.</span> <span class="toc-text">并发问题分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#put-操作的线程安全性"><span class="toc-number">2.2.6.</span> <span class="toc-text">put 操作的线程安全性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#remove-操作的线程安全性"><span class="toc-number">2.2.7.</span> <span class="toc-text">remove 操作的线程安全性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据结构"><span class="toc-number">2.3.</span> <span class="toc-text">数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash算法"><span class="toc-number">2.4.</span> <span class="toc-text">hash算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key的hashcode与equals方法改写"><span class="toc-number">2.5.</span> <span class="toc-text">key的hashcode与equals方法改写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hashtable和ConcurrentHashMap"><span class="toc-number">2.6.</span> <span class="toc-text">Hashtable和ConcurrentHashMap</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -1117,7 +1253,7 @@ capacity &lt;&lt;= 1;
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis相关/">Mybatis相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Msql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发之synchronized与加锁机制/">并发之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis相关/">Mybatis相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Msql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
