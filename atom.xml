@@ -1003,6 +1003,427 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
   </entry>
   
   <entry>
+    <title>Java并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
+    <link href="http://jet-han.oschina.io/2017/10/18/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/"/>
+    <id>http://jet-han.oschina.io/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/</id>
+    <published>2017-10-18T08:31:58.000Z</published>
+    <updated>2018-12-18T10:44:50.706Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
+<p><code>CountDownLatch</code>类只提供了一个构造器：</p>
+<pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
+</code></pre><p>然后下面这3个方法是CountDownLatch类中最重要的方法：</p>
+<pre><code>public void await() throws InterruptedException { };   //调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
+public boolean await(long timeout, TimeUnit unit) throws InterruptedException { };  //和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
+public void countDown() { };  //将count值减1
+</code></pre><p>下面看一个例子大家就清楚<code>CountDownLatch</code>的用法了：</p>
+<pre><code>public class Test {
+     public static void main(String[] args) {   
+         final CountDownLatch latch = new CountDownLatch(2);
+
+         new Thread(){
+             public void run() {
+                 try {
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
+                    Thread.sleep(3000);
+                    System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
+                    latch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+             };
+         }.start();
+
+         new Thread(){
+             public void run() {
+                 try {
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
+                     Thread.sleep(3000);
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
+                     latch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+             };
+         }.start();
+
+         try {
+             System.out.println(&quot;等待2个子线程执行完毕...&quot;);
+            latch.await();
+            System.out.println(&quot;2个子线程已经执行完毕&quot;);
+            System.out.println(&quot;继续执行主线程&quot;);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+     }
+}
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在执行
+线程Thread-1正在执行
+等待2个子线程执行完毕...
+线程Thread-0执行完毕
+线程Thread-1执行完毕
+2个子线程已经执行完毕
+继续执行主线程
+</code></pre><h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>　字面意思回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier了。</p>
+<p>　　<code>CyclicBarrier</code>类位于<code>java.util.concurrent</code>包下，CyclicBarrier提供2个构造器：</p>
+<pre><code>  public CyclicBarrier(int parties, Runnable barrierAction) {
+  }
+
+  public CyclicBarrier(int parties) {
+  }
+</code></pre><p>　　参数<code>parties</code>指让多少个线程或者任务等待至barrier状态；参数<code>barrierAction</code>为当这些线程都达到barrier状态时会执行的内容。</p>
+<p>　　然后<code>CyclicBarrier</code>中最重要的方法就是await方法，它有2个重载版本：</p>
+<pre><code>  public int await() throws InterruptedException, BrokenBarrierException { };
+  public int await(long timeout, TimeUnit unit)throws InterruptedException,BrokenBarrierException,TimeoutException { };
+</code></pre><p> 　　第一个版本比较常用，用来挂起当前线程，直至所有线程都到达barrier状态再同时执行后续任务；</p>
+<p>　　第二个版本是让这些线程等待至一定的时间，如果还有线程没有到达barrier状态就直接让到达barrier的线程执行后续任务。</p>
+<p>　　下面举几个例子就明白了：</p>
+<p>　　假若有若干个线程都要进行写数据操作，并且只有所有线程都完成写数据操作之后，这些线程才能继续做后面的事情，此时就可以利用CyclicBarrier了：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N);
+          for(int i=0;i&lt;N;i++)
+              new Writer(barrier).start();
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在写入数据...
+线程Thread-3正在写入数据...
+线程Thread-2正在写入数据...
+线程Thread-1正在写入数据...
+线程Thread-2写入数据完毕，等待其他线程写入完毕
+线程Thread-0写入数据完毕，等待其他线程写入完毕
+线程Thread-3写入数据完毕，等待其他线程写入完毕
+线程Thread-1写入数据完毕，等待其他线程写入完毕
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　从上面输出结果可以看出，每个写入线程执行完写数据操作之后，就在等待其他线程写入操作完毕。</p>
+<p>　　当所有线程线程写入操作完毕之后，所有线程就继续进行后续的操作了。</p>
+<p>　　如果说想在所有线程写入操作完之后，进行额外的其他操作可以为<code>CyclicBarrier</code>提供Runnable参数：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N,new Runnable() {
+              @Override
+              public void run() {
+                  System.out.println(&quot;当前线程&quot;+Thread.currentThread().getName());   
+              }
+          });
+
+          for(int i=0;i&lt;N;i++)
+              new Writer(barrier).start();
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p> 　　运行结果：</p>
+<pre><code>    线程Thread-0正在写入数据...
+    线程Thread-1正在写入数据...
+    线程Thread-2正在写入数据...
+    线程Thread-3正在写入数据...
+    线程Thread-0写入数据完毕，等待其他线程写入完毕
+    线程Thread-1写入数据完毕，等待其他线程写入完毕
+    线程Thread-2写入数据完毕，等待其他线程写入完毕
+    线程Thread-3写入数据完毕，等待其他线程写入完毕
+    当前线程Thread-3
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，会从四个线程中选择一个线程去执行Runnable。</p>
+<p> 下面看一下为await指定时间的效果：</p>
+<pre><code>    public class Test {
+        public static void main(String[] args) {
+            int N = 4;
+            CyclicBarrier barrier  = new CyclicBarrier(N);
+
+            for(int i=0;i&lt;N;i++) {
+                if(i&lt;N-1)
+                    new Writer(barrier).start();
+                else {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    new Writer(barrier).start();
+                }
+            }
+        }
+        static class Writer extends Thread{
+            private CyclicBarrier cyclicBarrier;
+            public Writer(CyclicBarrier cyclicBarrier) {
+                this.cyclicBarrier = cyclicBarrier;
+            }
+
+            @Override
+            public void run() {
+                System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+                try {
+                    Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                    System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                    try {
+                        cyclicBarrier.await(2000, TimeUnit.MILLISECONDS);
+                    } catch (TimeoutException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }catch(BrokenBarrierException e){
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+            }
+        }
+    }
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在写入数据...
+线程Thread-2正在写入数据...
+线程Thread-1正在写入数据...
+线程Thread-2写入数据完毕，等待其他线程写入完毕
+线程Thread-0写入数据完毕，等待其他线程写入完毕
+线程Thread-1写入数据完毕，等待其他线程写入完毕
+线程Thread-3正在写入数据...
+java.util.concurrent.TimeoutException
+Thread-1所有线程写入完毕，继续处理其他任务...
+Thread-0所有线程写入完毕，继续处理其他任务...
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+java.util.concurrent.BrokenBarrierException
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+java.util.concurrent.BrokenBarrierException
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+Thread-2所有线程写入完毕，继续处理其他任务...
+java.util.concurrent.BrokenBarrierException
+线程Thread-3写入数据完毕，等待其他线程写入完毕
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+</code></pre><p>Thread-3所有线程写入完毕，继续处理其他任务…</p>
+<p>　　上面的代码在main方法的for循环中，故意让最后一个线程启动延迟，因为在前面三个线程都达到barrier之后，等待了指定的时间发现第四个线程还没有达到barrier，就抛出异常并继续执行后面的任务。</p>
+<p>另外<code>CyclicBarrier</code>是可以重用的，看下面这个例子：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N);
+
+          for(int i=0;i&lt;N;i++) {
+              new Writer(barrier).start();
+          }
+
+          try {
+              Thread.sleep(25000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+
+          System.out.println(&quot;CyclicBarrier重用&quot;);
+
+          for(int i=0;i&lt;N;i++) {
+              new Writer(barrier).start();
+          }
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>    线程Thread-0正在写入数据...
+    线程Thread-1正在写入数据...
+    线程Thread-3正在写入数据...
+    线程Thread-2正在写入数据...
+    线程Thread-1写入数据完毕，等待其他线程写入完毕
+    线程Thread-3写入数据完毕，等待其他线程写入完毕
+    线程Thread-2写入数据完毕，等待其他线程写入完毕
+    线程Thread-0写入数据完毕，等待其他线程写入完毕
+    Thread-0所有线程写入完毕，继续处理其他任务...
+    Thread-3所有线程写入完毕，继续处理其他任务...
+    Thread-1所有线程写入完毕，继续处理其他任务...
+    Thread-2所有线程写入完毕，继续处理其他任务...
+    CyclicBarrier重用
+    线程Thread-4正在写入数据...
+    线程Thread-5正在写入数据...
+    线程Thread-6正在写入数据...
+    线程Thread-7正在写入数据...
+    线程Thread-7写入数据完毕，等待其他线程写入完毕
+    线程Thread-5写入数据完毕，等待其他线程写入完毕
+    线程Thread-6写入数据完毕，等待其他线程写入完毕
+    线程Thread-4写入数据完毕，等待其他线程写入完毕
+    Thread-4所有线程写入完毕，继续处理其他任务...
+    Thread-5所有线程写入完毕，继续处理其他任务...
+    Thread-6所有线程写入完毕，继续处理其他任务...
+    Thread-7所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　　从执行结果可以看出，在初次的4个线程越过barrier状态后，又可以用来进行新一轮的使用。而CountDownLatch无法进行重复使用。</p>
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><code>Semaphore</code>翻译成字面意思为 信号量，Semaphore可以控同时访问的线程个数，通过 acquire() 获取一个许可，如果没有就等待，而 release() 释放一个许可。</p>
+<p><code>Semaphore</code>类位于<code>java.util.concurrent</code>包下，它提供了2个构造器：</p>
+<pre><code>public Semaphore(int permits) {          //参数permits表示许可数目，即同时可以允许多少线程进行访问
+    sync = new NonfairSync(permits);
+}
+public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair表示是否是公平的，即等待时间越久的越先获取许可
+    sync = (fair)? new FairSync(permits) : new NonfairSync(permits);
+}
+</code></pre><p> 下面说一下<code>Semaphore</code>类中比较重要的几个方法，首先是<code>acquire()</code>、<code>release()</code>方法：</p>
+<pre><code>    public void acquire() throws InterruptedException {  }     //获取一个许可
+    public void acquire(int permits) throws InterruptedException { }    //获取permits个许可
+    public void release() { }          //释放一个许可
+    public void release(int permits) { }    //释放permits个许可
+</code></pre><p><code>acquire()</code>用来获取一个许可，若无许可能够获得，则会一直等待，直到获得许可。</p>
+<p><code>release()</code>用来释放许可。注意，在释放许可之前，必须先获获得许可。否则直接release，permit数目可能会大于设置的最大数。</p>
+<p>这4个方法都会被阻塞，如果想立即得到执行结果，可以使用下面几个方法：</p>
+<pre><code>    public boolean tryAcquire() { };    //尝试获取一个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
+    public boolean tryAcquire(long timeout, TimeUnit unit) throws InterruptedException { };  //尝试获取一个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
+    public boolean tryAcquire(int permits) { }; //尝试获取permits个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
+    public boolean tryAcquire(int permits, long timeout, TimeUnit unit) throws InterruptedException { }; //尝试获取permits个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
+</code></pre><p>另外还可以通过<code>availablePermits()</code>方法得到可用的许可数目。</p>
+<p>下面通过一个例子来看一下<code>Semaphore</code>的具体使用：</p>
+<p>假若一个工厂有5台机器，但是有8个工人，一台机器同时只能被一个工人使用，只有使用完了，其他工人才能继续使用。那么我们就可以通过Semaphore来实现：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 8;            //工人数
+          Semaphore semaphore = new Semaphore(5); //机器数目
+          for(int i=0;i&lt;N;i++)
+              new Worker(i,semaphore).start();
+      }
+
+      static class Worker extends Thread{
+          private int num;
+          private Semaphore semaphore;
+          public Worker(int num,Semaphore semaphore){
+              this.num = num;
+              this.semaphore = semaphore;
+          }
+
+          @Override
+          public void run() {
+              try {
+                  semaphore.acquire();
+                  System.out.println(&quot;工人&quot;+this.num+&quot;占用一个机器在生产...&quot;);
+                  Thread.sleep(2000);
+                  System.out.println(&quot;工人&quot;+this.num+&quot;释放出机器&quot;);
+                  semaphore.release();           
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>    工人0占用一个机器在生产...
+    工人1占用一个机器在生产...
+    工人2占用一个机器在生产...
+    工人4占用一个机器在生产...
+    工人5占用一个机器在生产...
+    工人0释放出机器
+    工人2释放出机器
+    工人3占用一个机器在生产...
+    工人7占用一个机器在生产...
+    工人4释放出机器
+    工人5释放出机器
+    工人1释放出机器
+    工人6占用一个机器在生产...
+    工人3释放出机器
+    工人7释放出机器
+    工人6释放出机器
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><code>CountDownLatch</code>和<code>CyclicBarrier</code>都能够实现线程之间的等待，只不过它们侧重点不同：</li>
+</ul>
+<p>　　　　<code>CountDownLatch</code>一般用于某个线程A等待若干个其他线程执行完任务之后，它才执行；</p>
+<p>　　　　而<code>CyclicBarrier</code>一般用于一组线程互相等待至某个状态，然后这一组线程再同时执行；</p>
+<p>　　　　另外，<code>CountDownLatch</code>是不能够重用的，而<code>CyclicBarrier</code>是可以重用的。</p>
+<ul>
+<li><code>Semaphore</code>其实和锁有点类似，它一般用于控制对某组资源的访问权限。</li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
+&lt;h2 id
+    
+    </summary>
+    
+    
+      <category term="java" scheme="http://jet-han.oschina.io/tags/java/"/>
+    
+      <category term="CountDownLatch" scheme="http://jet-han.oschina.io/tags/CountDownLatch/"/>
+    
+      <category term="CyclicBarrier" scheme="http://jet-han.oschina.io/tags/CyclicBarrier/"/>
+    
+      <category term="Semaphore" scheme="http://jet-han.oschina.io/tags/Semaphore/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Spring中bean的生命周期</title>
     <link href="http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     <id>http://jet-han.oschina.io/2017/09/13/Spring中bean的生命周期/</id>
@@ -4565,76 +4986,6 @@ public void setFlag() {
     
     
       <category term="volatile" scheme="http://jet-han.oschina.io/tags/volatile/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>java常量池</title>
-    <link href="http://jet-han.oschina.io/2017/07/28/java%E5%B8%B8%E9%87%8F%E6%B1%A0/"/>
-    <id>http://jet-han.oschina.io/2017/07/28/java常量池/</id>
-    <published>2017-07-28T04:36:43.000Z</published>
-    <updated>2018-11-13T08:31:51.631Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="/2017/07/28/java常量池/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>接上一篇文章继续探索string类牵带出的常量池</p>
-<h2 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h2><p><strong>程序计数器：</strong><br>1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。</p>
-<p>2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。</p>
-<p>我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。<br><a id="more"></a><br><strong>栈：</strong><br>栈不灵活，但是很严格，是安全的，易于管理。因为只要上面的引用没有销毁，下面引用就一定还在，在大部分程序中，都是先定义的变量、引用先进栈，后定义的后进栈，同时，区块内部的变量、引用在进入区块时压栈，区块结束时出栈，理解了这种机制，我们就可以很方便地理解各种编程语言的作用域的概念了，同时这也是栈的优点——错误的引用逻辑在编译时就可以被发现，主要存放引用和基本数据类型。包括：<br>&ensp;&ensp;&ensp;<strong>1.本地方法栈：</strong>是jvm调用操作系统方法所使用的栈。</p>
-<p>&ensp;&ensp;&ensp;<strong>2.虚拟机栈：</strong>是jvm执行java代码所使用的栈。</p>
-<p><strong>方法区：</strong>存放了一些常量、静态变量、类信息等，可以理解成class文件在内存中的存放位置。</p>
-<p><strong>虚拟机堆：</strong><br>堆很灵活，但是不安全。对于对象，我们要动态地创建、销毁，不能说后创建的对象没有销毁，先前创建的对象就不能销毁，那样的话我们的程序就寸步难行，所以Java中用堆来存储对象。而一旦堆中的对象被销毁，我们继续引用这个对象的话，就会出现著名的 NullPointerException，这就是堆的缺点——错误的引用逻辑只有在运行时才会被发现。主要用来存放 new 出来的对象实例。</p>
-<p><strong>Java中的常量池：</strong>，实际上分为两种形态：静态常量池和运行时常量池。</p>
-<p>&ensp;&ensp;&ensp;<strong>1.静态常量池：</strong>，即*.class文件中的常量池，class文件中的常量池不仅仅包含字符串(数字)字面量，还包含类、方法的信息，占用class文件绝大部分空间。</p>
-<p>&ensp;&ensp;&ensp;<strong>2.运行时常量池：</strong>，则是jvm虚拟机在完成类装载操作后，将class文件中的常量池载入到内存中，并保存在方法区中，我们常说的常量池，就是指方法区中的运行时常量池。</p>
-<p>接下来我们引用一些网络上流行的常量池例子，然后借以讲解。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">String s1 = &quot;Hello&quot;;  </div><div class="line">String s2 = &quot;Hello&quot;;  </div><div class="line">String s3 = &quot;Hel&quot; + &quot;lo&quot;;  </div><div class="line">String s4 = &quot;Hel&quot; + new String(&quot;lo&quot;);  </div><div class="line">String s5 = new String(&quot;Hello&quot;);  </div><div class="line">String s6 = s5.intern();  </div><div class="line">String s7 = &quot;H&quot;;  </div><div class="line">String s8 = &quot;ello&quot;;  </div><div class="line">String s9 = s7 + s8;  </div><div class="line">            </div><div class="line">System.out.println(s1 == s2);  // true  </div><div class="line">System.out.println(s1 == s3);  // true  </div><div class="line">System.out.println(s1 == s4);  // false  </div><div class="line">System.out.println(s1 == s9);  // false  </div><div class="line">System.out.println(s4 == s5);  // false  </div><div class="line">System.out.println(s1 == s6);  // true</div></pre></td></tr></table></figure></p>
-<p> 在上节中提到，在java 中，直接使用==操作符，比较的是两个字符串的引用地址，并不是比较内容，比较内容请用equals()方法。</p>
-<p>s1 == s2这个非常好理解，s1、s2在赋值时，均使用的字符串字面量，说白话点，就是直接把字符串写死，在编译期间，这种字面量会直接放入class文件的常量池中，从而实现复用，载入运行时常量池后，s1、s2指向的是同一个内存地址，所以相等。</p>
-<p>s1 == s3这个地方有个坑，s3虽然是动态拼接出来的字符串，但是所有参与拼接的部分都是已知的字面量，在编译期间，这种拼接会被优化，编译器直接帮你拼好，因此String s3 = “Hel” + “lo”;在class文件中被优化成String s3 = “Hello”;，所以s1 == s3成立。</p>
-<p>s1 == s4当然不相等，s4虽然也是拼接出来的，但new String(“lo”)这部分不是已知字面量，是一个不可预料的部分，编译器不会优化，必须等到运行时才可以确定结果，结合字符串不变定理，鬼知道s4被分配到哪去了，所以地址肯定不同。配上一张简图理清思路：</p>
-<p><img src="/2017/07/28/java常量池/string1.jpg" alt="java字符串不变" title="java字符串不变"></p>
-<p>s1 == s9也不相等，道理差不多，虽然s7、s8在赋值的时候使用的字符串字面量，但是拼接成s9的时候，s7、s8作为两个变量，都是不可预料的，编译器毕竟是编译器，不可能当解释器用，所以不做优化，等到运行时，s7、s8拼接成的新字符串，在堆中地址不确定，不可能与方法区常量池中的s1地址相同。</p>
-<p><img src="/2017/07/28/java常量池/string2.png" alt="jvm常量池，堆，栈内存分布" title="jvm常量池，堆，栈内存分布"></p>
-<p>s4 == s5已经不用解释了，绝对不相等，二者都在堆中，但地址不同。</p>
-<p>s1 == s6这两个相等完全归功于intern方法，s5在堆中，内容为Hello ，intern方法会尝试将Hello字符串添加到常量池中，并返回其在常量池中的地址，因为常量池中已经有了Hello字符串，所以intern方法直接返回地址；而s1在编译期就已经指向常量池了，因此s1和s6指向同一地址，相等。</p>
-<p>至此，我们可以得出三个非常重要的结论：</p>
-<p>&ensp;&ensp;&ensp;<strong>必须要关注编译期的行为，才能更好的理解常量池。</strong></p>
-<p>&ensp;&ensp;&ensp;<strong>运行时常量池中的常量，基本来源于各个class文件中的常量池。</strong></p>
-<p>&ensp;&ensp;&ensp;<strong>程序运行时，除非手动向常量池中添加常量(比如调用intern方法)，否则jvm不会自动添加常量到常量池。</strong></p>
-<p>以上所讲仅涉及字符串常量池，实际上还有整型常量池、浮点型常量池等等，但都大同小异，只不过数值类型的常量池不可以手动添加常量，程序启动时常量池中的常量就已经确定了，比如整型常量池中的常量范围：-128~127，只有这个范围的数字可以用到常量池。</p>
-<p>说了这么多理论，接下来让我们触摸一下真正的常量池。</p>
-<p>前文提到过，class文件中存在一个静态常量池，这个常量池是由编译器生成的，用来存储java源文件中的字面量(本文仅仅关注字面量)，假设我们有如下java代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String s = &quot;hi&quot;;</div></pre></td></tr></table></figure></p>
-<p>为了方便起见，就这么简单，没错！将代码编译成class文件后，用UE打开二进制格式的class文件。如图：</p>
-<p><img src="/2017/07/28/java常量池/string3.png" alt="二进制格式的class文件" title="二进制格式的class文件"></p>
-<p>在命令行我们通过javap工具来查看一个class文件的字节码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javap -v test</div></pre></td></tr></table></figure></p>
-<p>如图所示：</p>
-<p><img src="/2017/07/28/java常量池/string4.png" alt="二进制格式的class文件" title="二进制格式的class文件"></p>
-<p>简单讲解一下class文件的结构，开头的4个字节是class文件魔数，用来标识这是一个class文件，说白话点就是文件头，既：CA FE BA BE。</p>
-<p>紧接着4个字节是java的版本号，这里的版本号是34，因为笔者是用jdk8编译的，版本号的高低和jdk版本的高低相对应，高版本可以兼容低版本，但低版本无法执行高版本。所以，如果哪天读者想知道别人的class文件是用什么jdk版本编译的，就可以看这4个字节，对应关系如下：</p>
-<p>jdk1.4 对应48 （00 30）,<br>jdk1.5 对应49,（00 31）,<br>jdk1.6 对应50,（00 32）,<br>jdk1.7 对应51,（00 33）,<br>jdk1.8 对应52,（00 34）, </p>
-<p>接下来就是常量池入口，入口处用2个字节标识常量池常量数量，本例中数值为00 13，翻译成十进制是19，也就是有18个常量，其中第0个常量是特殊值，所以只有18个常量。</p>
-<p>常量池中存放了各种类型的常量，他们都有自己的类型，并且都有自己的存储规范，本文只关注字符串常量  </p>
-<p>01 00 02 68 69 ，其中01代表的是“utf-8编码的字符串”，00 02代表的是这个字符串的长度是2个字节，68 69这2个字节代表的就是这个字符串的内容，因为是<a href="http://www.ascii.net.cn/" target="_blank" rel="external"><font color="#0366d6">ascii码</font></a>，每个字节对应一个字符，翻译过来就是hi</p>
-<p>接下来再说说运行时常量池，由于运行时常量池在方法区中，我们可以通过jvm参数：-XX:PermSize、-XX:MaxPermSize来设置方法区大小，从而间接限制常量池大小。</p>
-<p>假设jvm启动参数为：-XX:PermSize＝2M -XX:MaxPermSize＝2M，然后运行如下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">//保持引用，防止自动垃圾回收</div><div class="line">List&lt;String&gt; list = new ArrayList&lt;String&gt;();</div><div class="line">        </div><div class="line">int i = 0;</div><div class="line">        </div><div class="line">while(true)&#123;</div><div class="line">    //通过intern方法向常量池中手动添加常量</div><div class="line">    list.add(String.valueOf(i++).intern());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>程序立刻会抛出：Exception in thread “main” java.lang.outOfMemoryError: PermGen space异常。PermGen space正是方法区，足以说明常量池在方法区中。</p>
-<p>在jdk8中，移除了方法区，转而用Metaspace区域替代，所以我们需要使用新的jvm参数：-XX:MaxMetaspaceSize=2M，依然运行如上代码，抛出：java.lang.OutOfMemoryError: Metaspace异常。同理说明运行时常量池是划分在Metaspace区域中。具体关于Metaspace区域的知识，请读者自行搜索。</p>
-<p>本文所有代码均在jdk7、jdk8下测试通过，其他版本jdk可能会略有差异，请读者自行探索。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;/2017/07/28/java常量池/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
-&lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;接上一篇文章继续探索string类牵带出的常量池&lt;/p&gt;
-&lt;h2 id=&quot;jvm&quot;&gt;&lt;a href=&quot;#jvm&quot; class=&quot;headerlink&quot; title=&quot;jvm&quot;&gt;&lt;/a&gt;jvm&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;程序计数器：&lt;/strong&gt;&lt;br&gt;1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。&lt;/p&gt;
-&lt;p&gt;2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。&lt;/p&gt;
-&lt;p&gt;我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="java" scheme="http://jet-han.oschina.io/categories/java/"/>
-    
-    
-      <category term="常量池" scheme="http://jet-han.oschina.io/tags/%E5%B8%B8%E9%87%8F%E6%B1%A0/"/>
     
   </entry>
   

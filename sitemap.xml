@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jet-han.oschina.io/2017/10/18/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/</loc>
+    
+    <lastmod>2018-12-18T10:44:50.706Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jet-han.oschina.io/2017/05/07/java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95/</loc>
     
     <lastmod>2018-12-18T08:21:42.970Z</lastmod>
@@ -226,14 +233,14 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
+    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
     
     <lastmod>2017-09-11T13:05:41.541Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
     
     <lastmod>2017-09-11T13:05:41.541Z</lastmod>
     
@@ -366,14 +373,14 @@
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/googlea5a6081fce108907.html</loc>
+    <loc>http://jet-han.oschina.io/tags/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://jet-han.oschina.io/tags/index.html</loc>
+    <loc>http://jet-han.oschina.io/googlea5a6081fce108907.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
