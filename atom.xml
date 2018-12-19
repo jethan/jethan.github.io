@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jet-han.oschina.io/"/>
-  <updated>2018-12-17T10:39:25.111Z</updated>
+  <updated>2018-12-19T02:05:22.975Z</updated>
   <id>http://jet-han.oschina.io/</id>
   
   <author>
@@ -16,13 +16,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>并发之synchronized与加锁机制</title>
-    <link href="http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/"/>
-    <id>http://jet-han.oschina.io/2017/12/17/并发之synchronized与加锁机制/</id>
+    <title>并发编程之synchronized与加锁机制</title>
+    <link href="http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/"/>
+    <id>http://jet-han.oschina.io/2017/12/17/并发编程之synchronized与加锁机制/</id>
     <published>2017-12-17T10:00:26.000Z</published>
-    <updated>2018-12-17T10:39:25.111Z</updated>
+    <updated>2018-12-19T02:05:22.975Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/12/17/并发之synchronized与加锁机制/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+    <content type="html"><![CDATA[<p><img src="/2017/12/17/并发编程之synchronized与加锁机制/../../../../img/icons/java.jpg" alt="java" title="java"></p>
 <h1 id="synchronized-与-Lock"><a href="#synchronized-与-Lock" class="headerlink" title="synchronized 与 Lock"></a>synchronized 与 Lock</h1><p>目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 </p>
 <p>数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。</p>
 <div class="table-container">
@@ -134,11 +134,11 @@
 <li>!Owner：释放锁的线程</li>
 </ul>
 <p>下图反映了个状态转换关系：</p>
-<p><img src="/2017/12/17/并发之synchronized与加锁机制/synchronized1.jpg" alt="synchronized" title="synchronized"></p>
+<p><img src="/2017/12/17/并发编程之synchronized与加锁机制/synchronized1.jpg" alt="synchronized" title="synchronized"></p>
 <p>新请求锁的线程将首先被加入到ConetentionList中，当某个拥有锁的线程（Owner状态）调用unlock之后，如果发现EntryList为空则从ContentionList中移动线程到EntryList，下面说明下ContentionList和EntryList的实现方式：</p>
 <h4 id="ContentionList虚拟队列"><a href="#ContentionList虚拟队列" class="headerlink" title="ContentionList虚拟队列"></a>ContentionList虚拟队列</h4><p><code>ContentionList</code>并不是一个真正的<code>Queue</code>，而只是一个虚拟队列，原因在于<code>ContentionList</code>是由<code>Node</code>及其<code>next</code>指针逻辑构成，并不存在一个Queue的数据结构。<code>ContentionList</code>是一个后进先出（LIFO）的队列，每次新加入Node时都会在队头进行，通过CAS改变第一个节点的的指针为新增节点，同时设置新增节点的<code>next</code>指向后续节点，而取得操作则发生在队尾。显然，该结构其实是个<code>Lock-Free</code>的队列。</p>
 <p>因为只有<code>Owner线程</code>才能从队尾取元素，也即线程出列操作无争用，当然也就避免了<code>CAS</code>的<code>ABA</code>问题。</p>
-<p><img src="/2017/12/17/并发之synchronized与加锁机制/synchronized2.jpg" alt="synchronized" title="synchronized"></p>
+<p><img src="/2017/12/17/并发编程之synchronized与加锁机制/synchronized2.jpg" alt="synchronized" title="synchronized"></p>
 <h4 id="EntryList"><a href="#EntryList" class="headerlink" title="EntryList"></a>EntryList</h4><p><code>EntryList</code>与<code>ContentionList</code>逻辑上同属等待队列，<code>ContentionList</code>会被线程并发访问，为了降低对<code>ContentionList</code>队尾的争用，而建立<code>EntryList</code>。<code>Owner</code>线程在<code>unlock</code>时会从<code>ContentionList</code>中迁移线程到<code>EntryList</code>，并会指定<code>EntryList</code>中的某个线程（一般为<code>Head</code>）为<code>Ready（OnDeck）</code>线程。<code>Owner</code>线程并不是把锁传递给<code>OnDeck</code>线程，只是把竞争锁的权利交给<code>OnDeck</code>，OnDeck线程需要重新竞争锁。这样做虽然牺牲了一定的公平性，但极大的提高了整体吞吐量，在Hotspot中把<code>OnDeck</code>的选择行为称之为“竞争切换”。</p>
 <p><code>OnDeck</code>线程获得锁后即变为owner线程，无法获得锁则会依然留在<code>EntryList</code>中，考虑到公平性，在<code>EntryList</code>中的位置不发生变化（依然在队头）。如果Owner线程被<code>wait</code>方法阻塞，则转移到<code>WaitSet</code>队列；如果在某个时刻被<code>notify/notifyAll</code>唤醒，则再次转移到<code>EntryList</code>。</p>
 <h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>那些处于ContetionList、EntryList、WaitSet中的线程均处于阻塞状态，阻塞操作由操作系统完成（在Linxu下通过pthread_mutex_lock函数）。线程被阻塞后便进入内核（Linux）调度状态，这个会导致系统在用户态与内核态之间来回切换，严重影响锁的性能。  </p>
@@ -157,7 +157,7 @@
 <h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>在JVM1.6中引入了偏向锁，偏向锁主要解决无竞争下的锁性能问题，首先我们看下无竞争下锁存在什么问题： </p>
 <p>现在几乎所有的锁都是可重入的，也即已经获得锁的线程可以多次锁住/解锁监视对象，按照之前的HotSpot设计，每次加锁/解锁都会涉及到一些CAS操作（比如对等待队列的CAS操作），CAS操作会延迟本地调用，因此偏向锁的想法是一旦线程第一次获得了监视对象，之后让监视对象“偏向”这个线程，之后的多次调用则可以避免CAS操作，说白了就是置个变量，如果发现为true则无需再走各种加锁/解锁流程。但还有很多概念需要解释、很多引入的问题需要解决：</p>
 <h4 id="CAS及SMP架构"><a href="#CAS及SMP架构" class="headerlink" title="CAS及SMP架构"></a>CAS及SMP架构</h4><p>CAS为什么会引入本地延迟？这要从SMP（对称多处理器）架构说起，下图大概表明了SMP的结构：  </p>
-<p> <img src="/2017/12/17/并发之synchronized与加锁机制/synchronized3.jpg" alt="synchronized" title="synchronized"></p>
+<p> <img src="/2017/12/17/并发编程之synchronized与加锁机制/synchronized3.jpg" alt="synchronized" title="synchronized"></p>
 <p>其意思是所有的CPU会共享一条系统总线（BUS），靠此总线连接主存。每个核都有自己的一级缓存，各核相对于BUS对称分布，因此这种结构称为“对称多处理器”。  </p>
 <p>而CAS的全称为Compare-And-Swap，是一条CPU的原子指令，其作用是让CPU比较后原子地更新某个位置的值，经过调查发现，其实现方式是基于硬件平台的汇编指令，就是说CAS是靠硬件实现的，JVM只是封装了汇编调用，那些AtomicInteger类便是使用了这些封装后的接口。  </p>
 <p>Core1和Core2可能会同时把主存中某个位置的值Load到自己的L1 Cache中，当Core1在自己的L1 Cache中修改这个位置的值时，会通过总线，使Core2中L1 Cache对应的值“失效”，而Core2一旦发现自己L1 Cache中的值失效（称为Cache命中缺失）则会通过总线从内存中加载该地址最新的值，大家通过总线的来回通信称为“Cache一致性流量”，因为总线被设计为固定的“通信能力”，如果Cache一致性流量过大，总线将成为瓶颈。而当Core1和Core2中的值再次一致时，称为“Cache一致性”，从这个层面来说，锁设计的终极目标便是减少Cache一致性流量。  </p>
@@ -174,11 +174,11 @@
     final static class FairSync extends Sync
 </code></pre><p>显然是为了支持公平锁和非公平锁而定义，默认情况下为非公平锁。</p>
 <p>先理一下<code>Reentrant.lock()</code>方法的调用过程（默认非公平锁）：</p>
-<p> <img src="/2017/12/17/并发之synchronized与加锁机制/ReentrantLock1.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p> <img src="/2017/12/17/并发编程之synchronized与加锁机制/ReentrantLock1.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
 <p>这些讨厌的Template模式导致很难直观的看到整个调用过程，其实通过上面调用过程及<code>AbstractQueuedSynchronizer</code>的注释可以发现，<code>AbstractQueuedSynchronizer</code>中抽象了绝大多数<code>Lock</code>的功能，而只把<code>tryAcquire</code>方法延迟到子类中实现。<code>tryAcquire</code>方法的语义在于用具体子类判断请求线程是否可以获得锁，无论成功与否<code>AbstractQueuedSynchronizer</code>都将处理后面的流程。</p>
 <h3 id="锁实现（加锁）"><a href="#锁实现（加锁）" class="headerlink" title="锁实现（加锁）"></a>锁实现（加锁）</h3><p>简单说来，<code>AbstractQueuedSynchronizer</code>会把所有的请求线程构成一个CLH队列，当一个线程执行完毕（<code>lock.unlock()</code>）时会激活自己的后继节点，但正在执行的线程并不在队列中，而那些等待执行的线程全部处于阻塞状态，经过调查线程的显式阻塞是通过调用<code>LockSupport.park()</code>完成，而<code>LockSupport.park()</code>则调用<code>sun.misc.Unsafe.park()</code>本地方法，再进一步，HotSpot在Linux中中通过调用<code>pthread_mutex_lock</code>函数把线程交给系统内核进行阻塞。</p>
 <p>该队列如图：</p>
-<p> <img src="/2017/12/17/并发之synchronized与加锁机制/ReentrantLock2.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p> <img src="/2017/12/17/并发编程之synchronized与加锁机制/ReentrantLock2.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
 <p>与synchronized相同的是，这也是一个虚拟队列，不存在队列实例，仅存在节点之间的前后关系。令人疑惑的是为什么采用CLH队列呢？原生的CLH队列是用于自旋锁，但Doug Lea把其改造为阻塞锁。</p>
 <p>当有线程竞争锁时，该线程会首先尝试获得锁，这对于那些已经在队列中排队的线程来说显得不公平，这也是非公平锁的由来，与synchronized实现类似，这样会极大提高吞吐量。</p>
 <p>如果已经存在Running线程，则新的竞争线程会被追加到队尾，具体是采用基于CAS的Lock-Free算法，因为线程并发对Tail调用CAS可能会导致其他线程CAS失败，解决办法是循环CAS直至成功。AbstractQueuedSynchronizer的实现非常精巧，令人叹为观止，不入细节难以完全领会其精髓，下面详细说明实现过程：</p>
@@ -374,7 +374,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/12/17/并发之synchronized与加锁机制/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;/2017/12/17/并发编程之synchronized与加锁机制/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
 &lt;h1 id=&quot;synchronized-与-Lock&quot;&gt;&lt;a href=&quot;#synchronized-与-Lock&quot; class=&quot;headerlink&quot; title=&quot;synchronized 与 Lock&quot;&gt;&lt;/a&gt;synchronized 与 Lock&lt;/h1&gt;&lt;p&gt;目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 &lt;/p&gt;
 &lt;p&gt;数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。&lt;/p&gt;
 &lt;div class=&quot;table-container&quot;&gt;
@@ -1003,13 +1003,13 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
   </entry>
   
   <entry>
-    <title>Java并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
-    <link href="http://jet-han.oschina.io/2017/10/18/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/"/>
-    <id>http://jet-han.oschina.io/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/</id>
+    <title>并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
+    <link href="http://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/"/>
+    <id>http://jet-han.oschina.io/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/</id>
     <published>2017-10-18T08:31:58.000Z</published>
-    <updated>2018-12-18T10:44:50.706Z</updated>
+    <updated>2018-12-19T02:04:27.621Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+    <content type="html"><![CDATA[<p><img src="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
 <p><code>CountDownLatch</code>类只提供了一个构造器：</p>
 <pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
@@ -1175,7 +1175,7 @@ public void countDown() { };  //将count值减1
     所有线程写入完毕，继续处理其他任务...
     所有线程写入完毕，继续处理其他任务...
     所有线程写入完毕，继续处理其他任务...
-</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，会从四个线程中选择一个线程去执行Runnable。</p>
+</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，最后执行完任务达到 barrier的线程去执行Runnable。</p>
 <p> 下面看一下为await指定时间的效果：</p>
 <pre><code>    public class Test {
         public static void main(String[] args) {
@@ -1407,8 +1407,8 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
-&lt;h2 id
+      &lt;p&gt;&lt;img src=&quot;/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
+&lt;h2 id=&quot;Co
     
     </summary>
     

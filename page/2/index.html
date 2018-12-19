@@ -251,10 +251,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Java并发编程之CountDownLatch、CyclicBarrier和Semaphore" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-并发编程之CountDownLatch、CyclicBarrier和Semaphore" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/" class="article-date">
+      <a href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/" class="article-date">
       <time datetime="2017-10-18T08:31:58.000Z" itemprop="datePublished">2017-10-18</time>
 </a>
     </div>
@@ -268,7 +268,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/">Java并发编程之CountDownLatch、CyclicBarrier和Semaphore</a>
+      <a class="article-title" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a>
     </h1>
   
 
@@ -278,7 +278,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+        <p><img src="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
 <p><code>CountDownLatch</code>类只提供了一个构造器：</p>
 <pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
@@ -444,7 +444,7 @@ public void countDown() { };  //将count值减1
     所有线程写入完毕，继续处理其他任务...
     所有线程写入完毕，继续处理其他任务...
     所有线程写入完毕，继续处理其他任务...
-</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，会从四个线程中选择一个线程去执行Runnable。</p>
+</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，最后执行完任务达到 barrier的线程去执行Runnable。</p>
 <p> 下面看一下为await指定时间的效果：</p>
 <pre><code>    public class Test {
         public static void main(String[] args) {

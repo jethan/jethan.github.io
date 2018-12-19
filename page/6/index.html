@@ -251,10 +251,10 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Java并发编程-线程间协作" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-并发编程-线程间协作" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/18/Java并发编程-线程间协作/" class="article-date">
+      <a href="/2017/07/18/并发编程-线程间协作/" class="article-date">
       <time datetime="2017-07-18T03:05:51.000Z" itemprop="datePublished">2017-07-18</time>
 </a>
     </div>
@@ -268,7 +268,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/18/Java并发编程-线程间协作/">Java并发编程-线程间协作</a>
+      <a class="article-title" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a>
     </h1>
   
 
@@ -278,7 +278,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="/2017/07/18/Java并发编程-线程间协作/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+              <p><img src="/2017/07/18/并发编程-线程间协作/../../../../img/icons/java.jpg" alt="java" title="java"></p>
 <p>Java并发编程：线程间协作的两种方式：<code>wait、notify、notifyAll</code>和<code>Condition</code></p>
 <p>在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。  </p>
           
@@ -297,7 +297,7 @@
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/18/Java并发编程-线程间协作/#more">阅读全文 >></a>
+          <a  href="/2017/07/18/并发编程-线程间协作/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

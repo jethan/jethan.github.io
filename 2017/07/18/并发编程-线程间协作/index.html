@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Java并发编程之CountDownLatch、CyclicBarrier和Semaphore | 学海无涯</title>
+  <title>并发编程-线程间协作 | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。 CountDownLatch类只提供了一个构造器： public CountDownLatch(int count) {  };  //">
-<meta name="keywords" content="java,CountDownLatch,CyclicBarrier,Semaphore">
+  <meta name="description" content="Java并发编程：线程间协作的两种方式：wait、notify、notifyAll和Condition 在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的">
+<meta name="keywords" content="java,concurrent,condition">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java并发编程之CountDownLatch、CyclicBarrier和Semaphore">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/index.html">
+<meta property="og:title" content="并发编程-线程间协作">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/07/18/并发编程-线程间协作/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:description" content="CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。 CountDownLatch类只提供了一个构造器： public CountDownLatch(int count) {  };  //">
+<meta property="og:description" content="Java并发编程：线程间协作的两种方式：wait、notify、notifyAll和Condition 在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
-<meta property="og:updated_time" content="2018-12-18T10:44:50.706Z">
+<meta property="og:updated_time" content="2018-12-19T02:10:05.131Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java并发编程之CountDownLatch、CyclicBarrier和Semaphore">
-<meta name="twitter:description" content="CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。 CountDownLatch类只提供了一个构造器： public CountDownLatch(int count) {  };  //">
+<meta name="twitter:title" content="并发编程-线程间协作">
+<meta name="twitter:description" content="Java并发编程：线程间协作的两种方式：wait、notify、notifyAll和Condition 在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的">
 <meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
@@ -248,11 +248,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Java并发编程之CountDownLatch、CyclicBarrier和Semaphore" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-并发编程-线程间协作" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/" class="article-date">
-      <time datetime="2017-10-18T08:31:58.000Z" itemprop="datePublished">2017-10-18</time>
+      <a href="/2017/07/18/并发编程-线程间协作/" class="article-date">
+      <time datetime="2017-07-18T03:05:51.000Z" itemprop="datePublished">2017-07-18</time>
 </a>
     </div>
   
@@ -265,7 +265,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java并发编程之CountDownLatch、CyclicBarrier和Semaphore
+      并发编程-线程间协作
     </h1>
   
 
@@ -276,7 +276,7 @@
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CountDownLatch/">CountDownLatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CyclicBarrier/">CyclicBarrier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Semaphore/">Semaphore</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/concurrent/">concurrent</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/condition/">condition</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -286,401 +286,361 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/../../../../img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
-<p><code>CountDownLatch</code>类只提供了一个构造器：</p>
-<pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
-</code></pre><p>然后下面这3个方法是CountDownLatch类中最重要的方法：</p>
-<pre><code>public void await() throws InterruptedException { };   //调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
-public boolean await(long timeout, TimeUnit unit) throws InterruptedException { };  //和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
-public void countDown() { };  //将count值减1
-</code></pre><p>下面看一个例子大家就清楚<code>CountDownLatch</code>的用法了：</p>
-<pre><code>public class Test {
-     public static void main(String[] args) {   
-         final CountDownLatch latch = new CountDownLatch(2);
+        <p><img src="/2017/07/18/并发编程-线程间协作/../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<p>Java并发编程：线程间协作的两种方式：<code>wait、notify、notifyAll</code>和<code>Condition</code></p>
+<p>在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。  </p>
+<a id="more"></a>
+<h2 id="wait-、notify-和notifyAll"><a href="#wait-、notify-和notifyAll" class="headerlink" title="wait()、notify()和notifyAll()"></a>wait()、notify()和notifyAll()</h2><p><code>wait()</code>、<code>notify()</code>和<code>notifyAll()</code>是<code>Object</code>类中的方法：</p>
+<pre><code>    /**
+     * Wakes up a single thread that is waiting on this object&#39;s
+     * monitor. If any threads are waiting on this object, one of them
+     * is chosen to be awakened. The choice is arbitrary and occurs at
+     * the discretion of the implementation. A thread waits on an object&#39;s
+     * monitor by calling one of the {@code wait} methods.
+     * &lt;p&gt;
+     * The awakened thread will not be able to proceed until the current
+     * thread relinquishes the lock on this object. The awakened thread will
+     * compete in the usual manner with any other threads that might be
+     * actively competing to synchronize on this object; for example, the
+     * awakened thread enjoys no reliable privilege or disadvantage in being
+     * the next thread to lock this object.
+     * &lt;p&gt;
+     * This method should only be called by a thread that is the owner
+     * of this object&#39;s monitor. A thread becomes the owner of the
+     * object&#39;s monitor in one of three ways:
+     * &lt;ul&gt;
+     * &lt;li&gt;By executing a synchronized instance method of that object.
+     * &lt;li&gt;By executing the body of a {@code synchronized} statement
+     *     that synchronizes on the object.
+     * &lt;li&gt;For objects of type {@code Class,} by executing a
+     *     synchronized static method of that class.
+     * &lt;/ul&gt;
+     * &lt;p&gt;
+     * Only one thread at a time can own an object&#39;s monitor.
+     *
+     * @throws  IllegalMonitorStateException  if the current thread is not
+     *               the owner of this object&#39;s monitor.
+     * @see        java.lang.Object#notifyAll()
+     * @see        java.lang.Object#wait()
+     */
+    public final native void notify();
 
-         new Thread(){
-             public void run() {
-                 try {
-                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
-                    Thread.sleep(3000);
-                    System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
-                    latch.countDown();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-             };
-         }.start();
+    /**
+     * Wakes up all threads that are waiting on this object&#39;s monitor. A
+     * thread waits on an object&#39;s monitor by calling one of the
+     * {@code wait} methods.
+     * &lt;p&gt;
+     * The awakened threads will not be able to proceed until the current
+     * thread relinquishes the lock on this object. The awakened threads
+     * will compete in the usual manner with any other threads that might
+     * be actively competing to synchronize on this object; for example,
+     * the awakened threads enjoy no reliable privilege or disadvantage in
+     * being the next thread to lock this object.
+     * &lt;p&gt;
+     * This method should only be called by a thread that is the owner
+     * of this object&#39;s monitor. See the {@code notify} method for a
+     * description of the ways in which a thread can become the owner of
+     * a monitor.
+     *
+     * @throws  IllegalMonitorStateException  if the current thread is not
+     *               the owner of this object&#39;s monitor.
+     * @see        java.lang.Object#notify()
+     * @see        java.lang.Object#wait()
+     */
+    public final native void notifyAll();
 
-         new Thread(){
-             public void run() {
-                 try {
-                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
-                     Thread.sleep(3000);
-                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
-                     latch.countDown();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-             };
-         }.start();
-
-         try {
-             System.out.println(&quot;等待2个子线程执行完毕...&quot;);
-            latch.await();
-            System.out.println(&quot;2个子线程已经执行完毕&quot;);
-            System.out.println(&quot;继续执行主线程&quot;);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-     }
-}
-</code></pre><p>执行结果：</p>
-<pre><code>线程Thread-0正在执行
-线程Thread-1正在执行
-等待2个子线程执行完毕...
-线程Thread-0执行完毕
-线程Thread-1执行完毕
-2个子线程已经执行完毕
-继续执行主线程
-</code></pre><h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>　字面意思回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier了。</p>
-<p>　　<code>CyclicBarrier</code>类位于<code>java.util.concurrent</code>包下，CyclicBarrier提供2个构造器：</p>
-<pre><code>  public CyclicBarrier(int parties, Runnable barrierAction) {
-  }
-
-  public CyclicBarrier(int parties) {
-  }
-</code></pre><p>　　参数<code>parties</code>指让多少个线程或者任务等待至barrier状态；参数<code>barrierAction</code>为当这些线程都达到barrier状态时会执行的内容。</p>
-<p>　　然后<code>CyclicBarrier</code>中最重要的方法就是await方法，它有2个重载版本：</p>
-<pre><code>  public int await() throws InterruptedException, BrokenBarrierException { };
-  public int await(long timeout, TimeUnit unit)throws InterruptedException,BrokenBarrierException,TimeoutException { };
-</code></pre><p> 　　第一个版本比较常用，用来挂起当前线程，直至所有线程都到达barrier状态再同时执行后续任务；</p>
-<p>　　第二个版本是让这些线程等待至一定的时间，如果还有线程没有到达barrier状态就直接让到达barrier的线程执行后续任务。</p>
-<p>　　下面举几个例子就明白了：</p>
-<p>　　假若有若干个线程都要进行写数据操作，并且只有所有线程都完成写数据操作之后，这些线程才能继续做后面的事情，此时就可以利用CyclicBarrier了：</p>
+    /**
+     * Causes the current thread to wait until either another thread invokes the
+     * {@link java.lang.Object#notify()} method or the
+     * {@link java.lang.Object#notifyAll()} method for this object, or a
+     * specified amount of time has elapsed.
+     * &lt;p&gt;
+     * The current thread must own this object&#39;s monitor.
+     * &lt;p&gt;
+     * This method causes the current thread (call it &lt;var&gt;T&lt;/var&gt;) to
+     * place itself in the wait set for this object and then to relinquish
+     * any and all synchronization claims on this object. Thread &lt;var&gt;T&lt;/var&gt;
+     * becomes disabled for thread scheduling purposes and lies dormant
+     * until one of four things happens:
+     * &lt;ul&gt;
+     * &lt;li&gt;Some other thread invokes the {@code notify} method for this
+     * object and thread &lt;var&gt;T&lt;/var&gt; happens to be arbitrarily chosen as
+     * the thread to be awakened.
+     * &lt;li&gt;Some other thread invokes the {@code notifyAll} method for this
+     * object.
+     * &lt;li&gt;Some other thread {@linkplain Thread#interrupt() interrupts}
+     * thread &lt;var&gt;T&lt;/var&gt;.
+     * &lt;li&gt;The specified amount of real time has elapsed, more or less.  If
+     * {@code timeout} is zero, however, then real time is not taken into
+     * consideration and the thread simply waits until notified.
+     * &lt;/ul&gt;
+     * The thread &lt;var&gt;T&lt;/var&gt; is then removed from the wait set for this
+     * object and re-enabled for thread scheduling. It then competes in the
+     * usual manner with other threads for the right to synchronize on the
+     * object; once it has gained control of the object, all its
+     * synchronization claims on the object are restored to the status quo
+     * ante - that is, to the situation as of the time that the {@code wait}
+     * method was invoked. Thread &lt;var&gt;T&lt;/var&gt; then returns from the
+     * invocation of the {@code wait} method. Thus, on return from the
+     * {@code wait} method, the synchronization state of the object and of
+     * thread {@code T} is exactly as it was when the {@code wait} method
+     * was invoked.
+     * &lt;p&gt;
+     * A thread can also wake up without being notified, interrupted, or
+     * timing out, a so-called &lt;i&gt;spurious wakeup&lt;/i&gt;.  While this will rarely
+     * occur in practice, applications must guard against it by testing for
+     * the condition that should have caused the thread to be awakened, and
+     * continuing to wait if the condition is not satisfied.  In other words,
+     * waits should always occur in loops, like this one:
+     * &lt;pre&gt;
+     *     synchronized (obj) {
+     *         while (&amp;lt;condition does not hold&amp;gt;)
+     *             obj.wait(timeout);
+     *         ... // Perform action appropriate to condition
+     *     }
+     * &lt;/pre&gt;
+     * (For more information on this topic, see Section 3.2.3 in Doug Lea&#39;s
+     * &quot;Concurrent Programming in Java (Second Edition)&quot; (Addison-Wesley,
+     * 2000), or Item 50 in Joshua Bloch&#39;s &quot;Effective Java Programming
+     * Language Guide&quot; (Addison-Wesley, 2001).
+     *
+     * &lt;p&gt;If the current thread is {@linkplain java.lang.Thread#interrupt()
+     * interrupted} by any thread before or while it is waiting, then an
+     * {@code InterruptedException} is thrown.  This exception is not
+     * thrown until the lock status of this object has been restored as
+     * described above.
+     *
+     * &lt;p&gt;
+     * Note that the {@code wait} method, as it places the current thread
+     * into the wait set for this object, unlocks only this object; any
+     * other objects on which the current thread may be synchronized remain
+     * locked while the thread waits.
+     * &lt;p&gt;
+     * This method should only be called by a thread that is the owner
+     * of this object&#39;s monitor. See the {@code notify} method for a
+     * description of the ways in which a thread can become the owner of
+     * a monitor.
+     *
+     * @param      timeout   the maximum time to wait in milliseconds.
+     * @throws  IllegalArgumentException      if the value of timeout is
+     *               negative.
+     * @throws  IllegalMonitorStateException  if the current thread is not
+     *               the owner of the object&#39;s monitor.
+     * @throws  InterruptedException if any thread interrupted the
+     *             current thread before or while the current thread
+     *             was waiting for a notification.  The &lt;i&gt;interrupted
+     *             status&lt;/i&gt; of the current thread is cleared when
+     *             this exception is thrown.
+     * @see        java.lang.Object#notify()
+     * @see        java.lang.Object#notifyAll()
+     */
+    public final native void wait(long timeout) throws InterruptedException;
+</code></pre><p>从这三个方法的annotation可以知道以下几点信息：</p>
+<ul>
+<li><code>wait()</code>、<code>notify()</code>和<code>notifyAll()</code>方法是本地方法，并且为<code>final</code>方法，无法被重写。</li>
+<li>调用某个对象的<code>wait()</code>方法能让当前线程阻塞，并且当前线程必须拥有此对象的<code>monitor</code>（即锁）</li>
+<li>调用某个对象的<code>notify()</code>方法能够唤醒一个正在等待这个对象的<code>monitor</code>的线程，如果有多个线程都在等待这个对象的<code>monitor</code>，则只能唤醒其中一个线程；</li>
+<li>调用<code>notifyAll()</code>方法能够唤醒所有正在等待这个对象的<code>monitor</code>的线程；</li>
+</ul>
+<p>　　有朋友可能会有疑问：为何这三个不是<code>Thread</code>类声明中的方法，而是<code>Object</code>类中声明的方法（当然由于<code>Thread</code>类继承了<code>Object</code>类，所以<code>Thread</code>也可以调用这三个方法）？其实这个问题很简单，由于每个对象都拥有<code>monitor</code>（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，就非常复杂了。</p>
+<p>　　上面已经提到，如果调用某个对象的<code>wait()</code>方法，当前线程必须拥有这个对象的<code>monitor</code>（即锁），因此调用<code>wait()</code>方法必须在同步块或者同步方法中进行（synchronized块或者synchronized方法）。</p>
+<p>　　调用某个对象的wait()方法，相当于让当前线程交出此对象的monitor，然后进入等待状态，等待后续再次获得此对象的锁（Thread类中的sleep方法使当前线程暂停执行一段时间，从而让其他线程有机会继续执行，但它并不释放对象锁）；</p>
+<p>　　<code>notify()</code>方法能够唤醒一个正在等待该对象的<code>monitor</code>的线程，当有多个线程都在等待该对象的<code>monitor</code>的话，则只能随机唤醒其中一个线程，具体唤醒哪个线程则不得而知。</p>
+<p>　　同样地，调用某个对象的<code>notify()</code>方法，当前线程也必须拥有这个对象的<code>monitor</code>，因此调用<code>notify()</code>方法必须在同步块或者同步方法中进行（<code>synchronized</code>块或者<code>synchronized</code>方法）。</p>
+<p>　　<code>nofityAll()</code>方法能够唤醒所有正在等待该对象的<code>monitor</code>的线程，这一点与<code>notify()</code>方法是不同的。</p>
+<p>　　这里要注意一点：<code>notify()</code>和<code>notifyAll()</code>方法只是唤醒等待该对象的<code>monitor</code>的线程，并不决定哪个线程能够获取到<code>monitor</code>。</p>
+<p>　　举个简单的例子：假如有三个线程Thread1、Thread2和Thread3都在等待对象objectA的monitor，此时Thread4拥有对象objectA的monitor，当在Thread4中调用<code>objectA.notify()</code>方法之后，Thread1、Thread2和Thread3只有一个能被唤醒。注意，被唤醒不等于立刻就获取了objectA的monitor。假若在Thread4中调用objectA.notifyAll()方法，则Thread1、Thread2和Thread3三个线程都会被唤醒，至于哪个线程接下来能够获取到objectA的monitor就具体依赖于操作系统的调度了。</p>
+<p>　　上面尤其要注意一点，一个线程被唤醒不代表立即获取了对象的monitor，只有等调用完notify()或者notifyAll()并退出synchronized块，释放对象锁后，其余线程才可获得锁执行。</p>
 <pre><code>  public class Test {
+
+      private static final Object object = new Object();
+
       public static void main(String[] args) {
-          int N = 4;
-          CyclicBarrier barrier  = new CyclicBarrier(N);
-          for(int i=0;i&lt;N;i++)
-              new Writer(barrier).start();
-      }
-      static class Writer extends Thread{
-          private CyclicBarrier cyclicBarrier;
-          public Writer(CyclicBarrier cyclicBarrier) {
-              this.cyclicBarrier = cyclicBarrier;
-          }
+          Thread1 thread1 = new Thread1();
+          Thread2 thread2 = new Thread2();
 
-          @Override
-          public void run() {
-              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
-              try {
-                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
-                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
-                  cyclicBarrier.await();
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
-              }catch(BrokenBarrierException e){
-                  e.printStackTrace();
-              }
-              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
-          }
-      }
-  }
-</code></pre><p>执行结果：</p>
-<pre><code>线程Thread-0正在写入数据...
-线程Thread-3正在写入数据...
-线程Thread-2正在写入数据...
-线程Thread-1正在写入数据...
-线程Thread-2写入数据完毕，等待其他线程写入完毕
-线程Thread-0写入数据完毕，等待其他线程写入完毕
-线程Thread-3写入数据完毕，等待其他线程写入完毕
-线程Thread-1写入数据完毕，等待其他线程写入完毕
-所有线程写入完毕，继续处理其他任务...
-所有线程写入完毕，继续处理其他任务...
-所有线程写入完毕，继续处理其他任务...
-所有线程写入完毕，继续处理其他任务...
-</code></pre><p>　从上面输出结果可以看出，每个写入线程执行完写数据操作之后，就在等待其他线程写入操作完毕。</p>
-<p>　　当所有线程线程写入操作完毕之后，所有线程就继续进行后续的操作了。</p>
-<p>　　如果说想在所有线程写入操作完之后，进行额外的其他操作可以为<code>CyclicBarrier</code>提供Runnable参数：</p>
-<pre><code>  public class Test {
-      public static void main(String[] args) {
-          int N = 4;
-          CyclicBarrier barrier  = new CyclicBarrier(N,new Runnable() {
-              @Override
-              public void run() {
-                  System.out.println(&quot;当前线程&quot;+Thread.currentThread().getName());   
-              }
-          });
-
-          for(int i=0;i&lt;N;i++)
-              new Writer(barrier).start();
-      }
-      static class Writer extends Thread{
-          private CyclicBarrier cyclicBarrier;
-          public Writer(CyclicBarrier cyclicBarrier) {
-              this.cyclicBarrier = cyclicBarrier;
-          }
-
-          @Override
-          public void run() {
-              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
-              try {
-                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
-                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
-                  cyclicBarrier.await();
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
-              }catch(BrokenBarrierException e){
-                  e.printStackTrace();
-              }
-              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
-          }
-      }
-  }
-</code></pre><p> 　　运行结果：</p>
-<pre><code>    线程Thread-0正在写入数据...
-    线程Thread-1正在写入数据...
-    线程Thread-2正在写入数据...
-    线程Thread-3正在写入数据...
-    线程Thread-0写入数据完毕，等待其他线程写入完毕
-    线程Thread-1写入数据完毕，等待其他线程写入完毕
-    线程Thread-2写入数据完毕，等待其他线程写入完毕
-    线程Thread-3写入数据完毕，等待其他线程写入完毕
-    当前线程Thread-3
-    所有线程写入完毕，继续处理其他任务...
-    所有线程写入完毕，继续处理其他任务...
-    所有线程写入完毕，继续处理其他任务...
-    所有线程写入完毕，继续处理其他任务...
-</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，会从四个线程中选择一个线程去执行Runnable。</p>
-<p> 下面看一下为await指定时间的效果：</p>
-<pre><code>    public class Test {
-        public static void main(String[] args) {
-            int N = 4;
-            CyclicBarrier barrier  = new CyclicBarrier(N);
-
-            for(int i=0;i&lt;N;i++) {
-                if(i&lt;N-1)
-                    new Writer(barrier).start();
-                else {
-                    try {
-                        Thread.sleep(5000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    new Writer(barrier).start();
-                }
-            }
-        }
-        static class Writer extends Thread{
-            private CyclicBarrier cyclicBarrier;
-            public Writer(CyclicBarrier cyclicBarrier) {
-                this.cyclicBarrier = cyclicBarrier;
-            }
-
-            @Override
-            public void run() {
-                System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
-                try {
-                    Thread.sleep(5000);      //以睡眠来模拟写入数据操作
-                    System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
-                    try {
-                        cyclicBarrier.await(2000, TimeUnit.MILLISECONDS);
-                    } catch (TimeoutException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }catch(BrokenBarrierException e){
-                    e.printStackTrace();
-                }
-                System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
-            }
-        }
-    }
-</code></pre><p>执行结果：</p>
-<pre><code>线程Thread-0正在写入数据...
-线程Thread-2正在写入数据...
-线程Thread-1正在写入数据...
-线程Thread-2写入数据完毕，等待其他线程写入完毕
-线程Thread-0写入数据完毕，等待其他线程写入完毕
-线程Thread-1写入数据完毕，等待其他线程写入完毕
-线程Thread-3正在写入数据...
-java.util.concurrent.TimeoutException
-Thread-1所有线程写入完毕，继续处理其他任务...
-Thread-0所有线程写入完毕，继续处理其他任务...
-    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
-    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
-    at com.cxh.test1.Test$Writer.run(Test.java:58)
-java.util.concurrent.BrokenBarrierException
-    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
-    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
-    at com.cxh.test1.Test$Writer.run(Test.java:58)
-java.util.concurrent.BrokenBarrierException
-    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
-    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
-    at com.cxh.test1.Test$Writer.run(Test.java:58)
-Thread-2所有线程写入完毕，继续处理其他任务...
-java.util.concurrent.BrokenBarrierException
-线程Thread-3写入数据完毕，等待其他线程写入完毕
-    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
-    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
-    at com.cxh.test1.Test$Writer.run(Test.java:58)
-</code></pre><p>Thread-3所有线程写入完毕，继续处理其他任务…</p>
-<p>　　上面的代码在main方法的for循环中，故意让最后一个线程启动延迟，因为在前面三个线程都达到barrier之后，等待了指定的时间发现第四个线程还没有达到barrier，就抛出异常并继续执行后面的任务。</p>
-<p>另外<code>CyclicBarrier</code>是可以重用的，看下面这个例子：</p>
-<pre><code>  public class Test {
-      public static void main(String[] args) {
-          int N = 4;
-          CyclicBarrier barrier  = new CyclicBarrier(N);
-
-          for(int i=0;i&lt;N;i++) {
-              new Writer(barrier).start();
-          }
+          thread1.start();
 
           try {
-              Thread.sleep(25000);
+              Thread.sleep(200);
           } catch (InterruptedException e) {
               e.printStackTrace();
           }
 
-          System.out.println(&quot;CyclicBarrier重用&quot;);
-
-          for(int i=0;i&lt;N;i++) {
-              new Writer(barrier).start();
-          }
+          thread2.start();
       }
-      static class Writer extends Thread{
-          private CyclicBarrier cyclicBarrier;
-          public Writer(CyclicBarrier cyclicBarrier) {
-              this.cyclicBarrier = cyclicBarrier;
-          }
 
+      static class Thread1 extends Thread {
           @Override
           public void run() {
-              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
-              try {
-                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
-                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
-
-                  cyclicBarrier.await();
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
-              }catch(BrokenBarrierException e){
-                  e.printStackTrace();
+              synchronized (object) {
+                  try {
+                      object.wait();
+                  } catch (InterruptedException ignored) {
+                  }
+                  System.out.println(&quot;线程&quot; + Thread.currentThread().getName() + &quot;获取到了锁&quot;);
               }
-              System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
           }
       }
-  }
-</code></pre><p>执行结果：</p>
-<pre><code>    线程Thread-0正在写入数据...
-    线程Thread-1正在写入数据...
-    线程Thread-3正在写入数据...
-    线程Thread-2正在写入数据...
-    线程Thread-1写入数据完毕，等待其他线程写入完毕
-    线程Thread-3写入数据完毕，等待其他线程写入完毕
-    线程Thread-2写入数据完毕，等待其他线程写入完毕
-    线程Thread-0写入数据完毕，等待其他线程写入完毕
-    Thread-0所有线程写入完毕，继续处理其他任务...
-    Thread-3所有线程写入完毕，继续处理其他任务...
-    Thread-1所有线程写入完毕，继续处理其他任务...
-    Thread-2所有线程写入完毕，继续处理其他任务...
-    CyclicBarrier重用
-    线程Thread-4正在写入数据...
-    线程Thread-5正在写入数据...
-    线程Thread-6正在写入数据...
-    线程Thread-7正在写入数据...
-    线程Thread-7写入数据完毕，等待其他线程写入完毕
-    线程Thread-5写入数据完毕，等待其他线程写入完毕
-    线程Thread-6写入数据完毕，等待其他线程写入完毕
-    线程Thread-4写入数据完毕，等待其他线程写入完毕
-    Thread-4所有线程写入完毕，继续处理其他任务...
-    Thread-5所有线程写入完毕，继续处理其他任务...
-    Thread-6所有线程写入完毕，继续处理其他任务...
-    Thread-7所有线程写入完毕，继续处理其他任务...
-</code></pre><p>　　从执行结果可以看出，在初次的4个线程越过barrier状态后，又可以用来进行新一轮的使用。而CountDownLatch无法进行重复使用。</p>
-<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><code>Semaphore</code>翻译成字面意思为 信号量，Semaphore可以控同时访问的线程个数，通过 acquire() 获取一个许可，如果没有就等待，而 release() 释放一个许可。</p>
-<p><code>Semaphore</code>类位于<code>java.util.concurrent</code>包下，它提供了2个构造器：</p>
-<pre><code>public Semaphore(int permits) {          //参数permits表示许可数目，即同时可以允许多少线程进行访问
-    sync = new NonfairSync(permits);
-}
-public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair表示是否是公平的，即等待时间越久的越先获取许可
-    sync = (fair)? new FairSync(permits) : new NonfairSync(permits);
-}
-</code></pre><p> 下面说一下<code>Semaphore</code>类中比较重要的几个方法，首先是<code>acquire()</code>、<code>release()</code>方法：</p>
-<pre><code>    public void acquire() throws InterruptedException {  }     //获取一个许可
-    public void acquire(int permits) throws InterruptedException { }    //获取permits个许可
-    public void release() { }          //释放一个许可
-    public void release(int permits) { }    //释放permits个许可
-</code></pre><p><code>acquire()</code>用来获取一个许可，若无许可能够获得，则会一直等待，直到获得许可。</p>
-<p><code>release()</code>用来释放许可。注意，在释放许可之前，必须先获获得许可。否则直接release，permit数目可能会大于设置的最大数。</p>
-<p>这4个方法都会被阻塞，如果想立即得到执行结果，可以使用下面几个方法：</p>
-<pre><code>    public boolean tryAcquire() { };    //尝试获取一个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
-    public boolean tryAcquire(long timeout, TimeUnit unit) throws InterruptedException { };  //尝试获取一个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
-    public boolean tryAcquire(int permits) { }; //尝试获取permits个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
-    public boolean tryAcquire(int permits, long timeout, TimeUnit unit) throws InterruptedException { }; //尝试获取permits个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
-</code></pre><p>另外还可以通过<code>availablePermits()</code>方法得到可用的许可数目。</p>
-<p>下面通过一个例子来看一下<code>Semaphore</code>的具体使用：</p>
-<p>假若一个工厂有5台机器，但是有8个工人，一台机器同时只能被一个工人使用，只有使用完了，其他工人才能继续使用。那么我们就可以通过Semaphore来实现：</p>
-<pre><code>  public class Test {
-      public static void main(String[] args) {
-          int N = 8;            //工人数
-          Semaphore semaphore = new Semaphore(5); //机器数目
-          for(int i=0;i&lt;N;i++)
-              new Worker(i,semaphore).start();
-      }
 
-      static class Worker extends Thread{
-          private int num;
-          private Semaphore semaphore;
-          public Worker(int num,Semaphore semaphore){
-              this.num = num;
-              this.semaphore = semaphore;
-          }
-
+      static class Thread2 extends Thread {
           @Override
           public void run() {
-              try {
-                  semaphore.acquire();
-                  System.out.println(&quot;工人&quot;+this.num+&quot;占用一个机器在生产...&quot;);
-                  Thread.sleep(2000);
-                  System.out.println(&quot;工人&quot;+this.num+&quot;释放出机器&quot;);
-                  semaphore.release();           
-              } catch (InterruptedException e) {
-                  e.printStackTrace();
+              synchronized (object) {
+                  object.notify();
+                  System.out.println(&quot;线程&quot; + Thread.currentThread().getName() + &quot;调用了object.notify()&quot;);
+                  System.out.println(&quot;线程&quot; + Thread.currentThread().getName() + &quot;释放了锁&quot;);
               }
           }
       }
   }
-</code></pre><p>执行结果：</p>
-<pre><code>    工人0占用一个机器在生产...
-    工人1占用一个机器在生产...
-    工人2占用一个机器在生产...
-    工人4占用一个机器在生产...
-    工人5占用一个机器在生产...
-    工人0释放出机器
-    工人2释放出机器
-    工人3占用一个机器在生产...
-    工人7占用一个机器在生产...
-    工人4释放出机器
-    工人5释放出机器
-    工人1释放出机器
-    工人6占用一个机器在生产...
-    工人3释放出机器
-    工人7释放出机器
-    工人6释放出机器
-</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li><code>CountDownLatch</code>和<code>CyclicBarrier</code>都能够实现线程之间的等待，只不过它们侧重点不同：</li>
-</ul>
-<p>　　　　<code>CountDownLatch</code>一般用于某个线程A等待若干个其他线程执行完任务之后，它才执行；</p>
-<p>　　　　而<code>CyclicBarrier</code>一般用于一组线程互相等待至某个状态，然后这一组线程再同时执行；</p>
-<p>　　　　另外，<code>CountDownLatch</code>是不能够重用的，而<code>CyclicBarrier</code>是可以重用的。</p>
+</code></pre><p>无论运行多少次，运行结果必定是：</p>
+<pre><code>线程Thread-1调用了object.notify()
+线程Thread-1释放了锁
+线程Thread-0获取到了锁
+</code></pre><h2 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h2><p>　<code>Condition</code>是在java 1.5中才出现的，它用来替代传统的<code>Object</code>的<code>wait()</code>、<code>notify()</code>、<code>notifyAll()</code>实现线程间的协作，相比之下，使用<code>Condition</code>的<code>await()</code>、<code>signal()</code>、<code>signalAll()</code>这种方式实现线程间协作更加安全和高效。因此通常来说比较推荐使用<code>Condition</code>，在阻塞队列那一篇博文中就讲述到了，阻塞队列实际上是使用了<code>Condition</code>来模拟线程间协作。</p>
+<p><code>Condition</code>是个接口，基本的方法就是<code>await()</code>和<code>signal()</code>方法；<br><code>Condition</code>依赖于<code>Lock</code>接口，生成一个<code>Condition</code>的基本代码是<code>lock.newCondition()</code></p>
+<p> 调用<code>Condition</code>的<code>await()</code>和<code>signal()</code>方法，都必须在<code>lock</code>保护之内，就是说必须在<code>lock.lock()</code>和<code>lock.unlock</code>之间才可以使用</p>
 <ul>
-<li><code>Semaphore</code>其实和锁有点类似，它一般用于控制对某组资源的访问权限。</li>
+<li>Conditon中的<code>await()</code>对应Object的<code>wait()</code>；</li>
+<li>Condition中的<code>signal()</code>对应Object的<code>notify()</code>；</li>
+<li>Condition中的<code>signalAll()</code>对应Object的<code>notifyAll()</code>。</li>
 </ul>
+<h2 id="生产者-消费者模型的实现"><a href="#生产者-消费者模型的实现" class="headerlink" title="生产者-消费者模型的实现"></a>生产者-消费者模型的实现</h2><h3 id="使用Object的wait-和notify-实现："><a href="#使用Object的wait-和notify-实现：" class="headerlink" title="使用Object的wait()和notify()实现："></a>使用Object的wait()和notify()实现：</h3><pre><code>private int queueSize = 10;
+private final PriorityQueue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;(queueSize);
 
+public static void main(String[] args)  {
+    Test test = new Test();
+    Producer producer = test.new Producer();
+    Consumer consumer = test.new Consumer();
+
+    producer.start();
+    consumer.start();
+}
+
+class Consumer extends Thread{
+
+    @Override
+    public void run() {
+        consume();
+    }
+
+    private void consume() {
+        while (true) synchronized (queue) {
+            while (queue.size() == 0) {
+                try {
+                    System.out.println(&quot;队列空，等待数据&quot;);
+                    queue.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    queue.notify();
+                    throw new RuntimeException(&quot;&quot;);
+                }
+            }
+            queue.poll();          //每次移走队首元素
+            queue.notify();
+            System.out.println(&quot;从队列取走一个元素，队列剩余&quot; + queue.size() + &quot;个元素&quot;);
+        }
+    }
+}
+
+class Producer extends Thread{
+
+    @Override
+    public void run() {
+        produce();
+    }
+
+    private void produce() {
+        while(true){
+            synchronized (queue) {
+                while(queue.size() == queueSize) try {
+                    System.out.println(&quot;队列满，等待有空余空间&quot;);
+                    queue.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    queue.notify();
+                    throw new RuntimeException(&quot;&quot;);
+                }
+                queue.offer(1);        //每次插入一个元素
+                queue.notify();
+                System.out.println(&quot;向队列取中插入一个元素，队列剩余空间：&quot;+(queueSize-queue.size()));
+            }
+        }
+    }
+}
+</code></pre><h3 id="使用Condition实现"><a href="#使用Condition实现" class="headerlink" title="使用Condition实现"></a>使用Condition实现</h3><pre><code>   private int queueSize = 10;
+private PriorityQueue&lt;Integer&gt; queue = new PriorityQueue&lt;&gt;(queueSize);
+private Lock lock = new ReentrantLock();
+private Condition condition = lock.newCondition();
+
+public static void main(String[] args)  {
+    Test test = new Test();
+    Producer producer = test.new Producer();
+    Consumer consumer = test.new Consumer();
+
+    producer.start();
+    consumer.start();
+}
+
+class Consumer extends Thread{
+
+    @Override
+    public void run() {
+        consume();
+    }
+
+    private void consume() {
+        while(true){
+            lock.lock();
+            try {
+                while(queue.size() == 0){
+                    try {
+                        System.out.println(&quot;队列空，等待数据&quot;);
+                        condition.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                queue.poll();                //每次移走队首元素
+                condition.signal();
+                System.out.println(&quot;从队列取走一个元素，队列剩余&quot;+queue.size()+&quot;个元素&quot;);
+            } finally{
+                lock.unlock();
+            }
+        }
+    }
+}
+
+class Producer extends Thread{
+
+    @Override
+    public void run() {
+        produce();
+    }
+
+    private void produce() {
+        while(true){
+            lock.lock();
+            try {
+                while(queue.size() == queueSize){
+                    try {
+                        System.out.println(&quot;队列满，等待有空余空间&quot;);
+                        condition.await();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                queue.offer(1);        //每次插入一个元素
+                condition.signal();
+                System.out.println(&quot;向队列取中插入一个元素，队列剩余空间：&quot;+(queueSize-queue.size()));
+            } finally{
+                lock.unlock();
+            }
+        }
+    }
+}
+</code></pre>
       
       
         <div class="page-reward">
@@ -748,13 +708,13 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
 </div>
 
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/">Java并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></p>
+        <p><span>本文标题:</span><a href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
-        <p><span>发布时间:</span>2017年10月18日 - 16时31分</p>
-        <p><span>最后更新:</span>2018年12月18日 - 18时44分</p>
+        <p><span>发布时间:</span>2017年07月18日 - 11时05分</p>
+        <p><span>最后更新:</span>2018年12月19日 - 10时10分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/" title="Java并发编程之CountDownLatch、CyclicBarrier和Semaphore">http://jet-han.oschina.io/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/18/并发编程-线程间协作/" title="并发编程-线程间协作">http://jet-han.oschina.io/2017/07/18/并发编程-线程间协作/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/18/并发编程-线程间协作/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -767,18 +727,18 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
 
 <nav id="article-nav">
   
-    <a href="/2017/11/28/Msql-B-Tree索引/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/07/20/jvm内存模型/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          Mysql-B-Tree索引
+          jvm内存模型
         
       </div>
     </a>
   
   
-    <a href="/2017/09/13/Spring中bean的生命周期/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring中bean的生命周期</div>
+    <a href="/2017/07/17/nginx安装与使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">nginx安装与使用</div>
       <strong class="article-nav-caption">></strong>
     </a>
   
@@ -792,7 +752,7 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CyclicBarrier"><span class="toc-number">2.</span> <span class="toc-text">CyclicBarrier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Semaphore"><span class="toc-number">3.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#wait-、notify-和notifyAll"><span class="toc-number">1.</span> <span class="toc-text">wait()、notify()和notifyAll()</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Condition"><span class="toc-number">2.</span> <span class="toc-text">Condition</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者-消费者模型的实现"><span class="toc-number">3.</span> <span class="toc-text">生产者-消费者模型的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Object的wait-和notify-实现："><span class="toc-number">3.1.</span> <span class="toc-text">使用Object的wait()和notify()实现：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用Condition实现"><span class="toc-number">3.2.</span> <span class="toc-text">使用Condition实现</span></a></li></ol></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -863,18 +823,18 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2017/11/28/Msql-B-Tree索引/" title="上一篇: Mysql-B-Tree索引">
+            <a href="/2017/07/20/jvm内存模型/" title="上一篇: jvm内存模型">
                 <i class="fa fa-angle-left"></i>
             </a>
         
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
         
-            <a href="/2017/09/13/Spring中bean的生命周期/" title="下一篇: Spring中bean的生命周期">
+            <a href="/2017/07/17/nginx安装与使用/" title="下一篇: nginx安装与使用">
                 <i class="fa fa-angle-right"></i>
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发之synchronized与加锁机制/">并发之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis相关/">Mybatis相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Msql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/Java并发编程之CountDownLatch、CyclicBarrier和Semaphore/">Java并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/Java并发编程-线程间协作/">Java并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis相关/">Mybatis相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Msql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
