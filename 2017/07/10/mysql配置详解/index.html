@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mysql配置详解 | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mysql配置文件my.cnf详解 mysqld程序：基本配置   basedir = path #使用给定目录作为根目录(安装目录)。  character-sets-dir = path     #给出存放着字符集的目录。  datadir = path     #从给定目录读取数据库文件。  pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适">
+<meta name="keywords" content="my.cnf配置详解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mysql配置详解">
+<meta property="og:url" content="http://jet-han.oschina.io/2017/07/10/mysql配置详解/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="mysql配置文件my.cnf详解 mysqld程序：基本配置   basedir = path #使用给定目录作为根目录(安装目录)。  character-sets-dir = path     #给出存放着字符集的目录。  datadir = path     #从给定目录读取数据库文件。  pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta property="og:updated_time" content="2019-01-02T09:28:44.523Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mysql配置详解">
+<meta name="twitter:description" content="mysql配置文件my.cnf详解 mysqld程序：基本配置   basedir = path #使用给定目录作为根目录(安装目录)。  character-sets-dir = path     #给出存放着字符集的目录。  datadir = path     #从给定目录读取数据库文件。  pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Jet</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Jet</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Jet</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-mysql配置详解" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/10/mysql配置详解/" class="article-date">
+      <time datetime="2017-07-10T02:28:09.000Z" itemprop="datePublished">2017-07-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mysql配置详解
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/my-cnf配置详解/">my.cnf配置详解</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<h1 id="mysql配置文件my-cnf详解"><a href="#mysql配置文件my-cnf详解" class="headerlink" title="mysql配置文件my.cnf详解"></a>mysql配置文件my.cnf详解</h1><ul>
+<li><p><strong>mysqld程序：基本配置 </strong></p>
+<pre><code> basedir = path #使用给定目录作为根目录(安装目录)。
+ character-sets-dir = path     #给出存放着字符集的目录。
+ datadir = path     #从给定目录读取数据库文件。
+ pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适用于UNIX/Linux系统); Init-V脚本需要使用这个文件里的进程ID结束mysqld进程。
+ socket = filename     #为MySQL客户程序与服务器之间的本地通信指定一个套接字文件(仅适用于UNIX/Linux系统; 默认设置一般是/var/lib/mysql/mysql.sock文件)。在Windows环境下，如果MySQL客户与服务器是通过命名管道进行通信 的，–sock选项给出的将是该命名管道的名字(默认设置是MySQL)。
+ lower_case_table_name = 1/0     #新目录和数据表的名字是否只允许使用小写字母; 这个选项在Windows环境下的默认设置是1(只允许使用小写字母)。
+</code></pre><a id="more"></a>       
+<p><strong>mysqld程序：语言设置</strong></p>
+<pre><code> character-sets-server = name    #新数据库或数据表的默认字符集。为了与MySQL的早期版本保持兼容，这个字符集也可以用–default-character-set选项给出; 但这个选项已经显得有点过时了。
+ collation-server = name    #新数据库或数据表的默认排序方式。
+ language = name    #用指定的语言显示出错信息。
+</code></pre><p><strong>mysqld程序：通信、网络、信息安全</strong></p>
+<pre><code>enable-named-pipes    #允许Windows 2000/XP环境下的客户和服务器使用命名管道(named pipe)进行通信。这个命名管道的默认名字是MySQL，但可以用–socket选项来改变。
+local-infile [=0]     #允许/禁止使用LOAD DATA LOCAL语句来处理本地文件。
+myisam-recover [=opt1, opt2, ...]    在启动时自动修复所有受损的MyISAM数据表。这个选项的可取值有4种:DEFAULT、BACKUP、QUICK和FORCE; 它们与myisamchk程序的同名选项作用相同。
+old-passwords     #使用MySQL 3.23和4.0版本中的老算法来加密mysql数据库里的密码(默认使用MySQL 4.1版本开始引入的新加密算法)。
+port = n    #为MySQL程序指定一个TCP/IP通信端口(通常是3306端口)。
+safe-user-create    #只有在mysql.user数据库表上拥有INSERT权限的用户才能使用GRANT命令; 这是一种双保险机制(此用户还必须具备GRANT权限才能执行GRANT命令)。
+shared-memory    #允许使用内存(shared memory)进行通信(仅适用于Windows)。
+shared-memory-base-name = name    #给共享内存块起一个名字(默认的名字是MySQL)。
+skip-grant-tables     #不使用mysql数据库里的信息来进行访问控制(警告:这将允许用户任何用户去修改任何数据库)。
+skip-host-cache    #不使用高速缓存区来存放主机名和IP地址的对应关系。
+skip-name-resovle     #不把IP地址解析为主机名; 与访问控制(mysql.user数据表)有关的检查全部通过IP地址行进。
+skip-networking    #只允许通过一个套接字文件(Unix/Linux系统)或通过命名管道(Windows系统)进行本地连接，不允许ICP/IP连接; 这提高了安全性，但阻断了来自网络的外部连接和所有的Java客户程序(Java客户即使在本地连接里也使用TCP/IP)。
+user = name    #mysqld程序在启动后将在给定UNIX/Linux账户下执行; mysqld必须从root账户启动才能在启动后切换到另一个账户下执行; mysqld_safe脚本将默认使用–user=mysql选项来启动mysqld程序。
+</code></pre><p><strong>mysqld程序：内存管理、优化、查询缓存区</strong></p>
+<pre><code>bulk_insert_buffer_size = n    #为一次插入多条新记录的INSERT命令分配的缓存区长度(默认设置是8M)。
+key_buffer_size = n    #用来存放索引区块的RMA值(默认设置是8M)。
+join_buffer_size = n    #在参加JOIN操作的数据列没有索引时为JOIN操作分配的缓存区长度(默认设置是128K)。
+max_heap_table_size = n    #HEAP数据表的最大长度(默认设置是16M); 超过这个长度的HEAP数据表将被存入一个临时文件而不是驻留在内存里。
+max_connections = n    #MySQL服务器同时处理的数据库连接的最大数量(默认设置是100)。
+query_cache_limit = n     #允许临时存放在查询缓存区里的查询结果的最大长度(默认设置是1M)。
+query_cache_size = n    #查询缓存区的最大长度(默认设置是0，不开辟查询缓存区)。
+query_cache_type = 0/1/2    #查询缓存区的工作模式:0, 禁用查询缓存区; 1，启用查询缓存区(默认设置); 2，”按需分配”模式，只响应SELECT SQL_CACHE命令。
+read_buffer_size = n     #为从数据表顺序读取数据的读操作保留的缓存区的长度(默认设置是128KB); 这个选项的设置值在必要时可以用SQL命令SET SESSION read_buffer_size = n命令加以改变。
+read_rnd_buffer_size = n    #类似于read_buffer_size选项，但针对的是按某种特定顺序(比如使用了ORDER BY子句的查询)输出的查询结果(默认设置是256K)。
+sore_buffer = n    #为排序操作分配的缓存区的长度(默认设置是2M); 如果这个缓存区太小，则必须创建一个临时文件来进行排序。
+table_cache = n    #同时打开的数据表的数量(默认设置是64)。
+tmp_table_size = n    #临时HEAP数据表的最大长度(默认设置是32M); 超过这个长度的临时数据表将被转换为MyISAM数据表并存入一个临时文件。
+</code></pre><p><strong>mysqld程序：日志</strong></p>
+<pre><code>log [= file]    #把所有的连接以及所有的SQL命令记入日志(通用查询日志); 如果没有给出file参数，MySQL将在数据库目录里创建一个hostname.log文件作为这种日志文件(hostname是服务器的主机名)。
+log-slow-queries [= file]    #把执行用时超过long_query_time变量值的查询命令记入日志(慢查询日志); 如果没有给出file参数，MySQL将在数据库目录里创建一个hostname-slow.log文件作为这种日志文件(hostname是服务器主机 名)。
+long_query_time = n    #慢查询的执行用时上限(默认设置是10s)。
+long_queries_not_using_indexs    #把慢查询以及执行时没有使用索引的查询命令全都记入日志(其余同–log-slow-queries选项)。
+log-bin [= filename]    #把对数据进行修改的所有SQL命令(也就是INSERT、UPDATE和DELETE命令)以二进制格式记入日志(二进制变更日志，binary update log)。这种日志的文件名是filename.n或默认的hostname.n，其中n是一个6位数字的整数(日志文件按顺序编号)。
+log-bin-index = filename    #二进制日志功能的索引文件名。在默认情况下，这个索引文件与二进制日志文件的名字相同，但后缀名是.index而不是.nnnnnn。
+max_binlog_size = n    #二进制日志文件的最大长度(默认设置是1GB)。在前一个二进制日志文件里的信息量超过这个最大长度之前，MySQL服务器会自动提供一个新的二进制日志文件接续上。
+binlog-do-db = dbname    #只把给定数 据库里的变化情况记入二进制日志文件，其他数据库里的变化情况不记载。如果需要记载多个数据库里的变化情况，就必须在配置文件使用多个本选项来设置，每个数据库一行。
+binlog-ignore-db = dbname    #不把给定数据库里的变化情况记入二进制日志文件。
+sync_binlog = n    #每经过n次日志写操作就把日志文件写入硬盘一次(对日志信息进行一次同步)。n=1是最安全的做法，但效率最低。默认设置是n=0，意思是由操作系统来负责二进制日志文件的同步工作。
+log-update [= file]    #记载出错情况的日志文件名(出错日志)。这种日志功能无法禁用。如果没有给出file参数，MySQL会使用hostname.err作为种日志文件的名字。
+</code></pre><p><strong>mysqld程序：镜像(主控镜像服务器)</strong></p>
+<pre><code>  server-id = n    #给服务器分配一个独一无二的ID编号; n的取值范围是1~2的32次方启用二进制日志功能。
+  log-bin = name    #启用二进制日志功能。这种日志的文件名是filename.n或默认的hostname.n，其中的n是一个6位数字的整数(日志文件顺序编号)。
+  binlog-do/ignore-db = dbname    #只把给定数据库里的变化情况记入二进制日志文件/不把给定的数据库里的变化记入二进制日志文件。
+</code></pre><p><strong>mysqld程序：镜像(从属镜像服务器)</strong></p>
+<pre><code>server-id = n    #给服务器分配一个唯一的ID编号
+log-slave-updates    #启用从属服务器上的日志功能，使这台计算机可以用来构成一个镜像链(A-&gt;B-&gt;C)。
+master-host = hostname    #主控服务器的主机名或IP地址。如果从属服务器上存在mater.info文件(镜像关系定义文件)，它将忽略此选项。
+master-user = replicusername    #从属服务器用来连接主控服务器的用户名。如果从属服务器上存在mater.info文件，它将忽略此选项。
+master-password = passwd    #从属服务器用来连接主控服务器的密码。如果从属服务器上存在mater.info文件，它将忽略此选项。
+master-port = n    #从属服务器用来连接主控服务器的TCP/IP端口(默认设置是3306端口)。
+master-connect-retry = n    #如果与主控服务器的连接没有成功，则等待n秒(s)后再进行管理方式(默认设置是60s)。如果从属服务器存在mater.info文件，它将忽略此选项。
+master-ssl-xxx = xxx    #对主、从服务器之间的SSL通信进行配置。
+read-only = 0/1    #0: 允许从属服务器独立地执行SQL命令(默认设置); 1: 从属服务器只能执行来自主控服务器的SQL命令。
+read-log-purge = 0/1    #1: 把处理完的SQL命令立刻从中继日志文件里删除(默认设置); 0: 不把处理完的SQL命令立刻从中继日志文件里删除。
+replicate-do-table = dbname.tablename    与–replicate-do-table选项的含义和用法相同，但数据库和数据库表名字里允许出现通配符”%” (例如: test%.%–对名字以”test”开头的所有数据库里的所以数据库表进行镜像处理)。
+
+replicate-do-db = name    #只对这个数据库进行镜像处理。
+replicate-ignore-table = dbname.tablename    #不对这个数据表进行镜像处理。
+replicate-wild-ignore-table = dbn.tablen    #不对这些数据表进行镜像处理。
+replicate-ignore-db = dbname    #不对这个数据库进行镜像处理。
+replicate-rewrite-db = db1name &gt; db2name    #把主控数据库上的db1name数据库镜像处理为从属服务器上的db2name数据库。
+report-host = hostname    #从属服务器的主机名; 这项信息只与SHOW SLAVE HOSTS命令有关–主控服务器可以用这条命令生成一份从属服务器的名单。
+slave-compressed-protocol = 1    #主、从服务器使用压缩格式进行通信–如果它们都支持这么做的话。
+slave-skip-errors = n1, n2, …或all    #即使发生出错代码为n1、n2等的错误，镜像处理工作也继续进行(即不管发生什么错误，镜像处理工作也继续进行)。如果配置得当，从属服务器不应该在执行 SQL命令时发生错误(在主控服务器上执行出错的SQL命令不会被发送到从属服务器上做镜像处理); 如果不使用slave-skip-errors选项，从属服务器上的镜像工作就可能因为发生错误而中断，中断后需要有人工参与才能继续进行。
+</code></pre><p><strong>mysqld–InnoDB：基本设置、表空间文件</strong></p>
+<pre><code>skip-innodb    #不加载InnoDB数据表驱动程序–如果用不着InnoDB数据表，可以用这个选项节省一些内存。
+innodb-file-per-table    #为每一个新数据表创建一个表空间文件而不是把数据表都集中保存在中央表空间里(后者是默认设置)。该选项始见于MySQL 4.1。
+innodb-open-file = n    #InnoDB数据表驱动程序最多可以同时打开的文件数(默认设置是300)。如果使用了innodb-file-per-table选项并且需要同时打开很多数据表的话，这个数字很可能需要加大。
+innodb_data_home_dir = p    #InnoDB主目录，所有与InnoDB数据表有关的目录或文件路径都相对于这个路径。在默认的情况下，这个主目录就是MySQL的数据目录。
+innodb_data_file_path = ts    #用来容纳InnoDB为数据表的表空间: 可能涉及一个以上的文件; 每一个表空间文件的最大长度都必须以字节(B)、兆字节(MB)或千兆字节(GB)为单位给出; 表空间文件的名字必须以分号隔开; 最后一个表空间文件还可以带一个autoextend属性和一个最大长度(max:n)。例如，ibdata1:1G; ibdata2:1G:autoextend:max:2G的意思是: 表空间文件ibdata1的最大长度是1GB，ibdata2的最大长度也是1G，但允许它扩充到2GB。除文件名外，还可以用硬盘分区的设置名来定义表 空间，此时必须给表空间的最大初始长度值加上newraw关键字做后缀，给表空间的最大扩充长度值加上raw关键字做后缀(例如/dev/hdb1: 20Gnewraw或/dev/hdb1:20Graw); MySQL 4.0及更高版本的默认设置是ibdata1:10M:autoextend。
+innodb_autoextend_increment = n    #带有autoextend属性的表空间文件每次加大多少兆字节(默认设置是8MB)。这个属性不涉及具体的数据表文件，那些文件的增大速度相对是比较小的。
+innodb_lock_wait_timeout = n    #如果某个事务在等待n秒(s)后还没有获得所需要的资源，就使用ROLLBACK命令放弃这个事务。这项设置对于发现和处理未能被InnoDB数据表驱动 程序识别出来的死锁条件有着重要的意义。这个选项的默认设置是50s。
+innodb_fast_shutdown 0/1    #是否以最快的速度关闭InnoDB，默认设置是1，意思是不把缓存在INSERT缓存区的数据写入数据表，那些数据将在MySQL服务器下次启动时再写入 (这么做没有什么风险，因为INSERT缓存区是表空间的一个组成部分，数据不会丢失)。把这个选项设置为0反面危险，因为在计算机关闭时，InnoDB 驱动程序很可能没有足够的时间完成它的数据同步工作，操作系统也许会在它完成数据同步工作之前强行结束InnoDB，而这会导致数据不完整。
+</code></pre><p><strong>mysqld程序：InnoDB–日志</strong></p>
+<pre><code>innodb_log_group_home_dir = p    #用来存放InnoDB日志文件的目录路径(如ib_logfile0、ib_logfile1等)。在默认的情况下，InnoDB驱动程序将使用 MySQL数据目录作为自己保存日志文件的位置。
+innodb_log_files_in_group = n    #使用多少个日志文件(默认设置是2)。InnoDB数据表驱动程序将以轮转方式依次填写这些文件; 当所有的日志文件都写满以后，之后的日志信息将写入第一个日志文件的最大长度(默认设置是5MB)。这个长度必须以MB(兆字节)或GB(千兆字节)为单 位进行设置。
+innodb_flush_log_at_trx_commit = 0/1/2    #这个选项决定着什么时候把日志信息写入日志文件以及什么时候把这些文件物理地写(术语称为”同步”)到硬盘上。设置值0的意思是每隔一秒写一次日志并进行 同步，这可以减少硬盘写操作次数，但可能造成数据丢失; 设置值1(设置设置)的意思是在每执行完一条COMMIT命令就写一次日志并进行同步，这可以防止数据丢失，但硬盘写操作可能会很频繁; 设置值2是一般折衷的办法，即每执行完一条COMMIT命令写一次日志，每隔一秒进行一次同步。
+innodb_flush_method = x    #InnoDB日志文件的同步办法(仅适用于UNIX/Linux系统)。这个选项的可取值有两种: fdatasync，用fsync()函数进行同步; O_DSYNC，用O_SYNC()函数进行同步。
+innodb_log_archive = 1    #启用InnoDB驱动程序的archive(档案)日志功能，把日志信息写入ib_arch_log_n文件。启用这种日志功能在InnoDB与 MySQL一起使用时没有多大意义(启用MySQL服务器的二进制日志功能就足够用了)。
+</code></pre><p><strong>mysqld程序–InnoDB：缓存区的设置和优化</strong></p>
+<pre><code>innodb_log_buffer_pool_size = n    #为InnoDB数据表及其索引而保留的RAM内存量(默认设置是8MB)。这个参数对速度有着相当大的影响，如果计算机上只运行有 MySQL/InnoDB数据库服务器，就应该把全部内存的80%用于这个用途。
+
+innodb_log_buffer_size = n    #事务日志文件写操作缓存区的最大长度(默认设置是1MB)。
+innodb_additional_men_pool_size = n    #为用于内部管理的各种数据结构分配的缓存区最大长度(默认设置是1MB)。
+innodb_file_io_threads = n    #I/O操作(硬盘写操作)的最大线程个数(默认设置是4)。
+innodb_thread_concurrency = n     #InnoDB驱动程序能够同时使用的最大线程个数(默认设置是8)。
+</code></pre><p><strong>mysqld程序：其它选项</strong></p>
+<pre><code>bind-address = ipaddr     #MySQL服务器的IP地址。如果MySQL服务器所在的计算机有多个IP地址，这个选项将非常重要。
+default-storage-engine = type    #新数据表的默认数据表类型(默认设置是MyISAM)。这项设置还可以通过–default-table-type选项来设置。
+default-timezone = name    #为MySQL服务器设置一个地理时区(如果它与本地计算机的地理时区不一样)。
+ft_min_word_len = n    #全文索引的最小单词长度工。这个选项的默认设置是4，意思是在创建全文索引时不考虑那些由3个或更少的字符构建单词。
+Max-allowed-packet = n    #客户与服务器之间交换的数据包的最大长度，这个数字至少应该大于客户程序将要处理的最大BLOB块的长度。这个选项的默认设置是1MB。
+Sql-mode = model1, mode2, …    #MySQL将运行在哪一种SQL模式下。这个选项的作用是让MySQL与其他的数据库系统保持最大程度的兼容。这个选项的可取值包括ansi、db2、 oracle、no_zero_date、pipes_as_concat。
+</code></pre></li>
+</ul>
+<h1 id="mysql配置文件my-cnf详解2"><a href="#mysql配置文件my-cnf详解2" class="headerlink" title="mysql配置文件my.cnf详解2"></a>mysql配置文件my.cnf详解2</h1><ul>
+<li>配置MySQL服务器是一个丰富而复杂的工作。在本文中，我只能肤浅的说一下各种选项。可以使用的mysql配置文件共有５个。<br>·/etc/my.cnf是默认的MySQL配置文件。应该对这个文件配置修改。它是为学习目的而设计的。<br>·my-small.cnf是为了小型数据库而设计的。不应该把这个模型用于含有一些常用项目的数据库。<br>·my-medium.cnf是为中等规模的数据库而设计的。如果你正在企业中使用RHEL,可能会比这个操作系统的最小RAM需求(256MB)明显多得多的物理内存。由此可见，如果有那么多RAM内存可以使用，自然可以在同一台机器上运行其它服务。<br>·my-large.cnf是为专用于一个SQL数据库的计算机而设计的。由于它可以为该数据库使用多达512MB的内存，所以在这种类型的系统上将需要至少1GB的RAM,以便它能够同时处理操作系统与数据库应用程序。<br>·my-huge.cnf是为企业中的数据库而设计的。这样的数据库要求专用服务器和1GB或1GB以上的RAM。<br>这些选择高度依赖于内存的数量、计算机的运算速度、数据库的细节大小、访问数据库的用户数量以及在数据库中装入并访问数据的用户数量。随着数据库和用户的不断增加，数据库的性能可能会发生变化。<br>我将逐个的说明这些配置文件。如果用户决定使用my-<em>.cnf文件之一，将首先需要把这个文件复制到/etc/my.cnf文件上。<br>由于这些原因，用户应该仔细观察数据库系统的性能。如果发现问题，可能需要增加更多的RAM，或者把数据库迁移到一个含有附加资源(比如多个CPU)的系统上。<br>提示：数据库变得非常大。把一个SQL数据库目录配置在一个专用分区上可能更有道理。虽然一个不断增长的数据库可能会占满整个分区，但它至少不会吞掉RHEL运行所必需的磁盘空间。<br>/etc/my.cnf文件<br>默认是/etc/my.cnf文件。它包含6条命令，并且这6条命令被组织在3个配置段中。这些配置段与Samba配置文件中的配置段相似，并且含有功能组名称和相关的命令。本文将逐行的说明这个文件的默认版本。如果用户进行了任何修改，将需要确保MySQL启动脚本(即/etc/rc.d /init.d/mysqld)中的命令一致。<br><strong>[mysqld]</strong><br>在这个配置段之内，将会看到与MySQL守护进程相关的命令。<br><strong>datadir=/var/lib/mysql</strong><br>MySQL服务器把数据库存储在由datadir变量所定义的目录中。<br><strong>Socket=/var/lib/mysql/mysql.sock</strong><br>MySQL套接字把数据库程序局部的或通过网络连接到MySQL客户。<br>提示：MySQL被配置成使用InnoDB存储器引擎。如果用户在自己的系统上还没有一个InnoDB数据库，将需要给[mysqld]配置段添加skip-innodb语句。<br><strong>[mysql.server]</strong><br>在这个配置段之内，将会看到MySQL服务器守护进程有关的命令。这个配置段的较早期版本被命名为[mysql_server]。如果使用 MySQL4.X或MySQL4.X以上版本，将必须把这个配置段标题改成[mysql_server]。当启动MySQL服务时，它使用这个配置段中的选项。<br><strong>user=mysql</strong><br>与MySQL服务相关联的标准用户名是mysql。它应该是/etc/passwd文件的一部分；如果在这个文件中没有发现它，用户可能还没有安装Red Hat Enterprise Linux mysql-server RPM程序包。<br><strong>basedir=/var/lib</strong><br>这表示MySQL数据库的顶级目录。它充当MySQL系统上的一个根目录；这个数据库中的其它目录都是相对于这个目录。<br><strong>[safe_mysqld]</strong><br>这个配置段包含MySQL启动脚本所引用的命令。如果使用MySQL4.X或4.X以上版本，必须把这个配置段改成[mysqld_safe]。<br><strong>err-log=/var/log/mysqld.log</strong><br>这是MySQL所关联的错误被发送到的这个文件。如果使用MySQL4.X或4.X以上版本，必须使用log-error指令替换这条命令。<br><strong>pid-file=/var/run/mysqld/mysqld.pid</strong><br>最后，pid-file指令定义MySQL服务器在运作期间的进程标识符(PID)。如果MySQL服务器当前没有运行，这个文件应该不存在。<br>提示：用户可以配置与用户特定相关的MySQL配置文件；为此，只需给指定用户主目录中的.my.cnf隐含文件添加所选的配置命令即可。<br><strong>my-samll-cnf</strong><br>在本文中，将说明my-small-cnf配置文本中的所有命令。当回顾其它MySQL样本配置文件时，将参考本文所解释的各条命令和指令的含义。先从下面这个配置段开始分析该文件中的有效命令和指令：<br><strong>[client]</strong><br>这个配置把指令传递给与MySQL服务器相关的客户。<br><strong>port＝3306</strong><br>MySQL所相关的标准TCP/IP端口是3306。如果需要修改这个端口号(可以增强安全)，必须确保用于MySQL客户与服务器的所有相应配置文件中均修改这个号。<br><strong>socket=/var/lib/mysql/mysql.sock</strong><br>正像默认的/etc/my.cnf文件中所定义的那样，这是控制MySQL客户与服务器间通信的标准套接字文件。<br><strong>[mysqld]</strong><br>当启动MySQL服务器时，它由[mysqld]配置段中所定义的命令来控制。<br><strong>port=3306</strong><br><strong>socket=/var/lib/mysql/mysql.sock</strong><br>当然，与同一个MySQL数据库相关的客户与服务器需要使用相同的TCP/IP端口和套接字。<br><strong>skip-locking</strong><br>多个客户可能会访问同一个数据库，因此这防止外部客户锁定MySQL服务器。这个skip-locking命令是MySQL4.X或4.X以上版本中的skip-external-locking命令。<br>一般来说，如果正在使用MySQL4.X或4.X上以版本，这个set-variable指令没有必要带有这个列表中的这些命令。<br><strong>set-variable=key_buffer=16k</strong><br>这个缓冲区确实很小；如果一个数据库在一个文本文件中包含不止几百行数据，它将会超载这个缓冲区的容量。这个数据库可能不会超载一个文本文件地址簿的容量。如果这不只是一个供个人使用的数据库，这个限额很快就会被达到。假使那样的话，可能需要考虑与其它配置文件之一相关的那些限额。<br><strong>set-variable=max_allowed_packet=1M</strong><br>当然，与一个数据库相关的信息会增加到超出实际数据。在默认的情况下，如果该信息在一个服务器上超过1MB以上，MySQL将会产生一条错误信息。<br><strong>set-variable=thread_stack=64k</strong><br>这条指令限定用于每个数据库线程的栈大小。默认设置足以满足大多数应用。<br><strong>set-variable=table_cache=4</strong><br>用户可以限定一个数据库中打开表的数量；越小的限额(默认值是64)适合越小规模的数据库。<br><strong>set-variable=sort_buffer=64k</strong><br>在处理一个数据库时，用户可能需要内存中附加的缓冲区空间。<br><strong>set-variable=net_buffer_length=2k</strong><br>正如net_buffer_length指令所定义的，MySQL服务器还给传入的请求保留了空间。<br><strong>server-id=1</strong><br>一般来说，如果有一个MySQL主服务器，应该把它的server-id设置成１；应该把MySQL从属服务器的server-id设置成２；<br><strong>[mysqldump]</strong><br>用户可以在不同类型的SQL数据库之间传输数据，这由[mysqldump]配置段中的命令来控制。<br><strong>quick</strong><br>quick选项支持较大数据库的转储。<br><strong>set-variable=max_allowed_packet=16M</strong><br>当然，用来传输数据库表到其它数据库的max_allowed_packet大于客户与服务器之间的简单通信所使用的信息包。<br><strong>[mysql]</strong><br><strong>no-auto-rehash</strong><br>这个配置段设置启动MySQL服务的条件；在这种情况下，no-auto-rehash确保这个服务启动得比较快。<br><strong>[isamchk]</strong><br><strong>[myisamchk]</strong><br>像SQL这样的关系数据库用所谓的Indexed Sequential Access Method(索引顺序存取方法，简称ISAM)来处理。这两个配置段中的命令是相同的；这些命令与检查并修复数据库表的同名命令有关。<br><strong>set-variable=key_buffer=8M</strong><br><strong>set-variable=sort_buffer=8M</strong><br>在前面谈及MySQL服务器时，用户己经见过这些变量。它们在这里都比较大，以便支持数据库的较快速检查与修复。<br><strong>[mysqlhotcopy]</strong><br><strong>interactive-timeout</strong><br>正如[mysqlhotcopy]配置段所指定的，在一个数据库复制操作期间，连接会挂起。在默认情况下，interactive-timeout变量把一个数据传输的最大时间量设置为28800秒(8个小时)。<br><strong>my-medium.cnf文件</strong><br>与中等数据库相关的MySQL配置文件含有和my-small-cnf配置文件中一样的有效配置段。在[mysqld]配置段中，下面这些命令支持较大规模的服务器数据库：<br><strong>set-variable=key_buffer=16M</strong><br><strong>set-variable=table_cache=64</strong><br><strong>set-variable=sort_buffer=512K</strong><br><strong>set-variable=net_buffer_length=8K</strong><br><strong>log-bin</strong><br>一般来说，这个配置段中的命令支持服务器上的较大高速缓存与缓冲区长度。应该看到两条新命令。<br><strong>set-variable=myisam_sort_buffer_size=8M</strong><br><strong>log-bin</strong><br>myisam_sort_buffer_size命令允许MySQL索引数据库，第二条命令支持二进制日志记录方法。<br><strong>[isamchk]</strong><br><strong>[myisamchk]</strong><br>当然，这两个配置段中的缓冲区比用于数据库传输的缓冲区大，这个文件包含下面这些命令；它们发送消息到服务器和接收来自服务器的消息。<br><strong>set-variable=read_buffer=2M</strong><br><strong>set-variable=write_buffer=2M</strong><br><strong>my-large.cnf文件</strong><br>与较大型数据库相关的MySQL配置文件含有和my-samll-cnf配置文件中一样的有效配置段。在本文中，将比较my-large-cnf与my-medium-cnf样本文件中的各条命令。在[mysqld]配置段中，下面这些命令支持较大型的服务器数据库：<br><strong>set-variable=key_buffer=256M</strong><br><strong>set-variable=table_cache=256</strong><br><strong>set-variable=sort_buffer=1M</strong><br><strong>set-variable=myisam_sort_buffer_size=64M</strong><br><strong>set-variable=net_buffer_length=8K</strong><br>这个配置段中有３条附加的命令。record_buffer命令保存对一个数据库中不同表的扫描结果。thread_cache命令对多请求有用；空闲线程被高速缓存起来，进而允许新的搜索操作采用己有的线程。只要这防止搜索操作启动新的服务器进程，这就能减轻系统上的负荷。<br><strong>set-variable=record_buffer=1M</strong><br><strong>set-variable=thread_cache=8</strong><br><strong>set-variable=thread_concurrency=8</strong><br>thread_concurrency变量限定同时运行的线程数量。my-large.cnf样本文件建议用户应该把这个数量限定于本计算机上CPU数量的两倍；这个特定设置相当于４个CPU。<br><em>*my-huge.cnf文件</em></em><br>my-huge.cnf文件含有和my-large.cnf配置文件中一样的命令。当然，分配给大多数指令的值比较大并适合较大型的数据库。</li>
+</ul>
+<h2 id="mysql数据库引擎"><a href="#mysql数据库引擎" class="headerlink" title="mysql数据库引擎"></a>mysql数据库引擎</h2>
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/07/10/mysql配置详解/">mysql配置详解</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
+        <p><span>发布时间:</span>2017年07月10日 - 10时28分</p>
+        <p><span>最后更新:</span>2019年01月02日 - 17时28分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/10/mysql配置详解/" title="mysql配置详解">http://jet-han.oschina.io/2017/07/10/mysql配置详解/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/10/mysql配置详解/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/07/15/大数据平台-ambari/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          大数据平台-ambari
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/09/google-cloud搭建vpn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">google-cloud搭建vpn</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql配置文件my-cnf详解"><span class="toc-number">1.</span> <span class="toc-text">mysql配置文件my.cnf详解</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#mysql配置文件my-cnf详解2"><span class="toc-number">2.</span> <span class="toc-text">mysql配置文件my.cnf详解2</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql数据库引擎"><span class="toc-number">2.1.</span> <span class="toc-text">mysql数据库引擎</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/07/15/大数据平台-ambari/" title="上一篇: 大数据平台-ambari">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/07/09/google-cloud搭建vpn/" title="下一篇: google-cloud搭建vpn">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - Jet</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

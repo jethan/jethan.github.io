@@ -6,14 +6,14 @@
   <title>mysql索引及查询优化 | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="开启慢查询日志以下所有配置是在5.1.73版本中 设置慢查询时间long_query_time是用来定义慢于多少秒的才算“慢查询” 1234567mysql&amp;gt; show variables like &amp;apos;long_query_time%&amp;apos;;+-----------------+----------+| Variable_name   | Value    |+------">
-<meta name="keywords" content="mysql,index,优化">
+<meta name="keywords" content="index,mysqldumpslow,explain">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql索引及查询优化">
 <meta property="og:url" content="http://jet-han.oschina.io/2017/05/29/mysql索引及查询优化/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="开启慢查询日志以下所有配置是在5.1.73版本中 设置慢查询时间long_query_time是用来定义慢于多少秒的才算“慢查询” 1234567mysql&amp;gt; show variables like &amp;apos;long_query_time%&amp;apos;;+-----------------+----------+| Variable_name   | Value    |+------">
 <meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
-<meta property="og:updated_time" content="2017-09-08T08:00:30.659Z">
+<meta property="og:updated_time" content="2019-01-02T06:28:04.528Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql索引及查询优化">
 <meta name="twitter:description" content="开启慢查询日志以下所有配置是在5.1.73版本中 设置慢查询时间long_query_time是用来定义慢于多少秒的才算“慢查询” 1234567mysql&amp;gt; show variables like &amp;apos;long_query_time%&amp;apos;;+-----------------+----------+| Variable_name   | Value    |+------">
@@ -167,7 +167,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <a href="/tags/" style="font-size: 10px;">==</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/bigdata/" style="font-size: 12.5px;">bigdata</a> <a href="/tags/cache/" style="font-size: 10px;">cache</a> <a href="/tags/concurrent/" style="font-size: 10px;">concurrent</a> <a href="/tags/condition/" style="font-size: 10px;">condition</a> <a href="/tags/cron/" style="font-size: 10px;">cron</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 10px;">equals</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/interview/" style="font-size: 10px;">interview</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jvm/" style="font-size: 12.5px;">jvm</a> <a href="/tags/life-cycle/" style="font-size: 10px;">life cycle</a> <a href="/tags/linux/" style="font-size: 12.5px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/tags/mysql/" style="font-size: 17.5px;">mysql</a> <a href="/tags/mysql-MyIsam-Innodb/" style="font-size: 10px;">mysql,MyIsam,Innodb</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/sql/" style="font-size: 10px;">sql</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/thread-pool/" style="font-size: 10px;">thread pool</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/web/" style="font-size: 10px;">web</a> <a href="/tags/个人博客/" style="font-size: 10px;">个人博客</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/优化/" style="font-size: 10px;">优化</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/定时/" style="font-size: 10px;">定时</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/搜索引擎/" style="font-size: 10px;">搜索引擎</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/版本控制/" style="font-size: 10px;">版本控制</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a>
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
                     </div>
                 </section>
                 
@@ -274,13 +274,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a>
+    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/index/">index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/优化/">优化</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/explain/">explain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/index/">index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysqldumpslow/">mysqldumpslow</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -352,19 +352,42 @@
 </li>
 <li><p><strong>using where</strong>：使用到where来过虑数据. 不是所有的where clause都要显示using where. 如以=方式访问索引.</p>
 </li>
-<li><p><strong>using tmporary</strong>：用到临时表</p>
+<li><p><strong>using tmporary</strong>：用到临时表，看到这个的时候，查询需要优化了。这里，MYSQL需要创建一个临时表来存储结果，这通常发生在对不同的列集进行<code>ORDER BY</code>上，而不是GROUP BY上</p>
 </li>
 <li><p><strong>using filesort</strong>：用到额外的排序. (当使用order by v1,而没用到索引时,就会使用额外的排序)</p>
 </li>
 <li><p><strong>range checked for eache record(index map:N)</strong>：没有好的索引.</p>
 </li>
+<li><p><strong>Distinct</strong>  (一旦MYSQL找到了与行相联合匹配的行，就不再搜索了（</p>
+</li>
+<li><p><strong>Not exists</strong> （MYSQL优化了LEFT JOIN，一旦它找到了匹配LEFT JOIN标准的行， 就不再搜索了）</p>
+</li>
+<li><p><strong>Where used</strong> (使用了WHERE从句来限制哪些行将与下一张表匹配或者是返回给用户。如果不想返回表中的全部行，并且连接类型ALL或index，这就会发生，或者是查询有问题)</p>
+</li>
 </ol>
-<h2 id="索引及查询优化"><a href="#索引及查询优化" class="headerlink" title="索引及查询优化"></a>索引及查询优化</h2><p><strong>索引的类型</strong></p>
-<p><strong>普通索引</strong>：这是最基本的索引类型，没唯一性之类的限制。</p>
-<p><strong>唯一性索引</strong>：和普通索引基本相同，但所有的索引列值保持唯一性。</p>
-<p><strong>主键</strong>：主键是一种唯一索引，但必须指定为<code>PRIMARY KEY</code>。</p>
-<p><strong>全文索引</strong>：MYSQL从3.23.23开始支持全文索引和全文检索。在MYSQL中，全文索引的索引类型为<code>FULLTEXT</code>。全文索引可以在<code>VARCHAR</code>或者<code>TEXT</code>类型的列上创建。</p>
-<p>大多数MySQL索引(PRIMARY KEY、UNIQUE、INDEX和FULLTEXT)使用B树中存储。空间列类型的索引使用R-树，MEMORY表支持hash索引。</p>
+<h2 id="索引及查询优化"><a href="#索引及查询优化" class="headerlink" title="索引及查询优化"></a>索引及查询优化</h2><h3 id="索引的类型"><a href="#索引的类型" class="headerlink" title="索引的类型"></a>索引的类型</h3><p>  其实按照定义，除了聚集索引以外的索引都是非聚集索引，只是人们想细分一下非聚集索引，分成普通索引，唯一索引，全文索引。聚集索引的叶子节点就是对应的数据节点（MySQL的MyISAM除外，此存储引擎的聚集索引和非聚集索引只多了个唯一约束，其他没什么区别），可以直接获取到对应的全部列的数据，而非聚集索引在索引没有覆盖到对应的列的时候需要进行二次查询， </p>
+<p><strong> 比较</strong></p>
+<ul>
+<li>聚集索引就字典的首字母查询</li>
+<li>非聚集索引就是字典的偏旁部首查询</li>
+<li>聚集索引一个表只能有一个，而非聚集索引一个表可以存在多个</li>
+<li>聚集索引存储记录是物理上连续存在，而非聚集索引是逻辑上的连续，物理存储并不连续</li>
+</ul>
+<p><strong>如何创建</strong></p>
+<p>InnoDB按照主键进行聚集，如果没有定义主键，InnoDB会试着使用唯一的非空索引来代替。如果没有这种索引，InnoDB就会定义隐藏的主键然后在上面进行聚集。 </p>
+<p>所以，对于 聚集索引 来说，你创建主键的时候，自动就创建了主键的聚集索引。 </p>
+<p>而普通索引（非聚集索引）的语法，大多数数据库都是通用的 </p>
+<h4 id="聚集索引"><a href="#聚集索引" class="headerlink" title="聚集索引"></a>聚集索引</h4><p>　　该索引中键值的逻辑顺序决定了表中相应行的物理顺序。<br>　　聚集索引确定表中数据的物理顺序。聚集索引类似于电话簿，后者按姓氏排列数据。由于聚集索引规定数据在表中的物理存储顺序，因此一个表只能包含一个聚集索引。但该索引可以包含多个列（组合索引），就像电话簿按姓氏和名字进行组织一样。 </p>
+<ul>
+<li><strong>主键索引</strong>：主键是一种唯一索引，但必须指定为<code>PRIMARY KEY</code>。</li>
+</ul>
+<h4 id="非聚集索引"><a href="#非聚集索引" class="headerlink" title="非聚集索引"></a>非聚集索引</h4><p>　　该索引中索引的逻辑顺序与磁盘上行的物理存储顺序不同。<br>　　索引是通过二叉树的数据结构来描述的，我们可以这么理解聚簇索引：索引的叶节点就是数据节点。而非聚簇索引的叶节点仍然是索引节点，只不过有一个指针指向对应的数据块。</p>
+<ul>
+<li><strong>普通索引</strong>：这是最基本的索引类型，没唯一性之类的限制。</li>
+<li><strong>唯一索引</strong>：和普通索引基本相同，但所有的索引列值保持唯一性。</li>
+<li><strong>全文索引</strong>：MYSQL从3.23.23开始支持全文索引和全文检索。在MYSQL中，全文索引的索引类型为<code>FULLTEXT</code>。全文索引可以在<code>VARCHAR</code>或者<code>TEXT</code>类型的列上创建。</li>
+</ul>
+<p>大多数MySQL索引(PRIMARY KEY、UNIQUE、INDEX和FULLTEXT)使用平衡树中存储。空间列类型的索引使用R-树，MEMORY表支持hash索引。</p>
 <p><strong>单列索引和多列索引（复合索引）</strong></p>
 <p>索引可以是单列索引，也可以是多列索引。对相关的列使用索引是提高SELECT操作性能的最佳途径之一。</p>
 <p><strong>多列索引：</strong></p>
@@ -398,8 +421,69 @@
 <p>(1) 越小的数据类型通常更好：越小的数据类型通常在磁盘、内存和CPU缓存中都需要更少的空间，处理起来更快。</p>
 <p>(2) 简单的数据类型更好：<font color="#e07878">整型数据比起字符，处理开销更小</font>，因为字符串的比较更复杂。在MySQL中，<font color="#e07878">应该用内置的日期和时间数据类型，而不是用字符串来存储时间；以及用整型数据类型存储IP地址。</font></p>
 <p>(3) 尽量避免<code>NUL</code>L：应该指定列为<code>NOT NULL</code>，除非你想存储<code>NULL</code>。在MySQL中，含有<code>NULL</code>的列很难进行查询优化，因为它们使得索引、索引的统计信息以及比较运算更加复杂。<font color="#e07878">应该用0、一个特殊的值或者一个空串代替<code>NULL</code></font></p>
+<p>(4) 索引并不是越多越好，要根据查询有针对性的创建，考虑在WHERE和ORDER BY命令上涉及的列建立索引，可根据EXPLAIN来查看是否用了索引还是全表扫描</p>
+<p>(5) 应尽量避免在<code>WHERE</code>子句中对字段进行NULL值判断，否则将导致引擎放弃使用索引而进行全表扫描如：<code>select id from t where num is null</code>可以在num上设置默认值0，确保表中num列没有null值，然后这样查询：<code>select id from t where num = 0</code></p>
+<p>(6) 值分布很稀少的字段不适合建索引，例如”性别”这种只有两三个值的字段</p>
+<p>(7) 字符字段只建前缀索引</p>
+<p>(8) 并不是所有索引对查询都有效，SQL是根据表中数据来进行查询优化的，当索引列有大量数据重复时，SQL查询可能不会去利用索引，如一表中有字段 sex，male、female几乎各一半，那么即使在sex上建了索引也对查询效率起不了作用。</p>
+<p>(9) 应尽可能的避免更新 <code>clustered</code> 索引数据列，因为 clustered 索引数据列的顺序就是表记录的物理存储顺序，一旦该列值改变将导致整个表记录的顺序的调整，会耗费相当大的资源。若应用系统需要频繁更新 clustered 索引数据列，那么需要考虑是否应将该索引建为 clustered 索引。</p>
+<p>(10) 使用聚集索引的查询效率要比非聚集索引的效率要高，但是如果需要频繁去改变聚集索引的值，写入性能并不高，因为需要移动对应数据的物理位置。</p>
+<p>(11) 非聚集索引在查询的时候可以的话就避免二次查询，这样性能会大幅提升。</p>
+<p>(12) 不是所有的表都适合建立索引，只有数据量大表才适合建立索引，且建立在选择性高的列上面性能会更好。</p>
+<p><strong>字段</strong></p>
+<ol>
+<li><p>尽量使用TINYINT、SMALLINT、MEDIUM_INT作为整数类型而非INT，如果非负则加上UNSIGNED</p>
+</li>
+<li><p>VARCHAR的长度只分配真正需要的空间</p>
+</li>
+<li><p>使用枚举或整数代替字符串类型</p>
+</li>
+<li><p>尽量使用TIMESTAMP而非DATETIME，</p>
+</li>
+<li><p>单表不要有太多字段，建议在20以内</p>
+</li>
+<li><p>避免使用NULL字段，很难查询优化且占用额外索引空间</p>
+</li>
+<li><p>用整型来存IP</p>
+</li>
+</ol>
 <p><strong>SQL语句注意点</strong></p>
 <ol>
+<li><p>应尽量避免在 <code>where</code> 子句中使用<code>!=</code>或<code>&lt;&gt;</code>操作符，否则将引擎放弃使用索引而进行全表扫描。</p>
+</li>
+<li><p>尽量避免在 <code>where</code> 子句中使用 <code>or</code> 来连接条件，否则将导致引擎放弃使用索引而进行全表扫描，如：<code>select id from t where num = 10 or num = 20</code>,用<code>union all</code>（union 和union all区别，尽量用union all）</p>
+<pre><code> select id from t where num = 10   
+ union all   
+ select id from t where num = 20  
+</code></pre></li>
+<li><p>下面的查询也将导致全表扫描：<code>select id from t where name like ‘%abc%’</code><br>若要提高效率，可以考虑<code>全文检索</code>。</p>
+</li>
+<li><p><code>in</code> 和 <code>not in</code> 也要慎用，否则会导致全表扫描，如：<code>select id from t where num in(1,2,3)</code> </p>
+</li>
+</ol>
+<p>对于连续的数值，能用 <code>between</code> 就不要用 <code>in</code> 了： </p>
+<pre><code>select id from t where num between 1 and 3
+</code></pre><ol>
+<li>如果在 <code>where</code> 子句中使用参数，也会导致全表扫描。因为SQL只有在运行时才会解析局部变量，但优化程序不能将访问计划的选择推迟到运行时；它必须在编译时进行选择。然而，如果在编译时建立访问计划，变量的值还是未知的，因而无法作为索引选择的输入项。如下面语句将进行全表扫描：<code>select id from t where num = @num</code> </li>
+</ol>
+<p>可以改为强制查询使用索引： </p>
+<pre><code>select id from t with(index(索引名)) where num = @num
+</code></pre><ol>
+<li>不要在 where 子句中的“=”左边进行函数、算术运算或其他表达式运算，否则系统将可能无法正确使用索引。如：select id from t where num / 2 = 100 </li>
+</ol>
+<p><code>select id from t where substring(name, 1 ,3) = ’abc’</code>查询name以abc开头的id列表</p>
+<p>分别应改为: </p>
+<pre><code>select id from t where num = 100 * 2   
+select id from t where name like ‘abc%’ 
+</code></pre><ol>
+<li><p>在使用索引字段作为条件时，如果该索引是复合索引，那么必须使用到该索引中的第一个字段作为条件时才能保证系统使用该索引，否则该索引将不会被使用，并且应尽可能的让字段顺序与索引顺序相一致。</p>
+</li>
+<li><p>很多时候用 exists 代替 in 是一个好的选择：select num from a where num in(select num from b) </p>
+</li>
+</ol>
+<p>用下面的语句替换： </p>
+<pre><code>select num from a where exists(select 1 from b where num = a.num)
+</code></pre><ol>
 <li><p>当结果集只有一行数据时使用<code>LIMIT 1</code></p>
 </li>
 <li><p>避免<code>SELECT *</code>，始终指定你需要的列</p>
@@ -531,7 +615,7 @@
         <p><span>本文标题:</span><a href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
         <p><span>发布时间:</span>2017年05月29日 - 17时51分</p>
-        <p><span>最后更新:</span>2017年09月08日 - 16时00分</p>
+        <p><span>最后更新:</span>2019年01月02日 - 14时28分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/05/29/mysql索引及查询优化/" title="mysql索引及查询优化">http://jet-han.oschina.io/2017/05/29/mysql索引及查询优化/</a>
             <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/05/29/mysql索引及查询优化/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -572,7 +656,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开启慢查询日志"><span class="toc-number">1.</span> <span class="toc-text">开启慢查询日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置慢查询时间"><span class="toc-number">1.1.</span> <span class="toc-text">设置慢查询时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看是否打开慢查询日志记录"><span class="toc-number">1.2.</span> <span class="toc-text">查看是否打开慢查询日志记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开日志记录"><span class="toc-number">1.3.</span> <span class="toc-text">打开日志记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysqldumpslow-mysqlsla分析日志"><span class="toc-number">1.4.</span> <span class="toc-text">mysqldumpslow/mysqlsla分析日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mysqldumpslow"><span class="toc-number">1.4.1.</span> <span class="toc-text">mysqldumpslow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysqlsla慢查询分析工具"><span class="toc-number">1.4.2.</span> <span class="toc-text">mysqlsla慢查询分析工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#explain分析查询"><span class="toc-number">2.</span> <span class="toc-text">explain分析查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引及查询优化"><span class="toc-number">3.</span> <span class="toc-text">索引及查询优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">4.</span> <span class="toc-text">示例</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#开启慢查询日志"><span class="toc-number">1.</span> <span class="toc-text">开启慢查询日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设置慢查询时间"><span class="toc-number">1.1.</span> <span class="toc-text">设置慢查询时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看是否打开慢查询日志记录"><span class="toc-number">1.2.</span> <span class="toc-text">查看是否打开慢查询日志记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#打开日志记录"><span class="toc-number">1.3.</span> <span class="toc-text">打开日志记录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysqldumpslow-mysqlsla分析日志"><span class="toc-number">1.4.</span> <span class="toc-text">mysqldumpslow/mysqlsla分析日志</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#mysqldumpslow"><span class="toc-number">1.4.1.</span> <span class="toc-text">mysqldumpslow</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysqlsla慢查询分析工具"><span class="toc-number">1.4.2.</span> <span class="toc-text">mysqlsla慢查询分析工具</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#explain分析查询"><span class="toc-number">2.</span> <span class="toc-text">explain分析查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#索引及查询优化"><span class="toc-number">3.</span> <span class="toc-text">索引及查询优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#索引的类型"><span class="toc-number">3.1.</span> <span class="toc-text">索引的类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#聚集索引"><span class="toc-number">3.1.1.</span> <span class="toc-text">聚集索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#非聚集索引"><span class="toc-number">3.1.2.</span> <span class="toc-text">非聚集索引</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#示例"><span class="toc-number">4.</span> <span class="toc-text">示例</span></a></li></ol>
 </div>
 <input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
 
@@ -654,7 +738,7 @@
             </a>
         
     </div>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis相关/">Mybatis相关</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Msql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
@@ -685,7 +769,7 @@
     <div class="outer">
         <div id="footer-info">
             <div class="footer-left">
-                &copy; 2018 学海无涯
+                &copy; 2019 学海无涯
             </div>
             <div class="footer-right">
                 <span class="author" itemprop="copyrightHolder">Powered By - Jet</span>

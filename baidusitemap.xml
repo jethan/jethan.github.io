@@ -4,821 +4,51 @@
 
     
   <url>
+    <loc>http://jet-han.oschina.io/2017/07/26/spring%20Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
+    <lastmod>2019-01-02T10:50:27.599Z</lastmod>
+    <data>
+        <display>
+        <title>spring Bean的作用域</title>
+        <pubTime>2017-07-26T10:06:49.000Z</pubTime>
+        
+        <tag>Bean的作用域</tag>
+         
+        <tag>spring线程安全</tag>
+         
+        <tag>spring单例模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://jet-han.oschina.io/2017/05/07/java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95/</loc>
-    <lastmod>2018-12-19T09:00:47.869Z</lastmod>
+    <lastmod>2019-01-02T09:34:32.680Z</lastmod>
     <data>
         <display>
         <title>java后端开发面试</title>
         <pubTime>2017-05-07T05:44:59.000Z</pubTime>
         
-        <tag>java</tag>
+        <tag>面试题</tag>
          
-        <tag>interview</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%8D%8F%E4%BD%9C/</loc>
-    <lastmod>2018-12-19T02:10:05.131Z</lastmod>
-    <data>
-        <display>
-        <title>并发编程-线程间协作</title>
-        <pubTime>2017-07-18T03:05:51.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>concurrent</tag>
-         
-        <tag>condition</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/</loc>
-    <lastmod>2018-12-19T02:05:22.975Z</lastmod>
-    <data>
-        <display>
-        <title>并发编程之synchronized与加锁机制</title>
-        <pubTime>2017-12-17T10:00:26.000Z</pubTime>
-        
-        <tag>synchronized</tag>
-         
-        <tag>ReentrantLock</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/</loc>
-    <lastmod>2018-12-19T02:04:27.621Z</lastmod>
-    <data>
-        <display>
-        <title>并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
-        <pubTime>2017-10-18T08:31:58.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>CountDownLatch</tag>
-         
-        <tag>CyclicBarrier</tag>
-         
-        <tag>Semaphore</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
-    <lastmod>2018-12-17T08:09:26.326Z</lastmod>
-    <data>
-        <display>
-        <title>HashMap工作原理</title>
-        <pubTime>2017-07-28T08:05:02.000Z</pubTime>
-        
-        <tag>hashmap</tag>
+        <tag>面试技巧</tag>
          
          
            
              
               <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/11/28/Msql-B-Tree%E7%B4%A2%E5%BC%95/</loc>
-    <lastmod>2018-12-11T09:02:02.254Z</lastmod>
-    <data>
-        <display>
-        <title>Mysql-B-Tree索引</title>
-        <pubTime>2017-11-28T06:13:59.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>B-Tree索引</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
-    <lastmod>2018-12-11T09:00:58.661Z</lastmod>
-    <data>
-        <display>
-        <title>mysql事务隔离级别</title>
-        <pubTime>2017-08-04T03:58:09.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>事务隔离级别</tag>
-         
-         
-           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/mysql/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/12/05/Cron/</loc>
-    <lastmod>2018-12-07T05:14:07.083Z</lastmod>
-    <data>
-        <display>
-        <title>Cron</title>
-        <pubTime>2017-12-05T08:11:06.000Z</pubTime>
-        
-        <tag>cron</tag>
-         
-        <tag>quartz</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
-    <lastmod>2018-12-05T08:21:41.727Z</lastmod>
-    <data>
-        <display>
-        <title>github搭建个人maven仓库</title>
-        <pubTime>2017-07-02T10:28:56.000Z</pubTime>
-        
-        <tag>github</tag>
-         
-        <tag>maven</tag>
-         
-         
-           
-             
-              <breadCrumb title="maven" url="http://jet-han.oschina.io/categories/maven/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/11/30/Mybatis%E7%9B%B8%E5%85%B3/</loc>
-    <lastmod>2018-11-30T10:41:03.872Z</lastmod>
-    <data>
-        <display>
-        <title>Mybatis相关</title>
-        <pubTime>2017-11-30T06:30:37.000Z</pubTime>
-        
-        <tag>mybatis</tag>
-         
-        <tag>sql</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/</loc>
-    <lastmod>2018-11-30T09:42:01.577Z</lastmod>
-    <data>
-        <display>
-        <title>mysql数据库引擎</title>
-        <pubTime>2017-08-06T06:16:24.000Z</pubTime>
-        
-        <tag>mysql,MyIsam,Innodb</tag>
-         
-         
-           
-             
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/mysql/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/</loc>
-    <lastmod>2018-11-29T07:40:23.954Z</lastmod>
-    <data>
-        <display>
-        <title>Mysql-SQL语句执行</title>
-        <pubTime>2017-11-28T10:41:59.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>语句执行</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/08/java-IO/</loc>
-    <lastmod>2018-11-28T03:17:52.686Z</lastmod>
-    <data>
-        <display>
-        <title>java-IO</title>
-        <pubTime>2017-07-08T10:35:17.000Z</pubTime>
-        
-        <tag>IO</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/30/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/</loc>
-    <lastmod>2018-11-13T10:12:32.819Z</lastmod>
-    <data>
-        <display>
-        <title>Markdown-语法说明</title>
-        <pubTime>2017-05-30T09:21:02.000Z</pubTime>
-        
-        <tag>Markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="Markdown" url="http://jet-han.oschina.io/categories/Markdown/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
-    <lastmod>2018-11-13T09:27:05.698Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo-NexT主题搭建个人博客</title>
-        <pubTime>2017-05-27T07:27:00.000Z</pubTime>
-        
-        <tag>个人博客</tag>
-         
-         
-           
-             
-              <breadCrumb title="Hexo" url="http://jet-han.oschina.io/categories/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/</loc>
-    <lastmod>2018-11-13T09:16:08.268Z</lastmod>
-    <data>
-        <display>
-        <title>linux常用操作命令(一)</title>
-        <pubTime>2017-06-19T10:27:17.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-         
-           
-             
-              <breadCrumb title="操作系统" url="http://jet-han.oschina.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
-    <lastmod>2018-11-13T09:14:01.707Z</lastmod>
-    <data>
-        <display>
-        <title>大数据平台-ambari</title>
-        <pubTime>2017-07-15T07:02:20.000Z</pubTime>
-        
-        <tag>bigdata</tag>
-         
-        <tag>ambari</tag>
-         
-         
-           
-             
-              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/06/24/git/</loc>
-    <lastmod>2018-11-13T08:37:37.354Z</lastmod>
-    <data>
-        <display>
-        <title>git</title>
-        <pubTime>2017-06-24T08:51:27.000Z</pubTime>
-        
-        <tag>版本控制</tag>
-         
-        <tag>git</tag>
-         
-         
-           
-             
-              <breadCrumb title="git" url="http://jet-han.oschina.io/categories/git/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</loc>
-    <lastmod>2018-11-13T08:34:28.487Z</lastmod>
-    <data>
-        <display>
-        <title>jvm内存模型</title>
-        <pubTime>2017-07-20T06:44:40.000Z</pubTime>
-        
-        <tag>jvm</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/java%E5%B8%B8%E9%87%8F%E6%B1%A0/</loc>
-    <lastmod>2018-11-13T08:31:51.631Z</lastmod>
-    <data>
-        <display>
-        <title>java常量池</title>
-        <pubTime>2017-07-28T04:36:43.000Z</pubTime>
-        
-        <tag>常量池</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/</loc>
-    <lastmod>2018-11-13T08:30:45.032Z</lastmod>
-    <data>
-        <display>
-        <title>volatile用法</title>
-        <pubTime>2017-07-28T07:39:33.000Z</pubTime>
-        
-        <tag>volatile</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/</loc>
-    <lastmod>2018-11-13T08:14:28.877Z</lastmod>
-    <data>
-        <display>
-        <title>sping之IOC，AOP</title>
-        <pubTime>2017-08-05T06:34:04.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-        <tag>IOC</tag>
-         
-        <tag>AOP</tag>
-         
-         
-           
-             
-              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/spring/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
-    <lastmod>2018-11-13T08:10:39.666Z</lastmod>
-    <data>
-        <display>
-        <title>web.xml加载顺序</title>
-        <pubTime>2017-08-05T06:42:06.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>web</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/</loc>
-    <lastmod>2018-11-13T08:09:20.782Z</lastmod>
-    <data>
-        <display>
-        <title>jvm调优</title>
-        <pubTime>2017-08-05T08:05:44.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>jvm</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
-    <lastmod>2018-11-13T08:04:59.699Z</lastmod>
-    <data>
-        <display>
-        <title>线程的实现方式</title>
-        <pubTime>2017-08-05T08:32:32.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>thread</tag>
-         
-        <tag>runnable</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/</loc>
-    <lastmod>2018-11-13T08:03:50.281Z</lastmod>
-    <data>
-        <display>
-        <title>并发编程之线程池ThreadPoolExecutor</title>
-        <pubTime>2017-08-06T05:32:02.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>thread pool</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-11-13T07:49:44.489Z</lastmod>
-    <data>
-        <display>
-        <title>设计模式</title>
-        <pubTime>2017-08-08T06:34:34.000Z</pubTime>
-        
-        <tag>Singleton Pattern</tag>
-         
-        <tag>Factory Pattern</tag>
-         
-        <tag>Proxy Pattern</tag>
-         
-        <tag>MVC Pattern</tag>
-         
-        <tag>Intercepting Filter Pattern</tag>
-         
-        <tag>Iterator Pattern</tag>
-         
-         
-           
-             
-              <breadCrumb title="design patterns" url="http://jet-han.oschina.io/categories/design-patterns/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
-    <lastmod>2018-11-13T07:29:44.671Z</lastmod>
-    <data>
-        <display>
-        <title>Spring中bean的生命周期</title>
-        <pubTime>2017-09-13T09:58:54.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-        <tag>life cycle</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/30/java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
-    <lastmod>2018-11-04T05:58:46.552Z</lastmod>
-    <data>
-        <display>
-        <title>java常见排序算法</title>
-        <pubTime>2017-05-30T04:31:37.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-        <tag>sort</tag>
-         
-        <tag>冒泡</tag>
-         
-        <tag>快速</tag>
-         
-        <tag>选择</tag>
-         
-        <tag>插入</tag>
-         
-        <tag>希尔</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/</loc>
-    <lastmod>2018-11-04T05:23:40.415Z</lastmod>
-    <data>
-        <display>
-        <title>equals、==和hashCode</title>
-        <pubTime>2017-08-01T15:47:00.000Z</pubTime>
-        
-        <tag>java</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/06/15/centos%E5%9C%A8%E7%BA%BF%E6%BA%90yum%E5%AE%89%E8%A3%85mysql/</loc>
-    <lastmod>2017-10-15T09:36:49.006Z</lastmod>
-    <data>
-        <display>
-        <title>数据库之mysql（一）</title>
-        <pubTime>2017-06-15T08:17:59.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-         
-           
-             
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/Spring%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%B8%8E%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8/</loc>
-    <lastmod>2017-10-15T09:36:33.895Z</lastmod>
-    <data>
-        <display>
-        <title>Spring单例模式与线程安全</title>
-        <pubTime>2017-07-26T10:06:49.000Z</pubTime>
-        
-        <tag>spring</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
-    <lastmod>2017-09-11T13:05:41.541Z</lastmod>
-    <data>
-        <display>
-        <title>递归和迭代</title>
-        <pubTime>2017-05-27T10:15:35.000Z</pubTime>
-        
-        <tag>递归</tag>
-         
-        <tag>迭代</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-09-11T13:05:41.541Z</lastmod>
-    <data>
-        <display>
-        <title>nginx安装与使用</title>
-        <pubTime>2017-07-17T07:53:11.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-        <tag>nginx</tag>
-         
-         
-           
-             
-              <breadCrumb title="nginx" url="http://jet-han.oschina.io/categories/nginx/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/StringBuilder%E5%92%8CStringBuffer/</loc>
-    <lastmod>2017-09-11T13:05:41.503Z</lastmod>
-    <data>
-        <display>
-        <title>StringBuilder和StringBuffer</title>
-        <pubTime>2017-05-27T08:49:05.000Z</pubTime>
-        
-        <tag>String</tag>
-         
-        <tag>StringBuffer</tag>
-         
-        <tag>StringBuilder</tag>
-         
-         
-           
-             
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/06/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-09-08T08:11:26.275Z</lastmod>
-    <data>
-        <display>
-        <title>redis安装及使用</title>
-        <pubTime>2017-06-17T06:02:45.000Z</pubTime>
-        
-        <tag>nosql</tag>
-         
-        <tag>cache</tag>
-         
-        <tag>redis</tag>
-         
-         
-           
-             
-              <breadCrumb title="redis" url="http://jet-han.oschina.io/categories/redis/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-09-08T08:07:23.284Z</lastmod>
-    <data>
-        <display>
-        <title>solr安装与使用</title>
-        <pubTime>2017-07-16T09:11:01.000Z</pubTime>
-        
-        <tag>solr</tag>
-         
-        <tag>bigdata</tag>
-         
-        <tag>搜索引擎</tag>
-         
-         
-           
-             
-              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/05/29/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2017-09-08T08:00:30.659Z</lastmod>
-    <data>
-        <display>
-        <title>mysql索引及查询优化</title>
-        <pubTime>2017-05-29T09:51:19.000Z</pubTime>
-        
-        <tag>mysql</tag>
-         
-        <tag>index</tag>
-         
-        <tag>优化</tag>
-         
-         
-           
-             
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="interview" url="http://jet-han.oschina.io/categories/java/interview/"/>
           
         </display>
     </data>
@@ -827,7 +57,7 @@
     
   <url>
     <loc>http://jet-han.oschina.io/2017/05/28/java%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88/</loc>
-    <lastmod>2017-09-07T02:52:07.750Z</lastmod>
+    <lastmod>2019-01-02T09:31:02.096Z</lastmod>
     <data>
         <display>
         <title>java常用集合/容器</title>
@@ -866,57 +96,154 @@
              
               <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
           
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8Bmysql-%E4%B8%80/</loc>
-    <lastmod>2017-09-06T06:15:07.229Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/07/10/mysql%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2019-01-02T09:28:44.523Z</lastmod>
     <data>
         <display>
-        <title>数据库之mysql(二)</title>
+        <title>mysql配置详解</title>
         <pubTime>2017-07-10T02:28:09.000Z</pubTime>
         
-        <tag>mysql</tag>
+        <tag>my.cnf配置详解</tag>
          
          
            
              
               <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2017-08-28T08:23:42.575Z</lastmod>
-    <data>
-        <display>
-        <title>crontab安装及使用</title>
-        <pubTime>2017-07-16T08:24:22.000Z</pubTime>
-        
-        <tag>crontab</tag>
-         
-        <tag>定时</tag>
-         
-         
-           
              
-              <breadCrumb title="linux" url="http://jet-han.oschina.io/categories/linux/"/>
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
     </url>
 
     
+  <url>
+    <loc>http://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/</loc>
+    <lastmod>2019-01-02T09:24:28.749Z</lastmod>
+    <data>
+        <display>
+        <title>并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
+        <pubTime>2017-10-18T08:31:58.000Z</pubTime>
+        
+        <tag>CountDownLatch</tag>
+         
+        <tag>CyclicBarrier</tag>
+         
+        <tag>Semaphore</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/27/StringBuilder%E5%92%8CStringBuffer/</loc>
+    <lastmod>2019-01-02T09:15:58.689Z</lastmod>
+    <data>
+        <display>
+        <title>StringBuilder和StringBuffer</title>
+        <pubTime>2017-05-27T08:49:05.000Z</pubTime>
+        
+        <tag>String</tag>
+         
+        <tag>StringBuffer</tag>
+         
+        <tag>StringBuilder</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
+    <lastmod>2019-01-02T09:15:27.764Z</lastmod>
+    <data>
+        <display>
+        <title>递归和迭代</title>
+        <pubTime>2017-05-27T10:15:35.000Z</pubTime>
+        
+        <tag>递归</tag>
+         
+        <tag>迭代</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/30/java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2019-01-02T09:13:37.238Z</lastmod>
+    <data>
+        <display>
+        <title>java常见排序算法</title>
+        <pubTime>2017-05-30T04:31:37.000Z</pubTime>
+        
+        <tag>sort</tag>
+         
+        <tag>冒泡</tag>
+         
+        <tag>快速</tag>
+         
+        <tag>选择</tag>
+         
+        <tag>插入</tag>
+         
+        <tag>希尔</tag>
+         
+        <tag>二分</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>http://jet-han.oschina.io/2017/06/12/Java%20Generics/</loc>
-    <lastmod>2017-08-19T00:47:18.036Z</lastmod>
+    <lastmod>2019-01-02T09:12:42.071Z</lastmod>
     <data>
         <display>
         <title>Java Generics</title>
@@ -931,34 +258,120 @@
          
            
              
-              <breadCrumb title="Java" url="http://jet-han.oschina.io/categories/Java/"/>
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
     </url>
 
     
-    
-    
-    
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/</loc>
-    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/07/08/java-IO/</loc>
+    <lastmod>2019-01-02T09:11:22.393Z</lastmod>
     <data>
         <display>
-        <title>乐观锁与悲观锁及应用举例</title>
-        <pubTime>2017-08-05T03:53:43.000Z</pubTime>
+        <title>java-IO</title>
+        <pubTime>2017-07-08T10:35:17.000Z</pubTime>
         
-        <tag>mysql</tag>
-         
-        <tag>乐观锁</tag>
-         
-        <tag>悲观锁</tag>
+        <tag>IO</tag>
          
          
            
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/mysql/"/>
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-01-02T09:10:39.544Z</lastmod>
+    <data>
+        <display>
+        <title>solr安装与使用</title>
+        <pubTime>2017-07-16T09:11:01.000Z</pubTime>
+        
+        <tag>solr</tag>
+         
+         
+           
+             
+              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
+          
+             
+              <breadCrumb title="搜索引擎" url="http://jet-han.oschina.io/categories/bigdata/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%8D%8F%E4%BD%9C/</loc>
+    <lastmod>2019-01-02T09:09:23.594Z</lastmod>
+    <data>
+        <display>
+        <title>并发编程-线程间协作</title>
+        <pubTime>2017-07-18T03:05:51.000Z</pubTime>
+        
+        <tag>wait</tag>
+         
+        <tag>notify</tag>
+         
+        <tag>notifyAll</tag>
+         
+        <tag>await</tag>
+         
+        <tag>signal</tag>
+         
+        <tag>signalAll</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2019-01-02T09:08:33.068Z</lastmod>
+    <data>
+        <display>
+        <title>jvm内存模型</title>
+        <pubTime>2017-07-20T06:44:40.000Z</pubTime>
+        
+        <tag>方法区</tag>
+         
+        <tag>堆</tag>
+         
+        <tag>本地方法栈</tag>
+         
+        <tag>虚拟机栈</tag>
+         
+        <tag>程序计数器</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
           
         </display>
     </data>
@@ -967,22 +380,144 @@
     
   <url>
     <loc>http://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/</loc>
-    <lastmod>2017-08-13T01:45:26.093Z</lastmod>
+    <lastmod>2019-01-02T09:05:05.783Z</lastmod>
     <data>
         <display>
         <title>string比较之‘’equals‘’和‘’==‘’</title>
         <pubTime>2017-07-28T03:06:56.000Z</pubTime>
         
-        <tag>string</tag>
+        <tag>equals</tag>
          
         <tag>==</tag>
          
-        <tag>equals</tag>
+        <tag>string</tag>
          
          
            
              
               <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/28/java%E5%B8%B8%E9%87%8F%E6%B1%A0/</loc>
+    <lastmod>2019-01-02T09:04:12.677Z</lastmod>
+    <data>
+        <display>
+        <title>java常量池</title>
+        <pubTime>2017-07-28T04:36:43.000Z</pubTime>
+        
+        <tag>常量池</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2019-01-02T09:03:18.993Z</lastmod>
+    <data>
+        <display>
+        <title>volatile用法</title>
+        <pubTime>2017-07-28T07:39:33.000Z</pubTime>
+        
+        <tag>volatile</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
+    <lastmod>2019-01-02T09:02:48.214Z</lastmod>
+    <data>
+        <display>
+        <title>HashMap工作原理</title>
+        <pubTime>2017-07-28T08:05:02.000Z</pubTime>
+        
+        <tag>hashmap</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/</loc>
+    <lastmod>2019-01-02T09:02:18.475Z</lastmod>
+    <data>
+        <display>
+        <title>equals、==和hashCode</title>
+        <pubTime>2017-08-01T15:47:00.000Z</pubTime>
+        
+        <tag>equals</tag>
+         
+        <tag>==</tag>
+         
+        <tag>hashCode</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
+    <lastmod>2019-01-02T09:01:45.616Z</lastmod>
+    <data>
+        <display>
+        <title>mysql事务隔离级别</title>
+        <pubTime>2017-08-04T03:58:09.000Z</pubTime>
+        
+        <tag>事务隔离级别</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -991,14 +526,12 @@
     
   <url>
     <loc>http://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
-    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
+    <lastmod>2019-01-02T09:01:06.898Z</lastmod>
     <data>
         <display>
         <title>spring事务的传播属性和隔离级别</title>
         <pubTime>2017-08-05T04:03:28.000Z</pubTime>
         
-        <tag>spring</tag>
-         
         <tag>事务传播属性</tag>
          
         <tag>隔离级别</tag>
@@ -1008,27 +541,434 @@
              
               <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
           
+             
+              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+          
         </display>
     </data>
     </url>
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/spring-scope-prototype%E4%B8%8Esingleton%E5%8C%BA%E5%88%AB/</loc>
-    <lastmod>2017-08-13T01:45:26.091Z</lastmod>
+    <loc>http://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/</loc>
+    <lastmod>2019-01-02T09:00:40.511Z</lastmod>
     <data>
         <display>
-        <title>spring scope prototype与singleton</title>
-        <pubTime>2017-07-26T10:06:11.000Z</pubTime>
+        <title>sping之IOC，AOP</title>
+        <pubTime>2017-08-05T06:34:04.000Z</pubTime>
         
-        <tag>spring</tag>
+        <tag>IOC</tag>
          
-        <tag>scope</tag>
+        <tag>AOP</tag>
          
          
            
              
               <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
+    <lastmod>2019-01-02T09:00:01.936Z</lastmod>
+    <data>
+        <display>
+        <title>web.xml加载顺序</title>
+        <pubTime>2017-08-05T06:42:06.000Z</pubTime>
+        
+        <tag>web.xml加载顺序</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/</loc>
+    <lastmod>2019-01-02T08:59:20.485Z</lastmod>
+    <data>
+        <display>
+        <title>jvm调优</title>
+        <pubTime>2017-08-05T08:05:44.000Z</pubTime>
+        
+        <tag>性能调优</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
+    <lastmod>2019-01-02T08:58:51.357Z</lastmod>
+    <data>
+        <display>
+        <title>线程的实现方式</title>
+        <pubTime>2017-08-05T08:32:32.000Z</pubTime>
+        
+        <tag>thread</tag>
+         
+        <tag>runnable</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/</loc>
+    <lastmod>2019-01-02T08:57:23.977Z</lastmod>
+    <data>
+        <display>
+        <title>并发编程之线程池ThreadPoolExecutor</title>
+        <pubTime>2017-08-06T05:32:02.000Z</pubTime>
+        
+        <tag>ThreadPoolExecutor</tag>
+         
+        <tag>线程池</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <lastmod>2019-01-02T08:56:17.874Z</lastmod>
+    <data>
+        <display>
+        <title>Spring中bean的生命周期</title>
+        <pubTime>2017-09-13T09:58:54.000Z</pubTime>
+        
+        <tag>Bean的生命周期</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/11/30/Mybatis-MapperScannerConfigurer/</loc>
+    <lastmod>2019-01-02T08:55:46.483Z</lastmod>
+    <data>
+        <display>
+        <title>Mybatis-MapperScannerConfigurer</title>
+        <pubTime>2017-11-30T06:30:37.000Z</pubTime>
+        
+        <tag>MapperScannerConfigurer</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="mybatis" url="http://jet-han.oschina.io/categories/java/mybatis/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-01-02T08:54:50.621Z</lastmod>
+    <data>
+        <display>
+        <title>crontab安装及使用</title>
+        <pubTime>2017-07-16T08:24:22.000Z</pubTime>
+        
+        <tag>crontab</tag>
+         
+         
+           
+             
+              <breadCrumb title="cron" url="http://jet-han.oschina.io/categories/cron/"/>
+          
+             
+              <breadCrumb title="定时" url="http://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree%E7%B4%A2%E5%BC%95/</loc>
+    <lastmod>2019-01-02T08:49:39.098Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql-B-Tree索引</title>
+        <pubTime>2017-11-28T06:13:59.000Z</pubTime>
+        
+        <tag>B-Tree索引</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/</loc>
+    <lastmod>2019-01-02T08:47:52.837Z</lastmod>
+    <data>
+        <display>
+        <title>Mysql-SQL语句执行</title>
+        <pubTime>2017-11-28T10:41:59.000Z</pubTime>
+        
+        <tag>语句执行</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/12/05/Cron/</loc>
+    <lastmod>2019-01-02T08:37:39.275Z</lastmod>
+    <data>
+        <display>
+        <title>Cron</title>
+        <pubTime>2017-12-05T08:11:06.000Z</pubTime>
+        
+        <tag>quartz</tag>
+         
+         
+           
+             
+              <breadCrumb title="cron" url="http://jet-han.oschina.io/categories/cron/"/>
+          
+             
+              <breadCrumb title="定时" url="http://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/</loc>
+    <lastmod>2019-01-02T08:35:18.016Z</lastmod>
+    <data>
+        <display>
+        <title>并发编程之synchronized与加锁机制</title>
+        <pubTime>2017-12-17T10:00:26.000Z</pubTime>
+        
+        <tag>synchronized</tag>
+         
+        <tag>ReentrantLock</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/</loc>
+    <lastmod>2019-01-02T08:23:30.230Z</lastmod>
+    <data>
+        <display>
+        <title>mysql数据库引擎</title>
+        <pubTime>2017-08-06T06:16:24.000Z</pubTime>
+        
+        <tag>ISAM</tag>
+         
+        <tag>MyIsam</tag>
+         
+        <tag>HEAP</tag>
+         
+        <tag>Innodb</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2019-01-02T08:21:20.463Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式</title>
+        <pubTime>2017-08-08T06:34:34.000Z</pubTime>
+        
+        <tag>Singleton Pattern</tag>
+         
+        <tag>Factory Pattern</tag>
+         
+        <tag>Proxy Pattern</tag>
+         
+        <tag>MVC Pattern</tag>
+         
+        <tag>Intercepting Filter Pattern</tag>
+         
+        <tag>Iterator Pattern</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+          
+             
+              <breadCrumb title="设计模式" url="http://jet-han.oschina.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
+    <lastmod>2019-01-02T07:17:51.840Z</lastmod>
+    <data>
+        <display>
+        <title>大数据平台-ambari</title>
+        <pubTime>2017-07-15T07:02:20.000Z</pubTime>
+        
+        <tag>ambari</tag>
+         
+         
+           
+             
+              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-01-02T07:13:45.311Z</lastmod>
+    <data>
+        <display>
+        <title>nginx安装与使用</title>
+        <pubTime>2017-07-17T07:53:11.000Z</pubTime>
+        
+        <tag>nginx</tag>
+         
+         
+           
+             
+              <breadCrumb title="代理" url="http://jet-han.oschina.io/categories/%E4%BB%A3%E7%90%86/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/06/24/git/</loc>
+    <lastmod>2019-01-02T07:04:20.070Z</lastmod>
+    <data>
+        <display>
+        <title>git</title>
+        <pubTime>2017-06-24T08:51:27.000Z</pubTime>
+        
+        <tag>git</tag>
+         
+         
+           
+             
+              <breadCrumb title="版本控制" url="http://jet-han.oschina.io/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
+    <lastmod>2019-01-02T07:03:38.096Z</lastmod>
+    <data>
+        <display>
+        <title>github搭建个人maven仓库</title>
+        <pubTime>2017-07-02T10:28:56.000Z</pubTime>
+        
+        <tag>maven</tag>
+         
+         
+           
+             
+              <breadCrumb title="构建工具" url="http://jet-han.oschina.io/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -1037,7 +977,7 @@
     
   <url>
     <loc>http://jet-han.oschina.io/2017/07/09/google-cloud%E6%90%AD%E5%BB%BAvpn/</loc>
-    <lastmod>2017-08-13T01:45:26.062Z</lastmod>
+    <lastmod>2019-01-02T06:59:43.473Z</lastmod>
     <data>
         <display>
         <title>google-cloud搭建vpn</title>
@@ -1048,12 +988,186 @@
          
            
              
-              <breadCrumb title="linux" url="http://jet-han.oschina.io/categories/linux/"/>
+              <breadCrumb title="翻墙" url="http://jet-han.oschina.io/categories/%E7%BF%BB%E5%A2%99/"/>
           
         </display>
     </data>
     </url>
 
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/30/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/</loc>
+    <lastmod>2019-01-02T06:51:40.116Z</lastmod>
+    <data>
+        <display>
+        <title>Markdown-语法说明</title>
+        <pubTime>2017-05-30T09:21:02.000Z</pubTime>
+        
+        <tag>Markdown</tag>
+         
+         
+           
+             
+              <breadCrumb title="编辑器" url="http://jet-han.oschina.io/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/06/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
+    <lastmod>2019-01-02T06:50:26.824Z</lastmod>
+    <data>
+        <display>
+        <title>redis安装及使用</title>
+        <pubTime>2017-06-17T06:02:45.000Z</pubTime>
+        
+        <tag>nosql</tag>
+         
+        <tag>redis</tag>
+         
+        <tag>持久化</tag>
+         
+        <tag>RDB</tag>
+         
+        <tag>AOF</tag>
+         
+        <tag>主从</tag>
+         
+         
+           
+             
+              <breadCrumb title="缓存" url="http://jet-han.oschina.io/categories/%E7%BC%93%E5%AD%98/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2019-01-02T06:46:20.751Z</lastmod>
+    <data>
+        <display>
+        <title>linux常用操作命令</title>
+        <pubTime>2017-06-19T10:27:17.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="操作系统" url="http://jet-han.oschina.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/27/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <lastmod>2019-01-02T06:33:18.669Z</lastmod>
+    <data>
+        <display>
+        <title>Hexo-NexT主题搭建个人博客</title>
+        <pubTime>2017-05-27T07:27:00.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="个人博客" url="http://jet-han.oschina.io/categories/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/</loc>
+    <lastmod>2019-01-02T06:30:02.417Z</lastmod>
+    <data>
+        <display>
+        <title>乐观锁与悲观锁及应用举例</title>
+        <pubTime>2017-08-05T03:53:43.000Z</pubTime>
+        
+        <tag>乐观锁</tag>
+         
+        <tag>悲观锁</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/05/29/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2019-01-02T06:28:04.528Z</lastmod>
+    <data>
+        <display>
+        <title>mysql索引及查询优化</title>
+        <pubTime>2017-05-29T09:51:19.000Z</pubTime>
+        
+        <tag>index</tag>
+         
+        <tag>mysqldumpslow</tag>
+         
+        <tag>explain</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jet-han.oschina.io/2017/06/15/mysql%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</loc>
+    <lastmod>2019-01-02T06:25:50.594Z</lastmod>
+    <data>
+        <display>
+        <title>mysql主从备份</title>
+        <pubTime>2017-06-15T08:17:59.000Z</pubTime>
+        
+        <tag>主从备份</tag>
+         
+        <tag>binlog</tag>
+         
+        <tag>mysqldump</tag>
+         
+         
+           
+             
+              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+          
+             
+              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+    
+    
+    
     
     
     
