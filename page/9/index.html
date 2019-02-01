@@ -279,11 +279,89 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="开启慢查询日志"><a href="#开启慢查询日志" class="headerlink" title="开启慢查询日志"></a>开启慢查询日志</h2><p>以下所有配置是在<code>5.1.73</code>版本中</p>
-<h3 id="设置慢查询时间"><a href="#设置慢查询时间" class="headerlink" title="设置慢查询时间"></a>设置慢查询时间</h3><p><code>long_query_time</code>是用来定义慢于多少秒的才算“慢查询”</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">mysql&gt; show variables like &apos;long_query_time%&apos;;</div><div class="line">+-----------------+----------+</div><div class="line">| Variable_name   | Value    |</div><div class="line">+-----------------+----------+</div><div class="line">| long_query_time | 1.000000 |</div><div class="line">+-----------------+----------+</div><div class="line">1 row in set (0.00 sec)</div></pre></td></tr></table></figure>
-<p>设置为1, 也就是执行时间超过1秒的都算慢查询。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">mysql&gt; set global long_query_time = 1;</div><div class="line">Query OK, 0 rows affected (0.00 sec)</div></pre></td></tr></table></figure>
+<h1 id="mysql调优"><a href="#mysql调优" class="headerlink" title="mysql调优"></a>mysql调优</h1><p>在做性能测试中经常会遇到一些sql的问题，其实做性能测试这几年遇到问题最多还是数据库这块，要么就是IO高要么就是cpu高，所以对数据的优化在性能测试过程中占据着很重要的地方。</p>
+<p><strong>常用SQL语句优化：</strong></p>
+<ul>
+<li>数据库(表)设计合理,我们的表设计要符合3NF,3范式(规范的模式),有时我们需要适当的逆范式</li>
+<li>sql语句的优化(索引，常用小技巧.)<ul>
+<li>慢查询 （分析出现出问题的sql）</li>
+<li>Explain （显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句）</li>
+<li>Profile（查询到 SQL 会执行多少时间, 并看出 CPU/Memory 使用量, 执行过程中 Systemlock, Table lock 花多少时间等等.）</li>
+</ul>
+</li>
+<li>数据的配置(缓存设大)</li>
+<li>适当硬件配置和操作系统 (读写分离.)</li>
+</ul>
+<p><strong>数据的3NF(normal forms)</strong></p>
+<ul>
+<li><strong>1NF :</strong>就是具有原子性，不可分割。简单来说就是无重复的行，并且列不可再分(只要使用的是关系性数据库，就自动符合)；  </li>
+<li><strong>2NF: </strong>在满足1NF 的基础上，我们考虑是否满足2NF: 只要表的记录满足唯一性,也是说,你的同一张表，不可能出现完全相同的记录, 一般说我们在表中设计一个主键即可；  </li>
+<li><strong>3NF: </strong>在满足2NF 的基础上，我们考虑是否满足3NF：即我们的字段信息可以通过关联的关系，派生即可.(通常我们通过外键来处理)。</li>
+</ul>
+<p><strong>逆范式（为什么需要逆范式:）:</strong> </p>
+<p>逆范式化指的是通过<strong>增加冗余或重复的数据来提高数据库的读性能</strong>。<br>例如：在user_role用户-角色中间表增加字段role_name(user表通过role_id与role表关联查询role_name，直接在user表中添加冗余字段role_name)。<br>逆范式化可以减少关联查询时，join表的次数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">编号</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">出生日期</th>
+<th style="text-align:center">生肖</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">1980-01-02</td>
+<td style="text-align:center">猴</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">1983-04-02</td>
+<td style="text-align:center">牛</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">1988-11-02</td>
+<td style="text-align:center">牛</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li>生肖表　</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">生肖编号</th>
+<th style="text-align:center">生肖名称</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">猴</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">牛</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>【说明】</strong>生肖其实是和时间有关系了，可以通过生日来确定生肖是什么，所以这里的生肖完全可以忽略不计，这样设计是为了减轻数据库的计算压力，所以才保留此字段的，也就是前面提到的<strong>“冗余字段”，逆范式</strong>。所以由此可以推出<strong>3NF是完全可以违反的</strong>。</p>
+<p><strong>总结：</strong></p>
+<ul>
+<li>NF1 行不可重复，列不可再分 （必须满足)  </li>
+<li>NF2 非主键列必须依赖于主键列  （必须满足）  </li>
+<li>NF3 非主键列之间必须相互独立 （NF3可以不满足 ）  </li>
+</ul>
           
       
       
