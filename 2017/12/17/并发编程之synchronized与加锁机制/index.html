@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>并发编程之synchronized与加锁机制 | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="synchronized 与 Lock目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。  数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。     特性 synchronized volatile     原子性 true fal">
+<meta name="keywords" content="synchronized,ReentrantLock">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程之synchronized与加锁机制">
+<meta property="og:url" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="synchronized 与 Lock目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。  数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。     特性 synchronized volatile     原子性 true fal">
+<meta property="og:image" content="http://jethan.bid/img/icons/java.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/并发编程之synchronized与加锁机制/synchronized1.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/并发之synchronized与加锁机制/synchronized2.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/并发之synchronized与加锁机制/synchronized3.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/并发之synchronized与加锁机制/ReentrantLock1.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/并发之synchronized与加锁机制/ReentrantLock2.jpg">
+<meta property="og:updated_time" content="2017-12-17T10:00:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发编程之synchronized与加锁机制">
+<meta name="twitter:description" content="synchronized 与 Lock目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。  数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。     特性 synchronized volatile     原子性 true fal">
+<meta name="twitter:image" content="http://jethan.bid/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-并发编程之synchronized与加锁机制" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/12/17/并发编程之synchronized与加锁机制/" class="article-date">
+      <time datetime="2017-12-17T10:00:26.000Z" itemprop="datePublished">2017-12-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      并发编程之synchronized与加锁机制
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReentrantLock/">ReentrantLock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<h1 id="synchronized-与-Lock"><a href="#synchronized-与-Lock" class="headerlink" title="synchronized 与 Lock"></a>synchronized 与 Lock</h1><p>目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 </p>
+<p>数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">synchronized</th>
+<th style="text-align:center">volatile</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">原子性</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">可见性</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">是否阻塞线程</td>
+<td style="text-align:center">true</td>
+<td style="text-align:center">false</td>
+</tr>
+<tr>
+<td style="text-align:center">使用级别</td>
+<td style="text-align:center">变量、方法、类</td>
+<td style="text-align:center">变量</td>
+</tr>
+<tr>
+<td style="text-align:center">用途</td>
+<td style="text-align:center">锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住</td>
+<td style="text-align:center">告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取</td>
+</tr>
+<tr>
+<td style="text-align:center">使用范围</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">a、对变量的写操作不依赖于当前值。b、该变量没有包含在具有其他变量的不变式中。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">特性</th>
+<th style="text-align:center">synchronized</th>
+<th style="text-align:center">ReentrantLock</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">是否需要手动释放</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">等待中的线程是否可以中断等待</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">是否可以主动获得锁</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true（投票等方式）</td>
+</tr>
+<tr>
+<td style="text-align:center">是否支持定时</td>
+<td style="text-align:center">false</td>
+<td style="text-align:center">true</td>
+</tr>
+<tr>
+<td style="text-align:center">其他</td>
+<td style="text-align:center">synchronized是在JVM层面上实现的(语言级别)JVM会自动释放锁定</td>
+<td style="text-align:center">lock是通过代码实现的，要保证锁定一定会被释放，就必须将unLock()放到finally{}中</td>
+</tr>
+</tbody>
+</table>
+</div>
+<a id="more"></a>
+<p>如果一个代码块被synchronized修饰了，当一个线程获取了对应的锁，并执行该代码块时，其他线程便只能一直等待，等待获取锁的线程释放锁，而这里获取锁的线程释放锁只会有两种情况：  </p>
+<p>　　1）获取锁的线程执行完了该代码块，然后线程释放对锁的占有；<br>　　2）线程执行发生异常，此时JVM会让线程自动释放锁。</p>
+<p>  那么如果这个获取锁的线程由于要等待IO或者其他原因（比如调用sleep方法）被阻塞了，但是又没有释放锁，其他线程便只能干巴巴地等待，试想一下，这多么影响程序执行效率。</p>
+<p>因此就需要有一种机制可以不让等待的线程一直无期限地等待下去（比如只等待一定的时间或者能够响应中断），通过Lock就可以办到。</p>
+<p>再举个例子：当有多个线程读写文件时，读操作和写操作会发生冲突现象，写操作和写操作会发生冲突现象，但是读操作和读操作不会发生冲突现象。</p>
+<p>但是采用synchronized关键字来实现同步的话，就会导致一个问题：</p>
+<p>如果多个线程都只是进行读操作，所以当一个线程在进行读操作时，其他线程只能等待无法进行读操作。</p>
+<p>因此就需要一种机制来使得多个线程都只是进行读操作时，线程之间不会发生冲突，通过Lock就可以办到。</p>
+<p>另外，通过Lock可以知道线程有没有成功获取到锁。这个是synchronized无法办到的。</p>
+<p>总结一下，也就是说Lock提供了比synchronized更多的功能。但是要注意以下几点：</p>
+<p>　　1）Lock不是Java语言内置的，synchronized是Java语言的关键字，因此是内置特性。Lock是一个类，通过这个类可以实现同步访问；<br>　　2）Lock和synchronized有一点非常大的不同，采用synchronized不需要用户去手动释放锁，当synchronized方法或者synchronized代码块执行完之后，系统会自动让线程释放对锁的占用；而Lock则必须要用户去手动释放锁，如果没有主动释放锁，就有可能导致出现死锁现象。</p>
+<h2 id="synchronized"><a href="#synchronized" class="headerlink" title="synchronized"></a>synchronized</h2><p>  本文所指说的JVM是指Hotspot的6u23版本<br> <code>synrhronized</code>关键字简洁、清晰、语义明确，因此即使有了<code>Lock</code>接口，使用的还是非常广泛。其应用层的语义是可以把任何一个非<code>null</code>对象作为”锁”，当synchronized作用在方法上时，锁住的便是<code>对象实例（this）</code>；当作用在<code>静态方法</code>时锁住的便是<code>对象对应的Class实例</code>，因为Class数据存在于永久代，因此<code>静态方法锁相当于该类的一个全局锁</code>；当synchronized作用于某一个对象实例时，锁住的便是对应的代码块。在HotSpot JVM实现中，锁有个专门的名字：<code>对象监视器</code>。</p>
+<ul>
+<li>在同步代码块中，同步锁就是这个代码块所属的那个对象 </li>
+<li>在同步方法中（非静态），同步锁就是调用这个方法的那个对象 </li>
+<li>在同步方法中（静态），同步锁就是这个方法所属的这个类的字节码文件，即 类名.class;</li>
+</ul>
+<h3 id="线程状态及状态转换"><a href="#线程状态及状态转换" class="headerlink" title="线程状态及状态转换"></a>线程状态及状态转换</h3><p> 当多个线程同时请求某个对象监视器时，对象监视器会设置几种状态用来区分请求的线程：</p>
+<ul>
+<li>Contention List：所有请求锁的线程将被首先放置到该竞争队列</li>
+<li>Entry List：Contention List中那些有资格成为候选人的线程被移到Entry - List</li>
+<li>Wait Set：那些调用wait方法被阻塞的线程被放置到Wait Set</li>
+<li>OnDeck：任何时刻最多只能有一个线程正在竞争锁，该线程称为OnDeck</li>
+<li>Owner：获得锁的线程称为Owner</li>
+<li>!Owner：释放锁的线程</li>
+</ul>
+<p>下图反映了个状态转换关系：</p>
+<p><img src="并发编程之synchronized与加锁机制/synchronized1.jpg" alt="synchronized" title="synchronized"></p>
+<p>新请求锁的线程将首先被加入到ConetentionList中，当某个拥有锁的线程（Owner状态）调用unlock之后，如果发现EntryList为空则从ContentionList中移动线程到EntryList，下面说明下ContentionList和EntryList的实现方式：</p>
+<h4 id="ContentionList虚拟队列"><a href="#ContentionList虚拟队列" class="headerlink" title="ContentionList虚拟队列"></a>ContentionList虚拟队列</h4><p><code>ContentionList</code>并不是一个真正的<code>Queue</code>，而只是一个虚拟队列，原因在于<code>ContentionList</code>是由<code>Node</code>及其<code>next</code>指针逻辑构成，并不存在一个Queue的数据结构。<code>ContentionList</code>是一个后进先出（LIFO）的队列，每次新加入Node时都会在队头进行，通过CAS改变第一个节点的的指针为新增节点，同时设置新增节点的<code>next</code>指向后续节点，而取得操作则发生在队尾。显然，该结构其实是个<code>Lock-Free</code>的队列。</p>
+<p>因为只有<code>Owner线程</code>才能从队尾取元素，也即线程出列操作无争用，当然也就避免了<code>CAS</code>的<code>ABA</code>问题。</p>
+<p><img src="并发之synchronized与加锁机制/synchronized2.jpg" alt="synchronized" title="synchronized"></p>
+<h4 id="EntryList"><a href="#EntryList" class="headerlink" title="EntryList"></a>EntryList</h4><p><code>EntryList</code>与<code>ContentionList</code>逻辑上同属等待队列，<code>ContentionList</code>会被线程并发访问，为了降低对<code>ContentionList</code>队尾的争用，而建立<code>EntryList</code>。<code>Owner</code>线程在<code>unlock</code>时会从<code>ContentionList</code>中迁移线程到<code>EntryList</code>，并会指定<code>EntryList</code>中的某个线程（一般为<code>Head</code>）为<code>Ready（OnDeck）</code>线程。<code>Owner</code>线程并不是把锁传递给<code>OnDeck</code>线程，只是把竞争锁的权利交给<code>OnDeck</code>，OnDeck线程需要重新竞争锁。这样做虽然牺牲了一定的公平性，但极大的提高了整体吞吐量，在Hotspot中把<code>OnDeck</code>的选择行为称之为“竞争切换”。</p>
+<p><code>OnDeck</code>线程获得锁后即变为owner线程，无法获得锁则会依然留在<code>EntryList</code>中，考虑到公平性，在<code>EntryList</code>中的位置不发生变化（依然在队头）。如果Owner线程被<code>wait</code>方法阻塞，则转移到<code>WaitSet</code>队列；如果在某个时刻被<code>notify/notifyAll</code>唤醒，则再次转移到<code>EntryList</code>。</p>
+<h3 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h3><p>那些处于ContetionList、EntryList、WaitSet中的线程均处于阻塞状态，阻塞操作由操作系统完成（在Linxu下通过pthread_mutex_lock函数）。线程被阻塞后便进入内核（Linux）调度状态，这个会导致系统在用户态与内核态之间来回切换，严重影响锁的性能。  </p>
+<p>缓解上述问题的办法便是自旋，其原理是：当发生争用时，若Owner线程能在很短的时间内释放锁，则那些正在争用线程可以稍微等一等（自旋），在Owner线程释放锁后，争用线程可能会立即得到锁，从而避免了系统阻塞。但Owner运行的时间可能会超出了临界值，争用线程自旋一段时间后还是无法获得锁，这时争用线程则会停止自旋进入阻塞状态（后退）。基本思路就是自旋，不成功再阻塞，尽量降低阻塞的可能性，这对那些执行时间很短的代码块来说有非常重要的性能提高。自旋锁有个更贴切的名字：自旋-指数后退锁，也即复合锁。很显然，自旋在多处理器上才有意义。  </p>
+<p>还有个问题是，线程自旋时做些啥？其实啥都不做，可以执行几次for循环，可以执行几条空的汇编指令，目的是占着CPU不放，等待获取锁的机会。所以说，自旋是把双刃剑，如果旋的时间过长会影响整体性能，时间过短又达不到延迟阻塞的目的。显然，自旋的周期选择显得非常重要，但这与操作系统、硬件体系、系统的负载等诸多场景相关，很难选择，如果选择不当，不但性能得不到提高，可能还会下降，因此大家普遍认为自旋锁不具有扩展性。  </p>
+<p>对自旋锁周期的选择上，HotSpot认为最佳时间应是一个线程上下文切换的时间，但目前并没有做到。经过调查，目前只是通过汇编暂停了几个CPU周期，除了自旋周期选择，HotSpot还进行许多其他的自旋优化策略，具体如下：</p>
+<ul>
+<li>如果平均负载小于CPUs则一直自旋  </li>
+<li>如果有超过(CPUs/2)个线程正在自旋，则后来线程直接阻塞  </li>
+<li>如果正在自旋的线程发现Owner发生了变化则延迟自旋时间（自旋计数）或进入阻塞  </li>
+<li>如果CPU处于节电模式则停止自旋  </li>
+<li>自旋时间的最坏情况是CPU的存储延迟（CPU A存储了一个数据，到CPU B得知这个数据直接的时间差）  </li>
+<li>自旋时会适当放弃线程优先级之间的差异  </li>
+</ul>
+<p>那<code>synchronized</code>实现何时使用了自旋锁？答案是在线程进入<code>ContentionList</code>时，也即第一步操作前。线程在进入等待队列时首先进行自旋尝试获得锁，如果不成功再进入等待队列。这对那些已经在等待队列中的线程来说，稍微显得不公平。还有一个不公平的地方是自旋线程可能会抢占了<code>Ready</code>线程的锁。自旋锁由每个监视对象维护，每个监视对象一个。</p>
+<h3 id="偏向锁"><a href="#偏向锁" class="headerlink" title="偏向锁"></a>偏向锁</h3><p>在JVM1.6中引入了偏向锁，偏向锁主要解决无竞争下的锁性能问题，首先我们看下无竞争下锁存在什么问题： </p>
+<p>现在几乎所有的锁都是可重入的，也即已经获得锁的线程可以多次锁住/解锁监视对象，按照之前的HotSpot设计，每次加锁/解锁都会涉及到一些CAS操作（比如对等待队列的CAS操作），CAS操作会延迟本地调用，因此偏向锁的想法是一旦线程第一次获得了监视对象，之后让监视对象“偏向”这个线程，之后的多次调用则可以避免CAS操作，说白了就是置个变量，如果发现为true则无需再走各种加锁/解锁流程。但还有很多概念需要解释、很多引入的问题需要解决：</p>
+<h4 id="CAS及SMP架构"><a href="#CAS及SMP架构" class="headerlink" title="CAS及SMP架构"></a>CAS及SMP架构</h4><p>CAS为什么会引入本地延迟？这要从SMP（对称多处理器）架构说起，下图大概表明了SMP的结构：  </p>
+<p> <img src="并发之synchronized与加锁机制/synchronized3.jpg" alt="synchronized" title="synchronized"></p>
+<p>其意思是所有的CPU会共享一条系统总线（BUS），靠此总线连接主存。每个核都有自己的一级缓存，各核相对于BUS对称分布，因此这种结构称为“对称多处理器”。  </p>
+<p>而CAS的全称为Compare-And-Swap，是一条CPU的原子指令，其作用是让CPU比较后原子地更新某个位置的值，经过调查发现，其实现方式是基于硬件平台的汇编指令，就是说CAS是靠硬件实现的，JVM只是封装了汇编调用，那些AtomicInteger类便是使用了这些封装后的接口。  </p>
+<p>Core1和Core2可能会同时把主存中某个位置的值Load到自己的L1 Cache中，当Core1在自己的L1 Cache中修改这个位置的值时，会通过总线，使Core2中L1 Cache对应的值“失效”，而Core2一旦发现自己L1 Cache中的值失效（称为Cache命中缺失）则会通过总线从内存中加载该地址最新的值，大家通过总线的来回通信称为“Cache一致性流量”，因为总线被设计为固定的“通信能力”，如果Cache一致性流量过大，总线将成为瓶颈。而当Core1和Core2中的值再次一致时，称为“Cache一致性”，从这个层面来说，锁设计的终极目标便是减少Cache一致性流量。  </p>
+<p>而CAS恰好会导致Cache一致性流量，如果有很多线程都共享同一个对象，当某个Core CAS成功时必然会引起总线风暴，这就是所谓的本地延迟，本质上偏向锁就是为了消除CAS，降低Cache一致性流量。  </p>
+<p><strong>Cache一致性：</strong><br>上面提到Cache一致性，其实是有协议支持的，现在通用的协议是MESI（最早由Intel开始支持），具体参考：  <a href="http://en.wikipedia.org/wiki/MESI_protocol，以后会仔细讲解这部分。" target="_blank" rel="external">http://en.wikipedia.org/wiki/MESI_protocol，以后会仔细讲解这部分。</a><br><strong>Cache一致性流量的例外情况：</strong><br>其实也不是所有的CAS都会导致总线风暴，这跟Cache一致性协议有关，具体参考：<a href="http://blogs.oracle.com/dave/entry/biased_locking_in_hotspot" target="_blank" rel="external">http://blogs.oracle.com/dave/entry/biased_locking_in_hotspot</a><br><strong>NUMA(Non Uniform Memory Access Achitecture）架构：</strong><br>与SMP对应还有非对称多处理器架构，现在主要应用在一些高端处理器上，主要特点是没有总线，没有公用主存，每个Core有自己的内存，针对这种结构此处不做讨论。  </p>
+<h4 id="偏向解除"><a href="#偏向解除" class="headerlink" title="偏向解除"></a>偏向解除</h4><p>偏向锁引入的一个重要问题是，在多争用的场景下，如果另外一个线程争用偏向对象，拥有者需要释放偏向锁，而释放的过程会带来一些性能开销，但总体说来偏向锁带来的好处还是大于CAS代价的。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>关于锁，JVM中还引入了一些其他技术比如锁膨胀等，这些与自旋锁、偏向锁相比影响不是很大，这里就不做介绍。<br>通过上面的介绍可以看出，synchronized的底层实现主要依靠<code>Lock-Free</code>的队列，基本思路是自旋后阻塞，竞争切换后继续竞争锁，稍微牺牲了公平性，但获得了高吞吐量。</p>
+<h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2><p>前文分析了<code>JVM</code>中的<code>synchronized</code>实现，本文继续分析<code>JVM</code>中的另一种锁<code>Lock</code>的实现。与<code>synchronized</code>不同的是，<code>Lock</code>完全用<code>Java</code>写成，在java这个层面是无关<code>JVM</code>实现的。</p>
+<p>在<code>java.util.concurrent.locks</code>包中有很多<code>Lock</code>的实现类，常用的有<code>ReentrantLock、ReadWriteLock（实现类ReentrantReadWriteLock）</code>，其实现都依赖<code>java.util.concurrent.AbstractQueuedSynchronizer</code>类，实现思路都大同小异，因此我们以<code>ReentrantLock</code>作为讲解切入点。</p>
+<h3 id="ReentrantLock的调用过程"><a href="#ReentrantLock的调用过程" class="headerlink" title="ReentrantLock的调用过程"></a>ReentrantLock的调用过程</h3><p>经过观察ReentrantLock把所有Lock接口的操作都委派到一个Sync类上，该类继承了<code>AbstractQueuedSynchronizer</code>：</p>
+<pre><code>       static abstract class Sync extends AbstractQueuedSynchronizer
+</code></pre><p><code>Sync</code>又有两个子类：</p>
+<pre><code>    final static class NonfairSync extends Sync
+    final static class FairSync extends Sync
+</code></pre><p>显然是为了支持公平锁和非公平锁而定义，默认情况下为非公平锁。</p>
+<p>先理一下<code>Reentrant.lock()</code>方法的调用过程（默认非公平锁）：</p>
+<p> <img src="并发之synchronized与加锁机制/ReentrantLock1.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p>这些讨厌的Template模式导致很难直观的看到整个调用过程，其实通过上面调用过程及<code>AbstractQueuedSynchronizer</code>的注释可以发现，<code>AbstractQueuedSynchronizer</code>中抽象了绝大多数<code>Lock</code>的功能，而只把<code>tryAcquire</code>方法延迟到子类中实现。<code>tryAcquire</code>方法的语义在于用具体子类判断请求线程是否可以获得锁，无论成功与否<code>AbstractQueuedSynchronizer</code>都将处理后面的流程。</p>
+<h3 id="锁实现（加锁）"><a href="#锁实现（加锁）" class="headerlink" title="锁实现（加锁）"></a>锁实现（加锁）</h3><p>简单说来，<code>AbstractQueuedSynchronizer</code>会把所有的请求线程构成一个CLH队列，当一个线程执行完毕（<code>lock.unlock()</code>）时会激活自己的后继节点，但正在执行的线程并不在队列中，而那些等待执行的线程全部处于阻塞状态，经过调查线程的显式阻塞是通过调用<code>LockSupport.park()</code>完成，而<code>LockSupport.park()</code>则调用<code>sun.misc.Unsafe.park()</code>本地方法，再进一步，HotSpot在Linux中中通过调用<code>pthread_mutex_lock</code>函数把线程交给系统内核进行阻塞。</p>
+<p>该队列如图：</p>
+<p> <img src="并发之synchronized与加锁机制/ReentrantLock2.jpg" alt="ReentrantLock" title="ReentrantLock"></p>
+<p>与synchronized相同的是，这也是一个虚拟队列，不存在队列实例，仅存在节点之间的前后关系。令人疑惑的是为什么采用CLH队列呢？原生的CLH队列是用于自旋锁，但Doug Lea把其改造为阻塞锁。</p>
+<p>当有线程竞争锁时，该线程会首先尝试获得锁，这对于那些已经在队列中排队的线程来说显得不公平，这也是非公平锁的由来，与synchronized实现类似，这样会极大提高吞吐量。</p>
+<p>如果已经存在Running线程，则新的竞争线程会被追加到队尾，具体是采用基于CAS的Lock-Free算法，因为线程并发对Tail调用CAS可能会导致其他线程CAS失败，解决办法是循环CAS直至成功。AbstractQueuedSynchronizer的实现非常精巧，令人叹为观止，不入细节难以完全领会其精髓，下面详细说明实现过程：</p>
+<h4 id="Sync-nonfairTryAcquire"><a href="#Sync-nonfairTryAcquire" class="headerlink" title="Sync.nonfairTryAcquire"></a>Sync.nonfairTryAcquire</h4><p><code>nonfairTryAcquire</code>方法将是lock方法间接调用的第一个方法，每次请求锁时都会首先调用该方法。</p>
+<pre><code>    final boolean nonfairTryAcquire(int acquires) {
+        final Thread current = Thread.currentThread();
+        int c = getState();
+        if (c == 0) {
+            if (compareAndSetState(0, acquires)) {
+                setExclusiveOwnerThread(current);
+                return true;
+            }
+        }
+        else if (current == getExclusiveOwnerThread()) {
+            int nextc = c + acquires;
+            if (nextc &lt; 0) // overflow
+                throw new Error(&quot;Maximum lock count exceeded&quot;);
+            setState(nextc);
+            return true;
+        }
+        return false;
+    }
+</code></pre><p>该方法会首先判断当前状态，如果<code>c==0</code>说明没有线程正在竞争该锁，如果不<code>c !=0</code> 说明有线程正拥有了该锁。</p>
+<p>如果发现<code>c==0</code>，则通过CAS设置该状态值为<code>acquires,acquires</code>的初始调用值为1，每次线程重入该锁都会+1，每次unlock都会-1，但为0时释放锁。如果CAS设置成功，则可以预计其他任何线程调用CAS都不会再成功，也就认为当前线程得到了该锁，也作为Running线程，很显然这个<code>Running</code>线程并未进入等待队列。</p>
+<p>如果<code>c !=0</code>但发现自己已经拥有锁，只是简单地<code>++acquires</code>，并修改status值，但因为没有竞争，所以通过setStatus修改，而非CAS，也就是说这段代码实现了偏向锁的功能，并且实现的非常漂亮。</p>
+<h4 id="AbstractQueuedSynchronizer-addWaiter"><a href="#AbstractQueuedSynchronizer-addWaiter" class="headerlink" title="AbstractQueuedSynchronizer.addWaiter"></a>AbstractQueuedSynchronizer.addWaiter</h4><p><code>addWaiter</code>方法负责把当前无法获得锁的线程包装为一个Node添加到队尾：</p>
+<pre><code>private Node addWaiter(Node mode) {
+    Node node = new Node(Thread.currentThread(), mode);
+    // Try the fast path of enq; backup to full enq on failure
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    enq(node);
+    return node;
+}
+</code></pre><p>其中参数mode是独占锁还是共享锁，默认为<code>null</code>，独占锁。追加到队尾的动作分两步：</p>
+<p>如果当前队尾已经存在(<code>tail!=null</code>)，则使用CAS把当前线程更新为Tail<br>如果当前Tail为null或则线程调用CAS设置队尾失败，则通过enq方法继续设置Tail<br>下面是enq方法：</p>
+<pre><code>private Node enq(final Node node) {
+    for (;;) {
+        Node t = tail;
+        if (t == null) { // Must initialize
+            Node h = new Node(); // Dummy header
+            h.next = node;
+            node.prev = h;
+            if (compareAndSetHead(h)) {
+                tail = node;
+                return h;
+            }
+        }
+        else {
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}
+</code></pre><p>该方法就是循环调用CAS，即使有高并发的场景，无限循环将会最终成功把当前线程追加到队尾（或设置队头）。总而言之，addWaiter的目的就是通过CAS把当前现在追加到队尾，并返回包装后的Node实例。</p>
+<p>把线程要包装为Node对象的主要原因，除了用Node构造供虚拟队列外，还用Node包装了各种线程状态，这些状态被精心设计为一些数字值：</p>
+<ul>
+<li>SIGNAL(-1) ：线程的后继线程正/已被阻塞，当该线程release或cancel时要重新这个后继线程(unpark)</li>
+<li>CANCELLED(1)：因为超时或中断，该线程已经被取消</li>
+<li>CONDITION(-2)：表明该线程被处于条件队列，就是因为调用了Condition.await而被阻塞</li>
+<li>PROPAGATE(-3)：传播共享锁</li>
+<li>0：0代表无状态</li>
+</ul>
+<h4 id="AbstractQueuedSynchronizer-acquireQueued"><a href="#AbstractQueuedSynchronizer-acquireQueued" class="headerlink" title="AbstractQueuedSynchronizer.acquireQueued"></a>AbstractQueuedSynchronizer.acquireQueued</h4><p><code>acquireQueued</code>的主要作用是把已经追加到队列的线程节点（addWaiter方法返回值）进行阻塞，但阻塞前又通过tryAccquire重试是否能获得锁，如果重试成功能则无需阻塞，直接返回</p>
+<pre><code>final boolean acquireQueued(final Node node, int arg) {
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            final Node p = node.predecessor();
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                return interrupted;
+            }
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } catch (RuntimeException ex) {
+        cancelAcquire(node);
+        throw ex;
+    }
+}
+</code></pre><p>仔细看看这个方法是个无限循环，感觉如果<code>p == head &amp;&amp; tryAcquire(arg)</code>条件不满足循环将永远无法结束，当然不会出现死循环，奥秘在于第12行的<code>parkAndCheckInterrupt</code>会把当前线程挂起，从而阻塞住线程的调用栈。</p>
+<pre><code>private final boolean parkAndCheckInterrupt() {
+    LockSupport.park(this);
+    return Thread.interrupted();
+}
+</code></pre><p>如前面所述，LockSupport.park最终把线程交给系统（Linux）内核进行阻塞。当然也不是马上把请求不到锁的线程进行阻塞，还要检查该线程的状态，比如如果该线程处于Cancel状态则没有必要，具体的检查在<code>shouldParkAfterFailedAcquire</code>中：</p>
+<pre><code>private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+    int ws = pred.waitStatus;
+    if (ws == Node.SIGNAL)
+        /*
+         * This node has already set status asking a release
+         * to signal it, so it can safely park
+         */
+        return true;
+    if (ws &gt; 0) {
+        /*
+         * Predecessor was cancelled. Skip over predecessors and
+         * indicate retry.
+         */
+    do {
+    node.prev = pred = pred.prev;
+    } while (pred.waitStatus &gt; 0);
+    pred.next = node;
+    } else {
+        /*
+         * waitStatus must be 0 or PROPAGATE. Indicate that we
+         * need a signal, but don&#39;t park yet. Caller will need to
+         * retry to make sure it cannot acquire before parking. 
+         */
+        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    } 
+    return false;
+}
+</code></pre><p>检查原则在于：</p>
+<ul>
+<li>规则1：如果前继的节点状态为SIGNAL，表明当前节点需要unpark，则返回成功，此时acquireQueued方法的第12行（parkAndCheckInterrupt）将导致线程阻塞</li>
+<li>规则2：如果前继节点状态为CANCELLED(ws&gt;0)，说明前置节点已经被放弃，则回溯到一个非取消的前继节点，返回false，acquireQueued方法的无限循环将递归调用该方法，直至规则1返回true，导致线程阻塞</li>
+<li>规则3：如果前继节点状态为非SIGNAL、非CANCELLED，则设置前继的状态为SIGNAL，返回false后进入acquireQueued的无限循环，与规则2同<br>总体看来，<code>shouldParkAfterFailedAcquire</code>就是靠前继节点判断当前线程是否应该被阻塞，如果前继节点处于CANCELLED状态，则顺便删除这些节点重新构造队列。</li>
+</ul>
+<p>至此，锁住线程的逻辑已经完成，下面讨论解锁的过程。</p>
+<h3 id="解锁"><a href="#解锁" class="headerlink" title="解锁"></a>解锁</h3><p>请求锁不成功的线程会被挂起在acquireQueued方法的第12行，12行以后的代码必须等线程被解锁锁才能执行，假如被阻塞的线程得到解锁，则执行第13行，即设置interrupted = true，之后又进入无限循环。</p>
+<p>从无限循环的代码可以看出，并不是得到解锁的线程一定能获得锁，必须在第6行中调用tryAccquire重新竞争，因为锁是非公平的，有可能被新加入的线程获得，从而导致刚被唤醒的线程再次被阻塞，这个细节充分体现了“非公平”的精髓。通过之后将要介绍的解锁机制会看到，第一个被解锁的线程就是Head，因此p == head的判断基本都会成功。</p>
+<p>至此可以看到，把tryAcquire方法延迟到子类中实现的做法非常精妙并具有极强的可扩展性，令人叹为观止！当然精妙的不是这个Templae设计模式，而是Doug Lea对锁结构的精心布局。</p>
+<p>解锁代码相对简单，主要体现在<code>AbstractQueuedSynchronizer.release</code>和<code>Sync.tryRelease</code>方法中：</p>
+<pre><code>      class AbstractQueuedSynchronizer
+        public final boolean release(int arg) {
+            if (tryRelease(arg)) {
+                Node h = head;
+                if (h != null &amp;&amp; h.waitStatus != 0)
+                    unparkSuccessor(h);
+                return true;
+            }
+            return false;
+        }
+</code></pre><p><strong>class Sync</strong></p>
+<pre><code>    protected final boolean tryRelease(int releases) {
+        int c = getState() - releases;
+        if (Thread.currentThread() != getExclusiveOwnerThread())
+            throw new IllegalMonitorStateException();
+        boolean free = false;
+        if (c == 0) {
+            free = true;
+            setExclusiveOwnerThread(null);
+        }
+        setState(c);
+        return free;
+    }
+</code></pre><p><code>tryRelease</code>与<code>tryAcquire</code>语义相同，把如何释放的逻辑延迟到子类中。<code>tryRelease</code>语义很明确：如果线程多次锁定，则进行多次释放，直至status==0则真正释放锁，所谓释放锁即设置status为0，因为无竞争所以没有使用CAS。</p>
+<p>release的语义在于：如果可以释放锁，则唤醒队列第一个线程（Head），具体唤醒代码如下：</p>
+<pre><code>private void unparkSuccessor(Node node) {
+    /*
+     * If status is negative (i.e., possibly needing signal) try
+     * to clear in anticipation of signalling. It is OK if this
+     * fails or if status is changed by waiting thread.
+     */
+    int ws = node.waitStatus;
+    if (ws &lt; 0)
+        compareAndSetWaitStatus(node, ws, 0); 
+
+    /*
+     * Thread to unpark is held in successor, which is normally
+     * just the next node.  But if cancelled or apparently null,
+     * traverse backwards from tail to find the actual
+     * non-cancelled successor.
+     */
+    Node s = node.next;
+    if (s == null || s.waitStatus &gt; 0) {
+        s = null;
+        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)
+            if (t.waitStatus &lt;= 0)
+                s = t;
+    }
+    if (s != null)
+        LockSupport.unpark(s.thread);
+}
+</code></pre><p>这段代码的意思在于找出第一个可以unpark的线程，一般说来head.next == head，Head就是第一个线程，但Head.next可能被取消或被置为null，因此比较稳妥的办法是从后往前找第一个可用线程。貌似回溯会导致性能降低，其实这个发生的几率很小，所以不会有性能影响。之后便是通知系统内核继续该线程，在Linux下是通过pthread_mutex_unlock完成。之后，被解锁的线程进入上面所说的重新竞争状态。</p>
+<h3 id="Lock-amp-Synchronized"><a href="#Lock-amp-Synchronized" class="headerlink" title="Lock &amp; Synchronized"></a>Lock &amp; Synchronized</h3><p><code>AbstractQueuedSynchronizer</code>通过构造一个基于阻塞的CLH队列容纳所有的阻塞线程，而对该队列的操作均通过<code>Lock-Free（CAS）</code>操作，但对已经获得锁的线程而言，<code>ReentrantLock</code>实现了偏向锁的功能。</p>
+<p><code>synchronized</code>的底层也是一个基于CAS操作的等待队列，但JVM实现的更精细，把等待队列分为<code>ContentionList</code>和<code>EntryList</code>，目的是为了降低线程的出列速度；当然也实现了偏向锁，从数据结构来说二者设计没有本质区别。但synchronized还实现了自旋锁，并针对不同的系统和硬件体系进行了优化，而Lock则完全依靠系统阻塞挂起等待线程。</p>
+<p>当然<code>Lock</code>比<code>synchronized</code>更适合在应用层扩展，可以继承AbstractQueuedSynchronizer定义各种实现，比如实现读写锁（<code>ReadWriteLock</code>），公平或不公平锁；同时，Lock对应的Condition调用<code>await()</code>、<code>signal()</code>、<code>signAll()</code>这几个方法比<code>notify()</code>、<code>wait()</code>、<code>notifyAll()</code>要方便的多、灵活的多。</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年12月17日 - 18时00分</p>
+        <p><span>最后更新:</span>2017年12月17日 - 18时00分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/12/17/并发编程之synchronized与加锁机制/" title="并发编程之synchronized与加锁机制">http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/12/17/并发编程之synchronized与加锁机制/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/12/jdk8💗特性/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jdk8💗特性</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#synchronized-与-Lock"><span class="toc-number">1.</span> <span class="toc-text">synchronized 与 Lock</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized"><span class="toc-number">1.1.</span> <span class="toc-text">synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#线程状态及状态转换"><span class="toc-number">1.1.1.</span> <span class="toc-text">线程状态及状态转换</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ContentionList虚拟队列"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">ContentionList虚拟队列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EntryList"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">EntryList</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自旋锁"><span class="toc-number">1.1.2.</span> <span class="toc-text">自旋锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#偏向锁"><span class="toc-number">1.1.3.</span> <span class="toc-text">偏向锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CAS及SMP架构"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">CAS及SMP架构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#偏向解除"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">偏向解除</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">1.1.4.</span> <span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Lock"><span class="toc-number">1.2.</span> <span class="toc-text">Lock</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ReentrantLock的调用过程"><span class="toc-number">1.2.1.</span> <span class="toc-text">ReentrantLock的调用过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#锁实现（加锁）"><span class="toc-number">1.2.2.</span> <span class="toc-text">锁实现（加锁）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Sync-nonfairTryAcquire"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">Sync.nonfairTryAcquire</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AbstractQueuedSynchronizer-addWaiter"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">AbstractQueuedSynchronizer.addWaiter</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AbstractQueuedSynchronizer-acquireQueued"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">AbstractQueuedSynchronizer.acquireQueued</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解锁"><span class="toc-number">1.2.3.</span> <span class="toc-text">解锁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lock-amp-Synchronized"><span class="toc-number">1.2.4.</span> <span class="toc-text">Lock & Synchronized</span></a></li></ol></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/12/12/jdk8💗特性/" title="下一篇: jdk8💗特性">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

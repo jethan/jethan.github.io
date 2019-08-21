@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>java常见排序算法 | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言日常操作中常见的排序方法有：冒泡排序、快速排序、选择排序、插入排序、希尔排序，甚至还有基数排序、鸡尾酒排序、桶排序、鸽巢排序、归并排序等。 冒泡排序一种简单的排序算法。它重复地走访过要排序的数列，依次比较相邻的两个元素，通过一次比较把未排序序列中最大（或最小）的元素放置在未排序序列的末尾，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序">
+<meta name="keywords" content="sort,冒泡,快速,选择,插入,希尔,二分">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java常见排序算法">
+<meta property="og:url" content="http://jethan.bid/2017/05/30/java常见排序算法/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="前言日常操作中常见的排序方法有：冒泡排序、快速排序、选择排序、插入排序、希尔排序，甚至还有基数排序、鸡尾酒排序、桶排序、鸽巢排序、归并排序等。 冒泡排序一种简单的排序算法。它重复地走访过要排序的数列，依次比较相邻的两个元素，通过一次比较把未排序序列中最大（或最小）的元素放置在未排序序列的末尾，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+<meta property="og:updated_time" content="2017-05-30T04:31:37.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java常见排序算法">
+<meta name="twitter:description" content="前言日常操作中常见的排序方法有：冒泡排序、快速排序、选择排序、插入排序、希尔排序，甚至还有基数排序、鸡尾酒排序、桶排序、鸽巢排序、归并排序等。 冒泡排序一种简单的排序算法。它重复地走访过要排序的数列，依次比较相邻的两个元素，通过一次比较把未排序序列中最大（或最小）的元素放置在未排序序列的末尾，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-java常见排序算法" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/30/java常见排序算法/" class="article-date">
+      <time datetime="2017-05-30T04:31:37.000Z" itemprop="datePublished">2017-05-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java常见排序算法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分/">二分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/希尔/">希尔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速/">快速</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插入/">插入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/选择/">选择</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>日常操作中常见的排序方法有：冒泡排序、快速排序、选择排序、插入排序、希尔排序，甚至还有基数排序、鸡尾酒排序、桶排序、鸽巢排序、归并排序等。</p>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>一种简单的排序算法。它重复地走访过要排序的数列，依次比较相邻的两个元素，通过一次比较把未排序序列中最大（或最小）的元素放置在未排序序列的末尾，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**  </div><div class="line"> * 冒泡法排序&lt;br/&gt;  </div><div class="line"></div><div class="line"> * &lt;li&gt;比较相邻的元素。如果第一个比第二个大，就交换他们两个。&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;对每一对相邻元素做同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;针对所有的元素重复以上的步骤，除了最后一个。&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;持续每次对越来越少的元素重复上面的步骤，直到没有任何一对数字需要比较。&lt;/li&gt;  </div><div class="line"></div><div class="line"> *   </div><div class="line"> * @param numbers  </div><div class="line"> *            需要排序的整型数组  </div><div class="line"> */  </div><div class="line">public static void bubbleSort(int[] numbers) &#123;   </div><div class="line">    int temp; // 记录临时中间值   </div><div class="line">    int size = numbers.length; // 数组大小   </div><div class="line">    for (int i = 0; i &lt; size - 1; i++) &#123;   </div><div class="line">        for (int j = i + 1; j &lt; size; j++) &#123;   </div><div class="line">            if (numbers[i] &lt; numbers[j]) &#123; // 交换两数的位置   </div><div class="line">                temp = numbers[i];   </div><div class="line">                numbers[i] = numbers[j];   </div><div class="line">                numbers[j] = temp;   </div><div class="line">            &#125;   </div><div class="line">        &#125;   </div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>方式2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">public class BubbleSort &#123;  </div><div class="line">    public static void sort(int data[]) &#123;  </div><div class="line">        for (int i = 0; i &lt; data.length -1; i++) &#123;  </div><div class="line">            for (int j = 0; j &lt; data.length - i - 1; j++) &#123;  </div><div class="line">                if (data[j] &gt; data[j + 1]) &#123;  </div><div class="line">                    int temp = data[j];  </div><div class="line">                    data[j] = data[j + 1];  </div><div class="line">                    data[j + 1] = temp;  </div><div class="line">                &#125;  </div><div class="line">  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><p>使用分治法策略通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">/**  </div><div class="line"> * 快速排序&lt;br/&gt;  </div><div class="line"> * &lt;ul&gt;  </div><div class="line"> * &lt;li&gt;从数列中挑出一个元素，称为“基准”&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;重新排序数列，所有元素比基准值小的摆放在基准前面，所有元素比基准值大的摆在基准的后面（相同的数可以到任一边）。在这个分割之后，  </div><div class="line"> * 该基准是它的最后位置。这个称为分割（partition）操作。&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;递归地把小于基准值元素的子数列和大于基准值元素的子数列排序。&lt;/li&gt;  </div><div class="line"> * &lt;/ul&gt;  </div><div class="line"> *   </div><div class="line"> * @param numbers  </div><div class="line"> * @param start  </div><div class="line"> * @param end  </div><div class="line"> */  </div><div class="line">public static void quickSort(int[] numbers, int start, int end) &#123;   </div><div class="line">    if (start &lt; end) &#123;   </div><div class="line">        int base = numbers[start]; // 选定的基准值（第一个数值作为基准值）   </div><div class="line">        int temp; // 记录临时中间值   </div><div class="line">        int i = start, j = end;   </div><div class="line">        do &#123;   </div><div class="line">            while ((numbers[i] &lt; base) &amp;&amp; (i &lt; end))   </div><div class="line">                i++;   </div><div class="line">            while ((numbers[j] &gt; base) &amp;&amp; (j &gt; start))   </div><div class="line">                j--;   </div><div class="line">            if (i &lt;= j) &#123;   </div><div class="line">                temp = numbers[i];   </div><div class="line">                numbers[i] = numbers[j];   </div><div class="line">                numbers[j] = temp;   </div><div class="line">                i++;   </div><div class="line">                j--;   </div><div class="line">            &#125;   </div><div class="line">        &#125; while (i &lt;= j);   </div><div class="line">        if (start &lt; j)   </div><div class="line">            quickSort(numbers, start, j);   </div><div class="line">        if (end &gt; i)   </div><div class="line">            quickSort(numbers, i, end);   </div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">public class QuickSort &#123;  </div><div class="line">    public static void sort(int data[], int start, int end) &#123;  </div><div class="line">        if (end - start &lt;= 0) &#123;  </div><div class="line">            return;  </div><div class="line">        &#125;  </div><div class="line">        int last = start;  </div><div class="line">        for (int i = start + 1; i &lt;= end; i++) &#123;  </div><div class="line">            if (data[i] &lt; data[start]) &#123;  </div><div class="line">                int temp = data[++last];  </div><div class="line">                data[last] = data[i];  </div><div class="line">                data[i] = temp;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">        int temp = data[last];  </div><div class="line">        data[last] = data[start];  </div><div class="line">        data[start] = temp;  </div><div class="line">        sort(data, start, last - 1);  </div><div class="line">        sort(data, last + 1, end);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><p>每一次从待排序的数据元素中选出最小（或最大）的一个元素，顺序放在已排好序的数列的最后，直到全部待排序的数据元素排完。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">/**  </div><div class="line"> * 选择排序&lt;br/&gt;  </div><div class="line"> * &lt;li&gt;在未排序序列中找到最小元素，存放到排序序列的起始位置&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;再从剩余未排序元素中继续寻找最小元素，然后放到排序序列末尾。&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;以此类推，直到所有元素均排序完毕。&lt;/li&gt;  </div><div class="line"></div><div class="line"> *   </div><div class="line"> * @param numbers  </div><div class="line"> */  </div><div class="line">public static void selectSort(int[] numbers) &#123;   </div><div class="line">    int size = numbers.length, temp;   </div><div class="line">    for (int i = 0; i &lt; size; i++) &#123;   </div><div class="line">        int k = i;   </div><div class="line">        for (int j = size - 1; j &gt;i; j--)  &#123;   </div><div class="line">            if (numbers[j] &lt; numbers[k])  k = j;   </div><div class="line">        &#125;   </div><div class="line">        temp = numbers[i];   </div><div class="line">        numbers[i] = numbers[k];   </div><div class="line">        numbers[k] = temp;   </div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方式2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">public class SelectionSort &#123;  </div><div class="line">    public static void sort(int data[]) &#123;  </div><div class="line">        int minVal;  </div><div class="line">        int minIndex;  </div><div class="line">        for (int i = 0; i &lt; data.length - 1; i++) &#123;  </div><div class="line">            minVal = data[i];  </div><div class="line">            minIndex = i;  </div><div class="line">            for (int j = i + 1; j &lt; data.length; j++) &#123;  </div><div class="line">                if (data[j] &lt; minVal) &#123;  </div><div class="line">                    minVal = data[j];  </div><div class="line">                    minIndex = j;  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">            if (minVal != data[i] &amp;&amp; minIndex != i) &#123;  </div><div class="line">                data[minIndex] = data[i];  </div><div class="line">                data[i] = minVal;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><p>将数列分为有序和无序两个部分，每次处理就是将无序数列的第一个元素与有序数列的元素从后往前逐个进行比较，找出插入位置，将该元素插入到有序数列的合适位置中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">/**  </div><div class="line"> * 插入排序&lt;br/&gt;  </div><div class="line"> * &lt;ul&gt;  </div><div class="line"> * &lt;li&gt;从第一个元素开始，该元素可以认为已经被排序&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;取出下一个元素，在已经排序的元素序列中从后向前扫描&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;如果该元素（已排序）大于新元素，将该元素移到下一位置&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;重复步骤3，直到找到已排序的元素小于或者等于新元素的位置&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;将新元素插入到该位置中&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;重复步骤2&lt;/li&gt;  </div><div class="line"> * &lt;/ul&gt;  </div><div class="line"> *   </div><div class="line"> * @param numbers  </div><div class="line"> */  </div><div class="line">public static void insertSort(int[] numbers) &#123;   </div><div class="line">    int size = numbers.length, temp, j;   </div><div class="line">    for(int i=1; i&lt;size; i++) &#123;   </div><div class="line">        temp = numbers[i];   </div><div class="line">        for(j = i; j &gt; 0 &amp;&amp; temp &lt; numbers[j-1]; j--)   </div><div class="line">            numbers[j] = numbers[j-1];   </div><div class="line">        numbers[j] = temp;   </div><div class="line">    &#125;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方式2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public class InsertionSort &#123;  </div><div class="line">    public static void sort(int data[]) &#123;  </div><div class="line">        for (int i = 1; i &lt; data.length; i++) &#123;  </div><div class="line">            for (int j = i; j &gt; 0; j--) &#123;  </div><div class="line">                if (data[j] &lt; data[j - 1]) &#123;  </div><div class="line">                    int temp = data[j];  </div><div class="line">                    data[j] = data[j - 1];  </div><div class="line">                    data[j - 1] = temp;  </div><div class="line">                &#125;  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h3><p>将两个（或两个以上）有序表合并成一个新的有序表，即把待排序序列分为若干个子序列，每个子序列是有序的。然后再把有序子序列合并为整体有序序列。排序过程如下：<br>（1）申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列<br>（2）设定两个指针，最初位置分别为两个已经排序序列的起始位置<br>（3）比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置<br>（4）重复步骤3直到某一指针达到序列尾<br>（5）将另一序列剩下的所有元素直接复制到合并序列尾</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">/**  </div><div class="line"> * 归并排序&lt;br/&gt;  </div><div class="line"> * &lt;ul&gt;  </div><div class="line"> * &lt;li&gt;申请空间，使其大小为两个已经排序序列之和，该空间用来存放合并后的序列&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;设定两个指针，最初位置分别为两个已经排序序列的起始位置&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;重复步骤3直到某一指针达到序列尾&lt;/li&gt;  </div><div class="line"> * &lt;li&gt;将另一序列剩下的所有元素直接复制到合并序列尾&lt;/li&gt;  </div><div class="line"> * &lt;/ul&gt;  </div><div class="line"> *   </div><div class="line"> * @param numbers  </div><div class="line"> */  </div><div class="line">public static void mergeSort(int[] numbers, int left, int right) &#123;   </div><div class="line">    int t = 1;// 每组元素个数   </div><div class="line">    int size = right - left + 1;   </div><div class="line">    while (t &lt; size) &#123;   </div><div class="line">        int s = t;// 本次循环每组元素个数   </div><div class="line">        t = 2 * s;   </div><div class="line">        int i = left;   </div><div class="line">        while (i + (t - 1) &lt; size) &#123;   </div><div class="line">            merge(numbers, i, i + (s - 1), i + (t - 1));   </div><div class="line">            i += t;   </div><div class="line">        &#125;   </div><div class="line">        if (i + (s - 1) &lt; right)   </div><div class="line">            merge(numbers, i, i + (s - 1), right);   </div><div class="line">    &#125;   </div><div class="line">&#125;   </div><div class="line">/**  </div><div class="line"> * 归并算法实现  </div><div class="line"> *   </div><div class="line"> * @param data  </div><div class="line"> * @param p  </div><div class="line"> * @param q  </div><div class="line"> * @param r  </div><div class="line"> */  </div><div class="line">private static void merge(int[] data, int p, int q, int r) &#123;   </div><div class="line">    int[] B = new int[data.length];   </div><div class="line">    int s = p;   </div><div class="line">    int t = q + 1;   </div><div class="line">    int k = p;   </div><div class="line">    while (s &lt;= q &amp;&amp; t &lt;= r) &#123;   </div><div class="line">        if (data[s] &lt;= data[t]) &#123;   </div><div class="line">            B[k] = data[s];   </div><div class="line">            s++;   </div><div class="line">        &#125; else &#123;   </div><div class="line">            B[k] = data[t];   </div><div class="line">            t++;   </div><div class="line">        &#125;   </div><div class="line">        k++;   </div><div class="line">    &#125;   </div><div class="line">    if (s == q + 1)   </div><div class="line">        B[k++] = data[t++];   </div><div class="line">    else  </div><div class="line">        B[k++] = data[s++];   </div><div class="line">    for (int i = p; i &lt;= r; i++)   </div><div class="line">        data[i] = B[i];   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">public class MergeSort &#123;  </div><div class="line">    public static void sort(int data[], int start, int end) &#123;  </div><div class="line">        if (start &lt; end) &#123;  </div><div class="line">            int mid = (start + end) / 2;  </div><div class="line">            sort(data, start, mid);  </div><div class="line">            sort(data, mid + 1, end);  </div><div class="line">            merge(data, start, mid, end);  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    public static void merge(int data[], int start, int mid, int end) &#123;  </div><div class="line">        int temp[] = new int[end - start + 1];  </div><div class="line">        int i = start;  </div><div class="line">        int j = mid + 1;  </div><div class="line">        int k = 0;  </div><div class="line">        while (i &lt;= mid &amp;&amp; j &lt;= end) &#123;  </div><div class="line">            if (data[i] &lt; data[j]) &#123;  </div><div class="line">                temp[k++] = data[i++];  </div><div class="line">            &#125; else &#123;  </div><div class="line">                temp[k++] = data[j++];  </div><div class="line">            &#125;  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        while (i &lt;= mid) &#123;  </div><div class="line">            temp[k++] = data[i++];  </div><div class="line">        &#125;  </div><div class="line">        while (j &lt;= end) &#123;  </div><div class="line">            temp[k++] = data[j++];  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        for (k = 0, i = start; k &lt; temp.length; k++, i++) &#123;  </div><div class="line">            data[i] = temp[k];  </div><div class="line">        &#125;  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="二分查找-折半查找"><a href="#二分查找-折半查找" class="headerlink" title="二分查找/折半查找"></a>二分查找/折半查找</h3><p>有序的序列，每次都是以序列的中间位置的数来与待查找的关键字进行比较，每次缩小一半的查找范围，直到匹配成功</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">	 * 使用递归的二分查找</div><div class="line">	 *title:recursionBinarySearch</div><div class="line">	 *@param arr 有序数组</div><div class="line">	 *@param key 待查找关键字</div><div class="line">	 *@return 找到的位置</div><div class="line">	 */</div><div class="line">	public static int recursionBinarySearch(int[] arr,int key,int low,int high)&#123;</div><div class="line">		</div><div class="line">		if(key &lt; arr[low] || key &gt; arr[high] || low &gt; high)&#123;</div><div class="line">			return -1;				</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		int middle = (low + high) / 2;			//初始中间位置</div><div class="line">		if(arr[middle] &gt; key)&#123;</div><div class="line">			//比关键字大则关键字在左区域</div><div class="line">			return recursionBinarySearch(arr, key, low, middle - 1);</div><div class="line">		&#125;else if(arr[middle] &lt; key)&#123;</div><div class="line">			//比关键字小则关键字在右区域</div><div class="line">			return recursionBinarySearch(arr, key, middle + 1, high);</div><div class="line">		&#125;else &#123;</div><div class="line">			return middle;</div><div class="line">		&#125;	</div><div class="line">		</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">	 * 使用while查找</div><div class="line">	 *title:commonBinarySearch</div><div class="line">	 *@param arr</div><div class="line">	 *@param key</div><div class="line">	 *@return 关键字位置</div><div class="line">	 */</div><div class="line">	public static int commonBinarySearch(int[] arr,int key)&#123;</div><div class="line">		int low = 0;</div><div class="line">		int high = arr.length - 1;</div><div class="line">		int middle = 0;			//定义middle</div><div class="line">		</div><div class="line">		if(key &lt; arr[low] || key &gt; arr[high] || low &gt; high)&#123;</div><div class="line">			return -1;				</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		while(low &lt;= high)&#123;</div><div class="line">			middle = (low + high) / 2;</div><div class="line">			if(arr[middle] &gt; key)&#123;</div><div class="line">				//比关键字大则关键字在左区域</div><div class="line">				high = middle - 1;</div><div class="line">			&#125;else if(arr[middle] &lt; key)&#123;</div><div class="line">				//比关键字小则关键字在右区域</div><div class="line">				low = middle + 1;</div><div class="line">			&#125;else&#123;</div><div class="line">				return middle;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		</div><div class="line">		return -1;		//最后仍然没有找到，则返回-1</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<h3 id="所有排序算法整理成NumberSort类"><a href="#所有排序算法整理成NumberSort类" class="headerlink" title="所有排序算法整理成NumberSort类"></a>所有排序算法整理成NumberSort类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div></pre></td><td class="code"><pre><div class="line">import java.util.Random;   </div><div class="line">//Java实现的排序类  </div><div class="line">public class NumberSort &#123;   </div><div class="line">    //私有构造方法，禁止实例化  </div><div class="line">    private NumberSort() &#123;   </div><div class="line">        super();   </div><div class="line">    &#125;    </div><div class="line">    //冒泡法排序 </div><div class="line">    public static void bubbleSort(int[] numbers) &#123;   </div><div class="line">        int temp; // 记录临时中间值   </div><div class="line">        int size = numbers.length; // 数组大小   </div><div class="line">        for (int i = 0; i &lt; size - 1; i++) &#123;   </div><div class="line">            for (int j = i + 1; j &lt; size; j++) &#123;   </div><div class="line">                if (numbers[i] &lt; numbers[j]) &#123; // 交换两数的位置   </div><div class="line">                    temp = numbers[i];   </div><div class="line">                    numbers[i] = numbers[j];   </div><div class="line">                    numbers[j] = temp;   </div><div class="line">                &#125;   </div><div class="line">            &#125;   </div><div class="line">        &#125;   </div><div class="line">    &#125;   </div><div class="line">    //快速排序</div><div class="line">    public static void quickSort(int[] numbers, int start, int end) &#123;   </div><div class="line">        if (start &lt; end) &#123;   </div><div class="line">            int base = numbers[start]; // 选定的基准值（第一个数值作为基准值）   </div><div class="line">            int temp; // 记录临时中间值   </div><div class="line">            int i = start, j = end;   </div><div class="line">            do &#123;   </div><div class="line">                while ((numbers[i] &lt; base) &amp;&amp; (i &lt; end))   </div><div class="line">                    i++;   </div><div class="line">                while ((numbers[j] &gt; base) &amp;&amp; (j &gt; start))   </div><div class="line">                    j--;   </div><div class="line">                if (i &lt;= j) &#123;   </div><div class="line">                    temp = numbers[i];   </div><div class="line">                    numbers[i] = numbers[j];   </div><div class="line">                    numbers[j] = temp;   </div><div class="line">                    i++;   </div><div class="line">                    j--;   </div><div class="line">                &#125;   </div><div class="line">            &#125; while (i &lt;= j);   </div><div class="line">            if (start &lt; j)   </div><div class="line">                quickSort(numbers, start, j);   </div><div class="line">            if (end &gt; i)   </div><div class="line">                quickSort(numbers, i, end);   </div><div class="line">        &#125;   </div><div class="line">    &#125;   </div><div class="line">    //选择排序 </div><div class="line">    public static void selectSort(int[] numbers) &#123;   </div><div class="line">        int size = numbers.length, temp;   </div><div class="line">        for (int i = 0; i &lt; size; i++) &#123;   </div><div class="line">            int k = i;   </div><div class="line">            for (int j = size - 1; j &gt; i; j--) &#123;   </div><div class="line">                if (numbers[j] &lt; numbers[k])   </div><div class="line">                    k = j;   </div><div class="line">            &#125;   </div><div class="line">            temp = numbers[i];   </div><div class="line">            numbers[i] = numbers[k];   </div><div class="line">            numbers[k] = temp;   </div><div class="line">        &#125;   </div><div class="line">    &#125;   </div><div class="line">    //插入排序    </div><div class="line">    // @param numbers  </div><div class="line">    public static void insertSort(int[] numbers) &#123;   </div><div class="line">        int size = numbers.length, temp, j;   </div><div class="line">        for (int i = 1; i &lt; size; i++) &#123;   </div><div class="line">            temp = numbers[i];   </div><div class="line">            for (j = i; j &gt; 0 &amp;&amp; temp &lt; numbers[j - 1]; j--)   </div><div class="line">                numbers[j] = numbers[j - 1];   </div><div class="line">            numbers[j] = temp;   </div><div class="line">        &#125;   </div><div class="line">    &#125;   </div><div class="line">    //归并排序  </div><div class="line">    public static void mergeSort(int[] numbers, int left, int right) &#123;   </div><div class="line">        int t = 1;// 每组元素个数   </div><div class="line">        int size = right - left + 1;   </div><div class="line">        while (t &lt; size) &#123;   </div><div class="line">            int s = t;// 本次循环每组元素个数   </div><div class="line">            t = 2 * s;   </div><div class="line">            int i = left;   </div><div class="line">            while (i + (t - 1) &lt; size) &#123;   </div><div class="line">                merge(numbers, i, i + (s - 1), i + (t - 1));   </div><div class="line">                i += t;   </div><div class="line">            &#125;   </div><div class="line">            if (i + (s - 1) &lt; right)   </div><div class="line">                merge(numbers, i, i + (s - 1), right);   </div><div class="line">        &#125;   </div><div class="line">    &#125;    </div><div class="line">    //归并算法实现  </div><div class="line">    private static void merge(int[] data, int p, int q, int r) &#123;   </div><div class="line">        int[] B = new int[data.length];   </div><div class="line">        int s = p;   </div><div class="line">        int t = q + 1;   </div><div class="line">        int k = p;   </div><div class="line">        while (s &lt;= q &amp;&amp; t &lt;= r) &#123;   </div><div class="line">            if (data[s] &lt;= data[t]) &#123;   </div><div class="line">                B[k] = data[s];   </div><div class="line">                s++;   </div><div class="line">            &#125; else &#123;   </div><div class="line">                B[k] = data[t];   </div><div class="line">                t++;   </div><div class="line">            &#125;   </div><div class="line">            k++;   </div><div class="line">        &#125;   </div><div class="line">        if (s == q + 1)   </div><div class="line">            B[k++] = data[t++];   </div><div class="line">        else  </div><div class="line">            B[k++] = data[s++];   </div><div class="line">        for (int i = p; i &lt;= r; i++)   </div><div class="line">            data[i] = B[i];   </div><div class="line">    &#125;   </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/sevenyuan/archive/2009/12/04/1616897.html" target="_blank" rel="external">参考链接1</a><br><a href="http://blog.csdn.net/ygc87/article/details/7208082" target="_blank" rel="external">参考链接2</a></p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/05/30/java常见排序算法/">java常见排序算法</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年05月30日 - 12时31分</p>
+        <p><span>最后更新:</span>2017年05月30日 - 12时31分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/30/java常见排序算法/" title="java常见排序算法">http://jethan.bid/2017/05/30/java常见排序算法/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/05/30/java常见排序算法/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/05/30/Markdown-语法说明/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Markdown-语法说明
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/29/mysql索引及查询优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">mysql索引及查询优化</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#冒泡排序"><span class="toc-number">1.1.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#快速排序"><span class="toc-number">1.2.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择排序"><span class="toc-number">1.3.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入排序"><span class="toc-number">1.4.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#归并排序"><span class="toc-number">1.5.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二分查找-折半查找"><span class="toc-number">1.6.</span> <span class="toc-text">二分查找/折半查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#所有排序算法整理成NumberSort类"><span class="toc-number">1.7.</span> <span class="toc-text">所有排序算法整理成NumberSort类</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/05/30/Markdown-语法说明/" title="上一篇: Markdown-语法说明">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/05/29/mysql索引及查询优化/" title="下一篇: mysql索引及查询优化">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

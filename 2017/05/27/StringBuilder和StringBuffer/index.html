@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>StringBuilder和StringBuffer | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是不可变类，任何对String的改变都 会引发新的String对象的生成；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行append时，一般都会选择StringB">
+<meta name="keywords" content="String,StringBuffer,StringBuilder">
+<meta property="og:type" content="article">
+<meta property="og:title" content="StringBuilder和StringBuffer">
+<meta property="og:url" content="http://jethan.bid/2017/05/27/StringBuilder和StringBuffer/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="前言StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是不可变类，任何对String的改变都 会引发新的String对象的生成；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行append时，一般都会选择StringB">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+<meta property="og:updated_time" content="2017-05-27T08:49:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StringBuilder和StringBuffer">
+<meta name="twitter:description" content="前言StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是不可变类，任何对String的改变都 会引发新的String对象的生成；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行append时，一般都会选择StringB">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-StringBuilder和StringBuffer" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/27/StringBuilder和StringBuffer/" class="article-date">
+      <time datetime="2017-05-27T08:49:05.000Z" itemprop="datePublished">2017-05-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      StringBuilder和StringBuffer
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StringBuffer/">StringBuffer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StringBuilder/">StringBuilder</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是<font color="#e07878">不可变类</font>，任何对String的改变都 会引发<font color="#e07878">新的String对象的生成</font>；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行<code>append</code>时，一般都会选择StringBuffer吧！<br>先说一下集合的故事，HashTable是线程安全的，很多方法都是synchronized方法，而HashMap不是线程安全的，但其在单线程程序中的性能比HashTable要高。<br>StringBuffer和StringBuilder类的区别也是如此，他们的原理和操作基本相同，区别在于StringBufferd<font color="#e07878">支持并发操作，线性安全的</font>，适合多线程中使用。StringBuilder不支持并发操作，线性不安全的，不适合多线程中使用。新引入的StringBuilder类不是线程安全的，但其在单线程中的性能比StringBuffer高。</p>
+<p><strong>String 字符串常量<br>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全）</strong></p>
+<p>一般情况向性能比较：<br>String &lt; StringBuffer &lt; StringBuilder<br><a id="more"></a></p>
+<h2 id="比较"><a href="#比较" class="headerlink" title="比较"></a>比较</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">public class StringTest &#123;  </div><div class="line">  </div><div class="line">    public static String BASEINFO = &quot;Mr.Y&quot;;  </div><div class="line">    public static final int COUNT = 2000000;  </div><div class="line">  </div><div class="line">    /** </div><div class="line">     * 执行一项String赋值测试 </div><div class="line">     */  </div><div class="line">    public static void doStringTest() &#123;  </div><div class="line">  </div><div class="line">        String str = new String(BASEINFO);  </div><div class="line">        long starttime = System.currentTimeMillis();  </div><div class="line">        for (int i = 0; i &lt; COUNT / 100; i++) &#123;  </div><div class="line">            str = str + &quot;miss&quot;;  </div><div class="line">        &#125;  </div><div class="line">        long endtime = System.currentTimeMillis();  </div><div class="line">        System.out.println((endtime - starttime)  </div><div class="line">                + &quot; millis has costed when used String.&quot;);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    /** </div><div class="line">     * 执行一项StringBuffer赋值测试 </div><div class="line">     */  </div><div class="line">    public static void doStringBufferTest() &#123;  </div><div class="line">  </div><div class="line">        StringBuffer sb = new StringBuffer(BASEINFO);  </div><div class="line">        long starttime = System.currentTimeMillis();  </div><div class="line">        for (int i = 0; i &lt; COUNT; i++) &#123;  </div><div class="line">            sb = sb.append(&quot;miss&quot;);  </div><div class="line">        &#125;  </div><div class="line">        long endtime = System.currentTimeMillis();  </div><div class="line">        System.out.println((endtime - starttime)  </div><div class="line">                + &quot; millis has costed when used StringBuffer.&quot;);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    /** </div><div class="line">     * 执行一项StringBuilder赋值测试 </div><div class="line">     */  </div><div class="line">    public static void doStringBuilderTest() &#123;  </div><div class="line">  </div><div class="line">        StringBuilder sb = new StringBuilder(BASEINFO);  </div><div class="line">        long starttime = System.currentTimeMillis();  </div><div class="line">        for (int i = 0; i &lt; COUNT; i++) &#123;  </div><div class="line">            sb = sb.append(&quot;miss&quot;);  </div><div class="line">        &#125;  </div><div class="line">        long endtime = System.currentTimeMillis();  </div><div class="line">        System.out.println((endtime - starttime)  </div><div class="line">                + &quot; millis has costed when used StringBuilder.&quot;);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    /** </div><div class="line">     * 测试StringBuffer遍历赋值结果 </div><div class="line">     *  </div><div class="line">     * @param mlist </div><div class="line">     */  </div><div class="line">    public static void doStringBufferListTest(List&lt;String&gt; mlist) &#123;  </div><div class="line">        StringBuffer sb = new StringBuffer();  </div><div class="line">        long starttime = System.currentTimeMillis();  </div><div class="line">        for (String string : mlist) &#123;  </div><div class="line">            sb.append(string);  </div><div class="line">        &#125;  </div><div class="line">        long endtime = System.currentTimeMillis();  </div><div class="line">        System.out.println(sb.toString() + &quot;buffer cost:&quot;  </div><div class="line">                + (endtime - starttime) + &quot; millis&quot;);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    /** </div><div class="line">     * 测试StringBuilder迭代赋值结果 </div><div class="line">     *  </div><div class="line">     * @param mlist </div><div class="line">     */  </div><div class="line">    public static void doStringBuilderListTest(List&lt;String&gt; mlist) &#123;  </div><div class="line">        StringBuilder sb = new StringBuilder();  </div><div class="line">        long starttime = System.currentTimeMillis();  </div><div class="line">        for (Iterator&lt;String&gt; iterator = mlist.iterator(); iterator.hasNext();) &#123;  </div><div class="line">            sb.append(iterator.next());  </div><div class="line">        &#125;  </div><div class="line">  </div><div class="line">        long endtime = System.currentTimeMillis();  </div><div class="line">        System.out.println(sb.toString() + &quot;builder cost:&quot;  </div><div class="line">                + (endtime - starttime) + &quot; millis&quot;);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">    public static void main(String[] args) &#123;  </div><div class="line">        doStringTest();  </div><div class="line">        doStringBufferTest();  </div><div class="line">        doStringBuilderTest();  </div><div class="line">  </div><div class="line">        List&lt;String&gt; list = new ArrayList&lt;String&gt;();  </div><div class="line">        list.add(&quot; I &quot;);  </div><div class="line">        list.add(&quot; like &quot;);  </div><div class="line">        list.add(&quot; BeiJing &quot;);  </div><div class="line">        list.add(&quot; tian &quot;);  </div><div class="line">        list.add(&quot; an &quot;);  </div><div class="line">        list.add(&quot; men &quot;);  </div><div class="line">        list.add(&quot; . &quot;);  </div><div class="line">  </div><div class="line">        doStringBufferListTest(list);  </div><div class="line">        doStringBuilderListTest(list);  </div><div class="line">    &#125;  </div><div class="line">  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看一下执行结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">2711 millis has costed when used String.</div><div class="line">211 millis has costed when used StringBuffer.</div><div class="line">141 millis has costed when used StringBuilder.</div><div class="line">I  like  BeiJing  tian  an  men  . buffer cost:1 millis</div><div class="line">I  like  BeiJing  tian  an  men  . builder cost:0 millis</div></pre></td></tr></table></figure></p>
+<p>从上面的结果可以看出，不考虑多线程，采用String对象时（我把Count/100），执行时间比其他两个都要高，而采用StringBuffer对象和采用StringBuilder对象的差别也比较明显。由此可见，如果我们的程序是在单线程下运行，或者是<font color="#e07878">不必考虑到线程同步问题，我们应该优先使用StringBuilder类</font>；如果要<font color="#e07878">保证线程安全，自然是StringBuffer</font>。<br>从后面List的测试结果可以看出，除了对多线程的支持不一样外，这两个类的使用方式和结果几乎没有任何差别，</p>
+<h2 id="StringBuffer-StringBuilder"><a href="#StringBuffer-StringBuilder" class="headerlink" title="StringBuffer/StringBuilder"></a>StringBuffer/StringBuilder</h2><p>（由于StringBuffer和StringBuilder在使用上几乎一样，所以只写一个，以下部分内容网络各处收集，不再标注出处）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuffer s = new StringBuffer();</div></pre></td></tr></table></figure></p>
+<p>这样初始化出的StringBuffer对象是一个空的对象，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb1=new StringBuffer(512);</div></pre></td></tr></table></figure></p>
+<p>分配了长度512字节的字符缓冲区。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb2=new StringBuffer(“how are you?”)</div></pre></td></tr></table></figure></p>
+<p>创建带有内容的StringBuffer对象，在字符缓冲区中存放字符串“how are you?”</p>
+<h3 id="append方法"><a href="#append方法" class="headerlink" title="append方法"></a>append方法</h3><p>该方法的作用是追加内容到当前StringBuffer对象的末尾，类似于字符串的连接，调用该方法以后，StringBuffer对象的内容也发生改变，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“abc”);</div><div class="line">sb.append(true);</div></pre></td></tr></table></figure></p>
+<p>则对象sb的值将变成”abctrue”<br>使用该方法进行字符串的连接，将比String更加节约内容，经常应用于数据库SQL语句的连接。  </p>
+<h3 id="deleteCharAt方法"><a href="#deleteCharAt方法" class="headerlink" title="deleteCharAt方法"></a>deleteCharAt方法</h3><p><code>public StringBuffer deleteCharAt(int index)</code><br>该方法的作用是删除指定位置的字符，然后将剩余的内容形成新的字符串。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“KMing”);</div><div class="line">sb. deleteCharAt(1);</div></pre></td></tr></table></figure></p>
+<p>该代码的作用删除字符串对象sb中索引值为1的字符，也就是删除第二个字符，剩余的内容组成一个新的字符串。所以对象sb的值变 为”King”。<br>还存在一个功能类似的<code>delete</code>方法：<br><code>public StringBuffer delete(int start,int end)</code><br>该方法的作用是删除指定区间以内的所有字符，包含<code>start</code>，不包含<code>end</code>索引值的区间。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“TestString”);</div><div class="line">sb. delete (1,4);//[1,4)左开右闭</div></pre></td></tr></table></figure></p>
+<p>该代码的作用是删除索引值1(包括)到索引值4(不包括)之间的所有字符，剩余的字符形成新的字符串。则对象sb的值是”TString”。 </p>
+<h3 id="insert方法"><a href="#insert方法" class="headerlink" title="insert方法"></a>insert方法</h3><p><code>public StringBuffer insert(int offset, boolean b)</code><br>该方法的作用是在StringBuffer对象中插入内容，然后形成新的字符串。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“TestString”);</div><div class="line">sb.insert(4,false);</div></pre></td></tr></table></figure></p>
+<p>该示例代码的作用是在对象sb的索引值4的位置插入false值，形成新的字符串，则执行以后对象sb的值是”TestfalseString”。 </p>
+<h3 id="reverse方法"><a href="#reverse方法" class="headerlink" title="reverse方法"></a>reverse方法</h3><p><code>public StringBuffer reverse()</code><br>该方法的作用是将StringBuffer对象中的内容反转，然后形成新的字符串。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“abc”);</div><div class="line">sb.reverse();</div></pre></td></tr></table></figure></p>
+<p>经过反转以后，对象sb中的内容将变为”cba”。 </p>
+<h3 id="setCharAt方法"><a href="#setCharAt方法" class="headerlink" title="setCharAt方法"></a>setCharAt方法</h3><p><code>public void setCharAt(int index, char ch)</code><br>该方法的作用是修改对象中索引值为<code>index</code>位置的字符为新的字符<code>ch</code>。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb = new StringBuffer(“abc”);</div><div class="line">sb.setCharAt(1,’D’);</div></pre></td></tr></table></figure></p>
+<p>则对象sb的值将变成”aDc”。 </p>
+<h3 id="trimToSize方法"><a href="#trimToSize方法" class="headerlink" title="trimToSize方法"></a>trimToSize方法</h3><p><code>public void trimToSize()</code><br>该方法的作用是将StringBuffer对象的中存储空间缩小到和字符串长度一样的长度，减少空间的浪费，和String的<code>trim()</code>是一样的作用，不再举例。</p>
+<h3 id="length方法"><a href="#length方法" class="headerlink" title="length方法"></a>length方法</h3><p>该方法的作用是获取字符串长度 ，不用再说了吧。</p>
+<h3 id="setlength方法"><a href="#setlength方法" class="headerlink" title="setlength方法"></a>setlength方法</h3><p>该方法的作用是设置字符串缓冲区大小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb=new StringBuffer();</div><div class="line">sb.setlength(100);</div></pre></td></tr></table></figure></p>
+<p>如果用小于当前字符串长度的值调用<code>setlength()</code>方法，则新长度后面的字符将丢失。 </p>
+<h3 id="sb-capacity方法"><a href="#sb-capacity方法" class="headerlink" title="sb.capacity方法"></a>sb.capacity方法</h3><p>该方法的作用是获取字符串的容量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb=new StringBuffer(“string”);</div><div class="line">int i=sb.capacity();</div></pre></td></tr></table></figure></p>
+<h3 id="ensureCapacity方法"><a href="#ensureCapacity方法" class="headerlink" title="ensureCapacity方法"></a>ensureCapacity方法</h3><p>该方法的作用是重新设置字符串容量的大小。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">StringBuffer sb=new StringBuffer();</div><div class="line">sb.ensureCapacity(32); //预先设置sb的容量为32</div></pre></td></tr></table></figure></p>
+<h3 id="getChars方法"><a href="#getChars方法" class="headerlink" title="getChars方法"></a>getChars方法</h3><p>该方法的作用是将字符串的子字符串复制给数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">getChars(int start,int end,char chars[],int charStart); </div><div class="line">StringBuffer sb = new StringBuffer(&quot;I love You&quot;);</div><div class="line">int begin = 0;</div><div class="line">int end = 5;</div><div class="line">//注意ch字符数组的长度一定要大于等于begin到end之间字符的长度</div><div class="line">//小于的话会报ArrayIndexOutOfBoundsException</div><div class="line">//如果大于的话，大于的字符会以空格补齐</div><div class="line">char[] ch  = new char[end-begin];</div><div class="line">sb.getChars(begin, end, ch, 0);</div><div class="line">System.out.println(ch);</div></pre></td></tr></table></figure></p>
+<p>结果：<br><code>I lov</code></p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年05月27日 - 16时49分</p>
+        <p><span>最后更新:</span>2017年05月27日 - 16时49分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/27/StringBuilder和StringBuffer/" title="StringBuilder和StringBuffer">http://jethan.bid/2017/05/27/StringBuilder和StringBuffer/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/05/27/StringBuilder和StringBuffer/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/05/27/递归和迭代/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          递归和迭代
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/27/Hexo-NexT主题搭建个人博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hexo-NexT主题搭建个人博客</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较"><span class="toc-number">2.</span> <span class="toc-text">比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#StringBuffer-StringBuilder"><span class="toc-number">3.</span> <span class="toc-text">StringBuffer/StringBuilder</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#append方法"><span class="toc-number">3.1.</span> <span class="toc-text">append方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deleteCharAt方法"><span class="toc-number">3.2.</span> <span class="toc-text">deleteCharAt方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#insert方法"><span class="toc-number">3.3.</span> <span class="toc-text">insert方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse方法"><span class="toc-number">3.4.</span> <span class="toc-text">reverse方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setCharAt方法"><span class="toc-number">3.5.</span> <span class="toc-text">setCharAt方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trimToSize方法"><span class="toc-number">3.6.</span> <span class="toc-text">trimToSize方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#length方法"><span class="toc-number">3.7.</span> <span class="toc-text">length方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setlength方法"><span class="toc-number">3.8.</span> <span class="toc-text">setlength方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sb-capacity方法"><span class="toc-number">3.9.</span> <span class="toc-text">sb.capacity方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ensureCapacity方法"><span class="toc-number">3.10.</span> <span class="toc-text">ensureCapacity方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#getChars方法"><span class="toc-number">3.11.</span> <span class="toc-text">getChars方法</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/05/27/递归和迭代/" title="上一篇: 递归和迭代">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/05/27/Hexo-NexT主题搭建个人博客/" title="下一篇: Hexo-NexT主题搭建个人博客">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

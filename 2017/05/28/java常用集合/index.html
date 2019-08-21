@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>java常用集合/容器 | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="引言Collection  顶级接口├ List         子接口    按进入先后有序保存   可重复│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全│ └ Vector     实现类    老的动态数组             同步">
+<meta name="keywords" content="Collection,Collections,Map,ArrayList,Vector,LinkedList,HashSet,TreeSet,HashMap,HashTable,TreeMap,LinkedHashMap,WeakHashMap,Arrays">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java常用集合&#x2F;容器">
+<meta property="og:url" content="http://jethan.bid/2017/05/28/java常用集合/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="引言Collection  顶级接口├ List         子接口    按进入先后有序保存   可重复│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全│ └ Vector     实现类    老的动态数组             同步">
+<meta property="og:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/05/28/java常用集合/java常用集合/container.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/05/28/java常用集合/java常用集合/collection.bmp">
+<meta property="og:updated_time" content="2017-05-28T02:48:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java常用集合&#x2F;容器">
+<meta name="twitter:description" content="引言Collection  顶级接口├ List         子接口    按进入先后有序保存   可重复│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全│ └ Vector     实现类    老的动态数组             同步">
+<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-java常用集合" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/28/java常用集合/" class="article-date">
+      <time datetime="2017-05-28T02:48:30.000Z" itemprop="datePublished">2017-05-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      java常用集合/容器
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ArrayList/">ArrayList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arrays/">Arrays</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collection/">Collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collections/">Collections</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashSet/">HashSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedHashMap/">LinkedHashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedList/">LinkedList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Map/">Map</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeMap/">TreeMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeSet/">TreeSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vector/">Vector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WeakHashMap/">WeakHashMap</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Collection  顶级接口<br>├ List         子接口    按进入先后有序保存   可重复<br>│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全<br>│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全<br>│ └ Vector     实现类    老的动态数组             同步     线程安全<br>│ 　  └ Stack  实现类<br>├ Set    子接口   仅接收一次，并做内部排序<br>│  ├ SortedSet 子接口<br>│  │     └NavigableSet 子接口<br>│  │         └ TreeSet  实现类<br>│  └ HashSet 实现类  以哈希表的形式存放元素，插入删除速度很快，元素无序但不允许重复<br>│   　 └ LinkedHashSet<br>└ Queue  子接口 队列  </p>
+<p>Map  顶级接口<br>├ SortedMap  子接口 (extends Map)<br>│   └ NavigableMap 子接口 (extends SortedMap)<br>│        └ TreeMap 实现类 (extends AbstractMap)<br>├ HashTable  实现类 (extends Dictionary(abstract)) 线程安全<br>├ AbstractMap 实现类<br>├ HashMap   实现类 (extends AbstractMap)  线程不安全<br>│   └ LinkedHashMap  子类<br>├ LinkedHashMap  实现类 (extends HashMap)<br>├ IdentityHashMap 实现类 (extends AbstractMap)<br>└ WeakHashMap 实现类 (extends AbstractMap)</p>
+<p>关系图如下：<br><img src="java常用集合/container.jpg" alt="java" title="java"><br><img src="java常用集合/collection.bmp" alt="java" title="java"></p>
+<a id="more"></a>
+<p>上图只列出了图中类的一些主要继承和实现关系，并不精确，只表示了大概的关系，有些父接口并没有在图中画出，以及有写继承关系跨过了中间的某些类，图中让它直接继承了间接父类。</p>
+<p><strong>java.util.Collection</strong> 是一个集合接口。它提供了对集合对象进行基本操作的通用接口方法。Collection接口在Java 类库中有很多具体的实现。Collection接口的意义是为各种具体的集合提供了最大化的统一操作方式。<br><strong>java.util.Collections</strong> 是一个包装类。它包含有各种有关集合操作的静态多态方法。此类不能实例化，就像一个工具类，服务于Java的Collection框架。就像Arrays服务于数组一样</p>
+<h2 id="Collection-集合，java编程思想中翻译为容器"><a href="#Collection-集合，java编程思想中翻译为容器" class="headerlink" title="Collection(集合，java编程思想中翻译为容器)"></a>Collection(集合，java编程思想中翻译为容器)</h2><p>检查Collection中的元素，可以使用foreach进行遍历，也可以使用迭代器，Collection支持iterator()方法，通过该方法可以访问Collection中的每一个元素。用法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Iterator it=collection.iterator();  </div><div class="line">while(it.hasNext())&#123;  </div><div class="line">   Object obj=it.next();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>线程安全就是说多线程访问同一代码，不会产生不确定的结果。</p>
+<p>Set和List是由Collection派生的两个子接口</p>
+<p>对于 List ，关心的是顺序，它保证维护元素特定的顺序（允许有相同元素），使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引（元素在 List 中的位置，类似于数组下标）来访问 List 中的元素。 </p>
+<p>对于 Set ，只关心某元素是否属于 Set （不 允许有相同元素 ），而不关心它的顺序。</p>
+<p>Set：无序，不允许重复。检索元素效率低下，删除和插入效率高，插入和删除不会引起元素位置改变。<br>List：有序，可以有重复元素。和数组类似，List可以动态增长，查找元素效率高，插入删除元素效率低，因为会引起其他元素位置改变。</p>
+<h3 id="List接口"><a href="#List接口" class="headerlink" title="List接口"></a>List接口</h3><p>List是有序的Collection，使用此接口能够精确的控制每个元素插入的位置。用户能够使用索引的位置来访问List中的元素，类似于Java数组。<br>List允许有相同的元素存在。<br>除了具有Collection接口必备的的<code>iterator()</code>方法外，还提供了<code>listIterator()</code>方法，返回一个 ListIterator接口。和标准的 Iterator 接口相比， ListIterator 多了一些 <code>add()</code>之类的方法，允许添加，删除，设定元素， 还能向前或向后遍历。<br>实现List接口的常用类有LinkedList、ArrayList、Vector</p>
+<h4 id="LinkedList类"><a href="#LinkedList类" class="headerlink" title="LinkedList类"></a>LinkedList类</h4><p>LinkedList实现了List类接口，允许null元素。此外LinkedList提供额外的<code>addFirst(), addLast(), getFirst(), getLast(), removeFirst(), removeLast(), insertFirst(), insertLast()</code>方法在 LinkedList 的首部或尾部，这些方法（没有在任何接口或基类中定义过）使 LinkedList 可被用作堆栈（ <code>stack</code> ），队列（ <code>queue</code> ）或双向队列（ <code>deque</code> ）。</p>
+<p>Queue接口定义了队列存取元素的基本方法，基于LinkedList的实现原理，它非常适合队列的特性。<br>队列，遵循先进先出(FIFO)原则.<br>1&gt;.Queue常用方法<br><code>offer()</code>   向队列末尾追加新元素<br><code>poll()</code>   获取队首元素，获取后该元素就从队列中被删除<br><code>peek()</code>   获取队首元素，但不从队列中删除</p>
+<p>2.Deque   双端队列，两端都可以进出队但当我们约束从队列的一端进出队时，就形成了另一种存取模式<br>先进后出(FILO)原则，这就是栈结构<br>1&gt;.Deue常用方法<br><code>push()</code>   压入元素<br><code>pop()</code>   “弹出”栈顶元素（注意，当栈中没有元素的时候pop方法会引发异常）</p>
+<p>LinkedList没有同步方法。如果多个线程想访问同一个List，则必须自己实现访问同步。一种解决办法是在创建List时构造一个同步的List：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">List list = Collections.synchronizedList(new LinkedList&lt;&gt;());</div></pre></td></tr></table></figure>
+<h4 id="AyyayList类"><a href="#AyyayList类" class="headerlink" title="AyyayList类"></a>AyyayList类</h4><p>ArrayList实现了可变大小的数组。它允许所有元素，包括<code>null</code>。ArrayList没有同步。<br><code>size(),isEmpty(),get(),set()</code>方法运行时间为常数。但是add()方法开销为分摊的常数，添加n个元素需要O(n)的时间。其他的方法运行时间为线性。<br>每个ArrayList实例都有一个容量（Capactity），即用于存储元素的数组的大小。这个容量可随着不断添加新元素而自动增加，但是增长算法并没有定义。当需要插入大量元素时，在插入之前可以调用<code>ensureCapacity()</code>方法来增加ArrayList容量已提高插入效率</p>
+<p><strong>Array（[]）</strong>：最高效；但是其容量固定且无法动态改变；<br><strong>ArrayList</strong>： 容量可动态增长；但牺牲效率；</p>
+<p>基于效率和类型检验，应尽可能使用Array，无法确定数组大小时才使用ArrayList！<br>不过当你试着解决更一般化的问题时，Array的功能就可能过于受限。</p>
+<p>数组扩容是对ArrayList效率影响比较大的一个因素。<br>每当执行Add、AddRange、Insert、InsertRange等添加元素的方法，都会检查内部数组的容量是否不够了，如果是，它就会以当前容量的两倍来重新构建一个数组，将旧元素Copy到新数组中，然后丢弃旧数组，在这个临界点的扩容操作，应该来说是比较影响效率的。</p>
+<p>java中ArrayList（默认size =10），超过容量时才会进行扩容：((旧容量 * 3) / 2) + 1</p>
+<p><code>Collections.sort(list)</code>方法做自然排序，默认为升序  </p>
+<p>实现Comparator接口，自定义为降序</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class MyComparator implements Comparator&lt;String&gt;&#123;  </div><div class="line">    /** </div><div class="line">     * 根据字符串的长度进行比较,降序 </div><div class="line">     */  </div><div class="line">    public int compare(String o1, String o2) &#123;  </div><div class="line">       return o2.length() - o1.length();  //如果大于返回true，即先找大的</div><div class="line">    &#125;     </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">MyComparator comparator = new MyComparator();  </div><div class="line">/* </div><div class="line">* 使用Collections的重载sort方法 </div><div class="line">*/  </div><div class="line">Collections.sort(list, comparator);</div></pre></td></tr></table></figure>
+<h4 id="ArrayList和LinkedList"><a href="#ArrayList和LinkedList" class="headerlink" title="ArrayList和LinkedList"></a>ArrayList和LinkedList</h4><p><strong>ArrayList</strong>：允许对元素进行快速随机访问，但是向 List 中间插入与移除元素的速度很慢。 ListIterator 只应该用来由后向前遍历 ArrayList, 而不是用来插入和移除元素。因为那比 LinkedList 开销要大很多。<br><strong>LinkedList</strong>：对顺序访问进行了优化，向 List 中间插入与删除的开销并不大。随机访问则相对较慢。</p>
+<p>1． 对ArrayList和LinkedList而言，在列表末尾增加一个元素所花的开销都是固定的。对ArrayList而言，主要是在内部数组中增加一 项，指向所添加的元素，偶尔可能会导致对数组重新进行分配；而对LinkedList而言，这个开销是统一的，分配一个内部Entry对象。</p>
+<p>2．在ArrayList的中间插入或删除一个元素意味着这个列表中剩余的元素都会被移动；而在LinkedList的中间插入或删除一个元素的开销是固定的。</p>
+<p>3．LinkedList不支持高效的随机元素访问。</p>
+<p>4．ArrayList的空间浪费主要体现在在list列表的结尾预留一定的容量空间，而LinkedList的空间花费则体现在它的每一个元素都需要消耗相当的空间</p>
+<p>可以这样说：当操作是在一列数据的后面添加数据而不是在前面或中间,并且需要随机地访问其中的元素时,使用ArrayList会提供比较好的性能；当你的操作是在一列数据的前面或中间添加或删除数据,并且按照顺序访问其中的元素时,就应该使用LinkedList了。</p>
+<h4 id="Vector类"><a href="#Vector类" class="headerlink" title="Vector类"></a>Vector类</h4><p>Vector非常类似ArrayList，但是Vector是同步的。由Vector创建的iterator，虽然和ArrayLsit创建的iterator是同一接口，但是，因为Vector是同步的，当一个iterator被创建而且正在被使用，另一个线程改变了Vector状态，这时调用iterator的方法时将抛出<code>ConcurrentModificationException</code>，因此必须捕获该异常。</p>
+<p>比ArrayList多了枚举遍历<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">//Enumeration遍历  </div><div class="line">Integer value=null;</div><div class="line">Enumeration enu=vector.elements();</div><div class="line">while(enu.hasMoreElements())</div><div class="line">&#123;</div><div class="line">value=(Integer)enu.nextElement();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h5 id="Stack类"><a href="#Stack类" class="headerlink" title="Stack类"></a>Stack类</h5><p>Stack继承自Vector，实现了一个后进先出(LIFO)的堆栈。Stack提供了5个额外的方法使得Vector得以被当做堆栈使用。基本的<code>push</code>和<code>pop</code>方法，还有<code>peek</code>方法得到栈顶的元素，<code>empty</code>方法测试堆栈是否为空，<code>serach</code>方法检测一个元素在堆栈中的位置。Stack刚创建后是空栈。</p>
+<h3 id="Set接口"><a href="#Set接口" class="headerlink" title="Set接口"></a>Set接口</h3><p>Set是一种不包含重复元素的Collection，即任意的两个元素e1和e2都有<code>e1.equals(e2)=false</code>,Set最多有一个<code>null</code>元素。<br>很明显，Set的构造函数有一个约束条件，传入的Collection参数不能包含重复的元素。<br>请注意：必须小心操作可变对象。如果一个Set中的可变元素改变了自身的状态导致<code>Object.equals(Object)=true</code>将导致一些问题</p>
+<h4 id="HashSet"><a href="#HashSet" class="headerlink" title="HashSet"></a>HashSet</h4><p>HashSet调用对象的<code>hashCode()</code>,获得哈希码，然后在集合中计算存放对象的位置(bucket)。通过比较哈希码与<code>equals()</code>方法来判别是否重复。所以，重载了<code>equals()</code>方法同时也要重载<code>hashCode()</code>;</p>
+<h4 id="SortedSet"><a href="#SortedSet" class="headerlink" title="SortedSet"></a>SortedSet</h4><h5 id="TreeSet"><a href="#TreeSet" class="headerlink" title="TreeSet"></a>TreeSet</h5><p>TreeSet 继承自SortedSet接口，二叉树实现，能够对集合中对象排序。默认排序方式是自然排序即升序，但该方式只能对实现了<code>Comparable</code>接口的对象排序，java中对<code>Integer、Byte、Double、Character、String</code>等数值型和字符型对象都实现了该接口。</p>
+<h2 id="Map接口"><a href="#Map接口" class="headerlink" title="Map接口"></a>Map接口</h2><p>Map没有继承Collection接口，Map提供key到value的映射。一个Map中不能包含相同的key，每个key只能映射一个value,所以是用键来索引值。</p>
+<p>方法 <code>put(Object key, Object value)</code> 添加一个“值” ( 想要得东西 ) 和与“值”相关联的“键” (key) ( 使用它来查找 ) 。方法 <code>get(Object key)</code> 返回与给定“键”相关联的“值”。 可以用 <code>containsKey()</code> 和 <code>containsValue()</code> 测试 Map 中是否包含某个“键”或“值”。 </p>
+<p>Map 同样对每个元素保存一份，但这是基于 “ 键 “ 的， Map 也有内置的排序，因而不关心元素添加的顺序。如果添加元素的顺序对你很重要，应该使用 <code>LinkedHashSet</code> 或者 <code>LinkedHashMap</code>. </p>
+<p><strong>LinkedHashMap</strong>: 是根据元素增加或者访问的先后顺序进行排序，而 TreeMap 则根据元素的 Key 进行排序 (由 Comparator 或者 Comparable 确定)。</p>
+<p><strong>LinkedHashSet</strong>:底层数据结构由哈希表和链表组成,哈希表保证元素的唯一性,链表保证元素有素。(存储和取出是一致)</p>
+<p>对于效率， Map 由于采用了哈希散列，查找元素时明显比 ArrayList 快。<br>看看 <code>get()</code> 要做哪些事，就会明白为什么在 ArrayList 中搜索“键”是相当慢的。而这正是 HashMap 提高速度的地方。 HashMap 使用了特殊的值，称为“散列码” (<code>hash code</code>) ，来取代对键的缓慢搜索。“散列码”是“相对唯一”用以代表对象的 int 值，它是通过将该对象的某些信息进行转换而生成的（在下面总结二：需要的注意的地方有更进一步探讨）。所有 Java 对象都能产生散列码，因为 <code>hashCode()</code>是定义在基类 Object 中的方法 。 HashMap 就是使用对象的 hashCode() 进行快速查询的,显著提高性能。</p>
+<p>Map接口提供了3种集合的视图:<br>Map的内容可以被当作一组key集合，<br>一组value集合，<br>或者一组key—value映射。 </p>
+<p>Map 中元素，可以将 key 序列、 value 序列单独抽取出来。 </p>
+<p>使用 keySet() 抽取 key 序列，将 map 中的所有 keys 生成一个 Set 。 </p>
+<p>使用 values() 抽取 value 序列，将 map 中的所有 values 生成一个 Collection 。 </p>
+<p>为什么一个生成 Set ，一个生成 Collection ？那是因为， key 总是独一无二的， value 允许重复。 </p>
+<h3 id="HashTable类"><a href="#HashTable类" class="headerlink" title="HashTable类"></a>HashTable类</h3><p>HashTable继承自Map接口，同步，是线程安全的，实现了一个<code>key--value</code>映射的哈希表。任何非空的对象都可作为<code>key</code>或者<code>value</code>。<br>添加数据使用<code>put(key,value)</code>,取出数据使用<code>get(key)</code>，这两个基本操作的时间开销为常数。<br>HashTable通过<code>initial caoacity</code>和<code>load factor</code>两个参数调整性能。通常缺省的<code>load factor</code>为 0.75较好地实现了时间和空间的均衡。增大了<code>load factor</code>可以节省空间但相应的查找时间将增大，这会影响像get和put这样的操作</p>
+<h3 id="HashMap类"><a href="#HashMap类" class="headerlink" title="HashMap类"></a>HashMap类</h3><p>HashMap和HashTable类似，不同之处在于HashMap是非同步的，并且允许<code>null</code>，即<code>null value</code>和<code>null key</code>，但是将HashMap视为<code>Collection</code>时，其迭代操作时间开销和HahMap的容量成比例。因此，如果迭代操作的性能相当重要的话，不要将HashMap的初始化容量设的过高，或者load factor过低</p>
+<p>Capacity 容量: HashMap中数组的长度<br>Initial capacity 初始容量:创建HashMap时，数组的默认大小，16。</p>
+<p>size 大小:HashMap中的元素数量</p>
+<p>load factor 加载因子:默认值0.75<br>是一个比值 size/capacity</p>
+<p>每当size/capacity达到加载因子时，数组扩容<br>并且对原数组中的数据重新进行散列算法并存入扩容后的数组中</p>
+<h3 id="HashMap和HashTable"><a href="#HashMap和HashTable" class="headerlink" title="HashMap和HashTable"></a>HashMap和HashTable</h3><p>a.HashMap去掉了HashTable的<code>contains</code>方法，但是加上了<code>containsValue()</code>和<code>containsKey()</code>方法。<br>b.HashTable同步的，而HashMap是非同步的，效率上比HashTable要高。<br>c.HashMap允许空键值，而HashTable不允许。  </p>
+<p>由于作为 key 的对象将通过计算其散列函数来确定与之对应的 value 的位置，因此任何作为 key 的对象都必须实现 <code>hashCode</code> 方法和 <code>equals</code> 方法。 <code>hashCode</code> 方法和 <code>equals</code> 方法继承自根类 <code>Object</code> ，如果你用自定义的类当作 key 的话，要相当小心，按照散列函数的定义，如果两个对象相同，即<code>obj1.equals(obj2)=true</code>，则它们的 hashCode 必须相同，但如果两个对象不同，则它们的 hashCode 不一定不同，如果两个不同对象的 <code>hashCode</code> 相同，这种现象称为冲突，冲突会导致操作哈希表的时间开销增大，所以尽量定义好的 hashCode() 方法，能加快哈希表的操作。<br>如果相同的对象有不同的 <code>hashCode</code> ，对哈希表的操作会出现意想不到的结果（期待的 get 方法返回<code>null</code> ），<strong>要避免冲突问题，只需要牢记一条：要同时复写 equals 方法和 hashCode 方法，而不要只写其中一个。</strong></p>
+<h4 id="LinkedHashMap-类"><a href="#LinkedHashMap-类" class="headerlink" title="LinkedHashMap 类"></a>LinkedHashMap 类</h4><p>类似于 HashMap ，但是迭代遍历它时，取得“键值对”的顺序是其插入次序，或者是最近最少使用 (LRU) 的次序。只比 HashMap 慢一点。而在迭代访问时发而更快，因为它使用链表维护内部次序。</p>
+<h3 id="WeakHashMap类"><a href="#WeakHashMap类" class="headerlink" title="WeakHashMap类"></a>WeakHashMap类</h3><p>WeakHashMap是一种改进的HashMap，他对key实行弱引用，如果一个key不再被外部所引用，那么该key可以被GC回收</p>
+<h3 id="SortedMap"><a href="#SortedMap" class="headerlink" title="SortedMap"></a>SortedMap</h3><h4 id="NavigableMap"><a href="#NavigableMap" class="headerlink" title="NavigableMap"></a>NavigableMap</h4><h4 id="TreeMap"><a href="#TreeMap" class="headerlink" title="TreeMap"></a>TreeMap</h4><p>基于红黑树数据结构的实现。查看“键”或“键值对”时，它们会被排序 ( 次序由 Comparabel 或 Comparator 决定 ) 。 TreeMap 的特点在于，你得到的结果是经过排序的。 TreeMap 是唯一的带有 <code>subMap()</code> 方法的 Map ，它可以返回一个子树。</p>
+<h3 id="IdentifyHashMap-类"><a href="#IdentifyHashMap-类" class="headerlink" title="IdentifyHashMap 类"></a>IdentifyHashMap 类</h3><p>使用 <code>==</code> 代替 <code>equals()</code> 对“键”作比较的 hash map 。专为解决特殊问题而设计。 </p>
+<h2 id="线程安全集合类与非线程安全集合类"><a href="#线程安全集合类与非线程安全集合类" class="headerlink" title="线程安全集合类与非线程安全集合类"></a>线程安全集合类与非线程安全集合类</h2><p>LinkedList、ArrayList、HashSet是非线程安全的，Vector是线程安全的;<br>HashMap是非线程安全的，HashTable是线程安全的;<br>StringBuilder是非线程安全的，StringBuffer是线程安全的。  </p>
+<h2 id="集合适用场景"><a href="#集合适用场景" class="headerlink" title="集合适用场景"></a>集合适用场景</h2><p>对于<strong>查找和删除较为频繁</strong>，且<strong>元素数量较多</strong>的应用，<strong>Set或Map</strong>是更好的选择；<br><strong>ArrayList</strong>适用于<strong>通过位置来读取元素的场景</strong>；<br><strong>LinkedList</strong> 适用于要<strong>头尾操作或插入指定位置的场景</strong>；<br><strong>Vector</strong> 适用于要<strong>线程安全的ArrayList的场景</strong>；<br><strong>Stack</strong> 适用于<strong>线程安全的LIFO场景</strong>；<br><strong>HashSet</strong> 适用于<strong>对排序没有要求的非重复元素</strong>的存放；<br><strong>TreeSet</strong> 适用于<strong>要排序的非重复元素</strong>的存放；<br><strong>HashMap</strong> 适用于大部分<strong>key-value</strong>的存取的快速查找场景；<br><strong>TreeMap</strong> 适用于<strong>需排序</strong>存放的key-value场景。</p>
+<ol>
+<li>当元素个数固定，用 Array ，因为 Array 效率是最高的。   </li>
+<li>如果程序在单线程环境中，或者访问仅仅在一个线程中进行，考虑非同步的类，其效率较高，如果多个线程可能同时操作一个类，应该使用同步的类。   </li>
+<li>要特别注意对哈希表的操作，作为 key 的对象要同时正确复写 equals 方法和 hashCode 方法。   </li>
+<li>尽量返回接口而非实际的类型，如返回 List 而非 ArrayList ，这样如果以后需要将 ArrayList 换成 LinkedList 时，客户端代码不用改变。这就是针对抽象编程。  </li>
+</ol>
+<h2 id="数组与集合"><a href="#数组与集合" class="headerlink" title="数组与集合"></a>数组与集合</h2><h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>Java 所有“存储及随机访问一连串对象”的做法，数组是最有效率的一种。但缺点是<strong>容量固定且无法动态改变</strong>。 array 还有一个缺点是，无法判断其中实际存有多少元素， length 只是告诉我们 array 的容量。 </p>
+<p>Java 中有一个数组类 (Arrays) ，专门用来操作 Array([]) 。数组类 (Arrays) 中拥有一组 static 函数： </p>
+<p><code>equals()</code> ：比较两个 array 是否相等。 array 拥有相同元素个数，且所有对应元素两两相等。 </p>
+<p><code>fill()</code> ：将值填入 array 中。 </p>
+<p><code>sort()</code> ：用来对 array 进行排序。 </p>
+<p><code>binarySearch()</code> ：在排好序的 array 中寻找元素。 </p>
+<p><code>System.arraycopy()</code> ： array 的复制。 </p>
+<p>如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">int[] array = new int[5];</div><div class="line">//填充数组</div><div class="line">Arrays.fill(array, 5);</div><div class="line">System.out.println(&quot;填充数组：Arrays.fill(array, 5)：&quot;);</div><div class="line">if (array!=null) &#123;</div><div class="line">for (int i = 0; i &lt; array.length; i++) &#123;</div><div class="line">System.out.print(array[i]+&quot; &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另外该类还提供了一个静态方法，将数组转换成List：<code>Arrays.asList(T ... array);</code></p>
+<p><strong>若编写程序时不知道究竟需要多少对象，需要在空间不足时自动扩增容量，则需要使用容器类库， array 不适用。</strong></p>
+<h3 id="联系与区别"><a href="#联系与区别" class="headerlink" title="联系与区别"></a>联系与区别</h3><p>容器类仅能持有对象引用（指向对象的指针），而不是将对象信息 copy 一份至数列某位置。一旦将对象置入容器内，便损失了该对象的型别信息。 </p>
+<p>list/set类型，每个位置只有一个元素。 </p>
+<p>Map 类型，持有 key-value 对 (pair) ，像个小型数据库。 </p>
+<p><code>Collections</code> 是针对集合类的一个帮助类。提供了一系列静态方法实现对各种集合的搜索、排序、线程完全化等操作。相当于对 Array 进行类似操作的类—— <code>Arrays</code> 。 </p>
+<p>如<code>Collections.max(Collection coll);</code> 取 coll 中最大的元素。   </p>
+<p><code>Collections.sort(List list);</code> 对 list 中元素排序   </p>
+<p>vector容器确切知道它所持有的对象隶属什么型别,vector 不进行边界检查。 </p>
+<p>HashMap 会利用对象的 hashCode 来快速找到 key 。 </p>
+<p>哈希码 (hashing) 就是将对象的信息经过一些转变形成一个独一无二的 int 值，这个值存储在一个 array 中。我们都知道所有存储结构中， array 查找速度是最快的。所以，可以加速查找。发生碰撞时，让 array 指向多个 values 。即，数组每个位置上又生成一个链表。<br>详细参见<a href="http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" target="_blank" rel="external">hashmap的工作原理</a></p>
+<h2 id="同步的集合类-容器类（Synchronized）："><a href="#同步的集合类-容器类（Synchronized）：" class="headerlink" title="同步的集合类/容器类（Synchronized）："></a>同步的集合类/容器类（Synchronized）：</h2><p>一般的集合类和容器类都是非同步的（除了<code>Vector</code>和<code>Hashtable</code>以及它们的子类），如果用在多线程环境下必须自己写有关同步的代码。JDK中为我们提供了与一般集合容器类相应的同步类，<code>SynchronizedCollection&lt;E&gt;、SynchronizedList&lt;E&gt;、SynchronizedMap&lt;E&gt;、SynchronizedSet&lt;E&gt;、SynchronizedSortedSet&lt;E&gt;、SynchronizedMap&lt;E&gt;</code>，这些类都是<code>Collections</code>类中的静态内部类，通过<code>Collections.synchronizedXXX()</code>方法就可以获得相关的同步集合容器类，并且得到的同步类与作为参数的非同步类共享数据空间，当在同步类中对集合或者容器做出修改，在非同步的类中能同步感受到。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">List&lt; String&gt; list = new LinkedList&lt;&gt;();  </div><div class="line">list.add(&quot;one&quot;);  </div><div class="line">List&lt;String&gt; list1 = Collections.synchronizedList(list);  </div><div class="line">list1.remove(0);  </div><div class="line">System.out.println(list.size());</div></pre></td></tr></table></figure>
+<p>上述代码输出结果为0.</p>
+<h2 id="并发的集合类-容器类："><a href="#并发的集合类-容器类：" class="headerlink" title="并发的集合类/容器类："></a>并发的集合类/容器类：</h2><p>1.同步集合或容器中，基本上在内部是使用synchronized来实现的，而且一个类中所有的方法使用的是同一个锁对象，在很多这会造成性能上的问题。另外，有一些复合操作，需要保持原子性，如获取最后一个元素（代码见下面），而同步类这时候就做不到了，所以这时候要考虑使用并发类了，并发类位于Java.util.concurrent中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/** </div><div class="line">*获取最后一个元素 </div><div class="line">*/  </div><div class="line">public static Object getLast(Vector list) &#123;    </div><div class="line">   int lastIndex = list.size() - 1;    </div><div class="line">   return list.get(lastIndex);    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2.并发容器有<code>ConcurrentHashMap</code>，它采用更细粒度的锁，被称为分段锁，允许一定数量的线程并发的修改它，能够提供高并发的性能。<br>3.还有一些有用的适用于某些并发场合的集合类，<code>CopyOnWriteArrayList</code>等。<br>4.在这里只要Java中存在同步集合容器和并发集合容器类就可以了，当遇到多线程的情况或者要求并发的情况下，再去找相关的合适的同步或并发的集合容器类。</p>
+<p><a href="http://blog.csdn.net/jackie03/article/details/7312481" target="_blank" rel="external">原文参考</a></p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/05/28/java常用集合/">java常用集合/容器</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年05月28日 - 10时48分</p>
+        <p><span>最后更新:</span>2017年05月28日 - 10时48分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/28/java常用集合/" title="java常用集合/容器">http://jethan.bid/2017/05/28/java常用集合/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/05/28/java常用集合/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/05/29/mysql索引及查询优化/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          mysql索引及查询优化
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/27/递归和迭代/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">递归和迭代</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#引言"><span class="toc-number">1.</span> <span class="toc-text">引言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collection-集合，java编程思想中翻译为容器"><span class="toc-number">1.1.</span> <span class="toc-text">Collection(集合，java编程思想中翻译为容器)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#List接口"><span class="toc-number">1.1.1.</span> <span class="toc-text">List接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedList类"><span class="toc-number">1.1.1.1.</span> <span class="toc-text">LinkedList类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AyyayList类"><span class="toc-number">1.1.1.2.</span> <span class="toc-text">AyyayList类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ArrayList和LinkedList"><span class="toc-number">1.1.1.3.</span> <span class="toc-text">ArrayList和LinkedList</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Vector类"><span class="toc-number">1.1.1.4.</span> <span class="toc-text">Vector类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Stack类"><span class="toc-number">1.1.1.4.1.</span> <span class="toc-text">Stack类</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Set接口"><span class="toc-number">1.1.2.</span> <span class="toc-text">Set接口</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HashSet"><span class="toc-number">1.1.2.1.</span> <span class="toc-text">HashSet</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SortedSet"><span class="toc-number">1.1.2.2.</span> <span class="toc-text">SortedSet</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#TreeSet"><span class="toc-number">1.1.2.2.1.</span> <span class="toc-text">TreeSet</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Map接口"><span class="toc-number">1.2.</span> <span class="toc-text">Map接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#HashTable类"><span class="toc-number">1.2.1.</span> <span class="toc-text">HashTable类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap类"><span class="toc-number">1.2.2.</span> <span class="toc-text">HashMap类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HashMap和HashTable"><span class="toc-number">1.2.3.</span> <span class="toc-text">HashMap和HashTable</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LinkedHashMap-类"><span class="toc-number">1.2.3.1.</span> <span class="toc-text">LinkedHashMap 类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WeakHashMap类"><span class="toc-number">1.2.4.</span> <span class="toc-text">WeakHashMap类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SortedMap"><span class="toc-number">1.2.5.</span> <span class="toc-text">SortedMap</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NavigableMap"><span class="toc-number">1.2.5.1.</span> <span class="toc-text">NavigableMap</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#TreeMap"><span class="toc-number">1.2.5.2.</span> <span class="toc-text">TreeMap</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IdentifyHashMap-类"><span class="toc-number">1.2.6.</span> <span class="toc-text">IdentifyHashMap 类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程安全集合类与非线程安全集合类"><span class="toc-number">1.3.</span> <span class="toc-text">线程安全集合类与非线程安全集合类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集合适用场景"><span class="toc-number">1.4.</span> <span class="toc-text">集合适用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组与集合"><span class="toc-number">1.5.</span> <span class="toc-text">数组与集合</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-number">1.5.1.</span> <span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#联系与区别"><span class="toc-number">1.5.2.</span> <span class="toc-text">联系与区别</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#同步的集合类-容器类（Synchronized）："><span class="toc-number">1.6.</span> <span class="toc-text">同步的集合类/容器类（Synchronized）：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#并发的集合类-容器类："><span class="toc-number">1.7.</span> <span class="toc-text">并发的集合类/容器类：</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/05/29/mysql索引及查询优化/" title="上一篇: mysql索引及查询优化">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/05/27/递归和迭代/" title="下一篇: 递归和迭代">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

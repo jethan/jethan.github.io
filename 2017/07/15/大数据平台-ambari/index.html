@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>大数据平台-ambari | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
+<meta name="keywords" content="ambari">
+<meta property="og:type" content="article">
+<meta property="og:title" content="大数据平台-ambari">
+<meta property="og:url" content="http://jethan.bid/2017/07/15/大数据平台-ambari/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/bigdata.jpg">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/ambari-server.png">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/install-options.png">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/host-check.png">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/host-check-ok.png">
+<meta property="og:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/dashboard.png">
+<meta property="og:updated_time" content="2017-07-15T07:02:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大数据平台-ambari">
+<meta name="twitter:description" content="前言Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 详见），而并不仅是特指 Hadoop。用一句话来说，Ambari">
+<meta name="twitter:image" content="http://jethan.bid/2017/07/15/大数据平台-ambari/大数据平台-ambari/bigdata.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-大数据平台-ambari" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/15/大数据平台-ambari/" class="article-date">
+      <time datetime="2017-07-15T07:02:20.000Z" itemprop="datePublished">2017-07-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      大数据平台-ambari
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">bigdata</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ambari/">ambari</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="大数据平台-ambari/bigdata.jpg" alt="bigdata" title="bigdata"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Ambari 跟 Hadoop 等开源软件一样，也是 Apache Software Foundation 中的一个项目，并且是顶级项目。 Ambari 就是创建、管理、监视 Hadoop 的集群，但是这里的 Hadoop 是广义，指的是 Hadoop 整个生态圈（例如 Hive，Hbase，Sqoop，Zookeeper 等 <a href="https://segmentfault.com/a/1190000006101419" target="_blank" rel="external">详见</a>），而并不仅是特指 Hadoop。用一句话来说，Ambari 就是为了让 Hadoop 以及相关的大数据软件更容易使用的一个工具。<br>Ambari 现在所支持的平台组件也越来越多，例如流行的 Spark，Storm 等计算框架，以及资源调度平台 YARN 等，我们都能轻松地通过 Ambari 来进行部署。<br>Ambari 自身也是一个分布式架构的软件，主要由两部分组成：Ambari Server 和 Ambari Agent。简单来说，用户通过 Ambari Server 通知 Ambari Agent 安装对应的软件；Agent 会定时地发送各个机器每个软件模块的状态给 Ambari Server，最终这些状态信息会呈现在 Ambari 的 GUI，方便用户了解到集群的各种状态，并进行相应的维护。</p>
+<p>目前Ambari最新的发布版本是 2.5.1，下面的配置操作都是在centos7下进行的<br><a id="more"></a></p>
+<h2 id="安装ambari-server"><a href="#安装ambari-server" class="headerlink" title="安装ambari-server"></a>安装ambari-server</h2><p>执行<code>yum list ambari-server</code>查看是否有ambari源，如果没有则在<code>/etc/yum.repo.d/</code>目录下，创建ambari源文件<code>ambari.repo</code>，并填写以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#VERSION_NUMBER=2.5.1</div><div class="line"></div><div class="line">[Updates-ambari-2.5.1.0]</div><div class="line">name=ambari-2.5.1.0 - Updates</div><div class="line">baseurl=http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.5.1.0</div><div class="line">gpgcheck=1</div><div class="line">gpgkey=http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins</div><div class="line">enabled=1</div><div class="line">priority=1</div></pre></td></tr></table></figure>
+<p>其中的版本号可以改成你想要安装的且官网中存在的版本号,执行<code>yum update</code>更新源</p>
+<p> 再执行<code>yum list ambari-server</code>查看结果如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"> [jet@ambari yum.repos.d]$ yum list ambari-server</div><div class="line">Loaded plugins: fastestmirror, refresh-packagekit, security</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line"> * base: mirror.bit.edu.cn</div><div class="line"> * extras: mirrors.163.com</div><div class="line"> * updates: mirrors.neusoft.edu.cn</div><div class="line">Available Packages</div><div class="line">ambari-server.x86_64                     2.5.1.0-159                      Updates-ambari-2.5.1.0</div></pre></td></tr></table></figure>
+<p>执行命令<code>sudo yum install ambari-server</code>开始安装</p>
+<h2 id="设置并启动ambari-server"><a href="#设置并启动ambari-server" class="headerlink" title="设置并启动ambari-server"></a>设置并启动ambari-server</h2><p>设置ambari-server，根据自己需要修改默认配置，注意如果选择postgresql数据库，不要选择4，要选择1，不然后面start的时候会报错，拒绝连接，没找到原因</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server setup</div></pre></td></tr></table></figure>
+<p>启动ambari-server：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server start</div></pre></td></tr></table></figure>
+<p>由于我之前安装过2.2.2版本，这次运行时出错了，log文件里面错误如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.apache.ambari.server.AmbariException: Current database store version is not compatible with current server version, serverVersion=2.5.1.0, schemaVersion=2.2.2.0</div></pre></td></tr></table></figure>
+<p>运行下面的命令进行升级后重新启动，成功。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ambari-server upgrade</div></pre></td></tr></table></figure>
+<h2 id="集群部署"><a href="#集群部署" class="headerlink" title="集群部署"></a>集群部署</h2><p>通过<code>http://localhost:8080</code>访问ambari web管理界面<br>默认用户名密码是:<code>admin/admin</code></p>
+<p>如下图所示：<br><img src="大数据平台-ambari/ambari-server.png" alt="bigdata" title="bigdata"></p>
+<h3 id="多台计算无密码登录-ssh"><a href="#多台计算无密码登录-ssh" class="headerlink" title="多台计算无密码登录-ssh"></a>多台计算无密码登录-ssh</h3><p>强烈建议使用root账户配置</p>
+<p>1.安装ssh.  <code>yum install openssh-server</code> 安装完成后会在<code>~</code>目录（当前用户主目录，即这里的<code>/root</code>）下产生一个隐藏文件夹<code>.ssh</code>（<code>ls -al</code> 可以查看隐藏文件）。如果没有这个文件，自己新建即可（<code>mkdir .ssh</code>）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">[root@ambari ~]# ls -al</div><div class="line">total 60</div><div class="line">dr-xr-x---.  6 root root   269 Aug 22 17:26 .</div><div class="line">dr-xr-xr-x. 18 root root   236 Apr 14 12:51 ..</div><div class="line">-rw-------.  1 root root  1441 Apr 14 12:17 anaconda-ks.cfg</div><div class="line">-rw-------.  1 root root 13050 Aug 22 17:20 .bash_history</div><div class="line">-rw-r--r--.  1 root root    18 Dec 29  2013 .bash_logout</div><div class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bash_profile</div><div class="line">-rw-r--r--.  1 root root   176 Dec 29  2013 .bashrc</div><div class="line">drwxr-xr-x.  3 root root    18 Apr 14 12:51 .cache</div><div class="line">drwxr-xr-x.  3 root root    18 Apr 14 12:51 .config</div><div class="line">-rw-r--r--.  1 root root   100 Dec 29  2013 .cshrc</div><div class="line">-rw-r--r--.  1 root root   404 Aug 22 17:26 id_rsa.pub</div><div class="line">drwxr-xr-x.  2 root root    40 Apr 20 14:27 .oracle_jre_usage</div><div class="line">-rw-------.  1 root root   247 Apr 17 18:38 .psql_history</div><div class="line">-rw-r--r--.  1 root root  6899 Aug 22 16:39 remove.sh</div><div class="line">-rw-------.  1 root root  1024 Apr 20 14:40 .rnd</div><div class="line">drwx------.  2 root root    80 Aug 22 17:27 .ssh</div></pre></td></tr></table></figure>
+<p>2.进入<code>.ssh</code>目录下面，在每台机器上执行：<code>ssh-keygen -t rsa</code>  之后一路回车，产生密钥；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@ambari .ssh]# ll</div><div class="line">total 16</div><div class="line">-rw-------. 1 root root 1679 Aug 22 17:25 id_rsa</div><div class="line">-rw-r--r--. 1 root root  404 Aug 22 17:25 id_rsa.pub</div></pre></td></tr></table></figure>
+<p>3。完成第二步后会产生两个文件：</p>
+<p><code>id-rsa</code>     #私钥</p>
+<p><code>id-rsa.pub</code>   #公钥</p>
+<p>4.在第一台机器的目录<code>.ssh</code>下执行命令，<code>cat id_rsa.pub &gt;&gt; authorized_keys</code>；生成<code>authorized_keys</code>文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@ambari .ssh]# ll</div><div class="line">total 16</div><div class="line">-rw-r-----. 1 root root  404 Aug 22 17:26 authorized_keys</div></pre></td></tr></table></figure>
+<p>5.然后将第一台机器的<code>.ssh</code>目录下面的<code>authorized_keys</code>文件拷贝到第二台计算机的<code>/root/.ssh</code>目录下，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">scp authorized_keys root@hadoop02.hadoop.com:/root/.ssh/</div></pre></td></tr></table></figure>
+<p>6.再转到第二台机器的<code>.ssh</code>目录下，会发现刚刚传输过来的文件<code>authorized_keys</code>，然后执行命令<code>cat id-rsa.pub &gt;&gt; authorized_keys</code>，将第二台计算机的公钥也加进来</p>
+<p>7.将第二台计算机新生成的<code>authorized_keys</code>传输到第三台计算机，将第三台计算机的公钥<code>id-rsa.pub</code>添加到从第二台计算机传过来的<code>authorized_keys</code>里面。</p>
+<p>8.依次类推，直至集群中的最后一台计算机。</p>
+<p>9.在集群的最后一台计算机执行完添加后，生成的<code>authorized_keys</code>文件就包含集群中所有计算机的公钥，如果以后还有机器加进到集群中来，可以直接添加到文件<code>authorized_keys</code>。最后，将最后生成的<code>authorized_keys</code>复制到集群中的每一台计算机的<code>.ssh</code>目录下，覆盖掉之前的<code>authorized_keys</code>即可。</p>
+<p>10.完成第九步后，就可以在集群中任意一台计算机上，免密码ssh登录到其他计算了。否则<br>错误：<code>Agent admitted failure to sign using the key</code><br>解决：<code>ssh-add  ~/.ssh/id_rsa</code></p>
+<p>如果需无密码登录到目标主机，只需要将自己的公钥<code>id_rsa.pub</code>添加到对应的目标主机的 <code>.ssh/authorized_keys</code>文件中即可，注意所属账户的<code>.ssh</code>,如以下是免密码登录到<code>jet</code>用户</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat id_rsa.pub | ssh jet@10.111.24.144 &apos;cat - &gt;&gt; ~/.ssh/authorized_keys&apos;</div></pre></td></tr></table></figure>
+<p>一般以上几步就ok了，但我的仍要输入密码，<br>用root用户登陆查看系统的日志文件：$ <code>tail /var/log/secure -n 20</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">…………</div><div class="line">Aug  22 10:26:43 MasterServer sshd[2734]: Authentication refused: bad ownership or modes for file /home/hadooper/.ssh/authorized_keys</div><div class="line">Aug  22 10:26:48 MasterServer sshd[2734]: Accepted password for hadooper from ::1 port 37456 ssh2</div><div class="line">Aug  22 10:26:48 MasterServer sshd[2734]: pam_unix(sshd:session): session opened for user hadooper by (uid=0)</div><div class="line">Aug  22 10:36:30 MasterServer sshd[2809]: Accepted password for hadooper from 192.168.1.241 port 36257 ssh2</div><div class="line">Aug  22 10:36:30 MasterServer sshd[2809]: pam_unix(sshd:session): session opened for user hadooper by (uid=0)</div><div class="line">Aug  22 10:38:28 MasterServer sshd[2857]: Authentication refused: bad ownership or modes for directory /home/hadooper/.ssh</div><div class="line">…………</div></pre></td></tr></table></figure>
+<p>提示<code>/home/root/.ssh</code>和 <code>/home/root/.ssh/authorized_keys</code>权限不对，修改如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod 700 /root/.ssh</div><div class="line">chmod 640 /root/.ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>测试<code>ssh root@hadoop02.hadoop.com</code>第一次登录可能需要yes确认，之后就可以直接登录了。</p>
+<p>下面是ambari界面安装添加集群过程，只介绍重要的可能遇到问题的部分</p>
+<h3 id="Install-Options"><a href="#Install-Options" class="headerlink" title="Install Options"></a>Install Options</h3><p><img src="大数据平台-ambari/install-options.png" alt="ambari" title="ambari"></p>
+<p>【注意】<br><strong>1.Target Hosts</strong></p>
+<p>图中的hosts为各个客户机的hostname，一定要用域名的格式，配置方式如下两步：  </p>
+<p>集群中每台机器各自命名，最好添加ip号作为后缀，编辑<code>/etc/sysconfig/network</code></p>
+<p><strong>ambari-server<code>192.168.40.1</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=ambari.hadoop.com</div></pre></td></tr></table></figure></p>
+<p><strong>ambari-agent<code>192.168.40.2</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=hadoop02.hadoop.com</div></pre></td></tr></table></figure></p>
+<p><strong>ambari-agent<code>192.168.40.3</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">NETWORKING=yes</div><div class="line">HOSTNAME=hadoop03.hadoop.com</div></pre></td></tr></table></figure></p>
+<p>集群中每台机器都需要配置一样的，编辑文件<code>/etc/hosts</code></p>
+<p><strong>192.168.40.1 192.168.40.2 192.168.40.3</strong></p>
+<figure class="highlight plain"><figcaption><span>ambari.hadoop.com</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">192.168.40.2 hadoop02.hadoop.com</div><div class="line">192.168.40.3 hadoop03.hadoop.com</div></pre></td></tr></table></figure>
+<p><strong>2.Host Registration Information</strong></p>
+<p>注意这里是之前配置的<strong>免密码登录的用户的私钥</strong></p>
+<p>我前面是用root用户配置的，所以应该用<code>/root/.ssh/id_rsa</code></p>
+<p>ssh user是<code>root</code>，ssh默认端口就是<code>22</code></p>
+<h3 id="Hosts-Check"><a href="#Hosts-Check" class="headerlink" title="Hosts Check"></a>Hosts Check</h3><p><img src="大数据平台-ambari/host-check.png" alt="ambari" title="ambari"></p>
+<p>一般就是图中的两个<code>warning</code>：</p>
+<p>1.关闭防火墙</p>
+<p>关闭防火墙 sudo service iptables stop 临时关闭命令<br>关闭selinux</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">getenforce</div><div class="line">setenforce 0</div><div class="line"></div><div class="line">[说明]</div><div class="line">setenforce 1 #设置SELinux 成为enforcing模式</div><div class="line">setenforce 0 #设置SELinux 成为permissive模式</div></pre></td></tr></table></figure>
+<p>或者直接修改配置文件关闭<code>/etc/selinux/config</code>(需要重启服务器)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SELINUX=disabled</div></pre></td></tr></table></figure>
+<p>2.启动ntpd服务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">yum -y install ntp</div><div class="line">chkconfig ntpd on</div></pre></td></tr></table></figure>
+<p>centos7服务模式变化</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/bin/systemctl start ntpd</div><div class="line">/bin/systemctl start chronyd</div><div class="line">/bin/systemctl stop firewalld</div></pre></td></tr></table></figure>
+<p>完成这两个操作以后，warning消失，如图<br><img src="大数据平台-ambari/host-check-ok.png" alt="ambari" title="ambari"></p>
+<h3 id="Choose-Services"><a href="#Choose-Services" class="headerlink" title="Choose Services"></a>Choose Services</h3><p>选择需要安装的服务</p>
+<h3 id="Assign-Masters"><a href="#Assign-Masters" class="headerlink" title="Assign Masters"></a>Assign Masters</h3><p>分配主服务器</p>
+<h3 id="Assign-slaves-and-Clients"><a href="#Assign-slaves-and-Clients" class="headerlink" title="Assign slaves and Clients"></a>Assign slaves and Clients</h3><p>分配从服务器和客户端</p>
+<h3 id="控制面板"><a href="#控制面板" class="headerlink" title="控制面板"></a>控制面板</h3><p><img src="大数据平台-ambari/dashboard.png" alt="ambari" title="ambari"></p>
+<p>访问不了注意关闭防火墙</p>
+<h3 id="常见错误汇总"><a href="#常见错误汇总" class="headerlink" title="常见错误汇总"></a>常见错误汇总</h3><p>错误信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">2017-08-22 21:09:18,495 - Skipping installation of existing package hdp-select</div><div class="line">2017-08-22 21:09:18,755 - Using hadoop conf dir: /usr/hdp/current/hadoop-client/conf</div><div class="line">2017-08-22 21:09:18,757 - checked_call[&apos;hostid&apos;] &#123;&#125;</div><div class="line">2017-08-22 21:09:18,761 - checked_call returned (0, &apos;a8c00228&apos;)</div><div class="line">2017-08-22 21:09:18,763 - Package[&apos;ambari-metrics-monitor&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,829 - Skipping installation of existing package ambari-metrics-monitor</div><div class="line">2017-08-22 21:09:18,830 - Package[&apos;ambari-metrics-hadoop-sink&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,839 - Skipping installation of existing package ambari-metrics-hadoop-sink</div><div class="line">2017-08-22 21:09:18,840 - Package[&apos;ambari-metrics-grafana&apos;] &#123;&apos;retry_on_repo_unavailability&apos;: False, &apos;retry_count&apos;: 5&#125;</div><div class="line">2017-08-22 21:09:18,849 - Installing package ambari-metrics-grafana (&apos;/usr/bin/yum -d 0 -e 0 -y install ambari-metrics-grafana&apos;)</div></pre></td></tr></table></figure></p>
+<p>手动安装即可<br><a href="https://community.hortonworks.com/questions/68432/why-does-my-ambari-create-cluster-fail-during-spar.html" target="_blank" rel="external">参考</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">yum install ambari-metrics-monitor hdp-select -y</div><div class="line">yum install slider_2_6_1_0_129 hdp-select -y</div><div class="line">yum install spark_2_6_1_0_129 hdp-select -y</div><div class="line">yum install mysql-connector-java hdp-select -y</div><div class="line">yum install tez_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129 hdp-select -y</div><div class="line">yum install zookeeper_2_6_1_0_129-server hdp-select -y</div></pre></td></tr></table></figure>
+<p>此版本新增了自动启动服务功能，再也不用手动去挨个点击启动了</p>
+<p>在admin-services auto start去enable对应的服务即可，太方便了</p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年07月15日 - 15时02分</p>
+        <p><span>最后更新:</span>2017年07月15日 - 15时02分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/15/大数据平台-ambari/" title="大数据平台-ambari">http://jethan.bid/2017/07/15/大数据平台-ambari/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/07/15/大数据平台-ambari/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/07/16/crontab安装及使用/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          crontab安装及使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/10/数据库之mysql-一/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">数据库之mysql(二)</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装ambari-server"><span class="toc-number">2.</span> <span class="toc-text">安装ambari-server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置并启动ambari-server"><span class="toc-number">3.</span> <span class="toc-text">设置并启动ambari-server</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群部署"><span class="toc-number">4.</span> <span class="toc-text">集群部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#多台计算无密码登录-ssh"><span class="toc-number">4.1.</span> <span class="toc-text">多台计算无密码登录-ssh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Install-Options"><span class="toc-number">4.2.</span> <span class="toc-text">Install Options</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hosts-Check"><span class="toc-number">4.3.</span> <span class="toc-text">Hosts Check</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Choose-Services"><span class="toc-number">4.4.</span> <span class="toc-text">Choose Services</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Assign-Masters"><span class="toc-number">4.5.</span> <span class="toc-text">Assign Masters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Assign-slaves-and-Clients"><span class="toc-number">4.6.</span> <span class="toc-text">Assign slaves and Clients</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#控制面板"><span class="toc-number">4.7.</span> <span class="toc-text">控制面板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见错误汇总"><span class="toc-number">4.8.</span> <span class="toc-text">常见错误汇总</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/07/16/crontab安装及使用/" title="上一篇: crontab安装及使用">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/07/10/数据库之mysql-一/" title="下一篇: 数据库之mysql(二)">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>

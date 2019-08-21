@@ -6,3 +6,5 @@ Disallow: /css
 Disallow: /js
 Sitemap: http://jethan.bid/sitemap.xml
 Sitemap: http://jethan.bid/baidusitemap.xml
+Sitemap: http://jethan.github.io/sitemap.xml
+Sitemap: http://jethan.github.io/baidusitemap.xml

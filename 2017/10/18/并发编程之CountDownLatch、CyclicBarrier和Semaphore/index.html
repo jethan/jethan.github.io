@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="OzPDRGF07x" />
+  
+  <title>并发编程之CountDownLatch、CyclicBarrier和Semaphore | 学海无涯</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CountDownLatch，CyclicBarrier和信号量Semaphore都是java并发包concurrent下提供的并发工具类，是比synchrorized关键字更高效的同步结构。 CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时">
+<meta name="keywords" content="CountDownLatch,CyclicBarrier,Semaphore">
+<meta property="og:type" content="article">
+<meta property="og:title" content="并发编程之CountDownLatch、CyclicBarrier和Semaphore">
+<meta property="og:url" content="http://jethan.bid/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/index.html">
+<meta property="og:site_name" content="学海无涯">
+<meta property="og:description" content="CountDownLatch，CyclicBarrier和信号量Semaphore都是java并发包concurrent下提供的并发工具类，是比synchrorized关键字更高效的同步结构。 CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时">
+<meta property="og:image" content="http://jethan.bid/img/icons/java.jpg">
+<meta property="og:updated_time" content="2017-10-18T08:31:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="并发编程之CountDownLatch、CyclicBarrier和Semaphore">
+<meta name="twitter:description" content="CountDownLatch，CyclicBarrier和信号量Semaphore都是java并发包concurrent下提供的并发工具类，是比synchrorized关键字更高效的同步结构。 CountDownLatchCountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时">
+<meta name="twitter:image" content="http://jethan.bid/img/icons/java.jpg">
+  
+    <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+  <script src="https://echarts.baidu.com/dist/echarts.common.min.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay">
+<a href="https://github.com/jethan/blog" style="cursor: hand;z-index: 9999999!important" rel="external nofollow noopener noreferrer" target="_blank">
+         <img style="position: absolute; top: 0; border: 0; transform: rotate(-90deg);" src="http://jet-han.oschina.io/img/icons/fork.png"
+         alt="Fork me on GitHub">
+</a>
+</div>
+<div class="intrude-less">
+    <header id="header" class="inner">  
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/ali.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">JET</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">技术博客</p>
+        
+        
+        
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=225 height=86 src="//music.163.com/outchain/player?type=2&id=482792397&auto=0&height=66"></iframe>
+        
+
+        
+            <form>
+                <input type="text" class="st-default-search-input search" id="search" placeholder=" Search...">
+            </form>
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">首页</a></li>
+                        
+                            <li><a href="/archives">归档</a></li>
+                        
+                            <li><a href="/photos">相册</a></li>
+                        
+                            <li><a href="/message">留言</a></li>
+                        
+                            <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                            
+                                <a class="fl oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                            
+                                <a class="fl twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/" style="font-size: 20px;">==</a> <a href="/tags/AOF/" style="font-size: 10px;">AOF</a> <a href="/tags/AOP/" style="font-size: 10px;">AOP</a> <a href="/tags/ArrayList/" style="font-size: 10px;">ArrayList</a> <a href="/tags/Arrays/" style="font-size: 10px;">Arrays</a> <a href="/tags/B-Tree索引/" style="font-size: 10px;">B-Tree索引</a> <a href="/tags/Bean的作用域/" style="font-size: 10px;">Bean的作用域</a> <a href="/tags/Bean的生命周期/" style="font-size: 10px;">Bean的生命周期</a> <a href="/tags/Collection/" style="font-size: 10px;">Collection</a> <a href="/tags/Collections/" style="font-size: 10px;">Collections</a> <a href="/tags/CountDownLatch/" style="font-size: 10px;">CountDownLatch</a> <a href="/tags/CyclicBarrier/" style="font-size: 10px;">CyclicBarrier</a> <a href="/tags/Factory-Pattern/" style="font-size: 10px;">Factory Pattern</a> <a href="/tags/Generics/" style="font-size: 10px;">Generics</a> <a href="/tags/HEAP/" style="font-size: 10px;">HEAP</a> <a href="/tags/HashMap/" style="font-size: 10px;">HashMap</a> <a href="/tags/HashSet/" style="font-size: 10px;">HashSet</a> <a href="/tags/HashTable/" style="font-size: 10px;">HashTable</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IO/" style="font-size: 10px;">IO</a> <a href="/tags/IOC/" style="font-size: 10px;">IOC</a> <a href="/tags/ISAM/" style="font-size: 10px;">ISAM</a> <a href="/tags/Innodb/" style="font-size: 10px;">Innodb</a> <a href="/tags/Intercepting-Filter-Pattern/" style="font-size: 10px;">Intercepting Filter Pattern</a> <a href="/tags/Iterator-Pattern/" style="font-size: 10px;">Iterator Pattern</a> <a href="/tags/LinkedHashMap/" style="font-size: 10px;">LinkedHashMap</a> <a href="/tags/LinkedList/" style="font-size: 10px;">LinkedList</a> <a href="/tags/MVC-Pattern/" style="font-size: 10px;">MVC Pattern</a> <a href="/tags/Map/" style="font-size: 10px;">Map</a> <a href="/tags/MapperScannerConfigurer/" style="font-size: 10px;">MapperScannerConfigurer</a> <a href="/tags/Markdown/" style="font-size: 10px;">Markdown</a> <a href="/tags/MyIsam/" style="font-size: 10px;">MyIsam</a> <a href="/tags/Proxy-Pattern/" style="font-size: 10px;">Proxy Pattern</a> <a href="/tags/RDB/" style="font-size: 10px;">RDB</a> <a href="/tags/ReentrantLock/" style="font-size: 10px;">ReentrantLock</a> <a href="/tags/Semaphore/" style="font-size: 10px;">Semaphore</a> <a href="/tags/Singleton-Pattern/" style="font-size: 10px;">Singleton Pattern</a> <a href="/tags/String/" style="font-size: 10px;">String</a> <a href="/tags/StringBuffer/" style="font-size: 10px;">StringBuffer</a> <a href="/tags/StringBuilder/" style="font-size: 10px;">StringBuilder</a> <a href="/tags/ThreadPoolExecutor/" style="font-size: 10px;">ThreadPoolExecutor</a> <a href="/tags/TreeMap/" style="font-size: 10px;">TreeMap</a> <a href="/tags/TreeSet/" style="font-size: 10px;">TreeSet</a> <a href="/tags/Vector/" style="font-size: 10px;">Vector</a> <a href="/tags/WeakHashMap/" style="font-size: 10px;">WeakHashMap</a> <a href="/tags/Wildcard/" style="font-size: 10px;">Wildcard</a> <a href="/tags/ambari/" style="font-size: 10px;">ambari</a> <a href="/tags/await/" style="font-size: 10px;">await</a> <a href="/tags/binlog/" style="font-size: 10px;">binlog</a> <a href="/tags/crontab/" style="font-size: 10px;">crontab</a> <a href="/tags/equals/" style="font-size: 20px;">equals</a> <a href="/tags/explain/" style="font-size: 10px;">explain</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/hashCode/" style="font-size: 10px;">hashCode</a> <a href="/tags/hashmap/" style="font-size: 10px;">hashmap</a> <a href="/tags/index/" style="font-size: 10px;">index</a> <a href="/tags/jdk8/" style="font-size: 10px;">jdk8</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/my-cnf配置详解/" style="font-size: 10px;">my.cnf配置详解</a> <a href="/tags/mysql/" style="font-size: 20px;">mysql</a> <a href="/tags/mysqldump/" style="font-size: 10px;">mysqldump</a> <a href="/tags/mysqldumpslow/" style="font-size: 10px;">mysqldumpslow</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nosql/" style="font-size: 10px;">nosql</a> <a href="/tags/notify/" style="font-size: 10px;">notify</a> <a href="/tags/notifyAll/" style="font-size: 10px;">notifyAll</a> <a href="/tags/quartz/" style="font-size: 10px;">quartz</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/runnable/" style="font-size: 10px;">runnable</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/signal/" style="font-size: 10px;">signal</a> <a href="/tags/signalAll/" style="font-size: 10px;">signalAll</a> <a href="/tags/solr/" style="font-size: 10px;">solr</a> <a href="/tags/sort/" style="font-size: 10px;">sort</a> <a href="/tags/spring/" style="font-size: 20px;">spring</a> <a href="/tags/spring单例模式/" style="font-size: 10px;">spring单例模式</a> <a href="/tags/spring线程安全/" style="font-size: 10px;">spring线程安全</a> <a href="/tags/string/" style="font-size: 10px;">string</a> <a href="/tags/synchronized/" style="font-size: 10px;">synchronized</a> <a href="/tags/thread/" style="font-size: 10px;">thread</a> <a href="/tags/volatile/" style="font-size: 10px;">volatile</a> <a href="/tags/vpn/" style="font-size: 10px;">vpn</a> <a href="/tags/wait/" style="font-size: 10px;">wait</a> <a href="/tags/web-xml加载顺序/" style="font-size: 10px;">web.xml加载顺序</a> <a href="/tags/主从/" style="font-size: 10px;">主从</a> <a href="/tags/主从备份/" style="font-size: 10px;">主从备份</a> <a href="/tags/乐观锁/" style="font-size: 10px;">乐观锁</a> <a href="/tags/事务传播属性/" style="font-size: 10px;">事务传播属性</a> <a href="/tags/事务隔离级别/" style="font-size: 10px;">事务隔离级别</a> <a href="/tags/二分/" style="font-size: 10px;">二分</a> <a href="/tags/冒泡/" style="font-size: 10px;">冒泡</a> <a href="/tags/堆/" style="font-size: 10px;">堆</a> <a href="/tags/希尔/" style="font-size: 10px;">希尔</a> <a href="/tags/常量池/" style="font-size: 10px;">常量池</a> <a href="/tags/快速/" style="font-size: 10px;">快速</a> <a href="/tags/性能调优/" style="font-size: 10px;">性能调优</a> <a href="/tags/悲观锁/" style="font-size: 10px;">悲观锁</a> <a href="/tags/持久化/" style="font-size: 10px;">持久化</a> <a href="/tags/插入/" style="font-size: 10px;">插入</a> <a href="/tags/方法区/" style="font-size: 10px;">方法区</a> <a href="/tags/本地方法栈/" style="font-size: 10px;">本地方法栈</a> <a href="/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/tags/程序计数器/" style="font-size: 10px;">程序计数器</a> <a href="/tags/线程池/" style="font-size: 10px;">线程池</a> <a href="/tags/虚拟机栈/" style="font-size: 10px;">虚拟机栈</a> <a href="/tags/语句执行/" style="font-size: 10px;">语句执行</a> <a href="/tags/迭代/" style="font-size: 10px;">迭代</a> <a href="/tags/选择/" style="font-size: 10px;">选择</a> <a href="/tags/递归/" style="font-size: 10px;">递归</a> <a href="/tags/隔离级别/" style="font-size: 10px;">隔离级别</a> <a href="/tags/面试技巧/" style="font-size: 10px;">面试技巧</a> <a href="/tags/面试题/" style="font-size: 10px;">面试题</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://jethan.bid/">学海无涯</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">纯海迷、爱运动、爱交友、爱旅行、喜欢接触新鲜事物、迎接新的挑战，更爱游离于错综复杂的编码与逻辑中</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">JET</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/ali.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">JET</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">技术博客</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">首页</a></li>
+                
+                    <li><a href="/archives">归档</a></li>
+                
+                    <li><a href="/photos">相册</a></li>
+                
+                    <li><a href="/message">留言</a></li>
+                
+                    <li><a href="http://markdown.xiaoshujiang.com/">编辑器</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="https://github.com/jethan" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/jet-77-36" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/2146269010/profile?topnav=1&wvr=6&is_all=1" title="weibo">weibo</a>
+                    
+                        <a class="oschina" target="_blank" href="http://git.oschina.net/jet-han" title="oschina">oschina</a>
+                    
+                        <a class="twitter" target="_blank" href="https://twitter.com/fajie_han" title="twitter">twitter</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-并发编程之CountDownLatch、CyclicBarrier和Semaphore" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/" class="article-date">
+      <time datetime="2017-10-18T08:31:58.000Z" itemprop="datePublished">2017-10-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      并发编程之CountDownLatch、CyclicBarrier和Semaphore
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CountDownLatch/">CountDownLatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CyclicBarrier/">CyclicBarrier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Semaphore/">Semaphore</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<p><code>CountDownLatch</code>，<code>CyclicBarrier</code>和信号量<code>Semaphore</code>都是<code>java</code>并发包<code>concurrent</code>下提供的并发工具类，是比<code>synchrorized</code>关键字更高效的同步结构。</p>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
+<p><code>CountDownLatch</code>类只提供了一个构造器：</p>
+<pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
+</code></pre><p>然后下面这3个方法是CountDownLatch类中最重要的方法：</p>
+<pre><code>public void await() throws InterruptedException { };   //调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
+public boolean await(long timeout, TimeUnit unit) throws InterruptedException { };  //和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
+public void countDown() { };  //将count值减1
+</code></pre><p>下面看一个例子大家就清楚<code>CountDownLatch</code>的用法了：<br><a id="more"></a> </p>
+<pre><code>public class Test {
+     public static void main(String[] args) {   
+         final CountDownLatch latch = new CountDownLatch(2);
+
+         new Thread(){
+             public void run() {
+                 try {
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
+                    Thread.sleep(3000);
+                    System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
+                    latch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+             };
+         }.start();
+
+         new Thread(){
+             public void run() {
+                 try {
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;正在执行&quot;);
+                     Thread.sleep(3000);
+                     System.out.println(&quot;子线程&quot;+Thread.currentThread().getName()+&quot;执行完毕&quot;);
+                     latch.countDown();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+             };
+         }.start();
+
+         try {
+             System.out.println(&quot;等待2个子线程执行完毕...&quot;);
+            latch.await();
+            System.out.println(&quot;2个子线程已经执行完毕&quot;);
+            System.out.println(&quot;继续执行主线程&quot;);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+     }
+}
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在执行
+线程Thread-1正在执行
+等待2个子线程执行完毕...
+线程Thread-0执行完毕
+线程Thread-1执行完毕
+2个子线程已经执行完毕
+继续执行主线程
+</code></pre><h2 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h2><p>　字面意思回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier了。</p>
+<p>　　<code>CyclicBarrier</code>类位于<code>java.util.concurrent</code>包下，CyclicBarrier提供2个构造器：</p>
+<pre><code>  public CyclicBarrier(int parties, Runnable barrierAction) {
+  }
+
+  public CyclicBarrier(int parties) {
+  }
+</code></pre><p>　　参数<code>parties</code>指让多少个线程或者任务等待至barrier状态；参数<code>barrierAction</code>为当这些线程都达到barrier状态时会执行的内容。</p>
+<p>　　然后<code>CyclicBarrier</code>中最重要的方法就是await方法，它有2个重载版本：</p>
+<pre><code>  public int await() throws InterruptedException, BrokenBarrierException { };
+  public int await(long timeout, TimeUnit unit)throws InterruptedException,BrokenBarrierException,TimeoutException { };
+</code></pre><p> 　　第一个版本比较常用，用来挂起当前线程，直至所有线程都到达barrier状态再同时执行后续任务；</p>
+<p>　　第二个版本是让这些线程等待至一定的时间，如果还有线程没有到达barrier状态就直接让到达barrier的线程执行后续任务。</p>
+<p>　　下面举几个例子就明白了：</p>
+<p>　　假若有若干个线程都要进行写数据操作，并且只有所有线程都完成写数据操作之后，这些线程才能继续做后面的事情，此时就可以利用CyclicBarrier了：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N);
+          for(int i=0;i&lt;N;i++)
+              new Writer(barrier).start();
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在写入数据...
+线程Thread-3正在写入数据...
+线程Thread-2正在写入数据...
+线程Thread-1正在写入数据...
+线程Thread-2写入数据完毕，等待其他线程写入完毕
+线程Thread-0写入数据完毕，等待其他线程写入完毕
+线程Thread-3写入数据完毕，等待其他线程写入完毕
+线程Thread-1写入数据完毕，等待其他线程写入完毕
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　从上面输出结果可以看出，每个写入线程执行完写数据操作之后，就在等待其他线程写入操作完毕。</p>
+<p>　　当所有线程线程写入操作完毕之后，所有线程就继续进行后续的操作了。</p>
+<p>　　如果说想在所有线程写入操作完之后，进行额外的其他操作可以为<code>CyclicBarrier</code>提供Runnable参数：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N,new Runnable() {
+              @Override
+              public void run() {
+                  System.out.println(&quot;当前线程&quot;+Thread.currentThread().getName());   
+              }
+          });
+
+          for(int i=0;i&lt;N;i++)
+              new Writer(barrier).start();
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p> 　　运行结果：</p>
+<pre><code>    线程Thread-0正在写入数据...
+    线程Thread-1正在写入数据...
+    线程Thread-2正在写入数据...
+    线程Thread-3正在写入数据...
+    线程Thread-0写入数据完毕，等待其他线程写入完毕
+    线程Thread-1写入数据完毕，等待其他线程写入完毕
+    线程Thread-2写入数据完毕，等待其他线程写入完毕
+    线程Thread-3写入数据完毕，等待其他线程写入完毕
+    当前线程Thread-3
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+    所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　　从结果可以看出，当四个线程都到达barrier状态后，最后执行完任务达到 barrier的线程去执行Runnable。</p>
+<p> 下面看一下为await指定时间的效果：</p>
+<pre><code>    public class Test {
+        public static void main(String[] args) {
+            int N = 4;
+            CyclicBarrier barrier  = new CyclicBarrier(N);
+
+            for(int i=0;i&lt;N;i++) {
+                if(i&lt;N-1)
+                    new Writer(barrier).start();
+                else {
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    new Writer(barrier).start();
+                }
+            }
+        }
+        static class Writer extends Thread{
+            private CyclicBarrier cyclicBarrier;
+            public Writer(CyclicBarrier cyclicBarrier) {
+                this.cyclicBarrier = cyclicBarrier;
+            }
+
+            @Override
+            public void run() {
+                System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+                try {
+                    Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                    System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+                    try {
+                        cyclicBarrier.await(2000, TimeUnit.MILLISECONDS);
+                    } catch (TimeoutException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }catch(BrokenBarrierException e){
+                    e.printStackTrace();
+                }
+                System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+            }
+        }
+    }
+</code></pre><p>执行结果：</p>
+<pre><code>线程Thread-0正在写入数据...
+线程Thread-2正在写入数据...
+线程Thread-1正在写入数据...
+线程Thread-2写入数据完毕，等待其他线程写入完毕
+线程Thread-0写入数据完毕，等待其他线程写入完毕
+线程Thread-1写入数据完毕，等待其他线程写入完毕
+线程Thread-3正在写入数据...
+java.util.concurrent.TimeoutException
+Thread-1所有线程写入完毕，继续处理其他任务...
+Thread-0所有线程写入完毕，继续处理其他任务...
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+java.util.concurrent.BrokenBarrierException
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+java.util.concurrent.BrokenBarrierException
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+Thread-2所有线程写入完毕，继续处理其他任务...
+java.util.concurrent.BrokenBarrierException
+线程Thread-3写入数据完毕，等待其他线程写入完毕
+    at java.util.concurrent.CyclicBarrier.dowait(Unknown Source)
+    at java.util.concurrent.CyclicBarrier.await(Unknown Source)
+    at com.cxh.test1.Test$Writer.run(Test.java:58)
+</code></pre><p>Thread-3所有线程写入完毕，继续处理其他任务…</p>
+<p>　　上面的代码在main方法的for循环中，故意让最后一个线程启动延迟，因为在前面三个线程都达到barrier之后，等待了指定的时间发现第四个线程还没有达到barrier，就抛出异常并继续执行后面的任务。</p>
+<p>另外<code>CyclicBarrier</code>是可以重用的，看下面这个例子：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 4;
+          CyclicBarrier barrier  = new CyclicBarrier(N);
+
+          for(int i=0;i&lt;N;i++) {
+              new Writer(barrier).start();
+          }
+
+          try {
+              Thread.sleep(25000);
+          } catch (InterruptedException e) {
+              e.printStackTrace();
+          }
+
+          System.out.println(&quot;CyclicBarrier重用&quot;);
+
+          for(int i=0;i&lt;N;i++) {
+              new Writer(barrier).start();
+          }
+      }
+      static class Writer extends Thread{
+          private CyclicBarrier cyclicBarrier;
+          public Writer(CyclicBarrier cyclicBarrier) {
+              this.cyclicBarrier = cyclicBarrier;
+          }
+
+          @Override
+          public void run() {
+              System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;正在写入数据...&quot;);
+              try {
+                  Thread.sleep(5000);      //以睡眠来模拟写入数据操作
+                  System.out.println(&quot;线程&quot;+Thread.currentThread().getName()+&quot;写入数据完毕，等待其他线程写入完毕&quot;);
+
+                  cyclicBarrier.await();
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }catch(BrokenBarrierException e){
+                  e.printStackTrace();
+              }
+              System.out.println(Thread.currentThread().getName()+&quot;所有线程写入完毕，继续处理其他任务...&quot;);
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>    线程Thread-0正在写入数据...
+    线程Thread-1正在写入数据...
+    线程Thread-3正在写入数据...
+    线程Thread-2正在写入数据...
+    线程Thread-1写入数据完毕，等待其他线程写入完毕
+    线程Thread-3写入数据完毕，等待其他线程写入完毕
+    线程Thread-2写入数据完毕，等待其他线程写入完毕
+    线程Thread-0写入数据完毕，等待其他线程写入完毕
+    Thread-0所有线程写入完毕，继续处理其他任务...
+    Thread-3所有线程写入完毕，继续处理其他任务...
+    Thread-1所有线程写入完毕，继续处理其他任务...
+    Thread-2所有线程写入完毕，继续处理其他任务...
+    CyclicBarrier重用
+    线程Thread-4正在写入数据...
+    线程Thread-5正在写入数据...
+    线程Thread-6正在写入数据...
+    线程Thread-7正在写入数据...
+    线程Thread-7写入数据完毕，等待其他线程写入完毕
+    线程Thread-5写入数据完毕，等待其他线程写入完毕
+    线程Thread-6写入数据完毕，等待其他线程写入完毕
+    线程Thread-4写入数据完毕，等待其他线程写入完毕
+    Thread-4所有线程写入完毕，继续处理其他任务...
+    Thread-5所有线程写入完毕，继续处理其他任务...
+    Thread-6所有线程写入完毕，继续处理其他任务...
+    Thread-7所有线程写入完毕，继续处理其他任务...
+</code></pre><p>　　从执行结果可以看出，在初次的4个线程越过barrier状态后，又可以用来进行新一轮的使用。而CountDownLatch无法进行重复使用。</p>
+<h2 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h2><p><code>Semaphore</code>翻译成字面意思为 信号量，Semaphore可以控同时访问的线程个数，通过 acquire() 获取一个许可，如果没有就等待，而 release() 释放一个许可。</p>
+<p><code>Semaphore</code>类位于<code>java.util.concurrent</code>包下，它提供了2个构造器：</p>
+<pre><code>public Semaphore(int permits) {          //参数permits表示许可数目，即同时可以允许多少线程进行访问
+    sync = new NonfairSync(permits);
+}
+public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair表示是否是公平的，即等待时间越久的越先获取许可
+    sync = (fair)? new FairSync(permits) : new NonfairSync(permits);
+}
+</code></pre><p> 下面说一下<code>Semaphore</code>类中比较重要的几个方法，首先是<code>acquire()</code>、<code>release()</code>方法：</p>
+<pre><code>    public void acquire() throws InterruptedException {  }     //获取一个许可
+    public void acquire(int permits) throws InterruptedException { }    //获取permits个许可
+    public void release() { }          //释放一个许可
+    public void release(int permits) { }    //释放permits个许可
+</code></pre><p><code>acquire()</code>用来获取一个许可，若无许可能够获得，则会一直等待，直到获得许可。</p>
+<p><code>release()</code>用来释放许可。注意，在释放许可之前，必须先获获得许可。否则直接release，permit数目可能会大于设置的最大数。</p>
+<p>这4个方法都会被阻塞，如果想立即得到执行结果，可以使用下面几个方法：</p>
+<pre><code>    public boolean tryAcquire() { };    //尝试获取一个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
+    public boolean tryAcquire(long timeout, TimeUnit unit) throws InterruptedException { };  //尝试获取一个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
+    public boolean tryAcquire(int permits) { }; //尝试获取permits个许可，若获取成功，则立即返回true，若获取失败，则立即返回false
+    public boolean tryAcquire(int permits, long timeout, TimeUnit unit) throws InterruptedException { }; //尝试获取permits个许可，若在指定的时间内获取成功，则立即返回true，否则则立即返回false
+</code></pre><p>另外还可以通过<code>availablePermits()</code>方法得到可用的许可数目。</p>
+<p>下面通过一个例子来看一下<code>Semaphore</code>的具体使用：</p>
+<p>假若一个工厂有5台机器，但是有8个工人，一台机器同时只能被一个工人使用，只有使用完了，其他工人才能继续使用。那么我们就可以通过Semaphore来实现：</p>
+<pre><code>  public class Test {
+      public static void main(String[] args) {
+          int N = 8;            //工人数
+          Semaphore semaphore = new Semaphore(5); //机器数目
+          for(int i=0;i&lt;N;i++)
+              new Worker(i,semaphore).start();
+      }
+
+      static class Worker extends Thread{
+          private int num;
+          private Semaphore semaphore;
+          public Worker(int num,Semaphore semaphore){
+              this.num = num;
+              this.semaphore = semaphore;
+          }
+
+          @Override
+          public void run() {
+              try {
+                  semaphore.acquire();
+                  System.out.println(&quot;工人&quot;+this.num+&quot;占用一个机器在生产...&quot;);
+                  Thread.sleep(2000);
+                  System.out.println(&quot;工人&quot;+this.num+&quot;释放出机器&quot;);
+                  semaphore.release();           
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+              }
+          }
+      }
+  }
+</code></pre><p>执行结果：</p>
+<pre><code>    工人0占用一个机器在生产...
+    工人1占用一个机器在生产...
+    工人2占用一个机器在生产...
+    工人4占用一个机器在生产...
+    工人5占用一个机器在生产...
+    工人0释放出机器
+    工人2释放出机器
+    工人3占用一个机器在生产...
+    工人7占用一个机器在生产...
+    工人4释放出机器
+    工人5释放出机器
+    工人1释放出机器
+    工人6占用一个机器在生产...
+    工人3释放出机器
+    工人7释放出机器
+    工人6释放出机器
+</code></pre><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><code>CountDownLatch</code>和<code>CyclicBarrier</code>都能够实现线程之间的等待，只不过它们侧重点不同：</li>
+</ul>
+<p>　　　　<code>CountDownLatch</code>一般用于某个线程A等待若干个其他线程执行完任务之后，它才执行；</p>
+<p>　　　　而<code>CyclicBarrier</code>一般用于一组线程互相等待至某个状态，然后这一组线程再同时执行；</p>
+<p>　　　　另外，<code>CountDownLatch</code>是不能够重用的，而<code>CyclicBarrier</code>是可以重用的。</p>
+<ul>
+<li><code>Semaphore</code>其实和锁有点类似，它一般用于控制对某组资源的访问权限。</li>
+</ul>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+</div>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 JET 的个人博客">JET</a></p>
+        <p><span>发布时间:</span>2017年10月18日 - 16时31分</p>
+        <p><span>最后更新:</span>2017年10月18日 - 16时31分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/" title="并发编程之CountDownLatch、CyclicBarrier和Semaphore">http://jethan.bid/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/　　作者: JET" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2017/11/28/Mysql-B-Tree索引/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Mysql-B-Tree索引
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/13/Spring中bean的生命周期/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring中bean的生命周期</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+</div>
+
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">1.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CyclicBarrier"><span class="toc-number">2.</span> <span class="toc-text">CyclicBarrier</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Semaphore"><span class="toc-number">3.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
+
+       if (typeof LivereTower === 'function') { return; }
+
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
+
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
+  
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2017/11/28/Mysql-B-Tree索引/" title="上一篇: Mysql-B-Tree索引">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/09/13/Spring中bean的生命周期/" title="下一篇: Spring中bean的生命周期">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2019 学海无涯
+            </div>
+            <div class="footer-right">
+                <span class="author" itemprop="copyrightHolder">Powered By - JET</span>
+            </div>
+        </div>
+        
+
+      <div class="total_count">
+          本站共 <span id="busuanzi_value_site_pv"></span><span id="site_pv">次访问</span>
+          您是第 <span id="busuanzi_value_site_uv"></span><span id="site_uv">个小伙伴</span>
+          本页累计 <span id="busuanzi_value_page_pv"></span><span id="page_pv">次阅读</span>
+          已运行 <span id="showDays"></span><span id="show_days">天</span>
+      </div>
+      <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+      </script>
+      <script>
+        var birthDay = new Date('05/24/2017');
+        var now = new Date();
+        var duration = now.getTime() - birthDay.getTime();
+        var total= Math.floor(duration / (1000 * 60 * 60 * 24));
+        document.getElementById('showDays').innerHTML=total;
+      </script>
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("{{theme.leancloud_visitors.app_id}}", "{{theme.leancloud_visitors.app_key}}");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+    <script type="text/javascript">
+      window.onload = function(){
+        document.getElementById("search").onclick = function(){
+            console.log("search")
+            search();
+        }
+      }
+      function search(){
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','A1Pz-LKMXbrzcFg2FWi6','2.0.0');
+      }
+    </script>
+
+
+    <script type="text/javascript">
+   document.oncontextmenu = function(){
+     return false;
+   }
+   document.onkeydown = function(){
+    if (event.ctrlKey && window.event.keyCode==67){
+    return false;
+    }
+    if ((window.event.altKey)&& 
+     ((window.event.keyCode==37)||   
+      (window.event.keyCode==39))){alert("请访问主页"); 
+    event.returnValue=false; 
+    } 
+if ((event.keyCode==8)||(event.keyCode==116)){//屏蔽 F5 刷新键 
+    event.keyCode=0; 
+    event.returnValue=false; 
+    } 
+if ((event.ctrlKey)&&(event.keyCode==78)){   //屏蔽 Ctrl+n 
+    event.returnValue=false; 
+    } 
+if ((event.shiftKey)&&(event.keyCode==121)){ //屏蔽 shift+F10 
+    event.returnValue=false; 
+    }
+if (event.keyCode==123){ //屏蔽 F12 
+    event.returnValue=false;
+    }
+   }
+  document.body.oncopy = function (){
+   return false;
+  }
+  //不建议连选中文本都不行
+  document.onselectstart = function(){
+  //return false;
+  }
+    </script>
+
+
+  </div>
+</body>
+</html>
