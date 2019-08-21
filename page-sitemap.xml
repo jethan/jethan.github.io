@@ -42,14 +42,14 @@
     </url>
     
     <url>
-        <loc>http://jethan.bid/message/</loc>
+        <loc>http://jethan.bid/categories/</loc>
         <lastmod>2017-06-21T12:31:28.736Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://jethan.bid/categories/</loc>
+        <loc>http://jethan.bid/message/</loc>
         <lastmod>2017-06-21T12:31:28.736Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
