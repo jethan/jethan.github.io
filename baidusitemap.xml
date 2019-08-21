@@ -459,9 +459,9 @@
         <title>equals、==和hashCode</title>
         <pubTime>2017-08-01T15:47:00.000Z</pubTime>
         
-        <tag>equals</tag>
-         
         <tag>==</tag>
+         
+        <tag>equals</tag>
          
         <tag>hashCode</tag>
          
@@ -568,11 +568,11 @@
         <title>string比较之‘’equals‘’和‘’==‘’</title>
         <pubTime>2017-07-28T03:06:56.000Z</pubTime>
         
-        <tag>equals</tag>
+        <tag>string</tag>
          
         <tag>==</tag>
          
-        <tag>string</tag>
+        <tag>equals</tag>
          
          
            

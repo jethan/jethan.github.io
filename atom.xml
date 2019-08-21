@@ -4214,9 +4214,9 @@ select * from tx;
       <category term="java基础" scheme="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="equals" scheme="http://jet-han.oschina.io/tags/equals/"/>
-    
       <category term="==" scheme="http://jet-han.oschina.io/tags//"/>
+    
+      <category term="equals" scheme="http://jet-han.oschina.io/tags/equals/"/>
     
       <category term="hashCode" scheme="http://jet-han.oschina.io/tags/hashCode/"/>
     
