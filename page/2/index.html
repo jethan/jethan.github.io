@@ -252,11 +252,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-并发编程之线程池ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Mysql-B-Tree索引" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/" class="article-date">
-      <time datetime="2017-08-06T05:32:02.000Z" itemprop="datePublished">2017-08-06</time>
+      <a href="/2017/11/28/Mysql-B-Tree索引/" class="article-date">
+      <time datetime="2017-11-28T06:13:59.000Z" itemprop="datePublished">2017-11-28</time>
 </a>
     </div>
   
@@ -269,7 +269,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a>
+      <a class="article-title" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a>
     </h1>
   
 
@@ -279,9 +279,95 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="并发编程之线程池ThreadPoolExecutor/java.jpg" alt="java" title="java"></p>
-<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>当前越来越多的系统使用多线程来处理任务，但是为每一个任务创建线程并不是合理的方案，原因有2点：一是创建线程的开销很大，一个任务一个线程的方式会有性能上的损失；二是可能导致线程数量的膨胀，不但不易于线程的管理，还可能导致内存被消耗完，导致out of memory（OOM）,从而使系统崩溃。为了解决这个问题，线程池应运而生。线程池有两个作用：一个是限制线程的数量，不会导致线程的膨胀；二是线程复用，线程执行完一个人任务之后，可以接着执行下一个任务，减少了创建线程的开销。 </p>
-<p>java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。<br>
+              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<p>MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。</p>
+<p>MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结构，使用原则和特性。</p>
+<p>主要内容如下：</p>
+<ul>
+<li>B-Tree索引的底层结构</li>
+<li>B-Tree索引的使用规则</li>
+<li>聚簇索引</li>
+<li>InnoDB和MyISAM引擎索引的差异</li>
+<li>松散索引</li>
+<li>覆盖索引</li>
+</ul>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/B-Tree索引/">B-Tree索引</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/11/28/Mysql-B-Tree索引/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-并发编程之CountDownLatch、CyclicBarrier和Semaphore" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/" class="article-date">
+      <time datetime="2017-10-18T08:31:58.000Z" itemprop="datePublished">2017-10-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<p><code>CountDownLatch</code>，<code>CyclicBarrier</code>和信号量<code>Semaphore</code>都是<code>java</code>并发包<code>concurrent</code>下提供的并发工具类，是比<code>synchrorized</code>关键字更高效的同步结构。</p>
+<h2 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h2><p>CountDownLatch类位于java.util.concurrent包下，利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能了。</p>
+<p><code>CountDownLatch</code>类只提供了一个构造器：</p>
+<pre><code>public CountDownLatch(int count) {  };  //参数count为计数值
+</code></pre><p>然后下面这3个方法是CountDownLatch类中最重要的方法：</p>
+<pre><code>public void await() throws InterruptedException { };   //调用await()方法的线程会被挂起，它会等待直到count值为0才继续执行
+public boolean await(long timeout, TimeUnit unit) throws InterruptedException { };  //和await()类似，只不过等待一定的时间后count值还没变为0的话就会继续执行
+public void countDown() { };  //将count值减1
+</code></pre><p>下面看一个例子大家就清楚<code>CountDownLatch</code>的用法了：<br>
           
       
       
@@ -297,12 +383,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadPoolExecutor/">ThreadPoolExecutor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CountDownLatch/">CountDownLatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CyclicBarrier/">CyclicBarrier</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Semaphore/">Semaphore</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/#more">阅读全文 >></a>
+          <a  href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -322,11 +408,11 @@
 
 
   
-    <article id="post-线程的实现方式" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Spring中bean的生命周期" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/05/线程的实现方式/" class="article-date">
-      <time datetime="2017-08-05T08:32:32.000Z" itemprop="datePublished">2017-08-05</time>
+      <a href="/2017/09/13/Spring中bean的生命周期/" class="article-date">
+      <time datetime="2017-09-13T09:58:54.000Z" itemprop="datePublished">2017-09-13</time>
 </a>
     </div>
   
@@ -339,7 +425,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/线程的实现方式/">线程的实现方式</a>
+      <a class="article-title" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a>
     </h1>
   
 
@@ -349,220 +435,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="线程的实现方式/java.jpg" alt="java" title="java"></p>
-<h2 id="线程实现方式"><a href="#线程实现方式" class="headerlink" title="线程实现方式"></a>线程实现方式</h2><ol>
-<li>继承java.lang.Thread类  </li>
-<li>实现java.lang.Runnable接口</li>
-</ol>
-<p><strong>区别：</strong>第一种是继承，第二种是实现<br><strong>好处：</strong>  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/runnable/">runnable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/线程的实现方式/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jvm调优" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/jvm调优/" class="article-date">
-      <time datetime="2017-08-05T08:05:44.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/jvm调优/">jvm调优</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="jvm调优/java.jpg" alt="java" title="java"></p>
-<h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/jvm/">jvm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能调优/">性能调优</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/jvm调优/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-web-xml加载顺序" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/web-xml加载顺序/" class="article-date">
-      <time datetime="2017-08-05T06:42:06.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="web.xml加载顺序/java.jpg" alt="java" title="java"></p>
-<p><strong>web.xml 的加载顺序:</strong><br>ServletContext-&gt; context-param -&gt;listener -&gt; filter -&gt; servlet，而同个类型之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用的。ServletContext即Servlet上下文对象，该对象表示当前的web应用环境信息，一个Web应用只会创建一个ServletContext对象。</p>
-<p>Web容器启动的时候，它会为每个Web应用程序都创建一个对应的ServletContext对象，它代表当前的web应用。<br>[注意]由于一个Web应用中的所有Servlet共享一个ServletContext对象，所以多个Servlet通过ServletContext对象实现数据共享，ServletContext对象通常称为Context域对象。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-xml加载顺序/">web.xml加载顺序</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/05/web-xml加载顺序/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-sping之IOC，AOP" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/05/sping之IOC，AOP/" class="article-date">
-      <time datetime="2017-08-05T06:34:04.000Z" itemprop="datePublished">2017-08-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="sping之IOC，AOP/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spring AOP和IOC个人理解<br><strong>IOC inversion of control 控制反转</strong><br>将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：<br>第一种xml方式 需要set方法为被调用的属性赋值，xml中需要<code>ref</code>注入被调要的对象。<br>第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上<br><code>@Controller,@Service,@Repository</code>通过在属性上加上<code>@Resource(name=&quot;&quot;)</code>来为属性赋值，这一步相当于xml方式的<code>ref</code>。<br>事务管理器<br>
+              <h1 id="Spring中bean的生命周期"><a href="#Spring中bean的生命周期" class="headerlink" title="Spring中bean的生命周期"></a>Spring中bean的生命周期</h1><p><img src="Spring中bean的生命周期/spring.jpg" alt="spring" title="spring"></p>
+<p>一分钟掌握Spring中bean的生命周期！<br>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例.</p>
+<p>在spring中，从BeanFactory或ApplicationContext取得的实例为Singleton，也就是预设为每一个Bean的别名只能维持一个实例，而不是每次都产生一个新的对象使用Singleton模式产生单一实例，对单线程的程序说并不会有什么问题，但对于多线程的程序，就必须注意安全(Thread-safe)的议题，防止多个线程同时存取共享资源所引发的数据不同步问题。</p>
+<p>然而在spring中 可以设定每次从BeanFactory或ApplicationContext指定别名并取得Bean时都产生一个新的实例：例如：</p>
+<p>在spring中，singleton属性默认是true，只有设定为false，则每次指定别名取得的Bean时都会产生一个新的实例</p>
+<p>一个Bean从创建到销毁，如果是用BeanFactory来生成,管理Bean的话，会经历几个执行阶段(如图)：</p>
           
       
       
@@ -578,12 +456,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOP/">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOC/">IOC</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bean的生命周期/">Bean的生命周期</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/08/05/sping之IOC，AOP/#more">阅读全文 >></a>
+          <a  href="/2017/09/13/Spring中bean的生命周期/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -603,11 +481,11 @@
 
 
   
-    <article id="post-spring事务的传播属性和隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-设计模式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/05/spring事务的传播属性和隔离级别/" class="article-date">
-      <time datetime="2017-08-05T04:03:28.000Z" itemprop="datePublished">2017-08-05</time>
+      <a href="/2017/08/08/设计模式/" class="article-date">
+      <time datetime="2017-08-08T06:34:34.000Z" itemprop="datePublished">2017-08-08</time>
 </a>
     </div>
   
@@ -620,7 +498,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a>
+      <a class="article-title" href="/2017/08/08/设计模式/">设计模式</a>
     </h1>
   
 
@@ -630,8 +508,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="spring事务传播属性"><a href="#spring事务传播属性" class="headerlink" title="spring事务传播属性"></a>spring事务传播属性</h2><p><strong>Propagation（事务的传播属性） ：</strong>key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：<br><strong>PROPAGATION_REQUIRED</strong>—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。<br><strong>PROPAGATION_SUPPORTS</strong>—支持当前事务，如果当前没有事务，就以非事务方式执行。<br><strong>PROPAGATION_MANDATORY</strong>—支持当前事务，如果当前没有事务，就抛出异常。<br><strong>PROPAGATION_REQUIRES_NEW</strong>—新建事务，如果当前存在事务，把当前事务挂起。<br><strong>PROPAGATION_NOT_SUPPORTED</strong>—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。<br><strong>PROPAGATION_NEVER</strong>—以非事务方式执行，如果当前存在事务，则抛出异常。<br>
+              <p><img src="设计模式/java.jpg" alt="java" title="java"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p><strong>设计模式简介</strong><br>设计模式（Design pattern）代表了最佳的实践，通常被有经验的面向对象的软件开发人员所采用。设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。这些解决方案是众多软件开发人员经过相当长的一段时间的试验和错误总结出来的。 </p>
+<p>设计模式是一套被反复使用的、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理地运用设计模式可以完美地解决很多问题，每种模式在现实中都有相应的原理来与之对应，每种模式都描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是设计模式能被广泛应用的原因。<br>
           
       
       
@@ -641,18 +520,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/spring/">spring</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/设计模式/">设计模式</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务传播属性/">事务传播属性</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/隔离级别/">隔离级别</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Factory-Pattern/">Factory Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Intercepting-Filter-Pattern/">Intercepting Filter Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Iterator-Pattern/">Iterator Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVC-Pattern/">MVC Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Proxy-Pattern/">Proxy Pattern</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Singleton-Pattern/">Singleton Pattern</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/08/05/spring事务的传播属性和隔离级别/#more">阅读全文 >></a>
+          <a  href="/2017/08/08/设计模式/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -672,11 +551,11 @@
 
 
   
-    <article id="post-乐观锁与悲观锁及应用举例" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-mysql数据库引擎" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/08/05/乐观锁与悲观锁及应用举例/" class="article-date">
-      <time datetime="2017-08-05T03:53:43.000Z" itemprop="datePublished">2017-08-05</time>
+      <a href="/2017/08/06/mysql数据库引擎/" class="article-date">
+      <time datetime="2017-08-06T06:16:24.000Z" itemprop="datePublished">2017-08-06</time>
 </a>
     </div>
   
@@ -689,7 +568,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a>
+      <a class="article-title" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a>
     </h1>
   
 
@@ -700,7 +579,9 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br>
+<h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
+<h2 id="数据库引擎任务"><a href="#数据库引擎任务" class="headerlink" title="数据库引擎任务"></a>数据库引擎任务</h2><p>在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。</p>
+<p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br>
           
       
       
@@ -716,233 +597,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/乐观锁/">乐观锁</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/悲观锁/">悲观锁</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HEAP/">HEAP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ISAM/">ISAM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Innodb/">Innodb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MyIsam/">MyIsam</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/08/05/乐观锁与悲观锁及应用举例/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-mysql事务隔离级别" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/04/mysql事务隔离级别/" class="article-date">
-      <time datetime="2017-08-04T03:58:09.000Z" itemprop="datePublished">2017-08-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="mysql事务隔离级别/mysql.jpg" alt="mysql" title="mysql"></p>
-<h1 id="mysql事务隔离级别"><a href="#mysql事务隔离级别" class="headerlink" title="mysql事务隔离级别"></a>mysql事务隔离级别</h1><h2 id="第1级别：Read-Uncommitted-读取未提交内容"><a href="#第1级别：Read-Uncommitted-读取未提交内容" class="headerlink" title="第1级别：Read Uncommitted(读取未提交内容)"></a>第1级别：Read Uncommitted(读取未提交内容)</h2><p>1.所有事务都可以看到其他未提交事务的执行结果<br>2.本隔离级别很少用于实际应用，因为它的性能也不比其他级别好多少<br>3.该级别引发的问题是——脏读(Dirty Read)：读取到了未提交的数据<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/事务隔离级别/">事务隔离级别</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/04/mysql事务隔离级别/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-equals、-和hashCode" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/08/01/equals、-和hashCode/" class="article-date">
-      <time datetime="2017-08-01T15:47:00.000Z" itemprop="datePublished">2017-08-01</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
-<p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
-<p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>
-<ul>
-<li><p>对于==，比较的是值是否相等</p>
-<p> 如果作用于基本数据类型的变量，则直接比较其存储的 “值”是否相等；</p>
-</li>
-</ul>
-<p>　　如果作用于引用类型的变量，则比较的是所指向的对象的地址</p>
-<ul>
-<li>对于equals方法，注意：equals方法不能作用于基本数据类型的变量，equals继承Object类，比较的是是否是同一个对象</li>
-</ul>
-<p>　　如果没有对equals方法进行重写，则比较的是引用类型的变量所指向的对象的地址；</p>
-<p>　　诸如String、Date等类对equals方法进行了重写的话，比较的是所指向的对象的内容。</p>
-<p>==比较的是对象的地址<br>String重写的equals比较的是字符串的内容值<br>String重写的hashCode已经不是对象内存地址的hash码，是根据内容产生的，因为a、b是两个完全不同的对象，也满足这条规律“equals相等的两个对象，hashCode也相等”。<br>System.identityHashCode是未被重写的获取对象内存地址hash码的函数，new出来的String对象的内存地址是不一样的，所以hash值也不一样<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/">==</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashCode/">hashCode</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/08/01/equals、-和hashCode/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-HashMap工作原理" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/28/HashMap工作原理/" class="article-date">
-      <time datetime="2017-07-28T08:05:02.000Z" itemprop="datePublished">2017-07-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="HashMap工作原理/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashmap/">hashmap</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/28/HashMap工作原理/#more">阅读全文 >></a>
+          <a  href="/2017/08/06/mysql数据库引擎/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -964,7 +624,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>

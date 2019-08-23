@@ -252,11 +252,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-volatile用法" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-并发编程之线程池ThreadPoolExecutor" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/28/volatile用法/" class="article-date">
-      <time datetime="2017-07-28T07:39:33.000Z" itemprop="datePublished">2017-07-28</time>
+      <a href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/" class="article-date">
+      <time datetime="2017-08-06T05:32:02.000Z" itemprop="datePublished">2017-08-06</time>
 </a>
     </div>
   
@@ -269,7 +269,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/volatile用法/">volatile用法</a>
+      <a class="article-title" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a>
     </h1>
   
 
@@ -279,11 +279,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="多线程之volatile/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。</p>
-<p>volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来了解一下与内存模型相关的概念和知识，然后分析了volatile关键字的实现原理，最后给出了几个使用volatile关键字的场景。</p>
-<p>在Java中除了long和double类型的基本类型变量的赋值和读取操作外都是原子操作，也就是说，对于变量值的简单读取操作没有必要进行同步。</p>
-<p>count++不是原子操作，是3个原子操作组合<br>1.读取主存中的count值，赋值给一个局部成员变量tmp<br>2.tmp+1<br>3.将tmp赋值给count<br>
+              <p><img src="并发编程之线程池ThreadPoolExecutor/java.jpg" alt="java" title="java"></p>
+<h2 id="ThreadPoolExecutor"><a href="#ThreadPoolExecutor" class="headerlink" title="ThreadPoolExecutor"></a>ThreadPoolExecutor</h2><p>当前越来越多的系统使用多线程来处理任务，但是为每一个任务创建线程并不是合理的方案，原因有2点：一是创建线程的开销很大，一个任务一个线程的方式会有性能上的损失；二是可能导致线程数量的膨胀，不但不易于线程的管理，还可能导致内存被消耗完，导致out of memory（OOM）,从而使系统崩溃。为了解决这个问题，线程池应运而生。线程池有两个作用：一个是限制线程的数量，不会导致线程的膨胀；二是线程复用，线程执行完一个人任务之后，可以接着执行下一个任务，减少了创建线程的开销。 </p>
+<p>java中一个运用非常普遍的线程池是ThreadPoolExecutor。下面来探究下ThreadPoolExecutor的功能和实现原理。<br>
           
       
       
@@ -299,12 +297,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ThreadPoolExecutor/">ThreadPoolExecutor</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/线程池/">线程池</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/28/volatile用法/#more">阅读全文 >></a>
+          <a  href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -324,11 +322,11 @@
 
 
   
-    <article id="post-java常量池" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-线程的实现方式" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/28/java常量池/" class="article-date">
-      <time datetime="2017-07-28T04:36:43.000Z" itemprop="datePublished">2017-07-28</time>
+      <a href="/2017/08/05/线程的实现方式/" class="article-date">
+      <time datetime="2017-08-05T08:32:32.000Z" itemprop="datePublished">2017-08-05</time>
 </a>
     </div>
   
@@ -341,7 +339,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/java常量池/">java常量池</a>
+      <a class="article-title" href="/2017/08/05/线程的实现方式/">线程的实现方式</a>
     </h1>
   
 
@@ -351,83 +349,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="java常量池/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>接上一篇文章继续探索string类牵带出的常量池</p>
-<h2 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h2><p><strong>程序计数器：</strong><br>1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。</p>
-<p>2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。</p>
-<p>我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/jvm/">jvm</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/常量池/">常量池</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/28/java常量池/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-string比较之‘’equals‘’和‘’==‘’" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/" class="article-date">
-      <time datetime="2017-07-28T03:06:56.000Z" itemprop="datePublished">2017-07-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
-<h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
-<p>这里s2属于字符串字面量，下一节会详细介绍</p>
-<p>在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。<br>
+              <p><img src="线程的实现方式/java.jpg" alt="java" title="java"></p>
+<h2 id="线程实现方式"><a href="#线程实现方式" class="headerlink" title="线程实现方式"></a>线程实现方式</h2><ol>
+<li>继承java.lang.Thread类  </li>
+<li>实现java.lang.Runnable接口</li>
+</ol>
+<p><strong>区别：</strong>第一种是继承，第二种是实现<br><strong>好处：</strong>  在实际开发中通常以实现Runnable接口为主，因为实现Runnable接口相比继承Thread类可以避免继承的局限，一个类可以继承多个接口，适合于资源的共享<br>
           
       
       
@@ -443,12 +370,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/">==</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/runnable/">runnable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/thread/">thread</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
+          <a  href="/2017/08/05/线程的实现方式/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -468,11 +395,11 @@
 
 
   
-    <article id="post-spring Bean的作用域" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-jvm调优" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/26/spring Bean的作用域/" class="article-date">
-      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
+      <a href="/2017/08/05/jvm调优/" class="article-date">
+      <time datetime="2017-08-05T08:05:44.000Z" itemprop="datePublished">2017-08-05</time>
 </a>
     </div>
   
@@ -485,7 +412,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a>
+      <a class="article-title" href="/2017/08/05/jvm调优/">jvm调优</a>
     </h1>
   
 
@@ -495,262 +422,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在面向对象程序设计中作用域一般指对象或变量之间的可见范围。<br>而在Spring容器中是指其创建的<code>Bean</code>对象相对于其他Bean对象的请求可见范围。</p>
-<p><code>IoC</code>容器最顶级的接口<code>BeanFactory</code>中有两个方法<code>isSingleton</code>（单例）和<code>isPrototype</code>）（原型）</p>
-<p><strong>isSingeleton：</strong>返回true，Bean在Ioc容器中以单例存在（Spring默认）<br><strong>isPrototype：</strong>返回true，每次获取Bean，Ioc容器都会创建一个新的  Bean。 </p>
-<p>而在<code>JAVA EE</code> 的<code>WEB容器</code>中，还存在<code>page</code>（页面），<code>request</code>（请求），<code>session</code>（会话）和<code>application</code>（应用）4种作用域。其中<code>page</code>是针对<code>JSP</code>当前页面的作用域，Spring无法支持。</p>
-<p><strong>作用域关系如下表</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">作用域类型</th>
-<th style="text-align:center">使用范围</th>
-<th style="text-align:center">作用域描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">singleton</td>
-<td style="text-align:center">所有Spring应用</td>
-<td style="text-align:center">默认值，Ioc容器只存在一个Bean实例,Bean以单例方式存在</td>
-</tr>
-<tr>
-<td style="text-align:center">prototype</td>
-<td style="text-align:center">所有Spring应用</td>
-<td style="text-align:center">每当从Ioc容器中调用Bean时，则创建一个新的bean返回</td>
-</tr>
-<tr>
-<td style="text-align:center">session</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">同一个Http Session会话共享一个Bean，不同session使用不同的bean</td>
-</tr>
-<tr>
-<td style="text-align:center">application</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">Web工程生命周期</td>
-</tr>
-<tr>
-<td style="text-align:center">request</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">每次Http请求都会创建一个新的Bean</td>
-</tr>
-<tr>
-<td style="text-align:center">globalSession</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">在一个全局的HTTP session中，一个bean定义对应一个实例,一般用于Porlet应用环境，实践中基本不使用</td>
-</tr>
-</tbody>
-</table>
-</div>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/spring/">spring</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bean的作用域/">Bean的作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring单例模式/">spring单例模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring线程安全/">spring线程安全</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/26/spring Bean的作用域/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Spring单例模式与线程安全" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/26/Spring单例模式与线程安全/" class="article-date">
-      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jethan.bid/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/26/Spring单例模式与线程安全/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-spring-scope-prototype与singleton区别" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/26/spring-scope-prototype与singleton区别/" class="article-date">
-      <time datetime="2017-07-26T10:06:11.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jethan.bid/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="singleton作用域"><a href="#singleton作用域" class="headerlink" title="singleton作用域"></a>singleton作用域</h2><p>　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。<br>     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/26/spring-scope-prototype与singleton区别/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jvm内存模型" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/20/jvm内存模型/" class="article-date">
-      <time datetime="2017-07-20T06:44:40.000Z" itemprop="datePublished">2017-07-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/20/jvm内存模型/">jvm内存模型</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="jvm内存模型/java.jpg" alt="jvm" title="jvm"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br>
+              <p><img src="jvm调优/java.jpg" alt="java" title="java"></p>
+<h2 id="JVM内存模型"><a href="#JVM内存模型" class="headerlink" title="JVM内存模型"></a>JVM内存模型</h2><p>1.根据Java虚拟机规范，JVM将内存划分为：<br><strong>New（年轻代）<br>Tenured（年老代）<br>永久代（Perm）</strong><br>
           
       
       
@@ -766,12 +439,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/堆/">堆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/方法区/">方法区</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/本地方法栈/">本地方法栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/程序计数器/">程序计数器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/虚拟机栈/">虚拟机栈</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/性能调优/">性能调优</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/20/jvm内存模型/#more">阅读全文 >></a>
+          <a  href="/2017/08/05/jvm调优/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -791,11 +464,11 @@
 
 
   
-    <article id="post-并发编程-线程间协作" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-web-xml加载顺序" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/18/并发编程-线程间协作/" class="article-date">
-      <time datetime="2017-07-18T03:05:51.000Z" itemprop="datePublished">2017-07-18</time>
+      <a href="/2017/08/05/web-xml加载顺序/" class="article-date">
+      <time datetime="2017-08-05T06:42:06.000Z" itemprop="datePublished">2017-08-05</time>
 </a>
     </div>
   
@@ -808,7 +481,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a>
+      <a class="article-title" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a>
     </h1>
   
 
@@ -818,9 +491,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
-<p>Java并发编程：线程间协作的两种方式：<code>wait、notify、notifyAll</code>和<code>Condition</code></p>
-<p>在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。  </p>
+              <p><img src="web.xml加载顺序/java.jpg" alt="java" title="java"></p>
+<p><strong>web.xml 的加载顺序:</strong><br>ServletContext-&gt; context-param -&gt;listener -&gt; filter -&gt; servlet，而同个类型之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用的。ServletContext即Servlet上下文对象，该对象表示当前的web应用环境信息，一个Web应用只会创建一个ServletContext对象。</p>
+<p>Web容器启动的时候，它会为每个Web应用程序都创建一个对应的ServletContext对象，它代表当前的web应用。<br>[注意]由于一个Web应用中的所有Servlet共享一个ServletContext对象，所以多个Servlet通过ServletContext对象实现数据共享，ServletContext对象通常称为Context域对象。<br>
           
       
       
@@ -830,18 +503,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/await/">await</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notify/">notify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notifyAll/">notifyAll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/signal/">signal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/signalAll/">signalAll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wait/">wait</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web-xml加载顺序/">web.xml加载顺序</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/18/并发编程-线程间协作/#more">阅读全文 >></a>
+          <a  href="/2017/08/05/web-xml加载顺序/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -861,11 +534,11 @@
 
 
   
-    <article id="post-nginx安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-sping之IOC，AOP" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/17/nginx安装与使用/" class="article-date">
-      <time datetime="2017-07-17T07:53:11.000Z" itemprop="datePublished">2017-07-17</time>
+      <a href="/2017/08/05/sping之IOC，AOP/" class="article-date">
+      <time datetime="2017-08-05T06:34:04.000Z" itemprop="datePublished">2017-08-05</time>
 </a>
     </div>
   
@@ -878,7 +551,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a>
+      <a class="article-title" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a>
     </h1>
   
 
@@ -888,11 +561,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
-<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
-<p>填写如下内容：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
+              <p><img src="sping之IOC，AOP/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Spring AOP和IOC个人理解<br><strong>IOC inversion of control 控制反转</strong><br>将new对象的权力由调用者转移到spring容器（即xml文件），Struts2与Spring整合（scope=”prototype”）由spring来维护struts的生命周期，在启动web容器时spring容器创建action实例对象，又分两种方式：<br>第一种xml方式 需要set方法为被调用的属性赋值，xml中需要<code>ref</code>注入被调要的对象。<br>第二种注解方式 不需要set方法为被调用属性赋值，但需要在action层service层dao层的类上对应写上<br><code>@Controller,@Service,@Repository</code>通过在属性上加上<code>@Resource(name=&quot;&quot;)</code>来为属性赋值，这一步相当于xml方式的<code>ref</code>。<br>事务管理器<br>
           
       
       
@@ -902,90 +572,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/代理/">代理</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/spring/">spring</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOP/">AOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IOC/">IOC</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/17/nginx安装与使用/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-solr安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/16/solr安装与使用/" class="article-date">
-      <time datetime="2017-07-16T09:11:01.000Z" itemprop="datePublished">2017-07-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/16/solr安装与使用/">solr安装与使用</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
-<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
-<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
-<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
-<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/bigdata/">bigdata</a><a class="article-category-link" href="/categories/bigdata/搜索引擎/">搜索引擎</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/16/solr安装与使用/#more">阅读全文 >></a>
+          <a  href="/2017/08/05/sping之IOC，AOP/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1007,7 +605,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
     </nav>
   
 </div>

@@ -252,11 +252,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-Hexo-NexT主题搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-spring-scope-prototype与singleton区别" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/27/Hexo-NexT主题搭建个人博客/" class="article-date">
-      <time datetime="2017-05-27T07:27:00.000Z" itemprop="datePublished">2017-05-27</time>
+      <a href="/2017/07/26/spring-scope-prototype与singleton区别/" class="article-date">
+      <time datetime="2017-07-26T10:06:11.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
   
@@ -269,7 +269,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a>
+      <a class="article-title" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a>
     </h1>
   
 
@@ -279,10 +279,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="Hexo-NexT主题搭建个人博客/hexo.jpg" alt="Hexo-NexT" title="Hexo-NexT"></p>
-<p>linux下搭建hexo之next主题个人博客，仅供参考！有问题请留言，谢谢支持！</p>
-<h1 id="所需环境"><a href="#所需环境" class="headerlink" title="所需环境"></a>所需环境</h1><ul>
-<li><p>下载安装nodejs和git(for linux)，声明一下我的搭建环境centos6.8</p>
+              <p><img src="http://jethan.bid/img/icons/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="singleton作用域"><a href="#singleton作用域" class="headerlink" title="singleton作用域"></a>singleton作用域</h2><p>　　当一个bean的作用域设置为singleton, 那么Spring IOC容器中只会存在一个共享的bean实例，并且所有对bean的请求，只要id与该bean定义相匹配，则只会返回bean的同一实例。换言之，当把一个bean定义设置为singleton作用域时，Spring IOC容器只会创建该bean定义的唯一实例。这个单一实例会被存储到单例缓存（singleton cache）中，并且所有针对该bean的后续请求和引用都将返回被缓存的对象实例。<br>     这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，单例设计模式表示一个ClassLoader中只有一个class存在，而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，spring的IOC容器中只会存在一个该bean。<br>
           
       
       
@@ -292,18 +290,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/个人博客/">个人博客</a>
+    <a class="article-category-link" href="/categories/java/">java</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/05/27/Hexo-NexT主题搭建个人博客/#more">阅读全文 >></a>
+          <a  href="/2017/07/26/spring-scope-prototype与singleton区别/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -323,11 +321,11 @@
 
 
   
-    <article id="post-java后端开发面试" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-jvm内存模型" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/07/java后端开发面试/" class="article-date">
-      <time datetime="2017-05-07T05:44:59.000Z" itemprop="datePublished">2017-05-07</time>
+      <a href="/2017/07/20/jvm内存模型/" class="article-date">
+      <time datetime="2017-07-20T06:44:40.000Z" itemprop="datePublished">2017-07-20</time>
 </a>
     </div>
   
@@ -340,7 +338,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/07/java后端开发面试/">java后端开发面试</a>
+      <a class="article-title" href="/2017/07/20/jvm内存模型/">jvm内存模型</a>
     </h1>
   
 
@@ -350,11 +348,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="java后端开发面试/interview1.png" alt="interview" title="interview"></p>
-<p>在IT圈，跳槽是一件很平常的事情，干的不爽、钱没给到位、工作反复无趣没有提升等等因素。所以这里有必要说说面试，有些小型的创业公司可能没有那么多流程，面试官的差不多都是与你同级的，只是入职时间比你早而已。标准其实不复杂：第一能干活，第二Java基础要好，第三最好熟悉些分布式框架，我相信其它公司招初级开发时，应该也照着这个标准来面的。  </p>
-<p>我也知道，不少候选人能力其实不差，但面试时没准备或不会说，这样的人可能在进团队干活后确实能达到期望，但可能就无法通过面试，但面试官总是只根据面试情况来判断。  </p>
-<p>但现实情况是，大多数人可能面试前没准备，或准备方法不得当。要知道，我们平时干活更偏重于业务，不可能大量接触到算法，数据结构，底层代码这类面试必问的问题点，换句话说，面试准备点和平时工作要点匹配度很小。  </p>
-<p>本文里，将通过一些常用的问题来介绍面试的准备技巧。大家在看后一定会感叹：只要方法得当，准备面试第一不难，第二用的时间也不会太多。  </p>
+              <p><img src="jvm内存模型/java.jpg" alt="jvm" title="jvm"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>JVM定义了若干个程序执行期间使用的数据区域。这个区域里的一些数据在JVM启动的时候创建，在JVM退出的时候销毁。而其他的数据依赖于每一个线程，在线程创建时创建，在线程退出时销毁。<br>
           
       
       
@@ -364,18 +359,232 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/interview/">interview</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/jvm/">jvm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试技巧/">面试技巧</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面试题/">面试题</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/堆/">堆</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/方法区/">方法区</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/本地方法栈/">本地方法栈</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/程序计数器/">程序计数器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/虚拟机栈/">虚拟机栈</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/05/07/java后端开发面试/#more">阅读全文 >></a>
+          <a  href="/2017/07/20/jvm内存模型/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-并发编程-线程间协作" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/18/并发编程-线程间协作/" class="article-date">
+      <time datetime="2017-07-18T03:05:51.000Z" itemprop="datePublished">2017-07-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
+<p>Java并发编程：线程间协作的两种方式：<code>wait、notify、notifyAll</code>和<code>Condition</code></p>
+<p>在前面介绍了很多关于同步和锁的问题，然而在现实中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须释放对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。  </p>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/await/">await</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notify/">notify</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/notifyAll/">notifyAll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/signal/">signal</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/signalAll/">signalAll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wait/">wait</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/18/并发编程-线程间协作/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-nginx安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/17/nginx安装与使用/" class="article-date">
+      <time datetime="2017-07-17T07:53:11.000Z" itemprop="datePublished">2017-07-17</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/nginx.jpg" alt="nginx" title="nginx"></p>
+<h2 id="nginx安装"><a href="#nginx安装" class="headerlink" title="nginx安装"></a>nginx安装</h2><p>第一步，在<code>/etc/yum.repos.d/</code>目录下创建一个源配置文件<code>nginx.repo</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /etc/yum.repos.d/  </div><div class="line">vim nginx.repo</div></pre></td></tr></table></figure>
+<p>填写如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[nginx]</div><div class="line">name=nginx repo  </div><div class="line">baseurl=http://nginx.org/packages/centos/$releasever/$basearch/  </div><div class="line">gpgcheck=0  </div><div class="line">enabled=1</div></pre></td></tr></table></figure>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/代理/">代理</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/17/nginx安装与使用/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-solr安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/16/solr安装与使用/" class="article-date">
+      <time datetime="2017-07-16T09:11:01.000Z" itemprop="datePublished">2017-07-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/16/solr安装与使用/">solr安装与使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
+<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
+<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
+<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
+<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">bigdata</a><a class="article-category-link" href="/categories/bigdata/搜索引擎/">搜索引擎</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/16/solr安装与使用/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -397,7 +606,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 </div>

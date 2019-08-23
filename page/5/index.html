@@ -252,11 +252,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-redis安装及使用" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-volatile用法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/17/redis安装及使用/" class="article-date">
-      <time datetime="2017-06-17T06:02:45.000Z" itemprop="datePublished">2017-06-17</time>
+      <a href="/2017/07/28/volatile用法/" class="article-date">
+      <time datetime="2017-07-28T07:39:33.000Z" itemprop="datePublished">2017-07-28</time>
 </a>
     </div>
   
@@ -269,7 +269,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/17/redis安装及使用/">redis安装及使用</a>
+      <a class="article-title" href="/2017/07/28/volatile用法/">volatile用法</a>
     </h1>
   
 
@@ -279,8 +279,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
-<h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br>
+              <p><img src="多线程之volatile/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。</p>
+<p>volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来了解一下与内存模型相关的概念和知识，然后分析了volatile关键字的实现原理，最后给出了几个使用volatile关键字的场景。</p>
+<p>在Java中除了long和double类型的基本类型变量的赋值和读取操作外都是原子操作，也就是说，对于变量值的简单读取操作没有必要进行同步。</p>
+<p>count++不是原子操作，是3个原子操作组合<br>1.读取主存中的count值，赋值给一个局部成员变量tmp<br>2.tmp+1<br>3.将tmp赋值给count<br>
           
       
       
@@ -290,18 +293,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/缓存/">缓存</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AOF/">AOF</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RDB/">RDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nosql/">nosql</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/redis/">redis</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主从/">主从</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/持久化/">持久化</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/volatile/">volatile</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/06/17/redis安装及使用/#more">阅读全文 >></a>
+          <a  href="/2017/07/28/volatile用法/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -321,11 +324,11 @@
 
 
   
-    <article id="post-mysql主从备份" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-java常量池" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/15/mysql主从备份/" class="article-date">
-      <time datetime="2017-06-15T08:17:59.000Z" itemprop="datePublished">2017-06-15</time>
+      <a href="/2017/07/28/java常量池/" class="article-date">
+      <time datetime="2017-07-28T04:36:43.000Z" itemprop="datePublished">2017-07-28</time>
 </a>
     </div>
   
@@ -338,7 +341,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/15/mysql主从备份/">mysql主从备份</a>
+      <a class="article-title" href="/2017/07/28/java常量池/">java常量池</a>
     </h1>
   
 
@@ -348,13 +351,11 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="yum配置MySQL源并安装MySQL"><a href="#yum配置MySQL源并安装MySQL" class="headerlink" title="yum配置MySQL源并安装MySQL"></a>yum配置MySQL源并安装MySQL</h2><p>年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4</p>
-<p>运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写，所以不停服务直接迁移思路放弃了。改用第二种直接迁移数据库文件目录，本地测试也行得通，但是遇到有数据库版本不一致遇到很多异常，所以最后保持与原生产服务器数据库版本一致迁移。</p>
-<p>这段时间突然好些服务器磁盘出现问题，包括一台从库，害怕生产主库服务器挂掉，所以决定多做几台从库备份，<br>以及生产环境应用程序环境备份。问题来了，从库已经挂掉了，当时没有停止主从同步，拷贝出来的数据库有问题，不能用，那么只能建空库，再执行同步，但是生产数据不能停止写，所以不能锁表进行同步。最后决定用当天的全量备份导入以后再进行同步，这样会丢失一部分数据，总体来说数据相差不会太大。</p>
-<p>CentOS7默认数据库是mariadb,配置等用着不习惯,因此决定改成mysql,但是CentOS7的yum源中默认好像是没有mysql的。为了解决这个问题，我们要先下载mysql的repo源。</p>
-<p><strong>1.由于CentOS 的yum源中没有mysql，需要到mysql的官网下载yum repo配置文件</strong> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</div></pre></td></tr></table></figure>
+              <p><img src="java常量池/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>接上一篇文章继续探索string类牵带出的常量池</p>
+<h2 id="jvm"><a href="#jvm" class="headerlink" title="jvm"></a>jvm</h2><p><strong>程序计数器：</strong><br>1.在IDE上编译的Java代码运行时都会被转译成字节码。程序计数器的就是给编译好的字节码添加行号，这样这些字节码就以程序计数器的编号来作为调度时候的标识了。</p>
+<p>2.在程序运行时，诸如循环，跳转，异常处理这些功能都必须依赖于字节码来完。</p>
+<p>我的理解：字节码是二进制文件，所以识别起来很难，代表一个功能的字节码数量巨大。如果在编译的时候就将其在程序计数器上进行编号，则后期调用的时候就可以按照程序员在IDE上用高级语言编译时候的顺序进行分条执行了。<br>
           
       
       
@@ -364,18 +365,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/jvm/">jvm</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/binlog/">binlog</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysqldump/">mysqldump</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/主从备份/">主从备份</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/常量池/">常量池</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/06/15/mysql主从备份/#more">阅读全文 >></a>
+          <a  href="/2017/07/28/java常量池/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -395,11 +396,11 @@
 
 
   
-    <article id="post-centos在线源yum安装mysql" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-string比较之‘’equals‘’和‘’==‘’" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/06/15/centos在线源yum安装mysql/" class="article-date">
-      <time datetime="2017-06-15T08:17:59.000Z" itemprop="datePublished">2017-06-15</time>
+      <a href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/" class="article-date">
+      <time datetime="2017-07-28T03:06:56.000Z" itemprop="datePublished">2017-07-28</time>
 </a>
     </div>
   
@@ -412,241 +413,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jethan.bid/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h2 id="yum配置MySQL源并安装MySQL"><a href="#yum配置MySQL源并安装MySQL" class="headerlink" title="yum配置MySQL源并安装MySQL"></a>yum配置MySQL源并安装MySQL</h2><p>年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4</p>
-<p>运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写，所以不停服务直接迁移思路放弃了。改用第二种直接迁移数据库文件目录，本地测试也行得通，但是遇到有数据库版本不一致遇到很多异常，所以最后保持与原生产服务器数据库版本一致迁移。</p>
-<p>这段时间突然好些服务器磁盘出现问题，包括一台从库，害怕生产主库服务器挂掉，所以决定多做几台从库备份，<br>以及生产环境应用程序环境备份。问题来了，从库已经挂掉了，当时没有停止主从同步，拷贝出来的数据库有问题，不能用，那么只能建空库，再执行同步，但是生产数据不能停止写，所以不能锁表进行同步。最后决定用当天的全量备份导入以后再进行同步，这样会丢失一部分数据，总体来说数据相差不会太大。</p>
-<p>CentOS7默认数据库是mariadb,配置等用着不习惯,因此决定改成mysql,但是CentOS7的yum源中默认好像是没有mysql的。为了解决这个问题，我们要先下载mysql的repo源。</p>
-<p><strong>1.由于CentOS 的yum源中没有mysql，需要到mysql的官网下载yum repo配置文件</strong> </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm</div></pre></td></tr></table></figure>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/15/centos在线源yum安装mysql/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Java Generics" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/06/12/Java Generics/" class="article-date">
-      <time datetime="2017-06-12T13:39:00.000Z" itemprop="datePublished">2017-06-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/12/Java Generics/">Java Generics</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>今天看了下Java的官方教程中关于泛型的部分。泛型引起我的注意是因为微博上一篇比较<code>List&lt;?&gt;</code>和<code>List&lt;Object&gt;</code>的文章。最近看Lucene的代码，其中Util部分大量的使用了泛型，今天刚好浮生修得一日闲便全面的学习一下Java的泛型。其中很多内容都与直觉相符，所以我觉得不值得通篇翻译，这里仅就我觉得有趣也反直觉的地方做一个总结。</p>
-<p><a href="http://docs.oracle.com/javase/tutorial/java/generics/index.html" target="_blank" rel="external">The Java™ Tutorials Lesson: Generics</a></p>
-<h2 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h2><p>C++和Java中都学习过泛型，可是从来觉得写T就跟写for循环中的i一样，也就是约定俗成，谁知这里还是有一些规则的。</p>
-<ul>
-<li>E - Element (used extensively by the Java Collections Framework)</li>
-<li>K - Key</li>
-<li>N - Number</li>
-<li>T - Type</li>
-<li>V - Value</li>
-<li>S, U, V etc. - 2nd, 3rd, 4th types</li>
-</ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Generics/">Generics</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Wildcard/">Wildcard</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/泛型/">泛型</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/06/12/Java Generics/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Markdown-语法说明" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/30/Markdown-语法说明/" class="article-date">
-      <time datetime="2017-05-30T09:21:02.000Z" itemprop="datePublished">2017-05-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/markdown.jpg" alt="Markdown" title="Markdown"></p>
-<h1 id="斜体和粗体"><a href="#斜体和粗体" class="headerlink" title="斜体和粗体"></a>斜体和粗体</h1><p><strong>代码:</strong></p>
-<ul>
-<li><em>斜体</em> 或者 <em>斜体</em></li>
-<li><strong>粗体</strong></li>
-<li><strong><em>加粗斜体</em></strong></li>
-<li><del>删除线</del></li>
-</ul>
-<p><strong>显示效果:</strong></p>
-<ul>
-<li><em>斜体</em> 或者 <em>斜体</em></li>
-<li><strong>粗体</strong></li>
-<li><strong><em>加粗斜体</em></strong></li>
-<li><del>删除线</del></li>
-</ul>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/编辑器/">编辑器</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/30/Markdown-语法说明/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java常见排序算法" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/30/java常见排序算法/" class="article-date">
-      <time datetime="2017-05-30T04:31:37.000Z" itemprop="datePublished">2017-05-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/30/java常见排序算法/">java常见排序算法</a>
+      <a class="article-title" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a>
     </h1>
   
 
@@ -657,8 +424,10 @@
       
           
               <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>日常操作中常见的排序方法有：冒泡排序、快速排序、选择排序、插入排序、希尔排序，甚至还有基数排序、鸡尾酒排序、桶排序、鸽巢排序、归并排序等。</p>
-<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><p>一种简单的排序算法。它重复地走访过要排序的数列，依次比较相邻的两个元素，通过一次比较把未排序序列中最大（或最小）的元素放置在未排序序列的末尾，如果他们的顺序错误就把他们交换过来。走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。<br>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
+<h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
+<p>这里s2属于字符串字面量，下一节会详细介绍</p>
+<p>在java 中，string重写了equals和hashCode方法，都是以字符串内容复写的，直接使用”==”操作符，比较的是两个字符串的引用是否指向同一个对象，并不是比较内容，”equals”方法比较的是字符串内容，所以如果”==”返回true则”equals”一定为true,反之则不然。<br>
           
       
       
@@ -674,12 +443,12 @@
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/sort/">sort</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二分/">二分</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/冒泡/">冒泡</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/希尔/">希尔</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/快速/">快速</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/插入/">插入</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/选择/">选择</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/">==</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/equals/">equals</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/string/">string</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/05/30/java常见排序算法/#more">阅读全文 >></a>
+          <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -699,11 +468,11 @@
 
 
   
-    <article id="post-mysql索引及查询优化" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Spring单例模式与线程安全" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/05/29/mysql索引及查询优化/" class="article-date">
-      <time datetime="2017-05-29T09:51:19.000Z" itemprop="datePublished">2017-05-29</time>
+      <a href="/2017/07/26/Spring单例模式与线程安全/" class="article-date">
+      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
 </a>
     </div>
   
@@ -716,7 +485,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a>
+      <a class="article-title" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a>
     </h1>
   
 
@@ -726,90 +495,124 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h1 id="mysql调优"><a href="#mysql调优" class="headerlink" title="mysql调优"></a>mysql调优</h1><p>在做性能测试中经常会遇到一些sql的问题，其实做性能测试这几年遇到问题最多还是数据库这块，要么就是IO高要么就是cpu高，所以对数据的优化在性能测试过程中占据着很重要的地方。</p>
-<p><strong>常用SQL语句优化：</strong></p>
-<ul>
-<li>数据库(表)设计合理,我们的表设计要符合3NF,3范式(规范的模式),有时我们需要适当的逆范式</li>
-<li>sql语句的优化(索引，常用小技巧.)<ul>
-<li>慢查询 （分析出现出问题的sql）</li>
-<li>Explain （显示了mysql如何使用索引来处理select语句以及连接表。可以帮助选择更好的索引和写出更优化的查询语句）</li>
-<li>Profile（查询到 SQL 会执行多少时间, 并看出 CPU/Memory 使用量, 执行过程中 Systemlock, Table lock 花多少时间等等.）</li>
-</ul>
-</li>
-<li>数据的配置(缓存设大)</li>
-<li>适当硬件配置和操作系统 (读写分离.)</li>
-</ul>
-<p><strong>数据的3NF(normal forms)</strong></p>
-<ul>
-<li><strong>1NF :</strong>就是具有原子性，不可分割。简单来说就是无重复的行，并且列不可再分(只要使用的是关系性数据库，就自动符合)；  </li>
-<li><strong>2NF: </strong>在满足1NF 的基础上，我们考虑是否满足2NF: 只要表的记录满足唯一性,也是说,你的同一张表，不可能出现完全相同的记录, 一般说我们在表中设计一个主键即可；  </li>
-<li><strong>3NF: </strong>在满足2NF 的基础上，我们考虑是否满足3NF：即我们的字段信息可以通过关联的关系，派生即可.(通常我们通过外键来处理)。</li>
-</ul>
-<p><strong>逆范式（为什么需要逆范式:）:</strong> </p>
-<p>逆范式化指的是通过<strong>增加冗余或重复的数据来提高数据库的读性能</strong>。<br>例如：在user_role用户-角色中间表增加字段role_name(user表通过role_id与role表关联查询role_name，直接在user表中添加冗余字段role_name)。<br>逆范式化可以减少关联查询时，join表的次数。</p>
+              <p><img src="http://jethan.bid/img/icons/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>Spring框架里的bean，或者说组件，获取实例的时候都是默认的单例模式，这是在多线程开发的时候要尤其注意的地方。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring/">spring</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/26/Spring单例模式与线程安全/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-spring Bean的作用域" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/26/spring Bean的作用域/" class="article-date">
+      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在面向对象程序设计中作用域一般指对象或变量之间的可见范围。<br>而在Spring容器中是指其创建的<code>Bean</code>对象相对于其他Bean对象的请求可见范围。</p>
+<p><code>IoC</code>容器最顶级的接口<code>BeanFactory</code>中有两个方法<code>isSingleton</code>（单例）和<code>isPrototype</code>）（原型）</p>
+<p><strong>isSingeleton：</strong>返回true，Bean在Ioc容器中以单例存在（Spring默认）<br><strong>isPrototype：</strong>返回true，每次获取Bean，Ioc容器都会创建一个新的  Bean。 </p>
+<p>而在<code>JAVA EE</code> 的<code>WEB容器</code>中，还存在<code>page</code>（页面），<code>request</code>（请求），<code>session</code>（会话）和<code>application</code>（应用）4种作用域。其中<code>page</code>是针对<code>JSP</code>当前页面的作用域，Spring无法支持。</p>
+<p><strong>作用域关系如下表</strong></p>
 <div class="table-container">
 <table>
 <thead>
 <tr>
-<th style="text-align:center">编号</th>
-<th style="text-align:center">姓名</th>
-<th style="text-align:center">出生日期</th>
-<th style="text-align:center">生肖</th>
+<th style="text-align:center">作用域类型</th>
+<th style="text-align:center">使用范围</th>
+<th style="text-align:center">作用域描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">张三</td>
-<td style="text-align:center">1980-01-02</td>
-<td style="text-align:center">猴</td>
+<td style="text-align:center">singleton</td>
+<td style="text-align:center">所有Spring应用</td>
+<td style="text-align:center">默认值，Ioc容器只存在一个Bean实例,Bean以单例方式存在</td>
 </tr>
 <tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">李四</td>
-<td style="text-align:center">1983-04-02</td>
-<td style="text-align:center">牛</td>
+<td style="text-align:center">prototype</td>
+<td style="text-align:center">所有Spring应用</td>
+<td style="text-align:center">每当从Ioc容器中调用Bean时，则创建一个新的bean返回</td>
 </tr>
 <tr>
-<td style="text-align:center">3</td>
-<td style="text-align:center">王五</td>
-<td style="text-align:center">1988-11-02</td>
-<td style="text-align:center">牛</td>
+<td style="text-align:center">session</td>
+<td style="text-align:center">Spring Web应用</td>
+<td style="text-align:center">同一个Http Session会话共享一个Bean，不同session使用不同的bean</td>
+</tr>
+<tr>
+<td style="text-align:center">application</td>
+<td style="text-align:center">Spring Web应用</td>
+<td style="text-align:center">Web工程生命周期</td>
+</tr>
+<tr>
+<td style="text-align:center">request</td>
+<td style="text-align:center">Spring Web应用</td>
+<td style="text-align:center">每次Http请求都会创建一个新的Bean</td>
+</tr>
+<tr>
+<td style="text-align:center">globalSession</td>
+<td style="text-align:center">Spring Web应用</td>
+<td style="text-align:center">在一个全局的HTTP session中，一个bean定义对应一个实例,一般用于Porlet应用环境，实践中基本不使用</td>
 </tr>
 </tbody>
 </table>
 </div>
-<ul>
-<li>生肖表　</li>
-</ul>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">生肖编号</th>
-<th style="text-align:center">生肖名称</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">1</td>
-<td style="text-align:center">猴</td>
-</tr>
-<tr>
-<td style="text-align:center">2</td>
-<td style="text-align:center">牛</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p><strong>【说明】</strong>生肖其实是和时间有关系了，可以通过生日来确定生肖是什么，所以这里的生肖完全可以忽略不计，这样设计是为了减轻数据库的计算压力，所以才保留此字段的，也就是前面提到的<strong>“冗余字段”，逆范式</strong>。所以由此可以推出<strong>3NF是完全可以违反的</strong>。</p>
-<p><strong>总结：</strong></p>
-<ul>
-<li>NF1 行不可重复，列不可再分 （必须满足)  </li>
-<li>NF2 非主键列必须依赖于主键列  （必须满足）  </li>
-<li>NF3 非主键列之间必须相互独立 （NF3可以不满足 ）  </li>
-</ul>
           
       
       
@@ -819,232 +622,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a><a class="article-category-link" href="/categories/database/mysql/">mysql</a>
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/spring/">spring</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/explain/">explain</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/index/">index</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysqldumpslow/">mysqldumpslow</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bean的作用域/">Bean的作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring单例模式/">spring单例模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring线程安全/">spring线程安全</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/05/29/mysql索引及查询优化/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-java常用集合" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/28/java常用集合/" class="article-date">
-      <time datetime="2017-05-28T02:48:30.000Z" itemprop="datePublished">2017-05-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/28/java常用集合/">java常用集合/容器</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Collection  顶级接口<br>├ List         子接口    按进入先后有序保存   可重复<br>│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全<br>│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全<br>│ └ Vector     实现类    老的动态数组             同步     线程安全<br>│ 　  └ Stack  实现类<br>├ Set    子接口   仅接收一次，并做内部排序<br>│  ├ SortedSet 子接口<br>│  │     └NavigableSet 子接口<br>│  │         └ TreeSet  实现类<br>│  └ HashSet 实现类  以哈希表的形式存放元素，插入删除速度很快，元素无序但不允许重复<br>│   　 └ LinkedHashSet<br>└ Queue  子接口 队列  </p>
-<p>Map  顶级接口<br>├ SortedMap  子接口 (extends Map)<br>│   └ NavigableMap 子接口 (extends SortedMap)<br>│        └ TreeMap 实现类 (extends AbstractMap)<br>├ HashTable  实现类 (extends Dictionary(abstract)) 线程安全<br>├ AbstractMap 实现类<br>├ HashMap   实现类 (extends AbstractMap)  线程不安全<br>│   └ LinkedHashMap  子类<br>├ LinkedHashMap  实现类 (extends HashMap)<br>├ IdentityHashMap 实现类 (extends AbstractMap)<br>└ WeakHashMap 实现类 (extends AbstractMap)</p>
-<p>关系图如下：<br><img src="java常用集合/container.jpg" alt="java" title="java"><br><img src="java常用集合/collection.bmp" alt="java" title="java"></p>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ArrayList/">ArrayList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Arrays/">Arrays</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collection/">Collection</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Collections/">Collections</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashMap/">HashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashSet/">HashSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HashTable/">HashTable</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedHashMap/">LinkedHashMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LinkedList/">LinkedList</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Map/">Map</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeMap/">TreeMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TreeSet/">TreeSet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vector/">Vector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WeakHashMap/">WeakHashMap</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/28/java常用集合/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-递归和迭代" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/27/递归和迭代/" class="article-date">
-      <time datetime="2017-05-27T10:15:35.000Z" itemprop="datePublished">2017-05-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/27/递归和迭代/">递归和迭代</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>递归最大的有点就是把一个复杂的算法分解成若干相同的可重复的步骤。所以，使用递归实现一个计算逻辑往往只需要很短的代码就能解决，并且这样的代码也比较容易理解。但是，递归就意味着大量的函数调用。函数调用的局部状态之所以用栈来记录的。所以，这样就可能浪费大量的空间，如果递归太深的话还有可能导致堆栈溢出。</p>
-<p>递归都可以用迭代来代替。但是相对于递归的简单易懂，迭代就比较生硬难懂了。尤其是遇到一个比较复杂的场景的时候。但是，代码的难以理解带来的优点也比较明显。迭代的效率比递归要高，并且在空间消耗上也比较小。</p>
-<p>原则：</p>
-<p><strong>递归中一定有迭代，但是迭代中不一定有递归，大部分可以相互转换。<br>能用迭代的不要用递归，递归调用函数不仅浪费空间，如果递归太深的话还容易造成堆栈的溢出。</strong><br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/迭代/">迭代</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/递归/">递归</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/27/递归和迭代/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-StringBuilder和StringBuffer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/05/27/StringBuilder和StringBuffer/" class="article-date">
-      <time datetime="2017-05-27T08:49:05.000Z" itemprop="datePublished">2017-05-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是<font color="#e07878">不可变类</font>，任何对String的改变都 会引发<font color="#e07878">新的String对象的生成</font>；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行<code>append</code>时，一般都会选择StringBuffer吧！<br>先说一下集合的故事，HashTable是线程安全的，很多方法都是synchronized方法，而HashMap不是线程安全的，但其在单线程程序中的性能比HashTable要高。<br>StringBuffer和StringBuilder类的区别也是如此，他们的原理和操作基本相同，区别在于StringBufferd<font color="#e07878">支持并发操作，线性安全的</font>，适合多线程中使用。StringBuilder不支持并发操作，线性不安全的，不适合多线程中使用。新引入的StringBuilder类不是线程安全的，但其在单线程中的性能比StringBuffer高。</p>
-<p><strong>String 字符串常量<br>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全）</strong></p>
-<p>一般情况向性能比较：<br>String &lt; StringBuffer &lt; StringBuilder<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/">String</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StringBuffer/">StringBuffer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/StringBuilder/">StringBuilder</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/05/27/StringBuilder和StringBuffer/#more">阅读全文 >></a>
+          <a  href="/2017/07/26/spring Bean的作用域/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -1066,7 +655,7 @@
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 </div>
