@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://jet-han.oschina.io/2017/10/14/Docker/</loc>
+    
+    <lastmod>2019-10-29T05:43:47.300Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jet-han.oschina.io/photos/data.json</loc>
     
     <lastmod>2018-11-20T03:53:06.977Z</lastmod>
@@ -282,6 +289,13 @@
   </url>
   
   <url>
+    <loc>http://jet-han.oschina.io/tags/index.html</loc>
+    
+    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://jet-han.oschina.io/categories/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
@@ -290,13 +304,6 @@
   
   <url>
     <loc>http://jet-han.oschina.io/googlea5a6081fce108907.html</loc>
-    
-    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://jet-han.oschina.io/tags/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
