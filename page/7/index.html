@@ -248,6 +248,78 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-solr安装与使用" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/16/solr安装与使用/" class="article-date">
+      <time datetime="2017-07-16T09:11:01.000Z" itemprop="datePublished">2017-07-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/16/solr安装与使用/">solr安装与使用</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="http://jet-han.oschina.io/img/icons/bigdata.jpg" alt="bigdata" title="bigdata"></p>
+<h2 id="solr-tomcat单节点"><a href="#solr-tomcat单节点" class="headerlink" title="solr+tomcat单节点"></a>solr+tomcat单节点</h2><p>Solr6部署在Tomcat8环境下</p>
+<p><a href="http://archive.apache.org/dist/lucene/solr/6.0.0/" target="_blank" rel="external">solr下载</a></p>
+<p>在之前版本的Solr安装包中，存在solr.war文件，但是Solr6已经没有这个war包了，它已经被解压到了.\solr-6.0.0\server\solr-webapp文件夹下，将该文件夹复制到.\apache-tomcat-8.5.5\webapps下，并将其重命名为solr。   </p>
+<p>日志处理：将Solr安装包中<code>.\solr-6.0.0\server\lib\ext</code>内的5个jar包复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\lib</code>下。将<code>.\solr-6.0.0\server\resources</code>下的<code>log4j.properties</code>文件复制到<code>.\apache-tomcat-8.5.5\webapps\solr\WEB-INF\classes</code>中，这里的<code>classes</code>目录需要自己新建。<code>log4j.properties</code>文件中有一行<code>log4j.appender.file.File=${solr.log}/solr.log</code>指定log文件的存放路径，可以指定到特定的目录。<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/bigdata/">bigdata</a><a class="article-category-link" href="/categories/bigdata/搜索引擎/">搜索引擎</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/solr/">solr</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/16/solr安装与使用/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-crontab安装及使用" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -387,83 +459,6 @@
 
 
   
-    <article id="post-数据库之mysql-一" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/10/数据库之mysql-一/" class="article-date">
-      <time datetime="2017-07-10T02:28:09.000Z" itemprop="datePublished">2017-07-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jethan.bid/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
-<h1 id="mysql配置文件my-cnf详解1"><a href="#mysql配置文件my-cnf详解1" class="headerlink" title="mysql配置文件my.cnf详解1"></a>mysql配置文件my.cnf详解1</h1><ul>
-<li><p><strong>mysqld程序：基本配置 </strong></p>
-<pre><code> basedir = path #使用给定目录作为根目录(安装目录)。
- character-sets-dir = path     #给出存放着字符集的目录。
- datadir = path     #从给定目录读取数据库文件。
- pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适用于UNIX/Linux系统); Init-V脚本需要使用这个文件里的进程ID结束mysqld进程。
- socket = filename     #为MySQL客户程序与服务器之间的本地通信指定一个套接字文件(仅适用于UNIX/Linux系统; 默认设置一般是/var/lib/mysql/mysql.sock文件)。在Windows环境下，如果MySQL客户与服务器是通过命名管道进行通信 的，–sock选项给出的将是该命名管道的名字(默认设置是MySQL)。
- lower_case_table_name = 1/0     #新目录和数据表的名字是否只允许使用小写字母; 这个选项在Windows环境下的默认设置是1(只允许使用小写字母)。
-</code></pre>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/database/">database</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/10/数据库之mysql-一/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
     <article id="post-mysql配置详解" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -541,11 +536,11 @@
 
 
   
-    <article id="post-google-cloud搭建vpn" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-数据库之mysql-一" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/07/09/google-cloud搭建vpn/" class="article-date">
-      <time datetime="2017-07-09T15:01:44.000Z" itemprop="datePublished">2017-07-09</time>
+      <a href="/2017/07/10/数据库之mysql-一/" class="article-date">
+      <time datetime="2017-07-10T02:28:09.000Z" itemprop="datePublished">2017-07-10</time>
 </a>
     </div>
   
@@ -558,7 +553,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a>
+      <a class="article-title" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a>
     </h1>
   
 
@@ -568,8 +563,16 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="http://jet-han.oschina.io/img/icons/vpn.jpg" alt="vpn" title="vpn"></p>
-<h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>由于公司需要，而老板又不舍得花钱，于是使用google cloud免费vps，搭建vpn。<br><a href="http://cloud.google.com/" target="_blank" rel="external"><font color="#0366d6">google cloud</font></a><br>需要翻墙访问，有gmail账户，单币种美金信用卡(好像有些双币种信用卡也可以，具体没试过)<br>免费试用1年，赠送300$，所以申请vps时，用最低配置，每个月接近5$，300$可以支撑一年，但是流量是收费的，所以流量很大情况下，可能用不到一年。<br>下面就是具体配置了，分两版：centos和ubuntu<br>
+              <p><img src="http://jethan.bid/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+<h1 id="mysql配置文件my-cnf详解1"><a href="#mysql配置文件my-cnf详解1" class="headerlink" title="mysql配置文件my.cnf详解1"></a>mysql配置文件my.cnf详解1</h1><ul>
+<li><p><strong>mysqld程序：基本配置 </strong></p>
+<pre><code> basedir = path #使用给定目录作为根目录(安装目录)。
+ character-sets-dir = path     #给出存放着字符集的目录。
+ datadir = path     #从给定目录读取数据库文件。
+ pid-file = filename    #为mysqld程序指定一个存放进程ID的文件(仅适用于UNIX/Linux系统); Init-V脚本需要使用这个文件里的进程ID结束mysqld进程。
+ socket = filename     #为MySQL客户程序与服务器之间的本地通信指定一个套接字文件(仅适用于UNIX/Linux系统; 默认设置一般是/var/lib/mysql/mysql.sock文件)。在Windows环境下，如果MySQL客户与服务器是通过命名管道进行通信 的，–sock选项给出的将是该命名管道的名字(默认设置是MySQL)。
+ lower_case_table_name = 1/0     #新目录和数据表的名字是否只允许使用小写字母; 这个选项在Windows环境下的默认设置是1(只允许使用小写字母)。
+</code></pre>
           
       
       
@@ -579,18 +582,18 @@
       
       
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/翻墙/">翻墙</a>
+    <a class="article-category-link" href="/categories/database/">database</a>
     </div>
 
 
       
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vpn/">vpn</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mysql/">mysql</a></li></ul>
     </div>
 
       
         <p class="article-more-link">
-          <a  href="/2017/07/09/google-cloud搭建vpn/#more">阅读全文 >></a>
+          <a  href="/2017/07/10/数据库之mysql-一/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>

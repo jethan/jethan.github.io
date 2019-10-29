@@ -4,17 +4,23 @@
   <meta charset="utf-8">
   <meta name="baidu-site-verification" content="OzPDRGF07x" />
   
-  <title>学海无涯</title>
+  <title>Docker | 学海无涯</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="知识记录，技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="学海无涯">
-<meta property="og:url" content="http://jethan.bid/index.html">
+  <meta name="description" content="docker概念Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。 在微服务的大背景下，一台物理机或者云主机可能要运行很多应用。应用必须依赖于开发环境。当我们遇到拓展物理机、云主机、应用迁移等场景，必然要重新搭建开发环境。这时，虚拟化技术就很好地">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://jethan.bid/2018/10/14/Docker/index.html">
 <meta property="og:site_name" content="学海无涯">
-<meta property="og:description" content="知识记录，技术分享">
+<meta property="og:description" content="docker概念Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。 在微服务的大背景下，一台物理机或者云主机可能要运行很多应用。应用必须依赖于开发环境。当我们遇到拓展物理机、云主机、应用迁移等场景，必然要重新搭建开发环境。这时，虚拟化技术就很好地">
+<meta property="og:image" content="http://jethan.bid/img/icons/docker.jpg">
+<meta property="og:image" content="http://jethan.bid/2018/10/14/Docker/_images/images-mac-example-nginx.png">
+<meta property="og:image" content="http://jethan.bid/2018/10/14/Docker/_images/images-create-nginx-docker.png">
+<meta property="og:image" content="http://jethan.bid/2018/10/14/Docker/Docker/cmd_logic.png">
+<meta property="og:updated_time" content="2019-10-29T03:09:27.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="学海无涯">
-<meta name="twitter:description" content="知识记录，技术分享">
+<meta name="twitter:title" content="Docker">
+<meta name="twitter:description" content="docker概念Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。 在微服务的大背景下，一台物理机或者云主机可能要运行很多应用。应用必须依赖于开发环境。当我们遇到拓展物理机、云主机、应用迁移等场景，必然要重新搭建开发环境。这时，虚拟化技术就很好地">
+<meta name="twitter:image" content="http://jethan.bid/img/icons/docker.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -28,11 +34,6 @@
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   
-    
-     
-      <meta name="google-site-verification" content="U4GFARmcs7tX9GuBnySV_THGrNfxZaxBTAqB1wUZ1lQ" />
-    
-  
   
       <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   
@@ -44,8 +45,8 @@
           rootUrl: '/',
           fancybox: true,
           animate: true,
-          isHome: true,
-          isPost: false,
+          isHome: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -246,9 +247,7 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-Docker" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Docker" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2018/10/14/Docker/" class="article-date">
@@ -264,12 +263,19 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/10/14/Docker/">Docker</a>
+    <h1 class="article-title" itemprop="name">
+      Docker
     </h1>
   
 
       </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
       
     
     <div class="article-entry" itemprop="articleBody">
@@ -1134,463 +1140,212 @@ $ sudo systemctl start docker
 
       
       
-    </div>
-    
-    <div class="article-info article-info-index">
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>如果文章对您有用请随意打赏！</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/alipayimg.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">谢谢支持！</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/alipay.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/weChat.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/"+dataid+"img.jpg");
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
       
-      
-
-      
-      
-      <div class="clearfix"></div>
     </div>
     
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-并发编程之synchronized与加锁机制" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/17/并发编程之synchronized与加锁机制/" class="article-date">
-      <time datetime="2017-12-17T10:00:26.000Z" itemprop="datePublished">2017-12-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="../../../../../img/icons/java.jpg" alt="java" title="java"></p>
-<h1 id="synchronized-与-Lock"><a href="#synchronized-与-Lock" class="headerlink" title="synchronized 与 Lock"></a>synchronized 与 Lock</h1><p>目前在Java中存在两种锁机制：synchronized和Lock，Lock接口及其实现类是JDK5增加的内容。 </p>
-<p>数据同步需要依赖锁，那锁的同步又依赖谁？synchronized给出的答案是在软件层面依赖JVM，而Lock给出的方案是在硬件层面依赖特殊的CPU指令。</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">特性</th>
-<th style="text-align:center">synchronized</th>
-<th style="text-align:center">volatile</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">原子性</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">false</td>
-</tr>
-<tr>
-<td style="text-align:center">可见性</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">true</td>
-</tr>
-<tr>
-<td style="text-align:center">是否阻塞线程</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">false</td>
-</tr>
-<tr>
-<td style="text-align:center">使用级别</td>
-<td style="text-align:center">变量、方法、类</td>
-<td style="text-align:center">变量</td>
-</tr>
-<tr>
-<td style="text-align:center">用途</td>
-<td style="text-align:center">锁定当前变量，只有当前线程可以访问该变量，其他线程被阻塞住</td>
-<td style="text-align:center">告诉jvm当前变量在寄存器（工作内存）中的值是不确定的，需要从主存中读取</td>
-</tr>
-<tr>
-<td style="text-align:center">使用范围</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">a、对变量的写操作不依赖于当前值。b、该变量没有包含在具有其他变量的不变式中。</td>
-</tr>
-</tbody>
-</table>
+<div style="text-align:center;color: #ccc;font-size:14px;">
+------ 本文结束 ------</div>
+<br/>
+<div style="border: 1px solid black">
+<div style="margin-left:10px">
+<span style="font-weight:blod">版权声明</span>
+<img src="http://jet-han.oschina.io/img/copyright.png" >
+<br/>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
 </div>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">特性</th>
-<th style="text-align:center">synchronized</th>
-<th style="text-align:center">ReentrantLock</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">是否需要手动释放</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">true</td>
-</tr>
-<tr>
-<td style="text-align:center">等待中的线程是否可以中断等待</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">true</td>
-</tr>
-<tr>
-<td style="text-align:center">是否可以主动获得锁</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">true（投票等方式）</td>
-</tr>
-<tr>
-<td style="text-align:center">是否支持定时</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">true</td>
-</tr>
-<tr>
-<td style="text-align:center">其他</td>
-<td style="text-align:center">synchronized是在JVM层面上实现的(语言级别)JVM会自动释放锁定</td>
-<td style="text-align:center">lock是通过代码实现的，要保证锁定一定会被释放，就必须将unLock()放到finally{}中</td>
-</tr>
-</tbody>
-</table>
+
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/10/14/Docker/">Docker</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Jet 的个人博客">Jet</a></p>
+        <p><span>发布时间:</span>2018年10月14日 - 17时44分</p>
+        <p><span>最后更新:</span>2019年10月29日 - 11时09分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/10/14/Docker/" title="Docker">http://jethan.bid/2018/10/14/Docker/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://jethan.bid/2018/10/14/Docker/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2017/12/17/并发编程之synchronized与加锁机制/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">并发编程之synchronized与加锁机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
 </div>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/并发编程/">并发编程</a>
-    </div>
 
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReentrantLock/">ReentrantLock</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/synchronized/">synchronized</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/12/17/并发编程之synchronized与加锁机制/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
   
 </article>
 
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-jdk8💗特性" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/12/jdk8💗特性/" class="article-date">
-      <time datetime="2017-12-12T08:11:06.000Z" itemprop="datePublished">2017-12-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/java.jpg" alt="jdk8" title="jdk8"></p>
-<hr>
-<blockquote>
-<p>本文翻译整理自 <a href="https://github.com/winterbe/java8-tutorial" target="_blank" rel="external">https://github.com/winterbe/java8-tutorial</a></p>
-</blockquote>
-<p>希望阅读完本文的小伙伴能够熟练掌握和应用 Java8 的各种特性，使其成为在工作中的一门利器。话不多说，让我们一起开启 Java8 新特性之旅吧！</p>
-<hr>
-<h2 id="接口内允许添加默认实现的方法"><a href="#接口内允许添加默认实现的方法" class="headerlink" title="接口内允许添加默认实现的方法"></a>接口内允许添加默认实现的方法</h2><p>Java 8 允许我们通过 <code>default</code> 关键字对接口中定义的抽象方法提供一个默认的实现。</p>
-<p>请看下面示例代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 定义一个公式接口</span></div><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Formula</span> </span>&#123;</div><div class="line">    <span class="comment">// 计算</span></div><div class="line">    <span class="function"><span class="keyword">double</span> <span class="title">calculate</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">// 求平方根</span></div><div class="line">    <span class="function"><span class="keyword">default</span> <span class="keyword">double</span> <span class="title">sqrt</span><span class="params">(<span class="keyword">int</span> a)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> Math.sqrt(a);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在上面这个接口中，我们除了定义了一个抽象方法 <code>calculate</code>，还定义了一个带有默认实现的方法 <code>sqrt</code>。<br>我们在实现这个接口时，可以只需要实现 <code>calculate</code> 方法，默认方法 <code>sqrt</code> 可以直接调用即可，也就是说我们可以不必强制实现 <code>sqrt</code> 方法。<br>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk8/">jdk8</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/12/12/jdk8💗特性/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Cron" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/12/05/Cron/" class="article-date">
-      <time datetime="2017-12-05T08:11:06.000Z" itemprop="datePublished">2017-12-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/05/Cron/">Cron</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="../../../../../../../../../../img/icons/cron.png" alt="cron" title="cron"></p>
-<h2 id="cron表达式格式"><a href="#cron表达式格式" class="headerlink" title="cron表达式格式"></a>cron表达式格式</h2><ul>
-<li>{秒数} {分钟} {小时} {日期} {月份} {星期} {年份(可为空)}</li>
-</ul>
-<p>先了解每个位置代表的含义，再了解每个位置允许的范围，以及一些特殊写法，还有常用的案例，足够你掌握<code>cron</code>表达式</p>
-<h3 id="每个字段的允许值"><a href="#每个字段的允许值" class="headerlink" title="每个字段的允许值"></a>每个字段的允许值</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字段</th>
-<th style="text-align:center">描述</th>
-<th style="text-align:center">允许值</th>
-<th style="text-align:center">允许的特殊字符</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Seconds</td>
-<td style="text-align:center">秒</td>
-<td style="text-align:center">0-59</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">Minutes</td>
-<td style="text-align:center">分</td>
-<td style="text-align:center">0-59</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">Hours</td>
-<td style="text-align:center">小时</td>
-<td style="text-align:center">0-23</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">Day-of-Month</td>
-<td style="text-align:center">日期</td>
-<td style="text-align:center">1-31</td>
-<td style="text-align:center">, - * ? / L W C</td>
-</tr>
-<tr>
-<td style="text-align:center">Month</td>
-<td style="text-align:center">月份</td>
-<td style="text-align:center">1-12 或者 JAN-DEC</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-<tr>
-<td style="text-align:center">Day-of-Week</td>
-<td style="text-align:center">星期</td>
-<td style="text-align:center">1-7 或者 SUN-SAT</td>
-<td style="text-align:center">, - * ? / L C #</td>
-</tr>
-<tr>
-<td style="text-align:center">Year</td>
-<td style="text-align:center">年（可选）</td>
-<td style="text-align:center">留空, 1970-2099</td>
-<td style="text-align:center">, - * /</td>
-</tr>
-</tbody>
-</table>
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#docker"><span class="toc-number">1.</span> <span class="toc-text">docker</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概念"><span class="toc-number">1.1.</span> <span class="toc-text">概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么要使用-Docker"><span class="toc-number">1.2.</span> <span class="toc-text">为什么要使用 Docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不同终端如何安装docker"><span class="toc-number">1.3.</span> <span class="toc-text">不同终端如何安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ubuntu、Debian-系列"><span class="toc-number">1.3.1.</span> <span class="toc-text">Ubuntu、Debian 系列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS-操作系统安装"><span class="toc-number">1.3.2.</span> <span class="toc-text">CentOS 操作系统安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取镜像"><span class="toc-number">1.4.</span> <span class="toc-text">获取镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运行"><span class="toc-number">1.4.1.</span> <span class="toc-text">运行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#列出镜像"><span class="toc-number">1.5.</span> <span class="toc-text">列出镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#镜像体积"><span class="toc-number">1.5.1.</span> <span class="toc-text">镜像体积</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚悬镜像"><span class="toc-number">1.5.2.</span> <span class="toc-text">虚悬镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#中间层镜像"><span class="toc-number">1.5.3.</span> <span class="toc-text">中间层镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#列出部分镜像"><span class="toc-number">1.5.4.</span> <span class="toc-text">列出部分镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#以特定格式显示"><span class="toc-number">1.5.5.</span> <span class="toc-text">以特定格式显示</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除本地镜像"><span class="toc-number">1.6.</span> <span class="toc-text">删除本地镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用-ID、镜像名、摘要删除镜像"><span class="toc-number">1.6.1.</span> <span class="toc-text">用 ID、镜像名、摘要删除镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Untagged-和-Deleted"><span class="toc-number">1.6.2.</span> <span class="toc-text">Untagged 和 Deleted</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用-docker-image-ls-命令来配合"><span class="toc-number">1.6.3.</span> <span class="toc-text">用 docker image ls 命令来配合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CentOS-RHEL-的用户需要注意的事项"><span class="toc-number">1.6.4.</span> <span class="toc-text">CentOS/RHEL 的用户需要注意的事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#利用-commit-理解镜像构成"><span class="toc-number">1.7.</span> <span class="toc-text">利用 commit 理解镜像构成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#慎用-docker-commit"><span class="toc-number">1.7.1.</span> <span class="toc-text">慎用 docker commit</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用-Dockerfile-定制镜像"><span class="toc-number">1.8.</span> <span class="toc-text">使用 Dockerfile 定制镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FROM-指定基础镜像"><span class="toc-number">1.8.1.</span> <span class="toc-text">FROM 指定基础镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RUN-执行命令"><span class="toc-number">1.8.2.</span> <span class="toc-text">RUN 执行命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建镜像"><span class="toc-number">1.8.3.</span> <span class="toc-text">构建镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#镜像构建上下文（Context）"><span class="toc-number">1.8.4.</span> <span class="toc-text">镜像构建上下文（Context）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它-docker-build-的用法"><span class="toc-number">1.8.5.</span> <span class="toc-text">其它 docker build 的用法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#直接用-Git-repo-进行构建"><span class="toc-number">1.8.5.1.</span> <span class="toc-text">直接用 Git repo 进行构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#用给定的-tar-压缩包构建"><span class="toc-number">1.8.5.2.</span> <span class="toc-text">用给定的 tar 压缩包构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从标准输入中读取-Dockerfile-进行构建"><span class="toc-number">1.8.5.3.</span> <span class="toc-text">从标准输入中读取 Dockerfile 进行构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从标准输入中读取上下文压缩包进行构建"><span class="toc-number">1.8.5.4.</span> <span class="toc-text">从标准输入中读取上下文压缩包进行构建</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dokerfile指令详解"><span class="toc-number">1.9.</span> <span class="toc-text">Dokerfile指令详解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#COPY-复制文件"><span class="toc-number">1.9.1.</span> <span class="toc-text">COPY 复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ADD-更高级的复制文件"><span class="toc-number">1.9.2.</span> <span class="toc-text">ADD 更高级的复制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CMD-容器启动命令"><span class="toc-number">1.9.3.</span> <span class="toc-text">CMD 容器启动命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENTRYPOINT-入口点"><span class="toc-number">1.9.4.</span> <span class="toc-text">ENTRYPOINT 入口点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#场景一：让镜像变成像命令一样使用"><span class="toc-number">1.9.4.1.</span> <span class="toc-text">场景一：让镜像变成像命令一样使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#场景二：应用运行前的准备工作"><span class="toc-number">1.9.4.2.</span> <span class="toc-text">场景二：应用运行前的准备工作</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ENV-设置环境变量"><span class="toc-number">1.9.5.</span> <span class="toc-text">ENV 设置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ARG-构建参数"><span class="toc-number">1.9.6.</span> <span class="toc-text">ARG 构建参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#VOLUME-定义匿名卷"><span class="toc-number">1.9.7.</span> <span class="toc-text">VOLUME 定义匿名卷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EXPOSE-声明端口"><span class="toc-number">1.9.8.</span> <span class="toc-text">EXPOSE 声明端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WORKDIR-指定工作目录"><span class="toc-number">1.9.9.</span> <span class="toc-text">WORKDIR 指定工作目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#USER-指定当前用户"><span class="toc-number">1.9.10.</span> <span class="toc-text">USER 指定当前用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HEALTHCHECK-健康检查"><span class="toc-number">1.9.11.</span> <span class="toc-text">HEALTHCHECK 健康检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ONBUILD-为他人做嫁衣裳"><span class="toc-number">1.9.12.</span> <span class="toc-text">ONBUILD 为他人做嫁衣裳</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多阶段构建"><span class="toc-number">1.10.</span> <span class="toc-text">多阶段构建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#之前的做法"><span class="toc-number">1.10.1.</span> <span class="toc-text">之前的做法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#全部放入一个-Dockerfile"><span class="toc-number">1.10.1.1.</span> <span class="toc-text">全部放入一个 Dockerfile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分散到多个-Dockerfile"><span class="toc-number">1.10.1.2.</span> <span class="toc-text">分散到多个 Dockerfile</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用多阶段构建"><span class="toc-number">1.10.2.</span> <span class="toc-text">使用多阶段构建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#只构建某一阶段的镜像"><span class="toc-number">1.10.2.1.</span> <span class="toc-text">只构建某一阶段的镜像</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构建时从其他镜像复制文件"><span class="toc-number">1.10.2.2.</span> <span class="toc-text">构建时从其他镜像复制文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实战多阶段构建-Laravel-镜像"><span class="toc-number">1.11.</span> <span class="toc-text">实战多阶段构建 Laravel 镜像</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备"><span class="toc-number">1.11.1.</span> <span class="toc-text">准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端构建"><span class="toc-number">1.11.2.</span> <span class="toc-text">前端构建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装-Composer-依赖"><span class="toc-number">1.11.3.</span> <span class="toc-text">安装 Composer 依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#整合以上阶段所生成的文件"><span class="toc-number">1.11.4.</span> <span class="toc-text">整合以上阶段所生成的文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最后一个阶段构建-NGINX-镜像"><span class="toc-number">1.11.5.</span> <span class="toc-text">最后一个阶段构建 NGINX 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构建-Laravel-及-Nginx-镜像"><span class="toc-number">1.11.6.</span> <span class="toc-text">构建 Laravel 及 Nginx 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动容器并测试"><span class="toc-number">1.11.7.</span> <span class="toc-text">启动容器并测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#生产环境优化"><span class="toc-number">1.11.8.</span> <span class="toc-text">生产环境优化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#附录"><span class="toc-number">1.11.9.</span> <span class="toc-text">附录</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其它制作镜像的方式"><span class="toc-number">1.12.</span> <span class="toc-text">其它制作镜像的方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#从-rootfs-压缩包导入"><span class="toc-number">1.12.1.</span> <span class="toc-text">从 rootfs 压缩包导入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-save-和-docker-load"><span class="toc-number">1.12.2.</span> <span class="toc-text">docker save 和 docker load</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#保存镜像"><span class="toc-number">1.12.2.1.</span> <span class="toc-text">保存镜像</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker-命令查询"><span class="toc-number">1.13.</span> <span class="toc-text">Docker 命令查询</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本语法"><span class="toc-number">1.13.1.</span> <span class="toc-text">基本语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端命令选项"><span class="toc-number">1.13.2.</span> <span class="toc-text">客户端命令选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dockerd-命令选项"><span class="toc-number">1.13.3.</span> <span class="toc-text">dockerd 命令选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#客户端命令"><span class="toc-number">1.13.4.</span> <span class="toc-text">客户端命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一张图总结-Docker-的命令"><span class="toc-number">1.13.5.</span> <span class="toc-text">一张图总结 Docker 的命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Dockerfile-最佳实践"><span class="toc-number">2.</span> <span class="toc-text">Dockerfile 最佳实践</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#一般性的指南和建议"><span class="toc-number">2.1.</span> <span class="toc-text">一般性的指南和建议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#容器应该是短暂的"><span class="toc-number">2.1.1.</span> <span class="toc-text">容器应该是短暂的</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-dockerignore-文件"><span class="toc-number">2.1.1.1.</span> <span class="toc-text">使用 .dockerignore 文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用多阶段构建-1"><span class="toc-number">2.1.1.2.</span> <span class="toc-text">使用多阶段构建</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#避免安装不必要的包"><span class="toc-number">2.1.1.3.</span> <span class="toc-text">避免安装不必要的包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#一个容器只运行一个进程"><span class="toc-number">2.1.1.4.</span> <span class="toc-text">一个容器只运行一个进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#镜像层数尽可能少"><span class="toc-number">2.1.1.5.</span> <span class="toc-text">镜像层数尽可能少</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#将多行参数排序"><span class="toc-number">2.1.1.6.</span> <span class="toc-text">将多行参数排序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#构建缓存"><span class="toc-number">2.1.1.7.</span> <span class="toc-text">构建缓存</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile-指令"><span class="toc-number">2.1.2.</span> <span class="toc-text">Dockerfile 指令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#FROM"><span class="toc-number">2.1.2.1.</span> <span class="toc-text">FROM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LABEL"><span class="toc-number">2.1.2.2.</span> <span class="toc-text">LABEL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RUN"><span class="toc-number">2.1.2.3.</span> <span class="toc-text">RUN</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#apt-get"><span class="toc-number">2.1.2.3.1.</span> <span class="toc-text">apt-get</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CMD"><span class="toc-number">2.1.2.4.</span> <span class="toc-text">CMD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EXPOSE"><span class="toc-number">2.1.2.5.</span> <span class="toc-text">EXPOSE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ENV"><span class="toc-number">2.1.2.6.</span> <span class="toc-text">ENV</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ADD-和-COPY"><span class="toc-number">2.1.2.7.</span> <span class="toc-text">ADD 和 COPY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ENTRYPOINT"><span class="toc-number">2.1.2.8.</span> <span class="toc-text">ENTRYPOINT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#VOLUME"><span class="toc-number">2.1.2.9.</span> <span class="toc-text">VOLUME</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USER"><span class="toc-number">2.1.2.10.</span> <span class="toc-text">USER</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WORKDIR"><span class="toc-number">2.1.2.11.</span> <span class="toc-text">WORKDIR</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#官方镜像示例"><span class="toc-number">2.1.3.</span> <span class="toc-text">官方镜像示例</span></a></li></ol></li></ol></li></ol>
 </div>
-          
-      
-      
-    </div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
     
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/cron/">cron</a><a class="article-category-link" href="/categories/cron/定时/">定时</a>
-    </div>
+        <!-- 来必力City版安装代码 -->
+<div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
+	<script type="text/javascript">
+   (function(d, s) {
+       var j, e = d.getElementsByTagName(s)[0];
 
+       if (typeof LivereTower === 'function') { return; }
 
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/quartz/">quartz</a></li></ul>
-    </div>
+       j = d.createElement(s);
+       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+       j.async = true;
 
-      
-        <p class="article-more-link">
-          <a  href="/2017/12/05/Cron/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
+       e.parentNode.insertBefore(j, e);
+   })(document, 'script');
+	</script>
+<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+</div>
+<!-- City版安装代码已完成 -->
+
   
-</article>
 
 
 
-
-
-
-
-
-
-
-  
-    <article id="post-Mybatis-MapperScannerConfigurer" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/11/30/Mybatis-MapperScannerConfigurer/" class="article-date">
-      <time datetime="2017-11-30T06:30:37.000Z" itemprop="datePublished">2017-11-30</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
+    <div class="scroll" id="post-nav-button">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="../../../../../../../img/icons/mybatis.png" alt="mybatis" title="mybatis"></p>
-<p> 每个现象背后都有其缘由，越离奇的bug越是由不起眼的细节引发，每个bug背后都有框架或代码运行的原理和机制所在，解决bug，不仅仅需要去网上查询，还需要对其背后的原理进行了解和总结。  同事大佬最近在学习并使用Mybatis，他使用Mybatis的MapperScannerConfigurer来进行相关配置，并希望通过yml配置来指定basePackage，mappers等属性。为此，编写了自定义的配置类 <code>StarterAutoConfiguration</code>和自定义属性类 <code>TkProperties</code>，并在初始化 <code>MapperScannerConfigurer</code>时使用 <code>TkProperties</code>中的属性。但是，事与愿违，在初始化 <code>MapperScannerConfigurer</code>时， <code>TkProperties</code>实例中的属性死活都是未初始化状态。</p>
-<p> 为此，我们花了大量时间探查缘由，最后不得不询问了另一位大佬，才发现这个离奇问题的背后竟然有着这样的缘由。  我们首先来看一下大佬关于 <code>MapperScannerConfigurer</code>的自定义配置实现。他首先定义了自定义配置类 <code>BkStarterAutoConfiguration</code>，使用 <code>@EnableConfigurationProperties</code>注解将 <code>TkProperties</code>声明为配置属性类。</p>
-          
-      
-      
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2017/12/17/并发编程之synchronized与加锁机制/" title="下一篇: 并发编程之synchronized与加锁机制">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
     </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/mybatis/">mybatis</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MapperScannerConfigurer/">MapperScannerConfigurer</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/11/30/Mybatis-MapperScannerConfigurer/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/10/14/Docker/">Docker</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/17/并发编程之synchronized与加锁机制/">并发编程之synchronized与加锁机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/12/jdk8💗特性/">jdk8💗特性</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/12/05/Cron/">Cron</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/30/Mybatis-MapperScannerConfigurer/">Mybatis-MapperScannerConfigurer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-SQL语句执行/">Mysql-SQL语句执行</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/11/28/Mysql-B-Tree索引/">Mysql-B-Tree索引</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/">并发编程之CountDownLatch、CyclicBarrier和Semaphore</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/09/13/Spring中bean的生命周期/">Spring中bean的生命周期</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/08/设计模式/">设计模式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/mysql数据库引擎/">mysql数据库引擎</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/06/并发编程之线程池ThreadPoolExecutor/">并发编程之线程池ThreadPoolExecutor</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/线程的实现方式/">线程的实现方式</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/jvm调优/">jvm调优</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/web-xml加载顺序/">web.xml加载顺序</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/sping之IOC，AOP/">sping之IOC，AOP</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/spring事务的传播属性和隔离级别/">spring事务的传播属性和隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/05/乐观锁与悲观锁及应用举例/">乐观锁与悲观锁及应用举例</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/04/mysql事务隔离级别/">mysql事务隔离级别</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/08/01/equals、-和hashCode/">equals、==和hashCode</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/volatile用法/">volatile用法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/java常量池/">java常量池</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/">string比较之‘’equals‘’和‘’==‘’</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/Spring单例模式与线程安全/">Spring单例模式与线程安全</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/26/spring-scope-prototype与singleton区别/">spring scope prototype与singleton</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/20/jvm内存模型/">jvm内存模型</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/18/并发编程-线程间协作/">并发编程-线程间协作</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/17/nginx安装与使用/">nginx安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/solr安装与使用/">solr安装与使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/16/crontab安装及使用/">crontab安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/15/大数据平台-ambari/">大数据平台-ambari</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/mysql配置详解/">mysql配置详解</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/10/数据库之mysql-一/">数据库之mysql(二)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/09/google-cloud搭建vpn/">google-cloud搭建vpn</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/08/java-IO/">java-IO</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/07/02/github搭建个人maven仓库/">github搭建个人maven仓库</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/24/git/">git</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令/">linux常用操作命令</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/19/linux常用操作命令-一/">linux常用操作命令(一)</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/17/redis安装及使用/">redis安装及使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/centos在线源yum安装mysql/">数据库之mysql（一）</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/15/mysql主从备份/">mysql主从备份</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/06/12/Java Generics/">Java Generics</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/Markdown-语法说明/">Markdown-语法说明</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/30/java常见排序算法/">java常见排序算法</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/29/mysql索引及查询优化/">mysql索引及查询优化</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/28/java常用集合/">java常用集合/容器</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/递归和迭代/">递归和迭代</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/StringBuilder和StringBuffer/">StringBuilder和StringBuffer</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/27/Hexo-NexT主题搭建个人博客/">Hexo-NexT主题搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/05/07/java后端开发面试/">java后端开发面试</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
 
 
 
+    <script>
+        
+    </script>
 
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </div>
       <footer id="footer">
     <div class="outer">

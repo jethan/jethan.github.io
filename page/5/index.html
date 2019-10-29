@@ -248,6 +248,75 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-HashMap工作原理" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/07/28/HashMap工作原理/" class="article-date">
+      <time datetime="2017-07-28T08:05:02.000Z" itemprop="datePublished">2017-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/28/HashMap工作原理/">HashMap工作原理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><img src="HashMap工作原理/java.jpg" alt="java" title="java"></p>
+<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>HashMap的工作原理是近年来常见的Java面试题。几乎每个Java程序员都知道HashMap，都知道哪里要用HashMap，知道Hashtable和HashMap之间的区别，那么为何这道面试题如此特殊呢？是因为这道题考察的深度很深。这题经常出现在高级或中高级面试中。投资银行更喜欢问这个问题，甚至会要求你实现HashMap来考察你的编程能力。ConcurrentHashMap和其它同步集合的引入让这道题变得更加复杂。让我们开始探索的旅程吧！<br>
+          
+      
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/java基础/">java基础</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hashmap/">hashmap</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/07/28/HashMap工作原理/#more">阅读全文 >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-volatile用法" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -445,122 +514,6 @@
       
         <p class="article-more-link">
           <a  href="/2017/07/28/string比较之‘’equals‘’和‘’==‘’/#more">阅读全文 >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-spring Bean的作用域" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2017/07/26/spring Bean的作用域/" class="article-date">
-      <time datetime="2017-07-26T10:06:49.000Z" itemprop="datePublished">2017-07-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/26/spring Bean的作用域/">spring Bean的作用域</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><img src="http://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
-<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在面向对象程序设计中作用域一般指对象或变量之间的可见范围。<br>而在Spring容器中是指其创建的<code>Bean</code>对象相对于其他Bean对象的请求可见范围。</p>
-<p><code>IoC</code>容器最顶级的接口<code>BeanFactory</code>中有两个方法<code>isSingleton</code>（单例）和<code>isPrototype</code>）（原型）</p>
-<p><strong>isSingeleton：</strong>返回true，Bean在Ioc容器中以单例存在（Spring默认）<br><strong>isPrototype：</strong>返回true，每次获取Bean，Ioc容器都会创建一个新的  Bean。 </p>
-<p>而在<code>JAVA EE</code> 的<code>WEB容器</code>中，还存在<code>page</code>（页面），<code>request</code>（请求），<code>session</code>（会话）和<code>application</code>（应用）4种作用域。其中<code>page</code>是针对<code>JSP</code>当前页面的作用域，Spring无法支持。</p>
-<p><strong>作用域关系如下表</strong></p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th style="text-align:center">作用域类型</th>
-<th style="text-align:center">使用范围</th>
-<th style="text-align:center">作用域描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">singleton</td>
-<td style="text-align:center">所有Spring应用</td>
-<td style="text-align:center">默认值，Ioc容器只存在一个Bean实例,Bean以单例方式存在</td>
-</tr>
-<tr>
-<td style="text-align:center">prototype</td>
-<td style="text-align:center">所有Spring应用</td>
-<td style="text-align:center">每当从Ioc容器中调用Bean时，则创建一个新的bean返回</td>
-</tr>
-<tr>
-<td style="text-align:center">session</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">同一个Http Session会话共享一个Bean，不同session使用不同的bean</td>
-</tr>
-<tr>
-<td style="text-align:center">application</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">Web工程生命周期</td>
-</tr>
-<tr>
-<td style="text-align:center">request</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">每次Http请求都会创建一个新的Bean</td>
-</tr>
-<tr>
-<td style="text-align:center">globalSession</td>
-<td style="text-align:center">Spring Web应用</td>
-<td style="text-align:center">在一个全局的HTTP session中，一个bean定义对应一个实例,一般用于Porlet应用环境，实践中基本不使用</td>
-</tr>
-</tbody>
-</table>
-</div>
-          
-      
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/java/">java</a><a class="article-category-link" href="/categories/java/spring/">spring</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bean的作用域/">Bean的作用域</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring单例模式/">spring单例模式</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring线程安全/">spring线程安全</a></li></ul>
-    </div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2017/07/26/spring Bean的作用域/#more">阅读全文 >></a>
         </p>
       
       <div class="clearfix"></div>
