@@ -9,24 +9,24 @@
 <meta name="keywords" content="B-Tree索引">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mysql-B-Tree索引">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/index.html">
+<meta property="og:url" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。 MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结">
-<meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree1.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree2.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree3.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree4.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree5.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree6.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree7.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree8.png">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree9.png">
+<meta property="og:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree1.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree2.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree3.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree4.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree5.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree6.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree7.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree8.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/b-tree9.png">
 <meta property="og:updated_time" content="2017-11-28T06:13:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql-B-Tree索引">
 <meta name="twitter:description" content="MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。 MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结">
-<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -309,7 +309,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+        <p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <p>MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。</p>
 <p>MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结构，使用原则和特性。</p>
 <p>主要内容如下：</p>
@@ -460,8 +460,8 @@
         <p><span>发布时间:</span>2017年11月28日 - 14时13分</p>
         <p><span>最后更新:</span>2017年11月28日 - 14时13分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/11/28/Mysql-B-Tree索引/" title="Mysql-B-Tree索引">http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/11/28/Mysql-B-Tree索引/" title="Mysql-B-Tree索引">https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

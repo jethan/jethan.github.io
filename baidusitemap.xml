@@ -4,8 +4,8 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/10/14/Docker/</loc>
-    <lastmod>2019-10-29T05:43:47.300Z</lastmod>
+    <loc>https://jet-han.oschina.io/2017/10/14/Docker/</loc>
+    <lastmod>2020-05-08T02:26:57.264Z</lastmod>
     <data>
         <display>
         <title>Docker</title>
@@ -21,8 +21,9 @@
 
     
     
+    
   <url>
-    <loc>http://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/</loc>
+    <loc>https://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/</loc>
     <lastmod>2017-12-17T10:00:26.000Z</lastmod>
     <data>
         <display>
@@ -36,10 +37,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+              <breadCrumb title="并发编程" url="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
           
         </display>
     </data>
@@ -47,7 +48,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/12/12/jdk8%F0%9F%92%97%E7%89%B9%E6%80%A7/</loc>
+    <loc>https://jet-han.oschina.io/2017/12/12/jdk8%F0%9F%92%97%E7%89%B9%E6%80%A7/</loc>
     <lastmod>2017-12-12T08:11:06.000Z</lastmod>
     <data>
         <display>
@@ -59,7 +60,7 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
         </display>
     </data>
@@ -67,7 +68,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/12/05/Cron/</loc>
+    <loc>https://jet-han.oschina.io/2017/12/05/Cron/</loc>
     <lastmod>2017-12-05T08:11:06.000Z</lastmod>
     <data>
         <display>
@@ -79,10 +80,10 @@
          
            
              
-              <breadCrumb title="cron" url="http://jet-han.oschina.io/categories/cron/"/>
+              <breadCrumb title="cron" url="https://jet-han.oschina.io/categories/cron/"/>
           
              
-              <breadCrumb title="定时" url="http://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
+              <breadCrumb title="定时" url="https://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
           
         </display>
     </data>
@@ -90,7 +91,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/11/30/Mybatis-MapperScannerConfigurer/</loc>
+    <loc>https://jet-han.oschina.io/2017/11/30/Mybatis-MapperScannerConfigurer/</loc>
     <lastmod>2017-11-30T06:30:37.000Z</lastmod>
     <data>
         <display>
@@ -102,10 +103,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="mybatis" url="http://jet-han.oschina.io/categories/java/mybatis/"/>
+              <breadCrumb title="mybatis" url="https://jet-han.oschina.io/categories/java/mybatis/"/>
           
         </display>
     </data>
@@ -113,7 +114,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/</loc>
+    <loc>https://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/</loc>
     <lastmod>2017-11-28T10:41:59.000Z</lastmod>
     <data>
         <display>
@@ -125,10 +126,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -136,7 +137,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/11/28/Mysql-B-Tree%E7%B4%A2%E5%BC%95/</loc>
+    <loc>https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree%E7%B4%A2%E5%BC%95/</loc>
     <lastmod>2017-11-28T06:13:59.000Z</lastmod>
     <data>
         <display>
@@ -148,10 +149,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -159,7 +160,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/</loc>
+    <loc>https://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/</loc>
     <lastmod>2017-10-18T08:31:58.000Z</lastmod>
     <data>
         <display>
@@ -175,10 +176,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+              <breadCrumb title="并发编程" url="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
           
         </display>
     </data>
@@ -186,7 +187,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>https://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     <lastmod>2017-09-13T09:58:54.000Z</lastmod>
     <data>
         <display>
@@ -198,10 +199,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+              <breadCrumb title="spring" url="https://jet-han.oschina.io/categories/java/spring/"/>
           
         </display>
     </data>
@@ -213,7 +214,7 @@
     
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-08-08T06:34:34.000Z</lastmod>
     <data>
         <display>
@@ -235,10 +236,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="设计模式" url="http://jet-han.oschina.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+              <breadCrumb title="设计模式" url="https://jet-han.oschina.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
           
         </display>
     </data>
@@ -246,7 +247,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/</loc>
     <lastmod>2017-08-06T06:16:24.000Z</lastmod>
     <data>
         <display>
@@ -264,10 +265,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -275,7 +276,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/</loc>
     <lastmod>2017-08-06T05:32:02.000Z</lastmod>
     <data>
         <display>
@@ -289,10 +290,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+              <breadCrumb title="并发编程" url="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
           
         </display>
     </data>
@@ -300,7 +301,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/</loc>
     <lastmod>2017-08-05T08:32:32.000Z</lastmod>
     <data>
         <display>
@@ -314,10 +315,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -325,7 +326,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/</loc>
     <lastmod>2017-08-05T08:05:44.000Z</lastmod>
     <data>
         <display>
@@ -337,10 +338,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
+              <breadCrumb title="jvm" url="https://jet-han.oschina.io/categories/java/jvm/"/>
           
         </display>
     </data>
@@ -348,7 +349,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/</loc>
     <lastmod>2017-08-05T06:42:06.000Z</lastmod>
     <data>
         <display>
@@ -360,10 +361,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -371,7 +372,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/</loc>
     <lastmod>2017-08-05T06:34:04.000Z</lastmod>
     <data>
         <display>
@@ -385,10 +386,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+              <breadCrumb title="spring" url="https://jet-han.oschina.io/categories/java/spring/"/>
           
         </display>
     </data>
@@ -396,7 +397,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
     <lastmod>2017-08-05T04:03:28.000Z</lastmod>
     <data>
         <display>
@@ -410,10 +411,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+              <breadCrumb title="spring" url="https://jet-han.oschina.io/categories/java/spring/"/>
           
         </display>
     </data>
@@ -421,7 +422,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/</loc>
     <lastmod>2017-08-05T03:53:43.000Z</lastmod>
     <data>
         <display>
@@ -435,10 +436,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -446,7 +447,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/</loc>
     <lastmod>2017-08-04T03:58:09.000Z</lastmod>
     <data>
         <display>
@@ -458,10 +459,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -469,7 +470,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/</loc>
+    <loc>https://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/</loc>
     <lastmod>2017-08-01T15:47:00.000Z</lastmod>
     <data>
         <display>
@@ -485,10 +486,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -509,7 +510,7 @@
     
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2017-07-28T08:05:02.000Z</lastmod>
     <data>
         <display>
@@ -521,10 +522,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -532,7 +533,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/</loc>
     <lastmod>2017-07-28T07:39:33.000Z</lastmod>
     <data>
         <display>
@@ -544,10 +545,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+              <breadCrumb title="并发编程" url="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
           
         </display>
     </data>
@@ -555,7 +556,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/java%E5%B8%B8%E9%87%8F%E6%B1%A0/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/28/java%E5%B8%B8%E9%87%8F%E6%B1%A0/</loc>
     <lastmod>2017-07-28T04:36:43.000Z</lastmod>
     <data>
         <display>
@@ -567,10 +568,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
+              <breadCrumb title="jvm" url="https://jet-han.oschina.io/categories/java/jvm/"/>
           
         </display>
     </data>
@@ -578,7 +579,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/28/string%E6%AF%94%E8%BE%83%E4%B9%8B%E2%80%98%E2%80%99equals%E2%80%98%E2%80%99%E5%92%8C%E2%80%98%E2%80%99==%E2%80%98%E2%80%99/</loc>
     <lastmod>2017-07-28T03:06:56.000Z</lastmod>
     <data>
         <display>
@@ -594,10 +595,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -605,7 +606,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/26/spring%20Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/26/spring%20Bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F/</loc>
     <lastmod>2017-07-26T10:06:49.000Z</lastmod>
     <data>
         <display>
@@ -621,10 +622,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="spring" url="http://jet-han.oschina.io/categories/java/spring/"/>
+              <breadCrumb title="spring" url="https://jet-han.oschina.io/categories/java/spring/"/>
           
         </display>
     </data>
@@ -632,7 +633,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/20/jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B/</loc>
     <lastmod>2017-07-20T06:44:40.000Z</lastmod>
     <data>
         <display>
@@ -652,10 +653,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="jvm" url="http://jet-han.oschina.io/categories/java/jvm/"/>
+              <breadCrumb title="jvm" url="https://jet-han.oschina.io/categories/java/jvm/"/>
           
         </display>
     </data>
@@ -663,7 +664,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%8D%8F%E4%BD%9C/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B-%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%8D%8F%E4%BD%9C/</loc>
     <lastmod>2017-07-18T03:05:51.000Z</lastmod>
     <data>
         <display>
@@ -685,10 +686,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="并发编程" url="http://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+              <breadCrumb title="并发编程" url="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
           
         </display>
     </data>
@@ -696,7 +697,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/17/nginx%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2017-07-17T07:53:11.000Z</lastmod>
     <data>
         <display>
@@ -708,7 +709,7 @@
          
            
              
-              <breadCrumb title="代理" url="http://jet-han.oschina.io/categories/%E4%BB%A3%E7%90%86/"/>
+              <breadCrumb title="代理" url="https://jet-han.oschina.io/categories/%E4%BB%A3%E7%90%86/"/>
           
         </display>
     </data>
@@ -716,7 +717,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/16/solr%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2017-07-16T09:11:01.000Z</lastmod>
     <data>
         <display>
@@ -728,10 +729,10 @@
          
            
              
-              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
+              <breadCrumb title="bigdata" url="https://jet-han.oschina.io/categories/bigdata/"/>
           
              
-              <breadCrumb title="搜索引擎" url="http://jet-han.oschina.io/categories/bigdata/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
+              <breadCrumb title="搜索引擎" url="https://jet-han.oschina.io/categories/bigdata/%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E/"/>
           
         </display>
     </data>
@@ -739,7 +740,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/16/crontab%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2017-07-16T08:24:22.000Z</lastmod>
     <data>
         <display>
@@ -751,10 +752,10 @@
          
            
              
-              <breadCrumb title="cron" url="http://jet-han.oschina.io/categories/cron/"/>
+              <breadCrumb title="cron" url="https://jet-han.oschina.io/categories/cron/"/>
           
              
-              <breadCrumb title="定时" url="http://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
+              <breadCrumb title="定时" url="https://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
           
         </display>
     </data>
@@ -762,7 +763,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/15/%E5%A4%A7%E6%95%B0%E6%8D%AE%E5%B9%B3%E5%8F%B0-ambari/</loc>
     <lastmod>2017-07-15T07:02:20.000Z</lastmod>
     <data>
         <display>
@@ -774,7 +775,7 @@
          
            
              
-              <breadCrumb title="bigdata" url="http://jet-han.oschina.io/categories/bigdata/"/>
+              <breadCrumb title="bigdata" url="https://jet-han.oschina.io/categories/bigdata/"/>
           
         </display>
     </data>
@@ -782,7 +783,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/09/google-cloud%E6%90%AD%E5%BB%BAvpn/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/09/google-cloud%E6%90%AD%E5%BB%BAvpn/</loc>
     <lastmod>2017-07-09T15:01:44.000Z</lastmod>
     <data>
         <display>
@@ -794,7 +795,7 @@
          
            
              
-              <breadCrumb title="翻墙" url="http://jet-han.oschina.io/categories/%E7%BF%BB%E5%A2%99/"/>
+              <breadCrumb title="翻墙" url="https://jet-han.oschina.io/categories/%E7%BF%BB%E5%A2%99/"/>
           
         </display>
     </data>
@@ -802,7 +803,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/08/java-IO/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/08/java-IO/</loc>
     <lastmod>2017-07-08T10:35:17.000Z</lastmod>
     <data>
         <display>
@@ -814,10 +815,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -825,7 +826,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/02/github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BAmaven%E4%BB%93%E5%BA%93/</loc>
     <lastmod>2017-07-02T10:28:56.000Z</lastmod>
     <data>
         <display>
@@ -837,7 +838,7 @@
          
            
              
-              <breadCrumb title="构建工具" url="http://jet-han.oschina.io/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
+              <breadCrumb title="构建工具" url="https://jet-han.oschina.io/categories/%E6%9E%84%E5%BB%BA%E5%B7%A5%E5%85%B7/"/>
           
         </display>
     </data>
@@ -845,7 +846,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/24/git/</loc>
+    <loc>https://jet-han.oschina.io/2017/06/24/git/</loc>
     <lastmod>2017-06-24T08:51:27.000Z</lastmod>
     <data>
         <display>
@@ -857,7 +858,7 @@
          
            
              
-              <breadCrumb title="版本控制" url="http://jet-han.oschina.io/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+              <breadCrumb title="版本控制" url="https://jet-han.oschina.io/categories/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
           
         </display>
     </data>
@@ -868,9 +869,8 @@
     
     
     
-    
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</loc>
+    <loc>https://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4/</loc>
     <lastmod>2017-06-19T10:27:17.000Z</lastmod>
     <data>
         <display>
@@ -882,7 +882,7 @@
          
            
              
-              <breadCrumb title="操作系统" url="http://jet-han.oschina.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
+              <breadCrumb title="操作系统" url="https://jet-han.oschina.io/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
           
         </display>
     </data>
@@ -890,7 +890,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
+    <loc>https://jet-han.oschina.io/2017/06/17/redis%E5%AE%89%E8%A3%85%E5%8F%8A%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2017-06-17T06:02:45.000Z</lastmod>
     <data>
         <display>
@@ -912,7 +912,7 @@
          
            
              
-              <breadCrumb title="缓存" url="http://jet-han.oschina.io/categories/%E7%BC%93%E5%AD%98/"/>
+              <breadCrumb title="缓存" url="https://jet-han.oschina.io/categories/%E7%BC%93%E5%AD%98/"/>
           
         </display>
     </data>
@@ -920,7 +920,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/15/mysql%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</loc>
+    <loc>https://jet-han.oschina.io/2017/06/15/mysql%E4%B8%BB%E4%BB%8E%E5%A4%87%E4%BB%BD/</loc>
     <lastmod>2017-06-15T08:17:59.000Z</lastmod>
     <data>
         <display>
@@ -936,10 +936,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -947,7 +947,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/06/12/Java%20Generics/</loc>
+    <loc>https://jet-han.oschina.io/2017/06/12/Java%20Generics/</loc>
     <lastmod>2017-06-12T13:39:00.000Z</lastmod>
     <data>
         <display>
@@ -963,10 +963,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -974,7 +974,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/07/10/mysql%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
+    <loc>https://jet-han.oschina.io/2017/07/10/mysql%E9%85%8D%E7%BD%AE%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2017-06-10T02:28:09.000Z</lastmod>
     <data>
         <display>
@@ -986,10 +986,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -997,7 +997,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/30/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/30/Markdown-%E8%AF%AD%E6%B3%95%E8%AF%B4%E6%98%8E/</loc>
     <lastmod>2017-05-30T09:21:02.000Z</lastmod>
     <data>
         <display>
@@ -1009,7 +1009,7 @@
          
            
              
-              <breadCrumb title="编辑器" url="http://jet-han.oschina.io/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"/>
+              <breadCrumb title="编辑器" url="https://jet-han.oschina.io/categories/%E7%BC%96%E8%BE%91%E5%99%A8/"/>
           
         </display>
     </data>
@@ -1017,7 +1017,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/30/java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/30/java%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2017-05-30T04:31:37.000Z</lastmod>
     <data>
         <display>
@@ -1041,10 +1041,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -1052,7 +1052,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/29/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/29/mysql%E7%B4%A2%E5%BC%95%E5%8F%8A%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96/</loc>
     <lastmod>2017-05-29T09:51:19.000Z</lastmod>
     <data>
         <display>
@@ -1068,10 +1068,10 @@
          
            
              
-              <breadCrumb title="database" url="http://jet-han.oschina.io/categories/database/"/>
+              <breadCrumb title="database" url="https://jet-han.oschina.io/categories/database/"/>
           
              
-              <breadCrumb title="mysql" url="http://jet-han.oschina.io/categories/database/mysql/"/>
+              <breadCrumb title="mysql" url="https://jet-han.oschina.io/categories/database/mysql/"/>
           
         </display>
     </data>
@@ -1079,7 +1079,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/28/java%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/28/java%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88/</loc>
     <lastmod>2017-05-28T02:48:30.000Z</lastmod>
     <data>
         <display>
@@ -1117,10 +1117,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -1128,7 +1128,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/27/%E9%80%92%E5%BD%92%E5%92%8C%E8%BF%AD%E4%BB%A3/</loc>
     <lastmod>2017-05-27T10:15:35.000Z</lastmod>
     <data>
         <display>
@@ -1142,10 +1142,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -1153,7 +1153,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/StringBuilder%E5%92%8CStringBuffer/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/27/StringBuilder%E5%92%8CStringBuffer/</loc>
     <lastmod>2017-05-27T08:49:05.000Z</lastmod>
     <data>
         <display>
@@ -1169,10 +1169,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="java基础" url="http://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+              <breadCrumb title="java基础" url="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
           
         </display>
     </data>
@@ -1180,7 +1180,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/27/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/27/Hexo-NexT%E4%B8%BB%E9%A2%98%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</loc>
     <lastmod>2017-05-27T07:27:46.000Z</lastmod>
     <data>
         <display>
@@ -1192,7 +1192,7 @@
          
            
              
-              <breadCrumb title="个人博客" url="http://jet-han.oschina.io/categories/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+              <breadCrumb title="个人博客" url="https://jet-han.oschina.io/categories/%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
           
         </display>
     </data>
@@ -1200,7 +1200,7 @@
 
     
   <url>
-    <loc>http://jet-han.oschina.io/2017/05/07/java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95/</loc>
+    <loc>https://jet-han.oschina.io/2017/05/07/java%E5%90%8E%E7%AB%AF%E5%BC%80%E5%8F%91%E9%9D%A2%E8%AF%95/</loc>
     <lastmod>2017-05-07T05:44:59.000Z</lastmod>
     <data>
         <display>
@@ -1214,10 +1214,10 @@
          
            
              
-              <breadCrumb title="java" url="http://jet-han.oschina.io/categories/java/"/>
+              <breadCrumb title="java" url="https://jet-han.oschina.io/categories/java/"/>
           
              
-              <breadCrumb title="interview" url="http://jet-han.oschina.io/categories/java/interview/"/>
+              <breadCrumb title="interview" url="https://jet-han.oschina.io/categories/java/interview/"/>
           
         </display>
     </data>

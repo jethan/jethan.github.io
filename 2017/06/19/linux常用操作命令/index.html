@@ -9,18 +9,18 @@
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux常用操作命令">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/index.html">
+<meta property="og:url" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言　◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；　◆ 文件处理命令：file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；　◆ 系统管理相关命令：df、top、free、quota、at、lp、add">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/awk.gif">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.gif">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.png">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/awk.gif">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.gif">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.png">
 <meta property="og:updated_time" content="2017-06-19T10:27:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用操作命令">
 <meta name="twitter:description" content="引言　◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；　◆ 文件处理命令：file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；　◆ 系统管理相关命令：df、top、free、quota、at、lp、add">
-<meta name="twitter:image" content="http://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
+<meta name="twitter:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -700,11 +700,11 @@ web03[192.168.2.102] :
 <p><strong>当其左右<font color="#f00">无</font>重定向符<code>|</code>或<code>&lt;</code>时：</strong>getline作用于当前文件，读入当前文件的第一行给其后跟的变量<code>var</code>或<code>$0</code>（无变量），应该注意到，由于awk在处理getline之前已经读入了一行，所以getline得到的返回结果是隔行的。 </p>
 <p><strong>当其左右<font color="#f00">有</font>重定向符<code>|</code>或<code>&lt;</code>时：</strong>getline则作用于定向输入文件，由于该文件是刚打开，并没有被awk读入一行，只是getline读入，那么getline返回的是该文件的第一行，而不是隔行。 </p>
 <p><strong>eg：</strong> </p>
-<p>执行linux的<a href="http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#date">date</a>命令，并通过管道输出给<code>getline</code>，然后再把输出赋值给自定义变量out，并打印它： </p>
+<p>执行linux的<a href="https://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#date">date</a>命令，并通过管道输出给<code>getline</code>，然后再把输出赋值给自定义变量out，并打印它： </p>
 <pre><code>awk &#39;BEGIN{ &quot;date&quot; | getline out; print out }&#39; test 
 </code></pre><p>执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：</p>
 <pre><code>awk &#39;BEGIN{ &quot;date&quot; | getline out; split(out,mon); print mon[2] }&#39; test 
-</code></pre><p>命令<a href="http://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#ls">ls</a>的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</p>
+</code></pre><p>命令<a href="https://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#ls">ls</a>的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</p>
 <pre><code>awk &#39;BEGIN{ while( &quot;ls&quot; | getline) print }&#39; 
 </code></pre><p><strong>关闭文件</strong> </p>
 <p>awk中允许在程序中关闭一个输入或输出文件，方法是使用awk的close语句。 </p>
@@ -3733,8 +3733,8 @@ vi deadlock.jstack #使用vi查看
         <p><span>发布时间:</span>2017年06月19日 - 18时27分</p>
         <p><span>最后更新:</span>2017年06月19日 - 18时27分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/19/linux常用操作命令/" title="linux常用操作命令">http://jet-han.oschina.io/2017/06/19/linux常用操作命令/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/06/19/linux常用操作命令/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/19/linux常用操作命令/" title="linux常用操作命令">https://jet-han.oschina.io/2017/06/19/linux常用操作命令/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/06/19/linux常用操作命令/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

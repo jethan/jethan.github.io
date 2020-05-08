@@ -9,15 +9,15 @@
 <meta name="keywords" content="主从备份,binlog,mysqldump">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mysql主从备份">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/06/15/mysql主从备份/index.html">
+<meta property="og:url" content="https://jet-han.oschina.io/2017/06/15/mysql主从备份/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="yum配置MySQL源并安装MySQL年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4 运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写">
-<meta property="og:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta property="og:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
 <meta property="og:updated_time" content="2017-06-15T08:17:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mysql主从备份">
 <meta name="twitter:description" content="yum配置MySQL源并安装MySQL年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4 运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写">
-<meta name="twitter:image" content="http://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -300,7 +300,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="http://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+        <p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="yum配置MySQL源并安装MySQL"><a href="#yum配置MySQL源并安装MySQL" class="headerlink" title="yum配置MySQL源并安装MySQL"></a>yum配置MySQL源并安装MySQL</h2><p>年前公司机房迁移，自然需要迁移数据库，定在凌晨4点左右停止服务拷贝数据，这之前需要搭好所有环境，数据拷贝到新机房服务器就启动所有生产服务，服务器版本时centos6.4</p>
 <p>运维做的事全都落在了我的身上，在网上查了很多资料对比实践，最终考虑了两种方案，直接将数据通过mysqldump导出打包，由于数据量庞大，不锁表导出数个小时都没完事，而且锁表导出生产没法正常写，所以不停服务直接迁移思路放弃了。改用第二种直接迁移数据库文件目录，本地测试也行得通，但是遇到有数据库版本不一致遇到很多异常，所以最后保持与原生产服务器数据库版本一致迁移。</p>
 <p>这段时间突然好些服务器磁盘出现问题，包括一台从库，害怕生产主库服务器挂掉，所以决定多做几台从库备份，<br>以及生产环境应用程序环境备份。问题来了，从库已经挂掉了，当时没有停止主从同步，拷贝出来的数据库有问题，不能用，那么只能建空库，再执行同步，但是生产数据不能停止写，所以不能锁表进行同步。最后决定用当天的全量备份导入以后再进行同步，这样会丢失一部分数据，总体来说数据相差不会太大。</p>
@@ -553,8 +553,8 @@
         <p><span>发布时间:</span>2017年06月15日 - 16时17分</p>
         <p><span>最后更新:</span>2017年06月15日 - 16时17分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/15/mysql主从备份/" title="mysql主从备份">http://jet-han.oschina.io/2017/06/15/mysql主从备份/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/06/15/mysql主从备份/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/15/mysql主从备份/" title="mysql主从备份">https://jet-han.oschina.io/2017/06/15/mysql主从备份/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/06/15/mysql主从备份/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

@@ -9,16 +9,16 @@
 <meta name="keywords" content="volatile">
 <meta property="og:type" content="article">
 <meta property="og:title" content="volatile用法">
-<meta property="og:url" content="http://jet-han.oschina.io/2017/07/28/volatile用法/index.html">
+<meta property="og:url" content="https://jet-han.oschina.io/2017/07/28/volatile用法/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。 volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/volatile用法/java.jpg">
-<meta property="og:image" content="http://jet-han.oschina.io/2017/07/28/volatile用法/cpu.jpg">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/07/28/volatile用法/java.jpg">
+<meta property="og:image" content="https://jet-han.oschina.io/2017/07/28/volatile用法/cpu.jpg">
 <meta property="og:updated_time" content="2017-07-28T07:39:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="volatile用法">
 <meta name="twitter:description" content="引言volatile这个关键字可能很多朋友都听说过，或许也都用过。在Java 5之前，它是一个备受争议的关键字，因为在程序中使用它往往会导致出人意料的结果。在Java 5之后，volatile关键字才得以重获生机。 volatile关键字虽然从字面上理解起来比较简单，但是要用好不是一件容易的事情。由于volatile关键字是与Java的内存模型有关的，因此在讲述volatile关键之前，我们先来">
-<meta name="twitter:image" content="http://jet-han.oschina.io/2017/07/28/volatile用法/java.jpg">
+<meta name="twitter:image" content="https://jet-han.oschina.io/2017/07/28/volatile用法/java.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -452,7 +452,7 @@
 <p>同样的，x++和 x = x+1包括3个操作：读取x的值，进行加1操作，写入新的值。</p>
 <p>所以上面4个语句只有语句1的操作具备原子性。</p>
 <p><strong>只有简单的读取、赋值（而且必须是将数字赋值给某个变量，变量之间的相互赋值不是原子操作）才是原子操作。</strong></p>
-<p>不过这里有一点需要注意：在32位平台下，对64位数据的读取和赋值是需要通过两个操作来完成的，不能保证其原子性。如<a href="http://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/#long和double的赋值操作">long和double</a>但是好像在最新的JDK中，JVM已经保证对64位数据的读取和赋值也是原子性操作了。</p>
+<p>不过这里有一点需要注意：在32位平台下，对64位数据的读取和赋值是需要通过两个操作来完成的，不能保证其原子性。如<a href="https://jet-han.oschina.io/2017/07/28/volatile%E7%94%A8%E6%B3%95/#long和double的赋值操作">long和double</a>但是好像在最新的JDK中，JVM已经保证对64位数据的读取和赋值也是原子性操作了。</p>
 <p>从上面可以看出<strong>Java内存模型只保证了基本读取和赋值是原子性操作，如果要实现更大范围操作的原子性，可以通过synchronized和Lock来实现。由于synchronized和Lock能够保证任一时刻只有一个线程执行该代码块，那么自然就不存在原子性问题了，从而保证了原子性。</strong></p>
 <p><strong>可见性</strong></p>
 <p>对于可见性，Java提供了volatile关键字来保证可见性。</p>
@@ -756,8 +756,8 @@ public void setFlag() {
         <p><span>发布时间:</span>2017年07月28日 - 15时39分</p>
         <p><span>最后更新:</span>2017年07月28日 - 15时39分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/28/volatile用法/" title="volatile用法">http://jet-han.oschina.io/2017/07/28/volatile用法/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://jet-han.oschina.io/2017/07/28/volatile用法/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/28/volatile用法/" title="volatile用法">https://jet-han.oschina.io/2017/07/28/volatile用法/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/07/28/volatile用法/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
