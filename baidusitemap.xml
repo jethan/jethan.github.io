@@ -283,26 +283,6 @@
 
     
   <url>
-    <loc>http://jethan.bid/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/</loc>
-    <lastmod>2017-08-25T03:49:45.531Z</lastmod>
-    <data>
-        <display>
-        <title>linux常用操作命令(一)</title>
-        <pubTime>2017-06-19T10:27:17.000Z</pubTime>
-        
-        <tag>linux</tag>
-         
-         
-           
-             
-              <breadCrumb title="操作系统" url="http://jethan.bid/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://jethan.bid/2017/07/10/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B9%8Bmysql-%E4%B8%80/</loc>
     <lastmod>2017-08-25T03:49:45.531Z</lastmod>
     <data>
@@ -316,6 +296,26 @@
            
              
               <breadCrumb title="database" url="http://jethan.bid/categories/database/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://jethan.bid/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/</loc>
+    <lastmod>2017-08-25T03:49:45.531Z</lastmod>
+    <data>
+        <display>
+        <title>linux常用操作命令(一)</title>
+        <pubTime>2017-06-19T10:27:17.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+         
+           
+             
+              <breadCrumb title="操作系统" url="http://jethan.bid/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"/>
           
         </display>
     </data>

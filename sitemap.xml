@@ -317,13 +317,6 @@
   </url>
   
   <url>
-    <loc>http://jethan.bid/categories/index.html</loc>
-    
-    <lastmod>2017-06-21T12:31:28.736Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://jethan.bid/message/index.html</loc>
     
     <lastmod>2017-06-21T12:31:28.736Z</lastmod>
@@ -332,6 +325,13 @@
   
   <url>
     <loc>http://jethan.bid/tags/index.html</loc>
+    
+    <lastmod>2017-06-21T12:31:28.736Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://jethan.bid/categories/index.html</loc>
     
     <lastmod>2017-06-21T12:31:28.736Z</lastmod>
     
