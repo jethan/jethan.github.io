@@ -289,7 +289,14 @@
   </url>
   
   <url>
-    <loc>https://jet-han.oschina.io/message/index.html</loc>
+    <loc>https://jet-han.oschina.io/categories/index.html</loc>
+    
+    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://jet-han.oschina.io/tags/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
@@ -303,14 +310,7 @@
   </url>
   
   <url>
-    <loc>https://jet-han.oschina.io/categories/index.html</loc>
-    
-    <lastmod>2017-06-21T12:28:47.372Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://jet-han.oschina.io/tags/index.html</loc>
+    <loc>https://jet-han.oschina.io/message/index.html</loc>
     
     <lastmod>2017-06-21T12:28:47.372Z</lastmod>
     
