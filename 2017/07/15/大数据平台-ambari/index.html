@@ -54,6 +54,8 @@
           isCategory: false,
           open_in_new: false
       }
+if ((!window.location.host.startsWith("localhost")) && (!window.location.host.startsWith("192.168.40")) && (window.location.protocol != "https:"))
+        window.location = window.location.toString().replace(/^http:/, "https:");
   </script>
 <script>
 (function(){
