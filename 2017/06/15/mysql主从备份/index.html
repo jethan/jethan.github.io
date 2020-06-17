@@ -543,11 +543,11 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 <div style="border: 1px solid black">
 <div style="margin-left:10px">
 <span style="font-weight:blod">版权声明</span>
-<img src="http://jet-han.oschina.io/img/copyright.png" >
+<img src="http://jet-han.gitee.io/img/copyright.png" >
 <br/>
-<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
-由<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.oschina.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
-本文首发于<a href="http://jet-han.oschina.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.oschina.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
+<p style="font-size: 10px;line-height: 30px"><a href="http://jet-han.gitee.io/" style="color:#258FC6">Jet's Blog</a> by <a href="http://jet-han.gitee.io/" style="color:#258FC6">Jet Han</a> is licensed under a <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">Creative Commons BY-NC-ND 4.0 International License</a>.<br/>
+由<a href="http://jet-han.gitee.io" style="color:#258FC6"> jet han </a>创作并维护的<a href="http://jet-han.gitee.io" style="color:#258FC6"> jet </a>的博客采用<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" style="color:#258FC6">创作共用保留署名-非商业-禁止演绎4.0国际许可证</a>。<br/>
+本文首发于<a href="http://jet-han.gitee.io/" style="color:#258FC6">Jet</a> 的博客（ <a href="http://jet-han.gitee.io/" style="color:#258FC6">http://jet-han.oschina.io/</a> ），版权所有，侵权必究。</p>
 </div>
 
     <div class="copyright">
@@ -738,25 +738,16 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
-<% if (theme.background.on){ %>
+
     <script>
         $(document).ready(function() {
-            var backgroundnum = <%= theme.background.background_sum %>;
-            var backgroundimg = "url(<%- config.root %>background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
         })
     </script>
-<% } else { %>
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = <%= theme.background.background_image %>;
-            var backgroundimg = "url(<%- config.root %>background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
-<% } %>
+
 
 
 
