@@ -488,16 +488,25 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
-
+<% if (theme.background.on){ %>
     <script>
         $(document).ready(function() {
-            var backgroundnum = 24;
-            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            var backgroundnum = <%= theme.background.background_sum %>;
+            var backgroundimg = "url(<%- config.root %>background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
         })
     </script>
-
+<% } else { %>
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = <%= theme.background.background_image %>;
+            var backgroundimg = "url(<%- config.root %>background/bg-" + backgroundnum +".jpg)";
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+<% } %>
 
 
 

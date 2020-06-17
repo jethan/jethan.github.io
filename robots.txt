@@ -5,9 +5,9 @@ Allow: /
 Disallow: /css
 Disallow: /js
 Disallow: /cv
-Disallow: https://jet-han.oschina.io/cv/
-Sitemap: https://jet-han.oschina.io/sitemap.xml
-Sitemap: https://jet-han.oschina.io/baidusitemap.xml
-Disallow: http://jet-han.oschina.io/cv/
-Sitemap: http://jet-han.oschina.io/sitemap.xml
-Sitemap: http://jet-han.oschina.io/baidusitemap.xml
+Disallow: https://jet-han.gitee.io/cv/
+Sitemap: https://jet-han.gitee.io/sitemap.xml
+Sitemap: https://jet-han.gitee.io/baidusitemap.xml
+Disallow: http://jet-han.gitee.io/cv/
+Sitemap: http://jet-han.gitee.io/sitemap.xml
+Sitemap: http://jet-han.gitee.io/baidusitemap.xml
