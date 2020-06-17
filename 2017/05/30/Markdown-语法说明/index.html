@@ -373,7 +373,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 &lt;fajie_han@foxmail.com&gt;
 </code></pre><p><strong>显示效果：</strong></p>
 <p> <a href="https://www.baidu.com/" target="_blank" rel="external">https://www.baidu.com/</a></p>
-<p> <a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#x66;&#x61;&#x6a;&#105;&#x65;&#x5f;&#x68;&#97;&#110;&#x40;&#x66;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;">&#x66;&#x61;&#x6a;&#105;&#x65;&#x5f;&#x68;&#97;&#110;&#x40;&#x66;&#x6f;&#120;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a></p>
+<p> <a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#102;&#97;&#x6a;&#x69;&#101;&#x5f;&#104;&#x61;&#110;&#64;&#x66;&#x6f;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;">&#102;&#97;&#x6a;&#x69;&#101;&#x5f;&#104;&#x61;&#110;&#64;&#x66;&#x6f;&#120;&#109;&#97;&#105;&#x6c;&#x2e;&#99;&#111;&#x6d;</a></p>
 </li>
 </ul>
 <h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><ul>
@@ -822,10 +822,10 @@ $$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
 </code></pre><p><strong>效果显示</strong></p>
 </li>
 </ul>
-<div id="echarts1443" style="width: 81%;height: 400px;margin: 0 auto"></div>
+<div id="echarts9878" style="width: 81%;height: 400px;margin: 0 auto"></div>
 <script type="text/javascript">
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('echarts1443'));
+        var myChart = echarts.init(document.getElementById('echarts9878'));
 
         // 指定图表的配置项和数据
         var option = {
@@ -1275,25 +1275,16 @@ c2(no)->op2->e</textarea><textarea id="flowchart-1-options" style="display: none
     <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
 <script src="/js/main.js"></script>
 <!-- 优效ssp<script src="http://s.6travel.com/titi126.js"></script>-->
-<% if (theme.background.on){ %>
+
     <script>
         $(document).ready(function() {
-            var backgroundnum = <%= theme.background.background_sum %>;
-            var backgroundimg = "url(<%- config.root %>background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
         })
     </script>
-<% } else { %>
-    <script>
-        $(document).ready(function() {
-            var backgroundnum = <%= theme.background.background_image %>;
-            var backgroundimg = "url(<%- config.root %>background/bg-" + backgroundnum +".jpg)";
-            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
-        })
-    </script>
-<% } %>
+
 
 
 
