@@ -10,15 +10,15 @@
 <meta name="keywords" content="vpn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="google-cloud搭建vpn">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/07/09/google-cloud搭建vpn/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/07/09/google-cloud搭建vpn/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言由于公司需要，而老板又不舍得花钱，于是使用google cloud免费vps，搭建vpn。google cloud需要翻墙访问，有gmail账户，单币种美金信用卡(好像有些双币种信用卡也可以，具体没试过)免费试用1年，赠送300$，所以申请vps时，用最低配置，每个月接近5$，300$可以支撑一年，但是流量是收费的，所以流量很大情况下，可能用不到一年。下面就是具体配置了，分两版：centos">
-<meta property="og:image" content="https://jet-han.oschina.io/img/icons/vpn.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/img/icons/vpn.jpg">
 <meta property="og:updated_time" content="2017-07-09T15:01:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="google-cloud搭建vpn">
 <meta name="twitter:description" content="引言由于公司需要，而老板又不舍得花钱，于是使用google cloud免费vps，搭建vpn。google cloud需要翻墙访问，有gmail账户，单币种美金信用卡(好像有些双币种信用卡也可以，具体没试过)免费试用1年，赠送300$，所以申请vps时，用最低配置，每个月接近5$，300$可以支撑一年，但是流量是收费的，所以流量很大情况下，可能用不到一年。下面就是具体配置了，分两版：centos">
-<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/vpn.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/img/icons/vpn.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -303,7 +303,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://jet-han.oschina.io/img/icons/vpn.jpg" alt="vpn" title="vpn"></p>
+        <p><img src="https://jet-han.gitee.io/img/icons/vpn.jpg" alt="vpn" title="vpn"></p>
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>由于公司需要，而老板又不舍得花钱，于是使用google cloud免费vps，搭建vpn。<br><a href="http://cloud.google.com/" target="_blank" rel="external"><font color="#0366d6">google cloud</font></a><br>需要翻墙访问，有gmail账户，单币种美金信用卡(好像有些双币种信用卡也可以，具体没试过)<br>免费试用1年，赠送300$，所以申请vps时，用最低配置，每个月接近5$，300$可以支撑一年，但是流量是收费的，所以流量很大情况下，可能用不到一年。<br>下面就是具体配置了，分两版：centos和ubuntu<br><a id="more"></a></p>
 <h1 id="Google-Cloud配置"><a href="#Google-Cloud配置" class="headerlink" title="Google Cloud配置"></a>Google Cloud配置</h1><p>建立好Compute Engine后，申请一个永久静态地址，然后配置SSH登录证书等内容。<br><a href="https://cloud.google.com/compute/docs/" target="_blank" rel="external"><font color="#0366d6">详情查看Google文档</font></a><br><a href="https://www.91yun.org/archives/2297" target="_blank" rel="external"><font color="#0366d6">如果实在不想看文档，可以看这里</font></a></p>
 <p>主要配置是在Google的Firewall rules里，这里决定了什么包可以访问到内部的instance，其后才是instance内部的iptables的配置。</p>
@@ -413,8 +413,8 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
         <p><span>发布时间:</span>2017年07月09日 - 23时01分</p>
         <p><span>最后更新:</span>2017年07月09日 - 23时01分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/07/09/google-cloud搭建vpn/" title="google-cloud搭建vpn">https://jet-han.oschina.io/2017/07/09/google-cloud搭建vpn/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/07/09/google-cloud搭建vpn/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/07/09/google-cloud搭建vpn/" title="google-cloud搭建vpn">https://jet-han.gitee.io/2017/07/09/google-cloud搭建vpn/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/07/09/google-cloud搭建vpn/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

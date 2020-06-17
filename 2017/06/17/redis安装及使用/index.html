@@ -10,15 +10,15 @@
 <meta name="keywords" content="nosql,redis,持久化,RDB,AOF,主从">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis安装及使用">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/06/17/redis安装及使用/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/06/17/redis安装及使用/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="序言最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主">
-<meta property="og:image" content="https://jet-han.oschina.io/img/icons/redis.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/img/icons/redis.jpg">
 <meta property="og:updated_time" content="2017-06-17T06:02:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis安装及使用">
 <meta name="twitter:description" content="序言最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主">
-<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/redis.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/img/icons/redis.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -303,7 +303,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://jet-han.oschina.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
+        <p><img src="https://jet-han.gitee.io/img/icons/redis.jpg" alt="redis" title="redis"></p>
 <h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>最近公司一台主要的redis服务器出现了异常，无限制的启动很多进程，导致系统资源耗尽，ssh很卡，redis及其他定时异常，想办法杀死了僵尸进程，但是最终还有一千六百多个crond进程和python进程处于D状态无法kill掉，庆幸的是进程数没有暴增了，可以继续使用，但是特别卡机。所以只能决定重启服务器，不过担心重启后起不来的情况，即使起来了所有实时数据都丢失，因为redis没开启持久化和主从读写分离备份，而且公司业务数据实时性要求非常高，最终办法是重新开启一台服务器多实例运行redis，两个原有端口不变先进行程序写入测试，另两个端口则设置从库从原有服务器对应端口实例同步数据，并且将现有redis和其他crontab定时迁移过去，并且开启数据持久化，让其他所有往这台服务器写数据的程序都同时重写一份进新服务器，读取还是从原有服务器，因为数据是按当天实时的，所以等待一天后，新服务器的数据就同步了，再将读也切换到新服务器，重启旧服务器，问题解决，吸取教训，重新配置主从和开启从库持久化，下面将整个过程介绍一下。<br><a id="more"></a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><strong>一、在线源安装</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">[op@bogon yum.repos.d]$ yum install redis</div><div class="line">Loaded plugins: fastestmirror</div><div class="line">Loading mirror speeds from cached hostfile</div><div class="line">* base: mirrors.btte.net</div><div class="line">* extras: mirrors.btte.net</div><div class="line">* updates: mirrors.btte.net</div><div class="line">base                                                     | 3.7 kB     00:00</div><div class="line">extras                                                   | 3.5 kB     00:00</div><div class="line">updates                                                  | 3.5 kB     00:00</div><div class="line">updates/primary_db                                       | 4.6 MB     00:25</div><div class="line">Setting up Install Process</div><div class="line">No package redis available.</div><div class="line">Error: Nothing to do</div></pre></td></tr></table></figure>
@@ -514,8 +514,8 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
         <p><span>发布时间:</span>2017年06月17日 - 14时02分</p>
         <p><span>最后更新:</span>2017年06月17日 - 14时02分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/17/redis安装及使用/" title="redis安装及使用">https://jet-han.oschina.io/2017/06/17/redis安装及使用/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/06/17/redis安装及使用/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/17/redis安装及使用/" title="redis安装及使用">https://jet-han.gitee.io/2017/06/17/redis安装及使用/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/06/17/redis安装及使用/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

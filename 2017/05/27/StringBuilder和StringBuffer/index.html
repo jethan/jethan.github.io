@@ -10,15 +10,15 @@
 <meta name="keywords" content="String,StringBuffer,StringBuilder">
 <meta property="og:type" content="article">
 <meta property="og:title" content="StringBuilder和StringBuffer">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/05/27/StringBuilder和StringBuffer/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/05/27/StringBuilder和StringBuffer/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="前言StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是不可变类，任何对String的改变都 会引发新的String对象的生成；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行append时，一般都会选择StringB">
-<meta property="og:image" content="https://jet-han.oschina.io/img/icons/java.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/img/icons/java.jpg">
 <meta property="og:updated_time" content="2017-05-27T08:49:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="StringBuilder和StringBuffer">
 <meta name="twitter:description" content="前言StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是不可变类，任何对String的改变都 会引发新的String对象的生成；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行append时，一般都会选择StringB">
-<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/java.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/img/icons/java.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -303,7 +303,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+        <p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>StringBuffer、StringBuilder和String一样，也用来代表字符串。String类是<font color="#e07878">不可变类</font>，任何对String的改变都 会引发<font color="#e07878">新的String对象的生成</font>；  StringBuffer则是可变类，任何对它所指代的字符串的改变都不会产生新的对象。既然可变和不可变都有了，为何还有一个StringBuilder呢？相信初期的你，在进行<code>append</code>时，一般都会选择StringBuffer吧！<br>先说一下集合的故事，HashTable是线程安全的，很多方法都是synchronized方法，而HashMap不是线程安全的，但其在单线程程序中的性能比HashTable要高。<br>StringBuffer和StringBuilder类的区别也是如此，他们的原理和操作基本相同，区别在于StringBufferd<font color="#e07878">支持并发操作，线性安全的</font>，适合多线程中使用。StringBuilder不支持并发操作，线性不安全的，不适合多线程中使用。新引入的StringBuilder类不是线程安全的，但其在单线程中的性能比StringBuffer高。</p>
 <p><strong>String 字符串常量<br>StringBuffer 字符串变量（线程安全）<br>StringBuilder 字符串变量（非线程安全）</strong></p>
 <p>一般情况向性能比较：<br>String &lt; StringBuffer &lt; StringBuilder<br><a id="more"></a></p>
@@ -406,8 +406,8 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
         <p><span>发布时间:</span>2017年05月27日 - 16时49分</p>
         <p><span>最后更新:</span>2017年05月27日 - 16时49分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/05/27/StringBuilder和StringBuffer/" title="StringBuilder和StringBuffer">https://jet-han.oschina.io/2017/05/27/StringBuilder和StringBuffer/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/05/27/StringBuilder和StringBuffer/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/27/StringBuilder和StringBuffer/" title="StringBuilder和StringBuffer">https://jet-han.gitee.io/2017/05/27/StringBuilder和StringBuffer/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/05/27/StringBuilder和StringBuffer/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

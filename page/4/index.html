@@ -9,7 +9,7 @@
   <meta name="description" content="知识记录，技术分享">
 <meta property="og:type" content="website">
 <meta property="og:title" content="学海无涯">
-<meta property="og:url" content="https://jet-han.oschina.io/page/4/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/page/4/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="知识记录，技术分享">
 <meta name="twitter:card" content="summary">
@@ -360,7 +360,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="https://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+              <p><img src="https://jet-han.gitee.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
 <h2 id="spring事务传播属性"><a href="#spring事务传播属性" class="headerlink" title="spring事务传播属性"></a>spring事务传播属性</h2><p><strong>Propagation（事务的传播属性） ：</strong>key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：<br><strong>PROPAGATION_REQUIRED</strong>—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。<br><strong>PROPAGATION_SUPPORTS</strong>—支持当前事务，如果当前没有事务，就以非事务方式执行。<br><strong>PROPAGATION_MANDATORY</strong>—支持当前事务，如果当前没有事务，就抛出异常。<br><strong>PROPAGATION_REQUIRES_NEW</strong>—新建事务，如果当前存在事务，把当前事务挂起。<br><strong>PROPAGATION_NOT_SUPPORTED</strong>—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。<br><strong>PROPAGATION_NEVER</strong>—以非事务方式执行，如果当前存在事务，则抛出异常。<br></p>
           
       
@@ -429,7 +429,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+              <p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br></p>
           
       
@@ -567,7 +567,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+              <p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
 <p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
 <p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>

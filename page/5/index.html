@@ -9,7 +9,7 @@
   <meta name="description" content="知识记录，技术分享">
 <meta property="og:type" content="website">
 <meta property="og:title" content="学海无涯">
-<meta property="og:url" content="https://jet-han.oschina.io/page/5/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/page/5/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="知识记录，技术分享">
 <meta name="twitter:card" content="summary">
@@ -504,7 +504,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+              <p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>最近我发现了一个事情，那就是在面试笔试中，好多公司都喜欢在String字符串上出问题，涉及到方方面面的知识，包括其中的一些常用方法。在此，我总结下关于String类中的equals方法，以备应对以后的笔试面试。</p>
 <h2 id="equals和”-”"><a href="#equals和”-”" class="headerlink" title="equals和”==”"></a>equals和”==”</h2><p>string是一个final class，两种声明方法 :<br>1.通过new关键字，创建一个新对象，分配一块新的、独立的内存堆<br>String s1 = new String(“Hello”);<br>2.直接赋值，创建一个”Hello”字符串放入字符串常量池里面,s2只是这个字符串的引用.<br>String s2 = “Hello”;</p>
 <p>这里s2属于字符串字面量，下一节会详细介绍</p>
@@ -576,7 +576,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p><img src="https://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+              <p><img src="https://jet-han.gitee.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在面向对象程序设计中作用域一般指对象或变量之间的可见范围。<br>而在Spring容器中是指其创建的<code>Bean</code>对象相对于其他Bean对象的请求可见范围。</p>
 <p><code>IoC</code>容器最顶级的接口<code>BeanFactory</code>中有两个方法<code>isSingleton</code>（单例）和<code>isPrototype</code>）（原型）</p>
 <p><strong>isSingeleton：</strong>返回true，Bean在Ioc容器中以单例存在（Spring默认）<br><strong>isPrototype：</strong>返回true，每次获取Bean，Ioc容器都会创建一个新的  Bean。 </p>

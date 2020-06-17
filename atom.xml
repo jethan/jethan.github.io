@@ -4,9 +4,9 @@
   <subtitle>技术博客</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://jet-han.oschina.io/"/>
+  <link href="https://jet-han.gitee.io/"/>
   <updated>2017-12-17T10:00:26.000Z</updated>
-  <id>https://jet-han.oschina.io/</id>
+  <id>https://jet-han.gitee.io/</id>
   
   <author>
     <name>Jet</name>
@@ -17,8 +17,8 @@
   
   <entry>
     <title>并发编程之synchronized与加锁机制</title>
-    <link href="https://jet-han.oschina.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/"/>
-    <id>https://jet-han.oschina.io/2017/12/17/并发编程之synchronized与加锁机制/</id>
+    <link href="https://jet-han.gitee.io/2017/12/17/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8Bsynchronized%E4%B8%8E%E5%8A%A0%E9%94%81%E6%9C%BA%E5%88%B6/"/>
+    <id>https://jet-han.gitee.io/2017/12/17/并发编程之synchronized与加锁机制/</id>
     <published>2017-12-17T10:00:26.000Z</published>
     <updated>2017-12-17T10:00:26.000Z</updated>
     
@@ -461,25 +461,25 @@
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="并发编程" scheme="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <category term="并发编程" scheme="https://jet-han.gitee.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="synchronized" scheme="https://jet-han.oschina.io/tags/synchronized/"/>
+      <category term="synchronized" scheme="https://jet-han.gitee.io/tags/synchronized/"/>
     
-      <category term="ReentrantLock" scheme="https://jet-han.oschina.io/tags/ReentrantLock/"/>
+      <category term="ReentrantLock" scheme="https://jet-han.gitee.io/tags/ReentrantLock/"/>
     
   </entry>
   
   <entry>
     <title>jdk8💗特性</title>
-    <link href="https://jet-han.oschina.io/2017/12/12/jdk8%F0%9F%92%97%E7%89%B9%E6%80%A7/"/>
-    <id>https://jet-han.oschina.io/2017/12/12/jdk8💗特性/</id>
+    <link href="https://jet-han.gitee.io/2017/12/12/jdk8%F0%9F%92%97%E7%89%B9%E6%80%A7/"/>
+    <id>https://jet-han.gitee.io/2017/12/12/jdk8💗特性/</id>
     <published>2017-12-12T08:11:06.000Z</published>
     <updated>2017-12-12T08:11:06.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="jdk8" title="jdk8"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="jdk8" title="jdk8"></p>
 <hr>
 <blockquote>
 <p>本文翻译整理自 <a href="https://github.com/winterbe/java8-tutorial" target="_blank" rel="external">https://github.com/winterbe/java8-tutorial</a></p>
@@ -836,7 +836,7 @@ companyOptional.filter(department -&gt; &quot;Finance&quot;.equals(department.ge
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;jdk8&quot; title=&quot;jdk8&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/java.jpg&quot; alt=&quot;jdk8&quot; title=&quot;jdk8&quot;&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;blockquote&gt;
 &lt;p&gt;本文翻译整理自 &lt;a href=&quot;https://github.com/winterbe/java8-tutorial&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/winterbe/java8-tutorial&lt;/a&gt;&lt;/p&gt;
@@ -850,17 +850,17 @@ companyOptional.filter(department -&gt; &quot;Finance&quot;.equals(department.ge
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
     
-      <category term="jdk8" scheme="https://jet-han.oschina.io/tags/jdk8/"/>
+      <category term="jdk8" scheme="https://jet-han.gitee.io/tags/jdk8/"/>
     
   </entry>
   
   <entry>
     <title>Cron</title>
-    <link href="https://jet-han.oschina.io/2017/12/05/Cron/"/>
-    <id>https://jet-han.oschina.io/2017/12/05/Cron/</id>
+    <link href="https://jet-han.gitee.io/2017/12/05/Cron/"/>
+    <id>https://jet-han.gitee.io/2017/12/05/Cron/</id>
     <published>2017-12-05T08:11:06.000Z</published>
     <updated>2017-12-05T08:11:06.000Z</updated>
     
@@ -1090,19 +1090,19 @@ companyOptional.filter(department -&gt; &quot;Finance&quot;.equals(department.ge
     
     </summary>
     
-      <category term="cron" scheme="https://jet-han.oschina.io/categories/cron/"/>
+      <category term="cron" scheme="https://jet-han.gitee.io/categories/cron/"/>
     
-      <category term="定时" scheme="https://jet-han.oschina.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
+      <category term="定时" scheme="https://jet-han.gitee.io/categories/cron/%E5%AE%9A%E6%97%B6/"/>
     
     
-      <category term="quartz" scheme="https://jet-han.oschina.io/tags/quartz/"/>
+      <category term="quartz" scheme="https://jet-han.gitee.io/tags/quartz/"/>
     
   </entry>
   
   <entry>
     <title>Mybatis-MapperScannerConfigurer</title>
-    <link href="https://jet-han.oschina.io/2017/11/30/Mybatis-MapperScannerConfigurer/"/>
-    <id>https://jet-han.oschina.io/2017/11/30/Mybatis-MapperScannerConfigurer/</id>
+    <link href="https://jet-han.gitee.io/2017/11/30/Mybatis-MapperScannerConfigurer/"/>
+    <id>https://jet-han.gitee.io/2017/11/30/Mybatis-MapperScannerConfigurer/</id>
     <published>2017-11-30T06:30:37.000Z</published>
     <updated>2017-11-30T06:30:37.000Z</updated>
     
@@ -1213,23 +1213,23 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="mybatis" scheme="https://jet-han.oschina.io/categories/java/mybatis/"/>
+      <category term="mybatis" scheme="https://jet-han.gitee.io/categories/java/mybatis/"/>
     
     
-      <category term="MapperScannerConfigurer" scheme="https://jet-han.oschina.io/tags/MapperScannerConfigurer/"/>
+      <category term="MapperScannerConfigurer" scheme="https://jet-han.gitee.io/tags/MapperScannerConfigurer/"/>
     
   </entry>
   
   <entry>
     <title>Mysql-SQL语句执行</title>
-    <link href="https://jet-han.oschina.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
-    <id>https://jet-han.oschina.io/2017/11/28/Mysql-SQL语句执行/</id>
+    <link href="https://jet-han.gitee.io/2017/11/28/Mysql-SQL%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
+    <id>https://jet-han.gitee.io/2017/11/28/Mysql-SQL语句执行/</id>
     <published>2017-11-28T10:41:59.000Z</published>
     <updated>2017-11-28T10:41:59.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <p>昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全面地了解SQL语句执行的每个过程，才能更好的进行SQL的设计和优化。<br> 当希望MySQL能够以更高的性能运行查询时，最好的办法就是弄清楚MySQL是如何优化和执行查询的。一旦理解了这一点，很多查询优化工作实际上就是遵循一些原则能够按照预想的合理的方式运行。<br> 如下图所示，当向MySQL发送一个请求的时候，MySQL到底做了什么：</p>
 <ul>
 <li>客户端发送一条查询给服务器。</li>
@@ -1265,7 +1265,7 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
 &lt;p&gt;昔日庖丁解牛，未见全牛，所赖者是其对牛内部骨架结构的了解，对于MySQL亦是如此，只有更加全面地了解SQL语句执行的每个过程，才能更好的进行SQL的设计和优化。&lt;br&gt; 当希望MySQL能够以更高的性能运行查询时，最好的办法就是弄清楚MySQL是如何优化和执行查询的。一旦理解了这一点，很多查询优化工作实际上就是遵循一些原则能够按照预想的合理的方式运行。&lt;br&gt; 如下图所示，当向MySQL发送一个请求的时候，MySQL到底做了什么：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;客户端发送一条查询给服务器。&lt;/li&gt;
@@ -1277,23 +1277,23 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     
     </summary>
     
-      <category term="database" scheme="https://jet-han.oschina.io/categories/database/"/>
+      <category term="database" scheme="https://jet-han.gitee.io/categories/database/"/>
     
-      <category term="mysql" scheme="https://jet-han.oschina.io/categories/database/mysql/"/>
+      <category term="mysql" scheme="https://jet-han.gitee.io/categories/database/mysql/"/>
     
     
-      <category term="语句执行" scheme="https://jet-han.oschina.io/tags/%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
+      <category term="语句执行" scheme="https://jet-han.gitee.io/tags/%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C/"/>
     
   </entry>
   
   <entry>
     <title>Mysql-B-Tree索引</title>
-    <link href="https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree%E7%B4%A2%E5%BC%95/"/>
-    <id>https://jet-han.oschina.io/2017/11/28/Mysql-B-Tree索引/</id>
+    <link href="https://jet-han.gitee.io/2017/11/28/Mysql-B-Tree%E7%B4%A2%E5%BC%95/"/>
+    <id>https://jet-han.gitee.io/2017/11/28/Mysql-B-Tree索引/</id>
     <published>2017-11-28T06:13:59.000Z</published>
     <updated>2017-11-28T06:13:59.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <p>MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。</p>
 <p>MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结构，使用原则和特性。</p>
 <p>主要内容如下：</p>
@@ -1375,7 +1375,7 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
 &lt;p&gt;MySQL是目前业界最为流行的关系型数据库之一，而索引的优化也是数据库性能优化的关键之一。所以，充分地了解MySQL索引有助于提升开发人员对MySQL数据库的使用优化能力。&lt;/p&gt;
 &lt;p&gt;MySQL的索引有很多种类型，可以为不同的场景提供更好的性能。而B-Tree索引是最为常见的MySQL索引类型，一般谈论MySQL索引时，如果没有特别说明，就是指B-Tree索引。本文就详细讲解一下B-Tree索引的的底层结构，使用原则和特性。&lt;/p&gt;
 &lt;p&gt;主要内容如下：&lt;/p&gt;
@@ -1390,19 +1390,19 @@ public  MapperScannerConfigurer mapperScannerConfigurer(TkProperties tkPropertie
     
     </summary>
     
-      <category term="database" scheme="https://jet-han.oschina.io/categories/database/"/>
+      <category term="database" scheme="https://jet-han.gitee.io/categories/database/"/>
     
-      <category term="mysql" scheme="https://jet-han.oschina.io/categories/database/mysql/"/>
+      <category term="mysql" scheme="https://jet-han.gitee.io/categories/database/mysql/"/>
     
     
-      <category term="B-Tree索引" scheme="https://jet-han.oschina.io/tags/B-Tree%E7%B4%A2%E5%BC%95/"/>
+      <category term="B-Tree索引" scheme="https://jet-han.gitee.io/tags/B-Tree%E7%B4%A2%E5%BC%95/"/>
     
   </entry>
   
   <entry>
     <title>并发编程之CountDownLatch、CyclicBarrier和Semaphore</title>
-    <link href="https://jet-han.oschina.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/"/>
-    <id>https://jet-han.oschina.io/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/</id>
+    <link href="https://jet-han.gitee.io/2017/10/18/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8BCountDownLatch%E3%80%81CyclicBarrier%E5%92%8CSemaphore/"/>
+    <id>https://jet-han.gitee.io/2017/10/18/并发编程之CountDownLatch、CyclicBarrier和Semaphore/</id>
     <published>2017-10-18T08:31:58.000Z</published>
     <updated>2017-10-18T08:31:58.000Z</updated>
     
@@ -1818,25 +1818,25 @@ public void countDown() { };  //将count值减1
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="并发编程" scheme="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <category term="并发编程" scheme="https://jet-han.gitee.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="CountDownLatch" scheme="https://jet-han.oschina.io/tags/CountDownLatch/"/>
+      <category term="CountDownLatch" scheme="https://jet-han.gitee.io/tags/CountDownLatch/"/>
     
-      <category term="CyclicBarrier" scheme="https://jet-han.oschina.io/tags/CyclicBarrier/"/>
+      <category term="CyclicBarrier" scheme="https://jet-han.gitee.io/tags/CyclicBarrier/"/>
     
-      <category term="Semaphore" scheme="https://jet-han.oschina.io/tags/Semaphore/"/>
+      <category term="Semaphore" scheme="https://jet-han.gitee.io/tags/Semaphore/"/>
     
   </entry>
   
   <entry>
     <title>Docker</title>
-    <link href="https://jet-han.oschina.io/2017/10/14/Docker/"/>
-    <id>https://jet-han.oschina.io/2017/10/14/Docker/</id>
+    <link href="https://jet-han.gitee.io/2017/10/14/Docker/"/>
+    <id>https://jet-han.gitee.io/2017/10/14/Docker/</id>
     <published>2017-10-14T09:44:28.000Z</published>
-    <updated>2020-05-08T02:26:57.264Z</updated>
+    <updated>2020-06-17T05:13:50.287Z</updated>
     
     <content type="html"><![CDATA[<p><img src="/2017/10/14/Docker/../../../../img/icons/docker.jpg" alt="java" title="docker"></p>
 <h1 id="docker"><a href="#docker" class="headerlink" title="docker"></a>docker</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的Linux机器上，也可以实现虚拟化，容器是完全使用沙箱机制，相互之间不会有任何接口。</p>
@@ -2704,14 +2704,14 @@ $ sudo systemctl start docker
     </summary>
     
     
-      <category term="容器" scheme="https://jet-han.oschina.io/tags/%E5%AE%B9%E5%99%A8/"/>
+      <category term="容器" scheme="https://jet-han.gitee.io/tags/%E5%AE%B9%E5%99%A8/"/>
     
   </entry>
   
   <entry>
     <title>Spring中bean的生命周期</title>
-    <link href="https://jet-han.oschina.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    <id>https://jet-han.oschina.io/2017/09/13/Spring中bean的生命周期/</id>
+    <link href="https://jet-han.gitee.io/2017/09/13/Spring%E4%B8%ADbean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    <id>https://jet-han.gitee.io/2017/09/13/Spring中bean的生命周期/</id>
     <published>2017-09-13T09:58:54.000Z</published>
     <updated>2017-09-13T09:58:54.000Z</updated>
     
@@ -2780,19 +2780,19 @@ $ sudo systemctl start docker
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="spring" scheme="https://jet-han.oschina.io/categories/java/spring/"/>
+      <category term="spring" scheme="https://jet-han.gitee.io/categories/java/spring/"/>
     
     
-      <category term="Bean的生命周期" scheme="https://jet-han.oschina.io/tags/Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+      <category term="Bean的生命周期" scheme="https://jet-han.gitee.io/tags/Bean%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
     
   </entry>
   
   <entry>
     <title>设计模式</title>
-    <link href="https://jet-han.oschina.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    <id>https://jet-han.oschina.io/2017/08/08/设计模式/</id>
+    <link href="https://jet-han.gitee.io/2017/08/08/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://jet-han.gitee.io/2017/08/08/设计模式/</id>
     <published>2017-08-08T06:34:34.000Z</published>
     <updated>2017-08-08T06:34:34.000Z</updated>
     
@@ -3706,33 +3706,33 @@ $ sudo systemctl start docker
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="设计模式" scheme="https://jet-han.oschina.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <category term="设计模式" scheme="https://jet-han.gitee.io/categories/java/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
     
-      <category term="Singleton Pattern" scheme="https://jet-han.oschina.io/tags/Singleton-Pattern/"/>
+      <category term="Singleton Pattern" scheme="https://jet-han.gitee.io/tags/Singleton-Pattern/"/>
     
-      <category term="Factory Pattern" scheme="https://jet-han.oschina.io/tags/Factory-Pattern/"/>
+      <category term="Factory Pattern" scheme="https://jet-han.gitee.io/tags/Factory-Pattern/"/>
     
-      <category term="Proxy Pattern" scheme="https://jet-han.oschina.io/tags/Proxy-Pattern/"/>
+      <category term="Proxy Pattern" scheme="https://jet-han.gitee.io/tags/Proxy-Pattern/"/>
     
-      <category term="MVC Pattern" scheme="https://jet-han.oschina.io/tags/MVC-Pattern/"/>
+      <category term="MVC Pattern" scheme="https://jet-han.gitee.io/tags/MVC-Pattern/"/>
     
-      <category term="Intercepting Filter Pattern" scheme="https://jet-han.oschina.io/tags/Intercepting-Filter-Pattern/"/>
+      <category term="Intercepting Filter Pattern" scheme="https://jet-han.gitee.io/tags/Intercepting-Filter-Pattern/"/>
     
-      <category term="Iterator Pattern" scheme="https://jet-han.oschina.io/tags/Iterator-Pattern/"/>
+      <category term="Iterator Pattern" scheme="https://jet-han.gitee.io/tags/Iterator-Pattern/"/>
     
   </entry>
   
   <entry>
     <title>mysql数据库引擎</title>
-    <link href="https://jet-han.oschina.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
-    <id>https://jet-han.oschina.io/2017/08/06/mysql数据库引擎/</id>
+    <link href="https://jet-han.gitee.io/2017/08/06/mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E/"/>
+    <id>https://jet-han.gitee.io/2017/08/06/mysql数据库引擎/</id>
     <published>2017-08-06T06:16:24.000Z</published>
     <updated>2017-08-06T06:16:24.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="数据库引擎"><a href="#数据库引擎" class="headerlink" title="数据库引擎"></a>数据库引擎</h2><p>　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。</p>
 <h2 id="数据库引擎任务"><a href="#数据库引擎任务" class="headerlink" title="数据库引擎任务"></a>数据库引擎任务</h2><p>在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。</p>
 <p>设计并创建数据库以保存系统所需的关系或XML文档<br>实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。<br>为单位或客户部署实现的系统<br>提供日常管理支持以优化数据库的性能<br><a id="more"></a></p>
@@ -3749,7 +3749,7 @@ $ sudo systemctl start docker
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">create table mytbl(   </div><div class="line">    id int primary key,   </div><div class="line">    name varchar(50)   </div><div class="line">)type=MyISAM;</div></pre></td></tr></table></figure>
 <h4 id="更改方式3：建表后更改"><a href="#更改方式3：建表后更改" class="headerlink" title="更改方式3：建表后更改"></a>更改方式3：建表后更改</h4><p>　　<code>alter table mytbl2 type = InnoDB;</code></p>
 <h3 id="查看修改结果"><a href="#查看修改结果" class="headerlink" title="查看修改结果"></a>查看修改结果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#方式1：</div><div class="line">show table status from mytest; </div><div class="line">#方式2：</div><div class="line">show create table table_name</div></pre></td></tr></table></figure>
-<h2 id="MyIASM-和-Innodb引擎详解"><a href="#MyIASM-和-Innodb引擎详解" class="headerlink" title="MyIASM 和 Innodb引擎详解"></a>MyIASM 和 Innodb引擎详解</h2><h3 id="Innodb引擎"><a href="#Innodb引擎" class="headerlink" title="Innodb引擎"></a>Innodb引擎</h3><p>　　Innodb引擎提供了对数据库<strong>ACID事务的支持</strong>，并且实现了SQL标准的四种隔离级别，关于数据库事务与其隔离级别的内容请见<a href="https://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">数据库事务与其隔离级别</a>。该引擎还提供了<strong>行级锁和外键约束</strong>，它的设计目标是处理大容量数据库系统，它本身其实就是基于MySQL后台的完整数据库系统，MySQL运行时Innodb会在内存中建立缓冲池，用于缓冲数据和索引。但是该引擎不支持<code>FULLTEXT</code>类型的索引，而且它没有保存表的行数，当<code>SELECT COUNT(*) FROM TABLE</code>时需要扫描全表。当需要使用数据库事务时，该引擎当然是首选。由于锁的粒度更小，写操作不会锁定全表，所以在并发较高时，使用<code>Innodb</code>引擎会提升效率。但是使用行级锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表。</p>
+<h2 id="MyIASM-和-Innodb引擎详解"><a href="#MyIASM-和-Innodb引擎详解" class="headerlink" title="MyIASM 和 Innodb引擎详解"></a>MyIASM 和 Innodb引擎详解</h2><h3 id="Innodb引擎"><a href="#Innodb引擎" class="headerlink" title="Innodb引擎"></a>Innodb引擎</h3><p>　　Innodb引擎提供了对数据库<strong>ACID事务的支持</strong>，并且实现了SQL标准的四种隔离级别，关于数据库事务与其隔离级别的内容请见<a href="https://jet-han.gitee.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/">数据库事务与其隔离级别</a>。该引擎还提供了<strong>行级锁和外键约束</strong>，它的设计目标是处理大容量数据库系统，它本身其实就是基于MySQL后台的完整数据库系统，MySQL运行时Innodb会在内存中建立缓冲池，用于缓冲数据和索引。但是该引擎不支持<code>FULLTEXT</code>类型的索引，而且它没有保存表的行数，当<code>SELECT COUNT(*) FROM TABLE</code>时需要扫描全表。当需要使用数据库事务时，该引擎当然是首选。由于锁的粒度更小，写操作不会锁定全表，所以在并发较高时，使用<code>Innodb</code>引擎会提升效率。但是使用行级锁也不是绝对的，如果在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表。</p>
 <h4 id="内存结构和特性"><a href="#内存结构和特性" class="headerlink" title="内存结构和特性"></a>内存结构和特性</h4><p>　　MySQL区别于其他数据库的最为重要的特点就是其插件式的表存储引擎。而在众多存储引擎中，InnoDB是最为常用的存储引擎。从MySQL5.5.8版本开始，InnoDB存储引擎是默认的存储引擎。<br>　　InnoDB存储引擎支持事务，其设计目标主要面向在线事务处理(OLTP)的应用。其特点是行锁设计、支持外键，并支持非锁定读，即默认读操作不会产生锁。<br>　　InnoDB通过使用多版本并发控制(MVCC)来获取高并发性，并且实现了SQL标准的4中隔离级别，默认为REPEATABLE级别。同时，使用一种被称为next-key-locking的策略来避免幻读现象的产生。除此之外，InnoDB存储引擎还提供了插入缓冲(insert buffer)、二次写(double write)、自适应哈希索引(adaptive hash index)、预读(read ahead)等高性能和高可用的功能。</p>
 <p><img src="/2017/08/06/mysql数据库引擎/innodb1.png" alt="mysql" title="mysql"></p>
 <p>上图详细显示了InnoDB存储引擎的体系架构，从图中可见，InnoDB存储引擎由内存池，后台线程和磁盘文件三大部分组成。接下来我们就来简单了解一下内存相关的概念和原理。</p>
@@ -4014,32 +4014,32 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;数据库引擎&quot;&gt;&lt;a href=&quot;#数据库引擎&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎&quot;&gt;&lt;/a&gt;数据库引擎&lt;/h2&gt;&lt;p&gt;　　数据库引擎是用于存储、处理和保护数据的核心服务。利用数据库引擎可控制访问权限并快速处理事务，从而满足企业内大多数需要处理大量数据的应用程序的要求。 使用数据库引擎创建用于联机事务处理或联机分析处理数据的关系数据库。这包括创建用于存储数据的表和用于查看、管理和保护数据安全的数据库对象（如索引、视图和存储过程）。&lt;/p&gt;
 &lt;h2 id=&quot;数据库引擎任务&quot;&gt;&lt;a href=&quot;#数据库引擎任务&quot; class=&quot;headerlink&quot; title=&quot;数据库引擎任务&quot;&gt;&lt;/a&gt;数据库引擎任务&lt;/h2&gt;&lt;p&gt;在数据库引擎文档中，各主题的顺序遵循用于实现使用数据库引擎进行数据存储的系统的任务的主要顺序。&lt;/p&gt;
 &lt;p&gt;设计并创建数据库以保存系统所需的关系或XML文档&lt;br&gt;实现系统以访问和更改数据库中存储的数据。包括实现网站或使用数据的应用程序，还包括生成使用SQL Server工具和实用工具以使用数据的过程。&lt;br&gt;为单位或客户部署实现的系统&lt;br&gt;提供日常管理支持以优化数据库的性能&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="database" scheme="https://jet-han.oschina.io/categories/database/"/>
+      <category term="database" scheme="https://jet-han.gitee.io/categories/database/"/>
     
-      <category term="mysql" scheme="https://jet-han.oschina.io/categories/database/mysql/"/>
+      <category term="mysql" scheme="https://jet-han.gitee.io/categories/database/mysql/"/>
     
     
-      <category term="ISAM" scheme="https://jet-han.oschina.io/tags/ISAM/"/>
+      <category term="ISAM" scheme="https://jet-han.gitee.io/tags/ISAM/"/>
     
-      <category term="MyIsam" scheme="https://jet-han.oschina.io/tags/MyIsam/"/>
+      <category term="MyIsam" scheme="https://jet-han.gitee.io/tags/MyIsam/"/>
     
-      <category term="HEAP" scheme="https://jet-han.oschina.io/tags/HEAP/"/>
+      <category term="HEAP" scheme="https://jet-han.gitee.io/tags/HEAP/"/>
     
-      <category term="Innodb" scheme="https://jet-han.oschina.io/tags/Innodb/"/>
+      <category term="Innodb" scheme="https://jet-han.gitee.io/tags/Innodb/"/>
     
   </entry>
   
   <entry>
     <title>并发编程之线程池ThreadPoolExecutor</title>
-    <link href="https://jet-han.oschina.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/"/>
-    <id>https://jet-han.oschina.io/2017/08/06/并发编程之线程池ThreadPoolExecutor/</id>
+    <link href="https://jet-han.gitee.io/2017/08/06/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E4%B9%8B%E7%BA%BF%E7%A8%8B%E6%B1%A0ThreadPoolExecutor/"/>
+    <id>https://jet-han.gitee.io/2017/08/06/并发编程之线程池ThreadPoolExecutor/</id>
     <published>2017-08-06T05:32:02.000Z</published>
     <updated>2017-08-06T05:32:02.000Z</updated>
     
@@ -4274,21 +4274,21 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="并发编程" scheme="https://jet-han.oschina.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+      <category term="并发编程" scheme="https://jet-han.gitee.io/categories/java/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="ThreadPoolExecutor" scheme="https://jet-han.oschina.io/tags/ThreadPoolExecutor/"/>
+      <category term="ThreadPoolExecutor" scheme="https://jet-han.gitee.io/tags/ThreadPoolExecutor/"/>
     
-      <category term="线程池" scheme="https://jet-han.oschina.io/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+      <category term="线程池" scheme="https://jet-han.gitee.io/tags/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     
   </entry>
   
   <entry>
     <title>线程的实现方式</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/线程的实现方式/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/线程的实现方式/</id>
     <published>2017-08-05T08:32:32.000Z</published>
     <updated>2017-08-05T08:32:32.000Z</updated>
     
@@ -4317,21 +4317,21 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="java基础" scheme="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+      <category term="java基础" scheme="https://jet-han.gitee.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="thread" scheme="https://jet-han.oschina.io/tags/thread/"/>
+      <category term="thread" scheme="https://jet-han.gitee.io/tags/thread/"/>
     
-      <category term="runnable" scheme="https://jet-han.oschina.io/tags/runnable/"/>
+      <category term="runnable" scheme="https://jet-han.gitee.io/tags/runnable/"/>
     
   </entry>
   
   <entry>
     <title>jvm调优</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/jvm调优/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/jvm%E8%B0%83%E4%BC%98/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/jvm调优/</id>
     <published>2017-08-05T08:05:44.000Z</published>
     <updated>2017-08-05T08:05:44.000Z</updated>
     
@@ -4385,19 +4385,19 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="jvm" scheme="https://jet-han.oschina.io/categories/java/jvm/"/>
+      <category term="jvm" scheme="https://jet-han.gitee.io/categories/java/jvm/"/>
     
     
-      <category term="性能调优" scheme="https://jet-han.oschina.io/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/"/>
+      <category term="性能调优" scheme="https://jet-han.gitee.io/tags/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/"/>
     
   </entry>
   
   <entry>
     <title>web.xml加载顺序</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/web-xml加载顺序/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/web-xml加载顺序/</id>
     <published>2017-08-05T06:42:06.000Z</published>
     <updated>2017-08-05T06:42:06.000Z</updated>
     
@@ -4414,19 +4414,19 @@ mysql&gt; UPDATE test SET id = 3 WHERE id = 1;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="java基础" scheme="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+      <category term="java基础" scheme="https://jet-han.gitee.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="web.xml加载顺序" scheme="https://jet-han.oschina.io/tags/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/"/>
+      <category term="web.xml加载顺序" scheme="https://jet-han.gitee.io/tags/web-xml%E5%8A%A0%E8%BD%BD%E9%A1%BA%E5%BA%8F/"/>
     
   </entry>
   
   <entry>
     <title>sping之IOC，AOP</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/sping之IOC，AOP/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/sping%E4%B9%8BIOC%EF%BC%8CAOP/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/sping之IOC，AOP/</id>
     <published>2017-08-05T06:34:04.000Z</published>
     <updated>2017-08-05T06:34:04.000Z</updated>
     
@@ -4706,25 +4706,25 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="spring" scheme="https://jet-han.oschina.io/categories/java/spring/"/>
+      <category term="spring" scheme="https://jet-han.gitee.io/categories/java/spring/"/>
     
     
-      <category term="IOC" scheme="https://jet-han.oschina.io/tags/IOC/"/>
+      <category term="IOC" scheme="https://jet-han.gitee.io/tags/IOC/"/>
     
-      <category term="AOP" scheme="https://jet-han.oschina.io/tags/AOP/"/>
+      <category term="AOP" scheme="https://jet-han.gitee.io/tags/AOP/"/>
     
   </entry>
   
   <entry>
     <title>spring事务的传播属性和隔离级别</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/spring事务的传播属性和隔离级别/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/spring%E4%BA%8B%E5%8A%A1%E7%9A%84%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7%E5%92%8C%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/spring事务的传播属性和隔离级别/</id>
     <published>2017-08-05T04:03:28.000Z</published>
     <updated>2017-08-05T04:03:28.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/spring.jpg" alt="spring" title="spring"></p>
 <h2 id="spring事务传播属性"><a href="#spring事务传播属性" class="headerlink" title="spring事务传播属性"></a>spring事务传播属性</h2><p><strong>Propagation（事务的传播属性） ：</strong>key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：<br><strong>PROPAGATION_REQUIRED</strong>—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。<br><strong>PROPAGATION_SUPPORTS</strong>—支持当前事务，如果当前没有事务，就以非事务方式执行。<br><strong>PROPAGATION_MANDATORY</strong>—支持当前事务，如果当前没有事务，就抛出异常。<br><strong>PROPAGATION_REQUIRES_NEW</strong>—新建事务，如果当前存在事务，把当前事务挂起。<br><strong>PROPAGATION_NOT_SUPPORTED</strong>—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。<br><strong>PROPAGATION_NEVER</strong>—以非事务方式执行，如果当前存在事务，则抛出异常。<br><a id="more"></a></p>
 <ol>
 <li>PROPAGATION_REQUIRED<br>加入当前正要执行的事务不在另外一个事务里，那么就起一个新的事务<br>比如说，ServiceB.methodB的事务级别定义为PROPAGATION_REQUIRED, 那么由于执行ServiceA.methodA的时候，<br>ServiceA.methodA已经起了事务，这时调用ServiceB.methodB，ServiceB.methodB看到自己已经运行在ServiceA.methodA<br>的事务内部，就不再起新的事务。而假如ServiceA.methodA运行的时候发现自己没有在事务中，他就会为自己分配一个事务。<br>这样，在ServiceA.methodA或者在ServiceB.methodB内的任何地方出现异常，事务都会被回滚。即使ServiceB.methodB的事务已经被<br>提交，但是ServiceA.methodA在接下来fail要回滚，ServiceB.methodB也要回滚</li>
@@ -4761,30 +4761,30 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/spring.jpg&quot; alt=&quot;spring&quot; title=&quot;spring&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;spring事务传播属性&quot;&gt;&lt;a href=&quot;#spring事务传播属性&quot; class=&quot;headerlink&quot; title=&quot;spring事务传播属性&quot;&gt;&lt;/a&gt;spring事务传播属性&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Propagation（事务的传播属性） ：&lt;/strong&gt;key属性确定代理应该给哪个方法增加事务行为。这样的属性最重要的部份是传播行为。有以下选项可供使用：&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRED&lt;/strong&gt;—支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。&lt;br&gt;&lt;strong&gt;PROPAGATION_SUPPORTS&lt;/strong&gt;—支持当前事务，如果当前没有事务，就以非事务方式执行。&lt;br&gt;&lt;strong&gt;PROPAGATION_MANDATORY&lt;/strong&gt;—支持当前事务，如果当前没有事务，就抛出异常。&lt;br&gt;&lt;strong&gt;PROPAGATION_REQUIRES_NEW&lt;/strong&gt;—新建事务，如果当前存在事务，把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NOT_SUPPORTED&lt;/strong&gt;—以非事务方式执行操作，如果当前存在事务，就把当前事务挂起。&lt;br&gt;&lt;strong&gt;PROPAGATION_NEVER&lt;/strong&gt;—以非事务方式执行，如果当前存在事务，则抛出异常。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="spring" scheme="https://jet-han.oschina.io/categories/java/spring/"/>
+      <category term="spring" scheme="https://jet-han.gitee.io/categories/java/spring/"/>
     
     
-      <category term="事务传播属性" scheme="https://jet-han.oschina.io/tags/%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7/"/>
+      <category term="事务传播属性" scheme="https://jet-han.gitee.io/tags/%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E5%B1%9E%E6%80%A7/"/>
     
-      <category term="隔离级别" scheme="https://jet-han.oschina.io/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+      <category term="隔离级别" scheme="https://jet-han.gitee.io/tags/%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     
   </entry>
   
   <entry>
     <title>乐观锁与悲观锁及应用举例</title>
-    <link href="https://jet-han.oschina.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/"/>
-    <id>https://jet-han.oschina.io/2017/08/05/乐观锁与悲观锁及应用举例/</id>
+    <link href="https://jet-han.gitee.io/2017/08/05/%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%8E%E6%82%B2%E8%A7%82%E9%94%81%E5%8F%8A%E5%BA%94%E7%94%A8%E4%B8%BE%E4%BE%8B/"/>
+    <id>https://jet-han.gitee.io/2017/08/05/乐观锁与悲观锁及应用举例/</id>
     <published>2017-08-05T03:53:43.000Z</published>
     <updated>2017-08-05T03:53:43.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//查出商品状态</div><div class="line">select status from items where id=10000;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders(id,item_id) values(null,10000);</div><div class="line">//修改商品状态为2</div><div class="line">update Items set status=2 where id=10000;</div></pre></td></tr></table></figure>
 <p><strong>上述场景在高并发环境下可能出现问题：</strong><br>前面已经提到只有商品的status=1是才能对它进行下单操作，上面第一步操作中，查询出来的商品status为1。但是当我们执行第三步update操作的时候，有可能出现其他人先一步对商品下单把Item的status修改为2了，但是我们并不知道数据已经被修改了，这样就可能造成同一个商品被下单2次，使得数据不一致。所以说这种方式是不安全的。<br>使用悲观锁来实现：在上面的场景中，商品信息从查询出来到修改，中间有一个处理订单的过程，使用悲观锁的原理就是，当我们在查询出items信息后就把当前的数据锁定，直到我们修改完毕后再解锁。那么在这个过程中，因为items被锁定了，就不会出现有第三者来对其进行修改了。<br>注：要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。我们可以使用命令设置MySQL为非autocommit模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">set autocommit=0;</div><div class="line">设置完autocommit后，我们就可以执行我们的正常业务了。具体如下：</div><div class="line">//开始事务</div><div class="line">begin;/begin work;/start transaction; (三者选一就可以)</div><div class="line">//查询出商品信息</div><div class="line">select status from items where id=10000 for update;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders (id,item_id) values (null,10000);</div><div class="line">//修改商品status为2</div><div class="line">update items set status=2 where id=10000;</div><div class="line">//提交事务</div><div class="line">commit;/commit work;</div></pre></td></tr></table></figure></p>
@@ -4803,26 +4803,26 @@ xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/mysql.jpg&quot; alt=&quot;mysql&quot; title=&quot;mysql&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;悲观锁&quot;&gt;&lt;a href=&quot;#悲观锁&quot; class=&quot;headerlink&quot; title=&quot;悲观锁&quot;&gt;&lt;/a&gt;悲观锁&lt;/h2&gt;&lt;p&gt;   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。&lt;br&gt;  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="database" scheme="https://jet-han.oschina.io/categories/database/"/>
+      <category term="database" scheme="https://jet-han.gitee.io/categories/database/"/>
     
-      <category term="mysql" scheme="https://jet-han.oschina.io/categories/database/mysql/"/>
+      <category term="mysql" scheme="https://jet-han.gitee.io/categories/database/mysql/"/>
     
     
-      <category term="乐观锁" scheme="https://jet-han.oschina.io/tags/%E4%B9%90%E8%A7%82%E9%94%81/"/>
+      <category term="乐观锁" scheme="https://jet-han.gitee.io/tags/%E4%B9%90%E8%A7%82%E9%94%81/"/>
     
-      <category term="悲观锁" scheme="https://jet-han.oschina.io/tags/%E6%82%B2%E8%A7%82%E9%94%81/"/>
+      <category term="悲观锁" scheme="https://jet-han.gitee.io/tags/%E6%82%B2%E8%A7%82%E9%94%81/"/>
     
   </entry>
   
   <entry>
     <title>mysql事务隔离级别</title>
-    <link href="https://jet-han.oschina.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
-    <id>https://jet-han.oschina.io/2017/08/04/mysql事务隔离级别/</id>
+    <link href="https://jet-han.gitee.io/2017/08/04/mysql%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+    <id>https://jet-han.gitee.io/2017/08/04/mysql事务隔离级别/</id>
     <published>2017-08-04T03:58:09.000Z</published>
     <updated>2017-08-04T03:58:09.000Z</updated>
     
@@ -4994,23 +4994,23 @@ select * from tx;
     
     </summary>
     
-      <category term="database" scheme="https://jet-han.oschina.io/categories/database/"/>
+      <category term="database" scheme="https://jet-han.gitee.io/categories/database/"/>
     
-      <category term="mysql" scheme="https://jet-han.oschina.io/categories/database/mysql/"/>
+      <category term="mysql" scheme="https://jet-han.gitee.io/categories/database/mysql/"/>
     
     
-      <category term="事务隔离级别" scheme="https://jet-han.oschina.io/tags/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
+      <category term="事务隔离级别" scheme="https://jet-han.gitee.io/tags/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB/"/>
     
   </entry>
   
   <entry>
     <title>equals、==和hashCode</title>
-    <link href="https://jet-han.oschina.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/"/>
-    <id>https://jet-han.oschina.io/2017/08/01/equals、-和hashCode/</id>
+    <link href="https://jet-han.gitee.io/2017/08/01/equals%E3%80%81-%E5%92%8ChashCode/"/>
+    <id>https://jet-han.gitee.io/2017/08/01/equals、-和hashCode/</id>
     <published>2017-08-01T15:47:00.000Z</published>
     <updated>2017-08-01T15:47:00.000Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+    <content type="html"><![CDATA[<p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p><strong>equals：</strong>是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；</p>
 <p><strong>等号(==)：</strong>对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；</p>
 <p><strong>Hashcode：</strong>我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。</p>
@@ -5067,7 +5067,7 @@ select * from tx;
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;https://jet-han.oschina.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
+      &lt;p&gt;&lt;img src=&quot;https://jet-han.gitee.io/img/icons/java.jpg&quot; alt=&quot;java&quot; title=&quot;java&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;引言&quot;&gt;&lt;a href=&quot;#引言&quot; class=&quot;headerlink&quot; title=&quot;引言&quot;&gt;&lt;/a&gt;引言&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;equals：&lt;/strong&gt;是否同一个对象实例。注意，是“实例”。比如String s = new String(“test”);  s.equals(s), 这就是同一个对象实例的比较；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;等号(==)：&lt;/strong&gt;对比对象实例的内存地址（也即对象实例的ID），来判断是否是同一对象实例；又可以说是判断对象实例是否物理相等；&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Hashcode：&lt;/strong&gt;我觉得可以这样理解：并不是对象的内存地址，而是利用hash算法，对对象实例的一种描述符（或者说对象存储位置的hash算法映射）——对象实例的哈希码。&lt;/p&gt;
@@ -5086,16 +5086,16 @@ select * from tx;
     
     </summary>
     
-      <category term="java" scheme="https://jet-han.oschina.io/categories/java/"/>
+      <category term="java" scheme="https://jet-han.gitee.io/categories/java/"/>
     
-      <category term="java基础" scheme="https://jet-han.oschina.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
+      <category term="java基础" scheme="https://jet-han.gitee.io/categories/java/java%E5%9F%BA%E7%A1%80/"/>
     
     
-      <category term="==" scheme="https://jet-han.oschina.io/tags//"/>
+      <category term="==" scheme="https://jet-han.gitee.io/tags//"/>
     
-      <category term="equals" scheme="https://jet-han.oschina.io/tags/equals/"/>
+      <category term="equals" scheme="https://jet-han.gitee.io/tags/equals/"/>
     
-      <category term="hashCode" scheme="https://jet-han.oschina.io/tags/hashCode/"/>
+      <category term="hashCode" scheme="https://jet-han.gitee.io/tags/hashCode/"/>
     
   </entry>
   

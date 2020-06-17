@@ -10,18 +10,18 @@
 <meta name="keywords" content="linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux常用操作命令">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言　◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；　◆ 文件处理命令：file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；　◆ 系统管理相关命令：df、top、free、quota、at、lp、add">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/awk.gif">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.gif">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.png">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/linux.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/awk.gif">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/linux.gif">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/linux.png">
 <meta property="og:updated_time" content="2017-06-19T10:27:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux常用操作命令">
 <meta name="twitter:description" content="引言　◆ 安装和登录命令：login、shutdown、halt、reboot、install、mount、umount、chsh、exit、last；　◆ 文件处理命令：file、mkdir、dd、rm、grep、find、mv、cp、ls、diff、cat、ln、tail、head、more、less、cd、管道；　◆ 系统管理相关命令：df、top、free、quota、at、lp、add">
-<meta name="twitter:image" content="https://jet-han.oschina.io/2017/06/19/linux常用操作命令/linux.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/2017/06/19/linux常用操作命令/linux.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -703,11 +703,11 @@ web03[192.168.2.102] :
 <p><strong>当其左右<font color="#f00">无</font>重定向符<code>|</code>或<code>&lt;</code>时：</strong>getline作用于当前文件，读入当前文件的第一行给其后跟的变量<code>var</code>或<code>$0</code>（无变量），应该注意到，由于awk在处理getline之前已经读入了一行，所以getline得到的返回结果是隔行的。 </p>
 <p><strong>当其左右<font color="#f00">有</font>重定向符<code>|</code>或<code>&lt;</code>时：</strong>getline则作用于定向输入文件，由于该文件是刚打开，并没有被awk读入一行，只是getline读入，那么getline返回的是该文件的第一行，而不是隔行。 </p>
 <p><strong>eg：</strong> </p>
-<p>执行linux的<a href="https://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#date">date</a>命令，并通过管道输出给<code>getline</code>，然后再把输出赋值给自定义变量out，并打印它： </p>
+<p>执行linux的<a href="https://jet-han.gitee.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#date">date</a>命令，并通过管道输出给<code>getline</code>，然后再把输出赋值给自定义变量out，并打印它： </p>
 <pre><code>awk &#39;BEGIN{ &quot;date&quot; | getline out; print out }&#39; test 
 </code></pre><p>执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：</p>
 <pre><code>awk &#39;BEGIN{ &quot;date&quot; | getline out; split(out,mon); print mon[2] }&#39; test 
-</code></pre><p>命令<a href="https://jet-han.oschina.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#ls">ls</a>的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</p>
+</code></pre><p>命令<a href="https://jet-han.gitee.io/2017/06/19/linux%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C%E5%91%BD%E4%BB%A4-%E4%B8%80/#ls">ls</a>的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。</p>
 <pre><code>awk &#39;BEGIN{ while( &quot;ls&quot; | getline) print }&#39; 
 </code></pre><p><strong>关闭文件</strong> </p>
 <p>awk中允许在程序中关闭一个输入或输出文件，方法是使用awk的close语句。 </p>
@@ -2586,25 +2586,25 @@ Chain OUTPUT (policy ACCEPT 3382K packets, 1819M bytes)
 -u&lt;用户帐号&gt;：读取指定用户的邮件； 
 -v：执行时，显示详细的信息。
 
-mail -s &quot;Hello from jet-han.oschina.io by shell&quot; admin@oschina.io 
+mail -s &quot;Hello from jet-han.gitee.io by shell&quot; admin@gitee.io 
 hello,this is the content of mail. 
-welcome to jet-han.oschina.io
-</code></pre><p>【注】<br>　第一行是输入的命令，-s表示邮件的主题，后面的admin@oschina.io则是邮件的接收人，输入完这行命令后回车，会进入邮件正文的编写，我们可以输入任何文字，比如上面的两行。当邮件正文输入完成后，需要按CTRL+D结束输入，此时会提示你输入Cc地址，即邮件抄送地址，没有直接回车就完成了邮件的发送</p>
+welcome to jet-han.gitee.io
+</code></pre><p>【注】<br>　第一行是输入的命令，-s表示邮件的主题，后面的admin@gitee.io则是邮件的接收人，输入完这行命令后回车，会进入邮件正文的编写，我们可以输入任何文字，比如上面的两行。当邮件正文输入完成后，需要按CTRL+D结束输入，此时会提示你输入Cc地址，即邮件抄送地址，没有直接回车就完成了邮件的发送</p>
 <p>使用管道进行邮件发送 </p>
-<pre><code>echo &quot;hello,this is the content of mail.welcome to jet-han.oschina.io&quot; | mail -s &quot;Hello from jet-han.oschina.io by pipe&quot; admin@oschina.io  
+<pre><code>echo &quot;hello,this is the content of mail.welcome to jet-han.gitee.io&quot; | mail -s &quot;Hello from jet-han.gitee.io by pipe&quot; admin@gitee.io  
 </code></pre></li>
 </ul>
 <p>　【注】<br> 　使用管道直接敲入这行命令即可完成邮件的发送，其中echo后的是邮件正文。</p>
 <p> 使用文件进行邮件发送 </p>
-<pre><code>  mail -s &quot;Hello from jet-han.oschina.io by file&quot; admin@oschina.io  &lt; mail.txt 
-</code></pre><p> 使用上面的命令后，我们就可以把mail.txt文件的内容作为邮件的内容发送给admin@oschina.io了。</p>
+<pre><code>  mail -s &quot;Hello from jet-han.gitee.io by file&quot; admin@gitee.io  &lt; mail.txt 
+</code></pre><p> 使用上面的命令后，我们就可以把mail.txt文件的内容作为邮件的内容发送给admin@gitee.io了。</p>
 <p> 使用上述三种方式都可以给外部邮箱进行邮件发送，但因为前面2种都是直接在shell中敲入邮件内容，因此无法输入中文，即使我们使用粘贴的方式输入了中文，那么收到的邮件也是乱码的。但第3种方式，我们可以在window下编辑好邮件内容后，放到linux下，再进行发送，这样就可以正常发送中文了。不过目前邮件的中文标题暂时没有找到解决办法。 因为mail程序本身就是调用sendmail来进行邮件发送的，因此我们可以在mail命令中使用sendmail的参数进行配置，比如我想使用特定的发件人发送邮件，可以使用如下命令：</p>
-<pre><code>  mail -s &quot;Hello from linuxde.net with sender&quot; admin@oschina.io -- -f jet@oschina.io&lt; mail.txt
-</code></pre><p> 【注】<br> 　上面的命令中，我们使用了– -f jet@oschina.io这样的参数，这是sendmail的选项，其中-f表示邮件的发送人邮件地址</p>
+<pre><code>  mail -s &quot;Hello from linuxde.net with sender&quot; admin@gitee.io -- -f jet@gitee.io&lt; mail.txt
+</code></pre><p> 【注】<br> 　上面的命令中，我们使用了– -f jet@gitee.io这样的参数，这是sendmail的选项，其中-f表示邮件的发送人邮件地址</p>
 <p> 很多情况下，我们也需要使用邮件来发送附件，在linux下使用mail命令发送附件也很简单，不过首先需要安装uuencode软件包，这个程序是对二进制文件进行编码使其适合通过邮件进行发送，在CentOS上安装该软件包如下：</p>
 <pre><code>yum install sharutils 
 </code></pre><p> 安装完成后我们就可以来进行附件的发送了，使用如下命令：</p>
-<pre><code>uuencode test.txt test | mail -s &quot;hello,see the attachement&quot; admin@oschina.io
+<pre><code>uuencode test.txt test | mail -s &quot;hello,see the attachement&quot; admin@gitee.io
 </code></pre><p> 完成后就可以把text.txt文件作为邮件的附件发送出去了。uuencode有两个参数，第一个是要发送的文件，第二个是显示的文件名称。 </p>
 <p> 这里我主要介绍的是在CentOS下使用mail发送电子邮件的一些使用方法，需要的要求是你的linux必须安装了sendmail并开启了，同时保证可以连接外网。另外，文章中提到的命令本人都经过亲自测试，保证完全可用，不过你需要将命令中的电子邮件地址换成自己的电子邮件地址</p>
 <p> 如果出现错误[Postfix] – warning: mail_queue_enter: create file maildrop Permission denied</p>
@@ -2646,12 +2646,12 @@ welcome to jet-han.oschina.io
   -sil：不显示任何警告信息。
 
   eg:
-    [jet@jet oschina_hexo_server]$ nslookup jet-han.oschina.io
+    [jet@jet oschina_hexo_server]$ nslookup jet-han.gitee.io
     Server:        114.114.114.114
     Address:    114.114.114.114#53
 
     Non-authoritative answer:
-    Name:    jet-han.oschina.io
+    Name:    jet-han.gitee.io
     Address: 103.21.119.115
 </code></pre></li>
 </ul>
@@ -3736,8 +3736,8 @@ vi deadlock.jstack #使用vi查看
         <p><span>发布时间:</span>2017年06月19日 - 18时27分</p>
         <p><span>最后更新:</span>2017年06月19日 - 18时27分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/06/19/linux常用操作命令/" title="linux常用操作命令">https://jet-han.oschina.io/2017/06/19/linux常用操作命令/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/06/19/linux常用操作命令/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/06/19/linux常用操作命令/" title="linux常用操作命令">https://jet-han.gitee.io/2017/06/19/linux常用操作命令/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/06/19/linux常用操作命令/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

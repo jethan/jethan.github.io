@@ -10,15 +10,15 @@
 <meta name="keywords" content="乐观锁,悲观锁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="乐观锁与悲观锁及应用举例">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/08/05/乐观锁与悲观锁及应用举例/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/08/05/乐观锁与悲观锁及应用举例/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="悲观锁   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。  以常用的mysql InnoDB存储引擎为例：加入商品表ite">
-<meta property="og:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/img/icons/mysql.jpg">
 <meta property="og:updated_time" content="2017-08-05T03:53:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="乐观锁与悲观锁及应用举例">
 <meta name="twitter:description" content="悲观锁   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。  以常用的mysql InnoDB存储引擎为例：加入商品表ite">
-<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/mysql.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/img/icons/mysql.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -303,7 +303,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://jet-han.oschina.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
+        <p><img src="https://jet-han.gitee.io/img/icons/mysql.jpg" alt="mysql" title="mysql"></p>
 <h2 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h2><p>   正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自外部系统的事务处理）的修改持保守态度，因此，在整个数据处理过程中，将数据处于锁定状态。悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能真正保证数据访问的排他性，否则，即使在本系统中实现了加锁机制，也无法保证外部系统不会修改数据）。<br>  以常用的mysql InnoDB存储引擎为例：加入商品表items表中有一个字段status，status=1表示该商品未被下单，status=2表示该商品已经被下单，那么我们对每个商品下单前必须确保此商品的status=1。假设有一件商品，其id为10000；如果不使用锁，那么操作方法如下:<br><a id="more"></a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//查出商品状态</div><div class="line">select status from items where id=10000;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders(id,item_id) values(null,10000);</div><div class="line">//修改商品状态为2</div><div class="line">update Items set status=2 where id=10000;</div></pre></td></tr></table></figure>
 <p><strong>上述场景在高并发环境下可能出现问题：</strong><br>前面已经提到只有商品的status=1是才能对它进行下单操作，上面第一步操作中，查询出来的商品status为1。但是当我们执行第三步update操作的时候，有可能出现其他人先一步对商品下单把Item的status修改为2了，但是我们并不知道数据已经被修改了，这样就可能造成同一个商品被下单2次，使得数据不一致。所以说这种方式是不安全的。<br>使用悲观锁来实现：在上面的场景中，商品信息从查询出来到修改，中间有一个处理订单的过程，使用悲观锁的原理就是，当我们在查询出items信息后就把当前的数据锁定，直到我们修改完毕后再解锁。那么在这个过程中，因为items被锁定了，就不会出现有第三者来对其进行修改了。<br>注：要使用悲观锁，我们必须关闭mysql数据库的自动提交属性，因为MySQL默认使用autocommit模式，也就是说，当你执行一个更新操作后，MySQL会立刻将结果进行提交。我们可以使用命令设置MySQL为非autocommit模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">set autocommit=0;</div><div class="line">设置完autocommit后，我们就可以执行我们的正常业务了。具体如下：</div><div class="line">//开始事务</div><div class="line">begin;/begin work;/start transaction; (三者选一就可以)</div><div class="line">//查询出商品信息</div><div class="line">select status from items where id=10000 for update;</div><div class="line">//根据商品信息生成订单</div><div class="line">insert into orders (id,item_id) values (null,10000);</div><div class="line">//修改商品status为2</div><div class="line">update items set status=2 where id=10000;</div><div class="line">//提交事务</div><div class="line">commit;/commit work;</div></pre></td></tr></table></figure></p>
@@ -391,8 +391,8 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
         <p><span>发布时间:</span>2017年08月05日 - 11时53分</p>
         <p><span>最后更新:</span>2017年08月05日 - 11时53分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/05/乐观锁与悲观锁及应用举例/" title="乐观锁与悲观锁及应用举例">https://jet-han.oschina.io/2017/08/05/乐观锁与悲观锁及应用举例/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/08/05/乐观锁与悲观锁及应用举例/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/05/乐观锁与悲观锁及应用举例/" title="乐观锁与悲观锁及应用举例">https://jet-han.gitee.io/2017/08/05/乐观锁与悲观锁及应用举例/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/08/05/乐观锁与悲观锁及应用举例/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>

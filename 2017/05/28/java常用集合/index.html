@@ -10,17 +10,17 @@
 <meta name="keywords" content="Collection,Collections,Map,ArrayList,Vector,LinkedList,HashSet,TreeSet,HashMap,HashTable,TreeMap,LinkedHashMap,WeakHashMap,Arrays">
 <meta property="og:type" content="article">
 <meta property="og:title" content="java常用集合&#x2F;容器">
-<meta property="og:url" content="https://jet-han.oschina.io/2017/05/28/java常用集合/index.html">
+<meta property="og:url" content="https://jet-han.gitee.io/2017/05/28/java常用集合/index.html">
 <meta property="og:site_name" content="学海无涯">
 <meta property="og:description" content="引言Collection  顶级接口├ List         子接口    按进入先后有序保存   可重复│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全│ └ Vector     实现类    老的动态数组             同步">
-<meta property="og:image" content="https://jet-han.oschina.io/img/icons/java.jpg">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/05/28/java常用集合/container.jpg">
-<meta property="og:image" content="https://jet-han.oschina.io/2017/05/28/java常用集合/collection.bmp">
+<meta property="og:image" content="https://jet-han.gitee.io/img/icons/java.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/05/28/java常用集合/container.jpg">
+<meta property="og:image" content="https://jet-han.gitee.io/2017/05/28/java常用集合/collection.bmp">
 <meta property="og:updated_time" content="2017-05-28T02:48:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java常用集合&#x2F;容器">
 <meta name="twitter:description" content="引言Collection  顶级接口├ List         子接口    按进入先后有序保存   可重复│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全│ └ Vector     实现类    老的动态数组             同步">
-<meta name="twitter:image" content="https://jet-han.oschina.io/img/icons/java.jpg">
+<meta name="twitter:image" content="https://jet-han.gitee.io/img/icons/java.jpg">
   
     <link rel="alternative" href="/atom.xml" title="学海无涯" type="application/atom+xml">
   
@@ -305,7 +305,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p><img src="https://jet-han.oschina.io/img/icons/java.jpg" alt="java" title="java"></p>
+        <p><img src="https://jet-han.gitee.io/img/icons/java.jpg" alt="java" title="java"></p>
 <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><p>Collection  顶级接口<br>├ List         子接口    按进入先后有序保存   可重复<br>│ ├ LinkedList   实现类   链表     插入删除   没有同步   线程不安全<br>│ ├ ArrayList   实现类    动态数组     随机访问   没有同步   线程不安全<br>│ └ Vector     实现类    老的动态数组             同步     线程安全<br>│ 　  └ Stack  实现类<br>├ Set    子接口   仅接收一次，并做内部排序<br>│  ├ SortedSet 子接口<br>│  │     └NavigableSet 子接口<br>│  │         └ TreeSet  实现类<br>│  └ HashSet 实现类  以哈希表的形式存放元素，插入删除速度很快，元素无序但不允许重复<br>│   　 └ LinkedHashSet<br>└ Queue  子接口 队列  </p>
 <p>Map  顶级接口<br>├ SortedMap  子接口 (extends Map)<br>│   └ NavigableMap 子接口 (extends SortedMap)<br>│        └ TreeMap 实现类 (extends AbstractMap)<br>├ HashTable  实现类 (extends Dictionary(abstract)) 线程安全<br>├ AbstractMap 实现类<br>├ HashMap   实现类 (extends AbstractMap)  线程不安全<br>│   └ LinkedHashMap  子类<br>├ LinkedHashMap  实现类 (extends HashMap)<br>├ IdentityHashMap 实现类 (extends AbstractMap)<br>└ WeakHashMap 实现类 (extends AbstractMap)</p>
 <p>关系图如下：<br><img src="/2017/05/28/java常用集合/container.jpg" alt="java" title="java"><br><img src="/2017/05/28/java常用集合/collection.bmp" alt="java" title="java"></p>
@@ -395,7 +395,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 <p><code>Collections.sort(List list);</code> 对 list 中元素排序   </p>
 <p>vector容器确切知道它所持有的对象隶属什么型别,vector 不进行边界检查。 </p>
 <p>HashMap 会利用对象的 hashCode 来快速找到 key 。 </p>
-<p>哈希码 (hashing) 就是将对象的信息经过一些转变形成一个独一无二的 int 值，这个值存储在一个 array 中。我们都知道所有存储结构中， array 查找速度是最快的。所以，可以加速查找。发生碰撞时，让 array 指向多个 values 。即，数组每个位置上又生成一个链表。<br>详细参见<a href="https://jet-han.oschina.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">hashmap的工作原理</a></p>
+<p>哈希码 (hashing) 就是将对象的信息经过一些转变形成一个独一无二的 int 值，这个值存储在一个 array 中。我们都知道所有存储结构中， array 查找速度是最快的。所以，可以加速查找。发生碰撞时，让 array 指向多个 values 。即，数组每个位置上又生成一个链表。<br>详细参见<a href="https://jet-han.gitee.io/2017/07/28/HashMap%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">hashmap的工作原理</a></p>
 <h2 id="同步的集合类-容器类（Synchronized）："><a href="#同步的集合类-容器类（Synchronized）：" class="headerlink" title="同步的集合类/容器类（Synchronized）："></a>同步的集合类/容器类（Synchronized）：</h2><p>一般的集合类和容器类都是非同步的（除了<code>Vector</code>和<code>Hashtable</code>以及它们的子类），如果用在多线程环境下必须自己写有关同步的代码。JDK中为我们提供了与一般集合容器类相应的同步类，<code>SynchronizedCollection&lt;E&gt;、SynchronizedList&lt;E&gt;、SynchronizedMap&lt;E&gt;、SynchronizedSet&lt;E&gt;、SynchronizedSortedSet&lt;E&gt;、SynchronizedMap&lt;E&gt;</code>，这些类都是<code>Collections</code>类中的静态内部类，通过<code>Collections.synchronizedXXX()</code>方法就可以获得相关的同步集合容器类，并且得到的同步类与作为参数的非同步类共享数据空间，当在同步类中对集合或者容器做出修改，在非同步的类中能同步感受到。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">List&lt; String&gt; list = new LinkedList&lt;&gt;();  </div><div class="line">list.add(&quot;one&quot;);  </div><div class="line">List&lt;String&gt; list1 = Collections.synchronizedList(list);  </div><div class="line">list1.remove(0);  </div><div class="line">System.out.println(list.size());</div></pre></td></tr></table></figure>
 <p>上述代码输出结果为0.</p>
@@ -476,8 +476,8 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
         <p><span>发布时间:</span>2017年05月28日 - 10时48分</p>
         <p><span>最后更新:</span>2017年05月28日 - 10时48分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/05/28/java常用集合/" title="java常用集合/容器">https://jet-han.oschina.io/2017/05/28/java常用集合/</a>
-            <span class="copy-path" data-clipboard-text="原文: https://jet-han.oschina.io/2017/05/28/java常用集合/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/05/28/java常用集合/" title="java常用集合/容器">https://jet-han.gitee.io/2017/05/28/java常用集合/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://jet-han.gitee.io/2017/05/28/java常用集合/　　作者: Jet" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
