@@ -701,7 +701,11 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 
     <script>
         $(document).ready(function() {
-            var backgroundnum = ;
+            var backgroundnum = 0;
+            if(theme.background.background_sum != ''){
+             backgroundnum = ;
+            }
+            // var backgroundnum = ;
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
