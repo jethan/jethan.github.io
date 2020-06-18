@@ -355,11 +355,10 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
             if(theme.background.background_sum != ''){
              backgroundnum = ;
             }
-i((!backgroundnum){
-backgroundnum = 0;
+var backgroundnum = 0;
+if(backgroundnum){
+backgroundnum = ;
 }
-            console.log(theme.background.background_sum);
-console.log(theme.background.on);
             // var backgroundnum = ;
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
