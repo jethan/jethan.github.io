@@ -383,7 +383,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
     <script>
         $(document).ready(function() {
             var backgroundnum = 0;
-            if(backgroundnum){
+            if(theme.background.background_sum){
              backgroundnum = ;
             }
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
@@ -637,8 +637,7 @@ if (event.keyCode==123){ //屏蔽 F12
 
   </div>
 </body>
-</html>adding: 4px;
-            border: 1px solid lightgray;
+</html>       border: 1px solid lightgray;
             font-size: 1.2em;
         }
         .category-list a {
@@ -854,7 +853,7 @@ if (event.keyCode==123){ //屏蔽 F12
     <script>
         $(document).ready(function() {
             var backgroundnum = 0;
-            if(backgroundnum){
+            if(theme.background.background_sum){
              backgroundnum = ;
             }
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
