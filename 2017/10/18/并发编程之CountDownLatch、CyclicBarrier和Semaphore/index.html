@@ -959,14 +959,9 @@ public Semaphore(int permits, boolean fair) {    //这个多了一个参数fair�
     <script>
         $(document).ready(function() {
             var backgroundnum = 0;
-            if(theme.background.background_sum != ''){
+            if(backgroundnum){
              backgroundnum = ;
             }
-var backgroundnum = 0;
-if(backgroundnum){
-backgroundnum = ;
-}
-            // var backgroundnum = ;
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
