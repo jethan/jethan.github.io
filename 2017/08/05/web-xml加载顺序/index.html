@@ -468,7 +468,6 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 <div id="lv-container" data-id="city" style="width:90%;margin:5% auto 0 auto;background: #fff;padding: 0 12px;border-radius: 5px;" data-uid="MTAyMC8yOTg3NS82NDQw">
 	<script type="text/javascript">
    window.livereOptions = {
-        console.log('jet-han.gitee.io' + location.pathname);
         refer: 'jet-han.oschina.io' + location.pathname
    };
    (function(d, s) {
@@ -479,7 +478,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
        j = d.createElement(s);
        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
        j.async = true;
-
+console.log('jet-han.gitee.io' + location.pathname);
        e.parentNode.insertBefore(j, e);
    })(document, 'script');
 	</script>
@@ -568,7 +567,7 @@ if ((!window.location.host.startsWith("localhost")) && (!window.location.host.st
 
     <script>
         $(document).ready(function() {
-            var backgroundnum = ;
+            var backgroundnum 24;
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
             $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
