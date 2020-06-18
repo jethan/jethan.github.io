@@ -727,6 +727,8 @@ select * from tx;
             if(theme.background.background_sum != ''){
              backgroundnum = ;
             }
+            console.log(theme.background.background_sum);
+console.log(theme.background.on);
             // var backgroundnum = ;
             var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
             $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
