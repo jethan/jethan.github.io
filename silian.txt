@@ -1,2 +1,2 @@
-http://jet-han.oschina.io/cv/
-https://jet-han.oschina.io/cv/
+http://jet-han.gitee.io/cv/
+https://jet-han.gitee.io/cv/
